@@ -1,0 +1,11 @@
+server:
+  port: 9001
+#解决http://localhost:9001/actuator/hystrix.stream无法访问的问题
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+hystrix:
+  dashboard:
+    proxy-stream-allow-list: "localhost"

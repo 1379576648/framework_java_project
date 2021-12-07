@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile default="true" name="Default" enabled="true" />
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="framework_consumer_feign_80" />
+        <module name="组织管理" />
+        <module name="招聘管理" />
+        <module name="framework_eureka_7003" />
+        <module name="路由网关" />
+        <module name="framework_eureka_7002" />
+        <module name="framework_api" />
+        <module name="统计分析" />
+        <module name="考勤管理" />
+        <module name="系统管理" />
+        <module name="工作台" />
+        <module name="登录" />
+        <module name="审批管理" />
+        <module name="员工管理" />
+        <module name="framework_eureka_7001" />
+        <module name="薪资管理" />
+        <module name="社保管理" />
+        <module name="流监控" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="untitled" target="1.8" />
+      <module name="客户端" target="1.8" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
