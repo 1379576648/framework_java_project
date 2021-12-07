@@ -1,0 +1,16 @@
+server:
+  port: 8010
+  #连接池配置
+  servlet:
+    context-path: /provider
+spring:
+  profiles:
+    active: dev
+# JWT配置
+jwt:
+  # 密匙KEY
+  secret: JwtSecret
+  # HeaderKEY
+  header: JWTDemo
+  # 过期时间(这里设定为豪秒)
+  expire: 60000
