@@ -5,6 +5,7 @@ import com.trkj.framework.distinguish.Util.GsonUtils;
 import com.trkj.framework.distinguish.Util.HttpUtil;
 import com.trkj.framework.distinguish.pojo.UserGetEntity;
 import com.trkj.framework.distinguish.service.AuthService;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -18,6 +19,7 @@ import java.util.Map;
  * https://ai.baidu.com/file/470B3ACCA3FE43788B5A963BF0B625F3
  * 下载
  */
+@Component
 public class UserMethod extends AuthService {
     /**
      * 用户信息查询

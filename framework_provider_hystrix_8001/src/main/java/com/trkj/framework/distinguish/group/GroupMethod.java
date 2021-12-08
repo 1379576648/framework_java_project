@@ -7,6 +7,7 @@ import com.trkj.framework.distinguish.pojo.GroupDeleteEntity;
 import com.trkj.framework.distinguish.pojo.GroupGetListEntity;
 import com.trkj.framework.distinguish.pojo.GroupGetUsersEntity;
 import com.trkj.framework.distinguish.service.AuthService;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -20,6 +21,7 @@ import java.util.Map;
  * https://ai.baidu.com/file/470B3ACCA3FE43788B5A963BF0B625F3
  * 下载
  */
+@Component
 public class GroupMethod extends AuthService {
     /**
      * 创建用户组

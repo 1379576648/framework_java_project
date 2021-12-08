@@ -5,6 +5,7 @@ import com.trkj.framework.distinguish.Util.GsonUtils;
 import com.trkj.framework.distinguish.Util.HttpUtil;
 import com.trkj.framework.distinguish.pojo.*;
 import com.trkj.framework.distinguish.service.AuthService;
+import org.springframework.stereotype.Component;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -20,6 +21,7 @@ import java.util.Map;
  * https://ai.baidu.com/file/470B3ACCA3FE43788B5A963BF0B625F3
  * 下载
  */
+@Component
 public class FaceMethod extends AuthService {
     /**
      * 人脸注册

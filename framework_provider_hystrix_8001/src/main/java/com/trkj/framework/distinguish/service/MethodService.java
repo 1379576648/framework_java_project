@@ -8,24 +8,41 @@ import com.trkj.framework.distinguish.faces.FaceMethod;
 import com.trkj.framework.distinguish.group.GroupMethod;
 import com.trkj.framework.distinguish.pojo.*;
 import com.trkj.framework.distinguish.user.UserMethod;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author 13795
+ */
 @Service
 public class MethodService {
-    /*操作人脸*/
-    private FaceMethod faceMethod = new FaceMethod();
-    /*操作用户组*/
-    private GroupMethod groupMethod = new GroupMethod();
-    /*操作用户*/
-    private UserMethod userMethod = new UserMethod();
-    /*百度云api错误码*/
-    private BaiduCloud baiduCloud = new BaiduCloud();
+    /***
+     *  操作人脸
+     */
+    @Autowired
+    private FaceMethod faceMethod;
+    /***
+     * 操作用户组
+     */
+    @Autowired
+    private GroupMethod groupMethod;
+    /***
+     * 操作用户
+     */
+    @Autowired
+    private UserMethod userMethod;
+    /***
+     * 百度云api错误码
+     */
+    @Autowired
+    private BaiduCloud baiduCloud;
 
     /**
      * 人脸注册
@@ -115,7 +132,8 @@ public class MethodService {
     /**
      * 人脸搜索
      */
-    public String faceSelect(String base64) throws Exception {
+    public Map<String,Object> faceSelect(String base64) throws Exception {
+        Map<String,Object> map =new HashMap<>();
         FaceSelectEntity faceSelectEntity = new FaceSelectEntity();
         faceSelectEntity.setImage(base64);
         faceSelectEntity.setImage_type("BASE64");
@@ -129,12 +147,16 @@ public class MethodService {
             List<Object> list = JSON.parseArray(s1, Object.class);
             JSONObject jsonObject2 = new JSONObject((Map<String, Object>) list.get(0));
             if (Double.parseDouble(String.valueOf(jsonObject2.get("score"))) > 82) {
-                return "成功";
+                String id = (String) jsonObject2.get("user_id");
+                map.put("成功",id);
+                return map;
             } else {
-                return "匹配度不够";
+                map.put("失败","查无此信息");
+                return map;
             }
         } else {
-            return baiduCloud.baiduCloud(jsonObject.getString("error_code"));
+            map.put("失败",baiduCloud.baiduCloud(jsonObject.getString("error_code")));
+            return map;
         }
     }
 
