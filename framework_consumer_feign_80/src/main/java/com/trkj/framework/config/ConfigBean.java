@@ -15,6 +15,5 @@ public class ConfigBean {
     @Bean
     public IRule myRule() {
         return new AvailabilityFilteringRule();
-
     }
 }

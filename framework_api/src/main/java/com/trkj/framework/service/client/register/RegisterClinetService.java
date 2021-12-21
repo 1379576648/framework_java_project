@@ -19,5 +19,5 @@ public interface RegisterClinetService {
      * @return
      */
     @PostMapping("/register")
-    public AjaxResponse register(@RequestBody Map<String, Object> map);
+    public Object register(@RequestBody Map<String, Object> map);
 }

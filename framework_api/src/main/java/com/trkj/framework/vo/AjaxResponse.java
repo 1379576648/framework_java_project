@@ -12,7 +12,7 @@ public class AjaxResponse {
     private String message;
     private Object data;
 
-    private AjaxResponse() {
+    public AjaxResponse() {
 
     }
 

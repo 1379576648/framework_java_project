@@ -4,6 +4,22 @@ server:
 feign:
   hystrix:
     enabled: true
+##配置spring security 账号密码
+#spring:
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+
+# JWT配置
+jwt:
+  # 密匙KEY
+  secret: JWTSecret
+  # HeaderKEY
+  header: jwtAuth
+  # 过期时间毫秒
+  expire: 100000
+
 #hystrix熔断超时配置
 hystrix:
   command:
@@ -16,6 +32,19 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 4000
+#Redis配置
+#spring:
+#  redis:
+#    database: 0 # Redis 数据库索引（默认为 0）
+#    host: 127.0.0.1 # Redis 服务器地址
+#    port: 6379 # Redis 服务器连接端口
+#    password: 123456  # Redis 服务器连接密码（默认为空）
+#    lettuce:
+#      pool:
+#        max-active: 8 # 连接池最大连接数（使用负值表示没有限制） 默认 8
+#        max-wait: -1 # 连接池最大阻塞等待时间（使用负值表示没有限制） 默认 -1
+#        max-idle: 8 # 连接池中的最大空闲连接 默认 8
+#        min-idle: 0 # 连接池中的最小空闲连接 默认 0
 #Eureka配置
 eureka:
   client:

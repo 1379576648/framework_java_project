@@ -5,10 +5,7 @@ import com.trkj.framework.distinguish.service.MethodService;
 import com.trkj.framework.jpa.service.StaffService;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,8 +18,7 @@ public class StaffController {
     private MethodService methodService;
     @PostMapping("/register")
     @HystrixCommand(fallbackMethod = "registerHystrix")
-    public AjaxResponse register(@RequestBody Map<String, Object> map) throws Exception {
-        AjaxResponse response = new AjaxResponse();
+    public Object register(@RequestBody Map<String, Object> map) throws Exception {
         Map<String,Object> map1 = new HashMap<>();
         map1.put("state",200);
         System.out.println(map.get("base"));
@@ -32,16 +28,18 @@ public class StaffController {
         }else{
             map1.put("succeed",staffService.selectStaff(Integer.parseInt(map2.get("成功").toString())));
         }
-        response.setData(map1);
-        return  response;
+        int a =1/0;
+        return  map1;
     }
     //备选方法
-    public AjaxResponse registerHystrix(@RequestBody Map<String, Object> map){
-        AjaxResponse response = new AjaxResponse();
+    public Object registerHystrix(@RequestBody Map<String, Object> map){
         Map<String,Object> map1 = new HashMap<>();
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
-        response.setData(map1);
-        return response;
+        return map1;
+    }
+    @GetMapping("/index")
+    public String one(){
+        return "index";
     }
 }

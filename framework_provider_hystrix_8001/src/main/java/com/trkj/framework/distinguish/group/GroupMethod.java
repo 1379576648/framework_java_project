@@ -1,7 +1,7 @@
 package com.trkj.framework.distinguish.group;
 
-import com.trkj.framework.distinguish.Util.GsonUtils;
-import com.trkj.framework.distinguish.Util.HttpUtil;
+import com.trkj.framework.distinguish.util.GsonUtils;
+import com.trkj.framework.distinguish.util.HttpUtil;
 import com.trkj.framework.distinguish.pojo.GroupAddEntity;
 import com.trkj.framework.distinguish.pojo.GroupDeleteEntity;
 import com.trkj.framework.distinguish.pojo.GroupGetListEntity;

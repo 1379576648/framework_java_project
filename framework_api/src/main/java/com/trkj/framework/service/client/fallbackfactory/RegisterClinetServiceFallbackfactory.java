@@ -5,6 +5,7 @@ import com.trkj.framework.vo.AjaxResponse;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
+import javax.jws.soap.SOAPBinding;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,10 +16,12 @@ public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
     public Object create(Throwable throwable) {
         return new RegisterClinetService() {
             @Override
-            public AjaxResponse register(Map<String, Object> map) {
+             public Object register(Map<String, Object> map) {
                 Map<String, Object> objectMap = new HashMap<>();
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
+                System.out.println(objectMap.toString());
+                AjaxResponse response = new AjaxResponse();
                 return AjaxResponse.success(objectMap);
             }
         };

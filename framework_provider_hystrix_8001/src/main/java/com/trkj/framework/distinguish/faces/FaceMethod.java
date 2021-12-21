@@ -1,8 +1,8 @@
 package com.trkj.framework.distinguish.faces;
 
-import com.trkj.framework.distinguish.Util.Base64Util;
-import com.trkj.framework.distinguish.Util.GsonUtils;
-import com.trkj.framework.distinguish.Util.HttpUtil;
+import com.trkj.framework.distinguish.util.Base64Util;
+import com.trkj.framework.distinguish.util.GsonUtils;
+import com.trkj.framework.distinguish.util.HttpUtil;
 import com.trkj.framework.distinguish.pojo.*;
 import com.trkj.framework.distinguish.service.AuthService;
 import org.springframework.stereotype.Component;
