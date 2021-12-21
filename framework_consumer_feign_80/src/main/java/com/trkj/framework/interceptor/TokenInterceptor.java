@@ -24,7 +24,7 @@ public class TokenInterceptor extends HandlerInterceptorAdapter {
         /** 地址过滤 */
         String uri = request.getRequestURI() ;
         log.debug("请求地址为："+uri);
-        if (uri.contains("/error")){
+        if (uri.contains("/toLogin")){
             return true ;
         }
         /** Token 验证 JWTDemo*/

@@ -20,7 +20,6 @@
     {
       "name": "jwt.secret",
       "type": "java.lang.String",
-      "description": "Description for jwt.secret.",
       "sourceType": "com.trkj.framework.util.JwtTokenUtil"
     }
   ],

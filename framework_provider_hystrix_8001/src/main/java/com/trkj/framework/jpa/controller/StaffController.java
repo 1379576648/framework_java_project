@@ -28,7 +28,6 @@ public class StaffController {
         }else{
             map1.put("succeed",staffService.selectStaff(Integer.parseInt(map2.get("成功").toString())));
         }
-        int a =1/0;
         return  map1;
     }
     //备选方法
