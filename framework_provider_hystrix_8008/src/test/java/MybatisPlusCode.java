@@ -22,7 +22,7 @@ public class MybatisPlusCode {
         globalConfig.setOutputDir(property + "/framework_provider_hystrix_8008/src/main/java/");
 //        F:\HumanProject\framework_java_project\framework_provider_hystrix_8008\src\main\java\
         /*生成作者的信息*/
-        globalConfig.setAuthor("陈豆");
+        globalConfig.setAuthor("suki");
         //是否打开资源管理器
         globalConfig.setOpen(false);
         //是否覆盖原来生成的文件
@@ -75,7 +75,7 @@ public class MybatisPlusCode {
         //4、策略配置
         StrategyConfig strategyConfig = new StrategyConfig();
         //数据库表名
-        strategyConfig.setInclude("PUNISH");
+        strategyConfig.setInclude("WORK_EXPERIENCE");
         //包的命名规则
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         //列的名字
