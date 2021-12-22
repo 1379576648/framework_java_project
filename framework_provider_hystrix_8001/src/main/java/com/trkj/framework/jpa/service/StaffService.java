@@ -1,6 +1,6 @@
 package com.trkj.framework.jpa.service;
 
-import com.trkj.framework.jpa.entity.StaffEntity;
+import com.trkj.framework.entity.jpa.StaffEntity;
 
 /**
  * @author 13795

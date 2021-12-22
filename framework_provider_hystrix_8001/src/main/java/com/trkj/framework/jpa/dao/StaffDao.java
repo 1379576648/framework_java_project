@@ -1,5 +1,6 @@
 package com.trkj.framework.jpa.dao;
 
+import com.trkj.framework.entity.jpa.StaffEntity;
 import com.trkj.framework.jpa.entity.StaffEntity;
 import org.hibernate.context.spi.CurrentSessionContext;
 import org.springframework.data.jpa.repository.support.CrudMethodMetadata;
