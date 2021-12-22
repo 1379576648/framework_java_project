@@ -1,6 +1,6 @@
 package com.trkj.framework.mybatisplus.service.impl;
 
-import com.trkj.framework.mybatisplus.entity.Staff;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.mapper.StaffMapper;
 import com.trkj.framework.mybatisplus.service.StaffService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

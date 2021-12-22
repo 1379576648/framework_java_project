@@ -1,6 +1,6 @@
 package com.trkj.framework.mybatisplus.mapper;
 
-import com.trkj.framework.mybatisplus.entity.Staff;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

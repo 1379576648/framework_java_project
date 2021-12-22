@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.trkj.framework.mybatisplus.mapper.StaffMapper">
-
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.trkj.framework.mybatisplus.entity.Staff">
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.Staff">
         <id column="STAFF_ID" property="staffId" />
         <result column="STAFF_NAME" property="staffName" />
         <result column="STAFF_SEX" property="staffSex" />
@@ -41,5 +40,9 @@
     <sql id="Base_Column_List">
         STAFF_ID, STAFF_NAME, STAFF_SEX, STAFF_PHONE, STAFF_EMAIL, STAFF_PICTURE, STAFF_BIRTHDAY, STAFF_OUTLOOK, STAFF_EDUCATION, DEPT_POST_ID, STAFF_PASS, STAFF_HIREDATE, WORKER_ID, STAFF_IDENTITY, DEPT_ID, STAFF_MAJOR, STAFF_EMERGENCY, STAFF_WECHAT, STAFF_QQ, STAFF_CREDIT, STAFF_BLOOD, STAFF_SIGN, STAFF_MARITAL, STAFF_REGISTERED, STAFF_SCHOOL, STAFF_ADDRESS, CREATED_TIME, UPDATED_TIME, IS_DELETED, REVISION, POST_ID
     </sql>
+
+
+
+
 
 </mapper>
