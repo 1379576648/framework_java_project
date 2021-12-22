@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.OvertimeaskMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.Overtimeask">
+        <id column="OVERTIMEASK_ID" property="overtimeaskId" />
+        <result column="AUDITFLOW_ID" property="auditflowId" />
+        <result column="STAFF_ID" property="staffId" />
+        <result column="STAFF_NAME" property="staffName" />
+        <result column="DEPT_ID" property="deptId" />
+        <result column="OVERTIMEASK_TYPE" property="overtimeaskType" />
+        <result column="OVERTIMEASK_MATTER" property="overtimeaskMatter" />
+        <result column="OVERTIMEASK_REMARKS" property="overtimeaskRemarks" />
+        <result column="OVERTIMEASK_S_DATE" property="overtimeaskSDate" />
+        <result column="OVERTIMEASK_E_DATE" property="overtimeaskEDate" />
+        <result column="OVERTIMEASK_TOTAL_DATE" property="overtimeaskTotalDate" />
+        <result column="OVERTIMEASK_STATE" property="overtimeaskState" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="REVISION" property="revision" />
+        <result column="IS_DELETED" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        OVERTIMEASK_ID, AUDITFLOW_ID, STAFF_ID, STAFF_NAME, DEPT_ID, OVERTIMEASK_TYPE, OVERTIMEASK_MATTER, OVERTIMEASK_REMARKS, OVERTIMEASK_S_DATE, OVERTIMEASK_E_DATE, OVERTIMEASK_TOTAL_DATE, OVERTIMEASK_STATE, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
+    </sql>
+
+</mapper>
