@@ -50,7 +50,7 @@ public class StaffEntity {
     /** 微信 */
     private String staffCredit;
     /** 银行卡号 */
-    private String staff_blood;
+    private String staffBlood;
     /** 血型 */
     private String staffSign;
     /** 星座 */
@@ -85,7 +85,7 @@ public class StaffEntity {
     private Long ISDELETED;
     /** 逻辑删除 */
 
-    public StaffEntity(Long staffPhone, String staffEmail, Date staffBirthday, String staffOutlook, String staffEducation, String positionName, String staffPass, Date staffHIREDATE, String staffIdentity, String staffMajor, long staffEmergency, String staffWechat, String staffCredit, String staff_blood, String staffSign, String staffMarital, String staffRegistered, String staffSchool, String staffAddress) {
+    public StaffEntity(Long staffPhone, String staffEmail, Date staffBirthday, String staffOutlook, String staffEducation, String positionName, String staffPass, Date staffHIREDATE, String staffIdentity, String staffMajor, long staffEmergency, String staffWechat, String staffCredit, String staffBlood, String staffSign, String staffMarital, String staffRegistered, String staffSchool, String staffAddress) {
         this.staffPhone = staffPhone;
         this.staffEmail = staffEmail;
         this.staffBirthday = staffBirthday;
@@ -99,7 +99,7 @@ public class StaffEntity {
         this.staffEmergency = staffEmergency;
         this.staffWechat = staffWechat;
         this.staffCredit = staffCredit;
-        this.staff_blood = staff_blood;
+        this.staffBlood = staffBlood;
         this.staffSign = staffSign;
         this.staffMarital = staffMarital;
         this.staffRegistered = staffRegistered;

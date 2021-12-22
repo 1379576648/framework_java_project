@@ -336,10 +336,14 @@ public class StaffEntity {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
         StaffEntity that = (StaffEntity) o;
-        return staffId == that.staffId && staffPhone == that.staffPhone && postId == that.postId && deptId == that.deptId && isDeleted == that.isDeleted && revision == that.revision && Objects.equals(staffName, that.staffName) && Objects.equals(staffSex, that.staffSex) && Objects.equals(staffEmail, that.staffEmail) && Objects.equals(staffPicture, that.staffPicture) && Objects.equals(staffBirthday, that.staffBirthday) && Objects.equals(staffOutlook, that.staffOutlook) && Objects.equals(staffEducation, that.staffEducation) && Objects.equals(staffPass, that.staffPass) && Objects.equals(staffHiredate, that.staffHiredate) && Objects.equals(workerId, that.workerId) && Objects.equals(staffIdentity, that.staffIdentity) && Objects.equals(staffMajor, that.staffMajor) && Objects.equals(staffEmergency, that.staffEmergency) && Objects.equals(staffWechat, that.staffWechat) && Objects.equals(staffQq, that.staffQq) && Objects.equals(staffCredit, that.staffCredit) && Objects.equals(staffBlood, that.staffBlood) && Objects.equals(staffSign, that.staffSign) && Objects.equals(staffMarital, that.staffMarital) && Objects.equals(staffRegistered, that.staffRegistered) && Objects.equals(staffSchool, that.staffSchool) && Objects.equals(staffAddress, that.staffAddress) && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime);
+        return staffId.equals(that.staffId) && staffPhone.equals(that.staffPhone) && postId == that.postId && deptId == that.deptId && isDeleted == that.isDeleted && revision.equals(that.revision) && Objects.equals(staffName, that.staffName) && Objects.equals(staffSex, that.staffSex) && Objects.equals(staffEmail, that.staffEmail) && Objects.equals(staffPicture, that.staffPicture) && Objects.equals(staffBirthday, that.staffBirthday) && Objects.equals(staffOutlook, that.staffOutlook) && Objects.equals(staffEducation, that.staffEducation) && Objects.equals(staffPass, that.staffPass) && Objects.equals(staffHiredate, that.staffHiredate) && Objects.equals(workerId, that.workerId) && Objects.equals(staffIdentity, that.staffIdentity) && Objects.equals(staffMajor, that.staffMajor) && Objects.equals(staffEmergency, that.staffEmergency) && Objects.equals(staffWechat, that.staffWechat) && Objects.equals(staffQq, that.staffQq) && Objects.equals(staffCredit, that.staffCredit) && Objects.equals(staffBlood, that.staffBlood) && Objects.equals(staffSign, that.staffSign) && Objects.equals(staffMarital, that.staffMarital) && Objects.equals(staffRegistered, that.staffRegistered) && Objects.equals(staffSchool, that.staffSchool) && Objects.equals(staffAddress, that.staffAddress) && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime);
     }
 
     @Override
