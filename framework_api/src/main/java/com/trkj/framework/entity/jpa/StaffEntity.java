@@ -1,4 +1,4 @@
-package com.trkj.framework.jpa.entity;
+package com.trkj.framework.entity.jpa;
 
 import javax.persistence.*;
 import java.sql.Date;
@@ -7,24 +7,11 @@ import java.util.Objects;
 @Entity
 @Table(name = "STAFF", schema = "POWER", catalog = "")
 public class StaffEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Id
-    @Column(name = "STAFF_ID")
     private Integer staffId;
-    @Basic
-    @Column(name = "STAFF_NAME")
     private String staffName;
-    @Basic
-    @Column(name = "STAFF_SEX")
     private String staffSex;
-    @Basic
-    @Column(name = "STAFF_PHONE")
     private Integer staffPhone;
-    @Basic
-    @Column(name = "STAFF_EMAIL")
     private String staffEmail;
-    @Basic
-    @Column(name = "STAFF_PICTURE")
     private String staffPicture;
     @Basic
     @Column(name = "STAFF_BIRTHDAY")
@@ -36,8 +23,8 @@ public class StaffEntity {
     @Column(name = "STAFF_EDUCATION")
     private String staffEducation;
     @Basic
-    @Column(name = "POSITION_NAME")
-    private String positionName;
+    @Column(name = "POST_ID")
+    private Integer postId;
     @Basic
     @Column(name = "STAFF_PASS")
     private String staffPass;
@@ -63,6 +50,9 @@ public class StaffEntity {
     @Column(name = "STAFF_WECHAT")
     private String staffWechat;
     @Basic
+    @Column(name = "STAFF_QQ")
+    private String staffQq;
+    @Basic
     @Column(name = "STAFF_CREDIT")
     private String staffCredit;
     @Basic
@@ -84,12 +74,6 @@ public class StaffEntity {
     @Column(name = "STAFF_ADDRESS")
     private String staffAddress;
     @Basic
-    @Column(name = "WORK_EXPERIENCE_ID")
-    private Integer workExperienceId;
-    @Basic
-    @Column(name = "EDUCATION_ID")
-    private Integer educationId;
-    @Basic
     @Column(name = "CREATED_TIME")
     private Date createdTime;
     @Basic
@@ -102,6 +86,9 @@ public class StaffEntity {
     @Column(name = "REVISION")
     private Integer revision;
 
+
+    @Id
+    @Column(name = "STAFF_ID")
     public Integer getStaffId() {
         return staffId;
     }
@@ -109,7 +96,8 @@ public class StaffEntity {
     public void setStaffId(Integer staffId) {
         this.staffId = staffId;
     }
-
+    @Basic
+    @Column(name = "STAFF_NAME")
     public String getStaffName() {
         return staffName;
     }
@@ -117,7 +105,8 @@ public class StaffEntity {
     public void setStaffName(String staffName) {
         this.staffName = staffName;
     }
-
+    @Basic
+    @Column(name = "STAFF_SEX")
     public String getStaffSex() {
         return staffSex;
     }
@@ -125,7 +114,8 @@ public class StaffEntity {
     public void setStaffSex(String staffSex) {
         this.staffSex = staffSex;
     }
-
+    @Basic
+    @Column(name = "STAFF_PHONE")
     public Integer getStaffPhone() {
         return staffPhone;
     }
@@ -133,7 +123,8 @@ public class StaffEntity {
     public void setStaffPhone(Integer staffPhone) {
         this.staffPhone = staffPhone;
     }
-
+    @Basic
+    @Column(name = "STAFF_EMAIL")
     public String getStaffEmail() {
         return staffEmail;
     }
@@ -141,7 +132,8 @@ public class StaffEntity {
     public void setStaffEmail(String staffEmail) {
         this.staffEmail = staffEmail;
     }
-
+    @Basic
+    @Column(name = "STAFF_PICTURE")
     public String getStaffPicture() {
         return staffPicture;
     }
@@ -174,12 +166,12 @@ public class StaffEntity {
         this.staffEducation = staffEducation;
     }
 
-    public String getPositionName() {
-        return positionName;
+    public Integer getPostId() {
+        return postId;
     }
 
-    public void setPositionName(String positionName) {
-        this.positionName = positionName;
+    public void setPostId(Integer postId) {
+        this.postId = postId;
     }
 
     public String getStaffPass() {
@@ -214,11 +206,11 @@ public class StaffEntity {
         this.staffIdentity = staffIdentity;
     }
 
-    public int getDeptId() {
+    public Integer getDeptId() {
         return deptId;
     }
 
-    public void setDeptId(int deptId) {
+    public void setDeptId(Integer deptId) {
         this.deptId = deptId;
     }
 
@@ -244,6 +236,14 @@ public class StaffEntity {
 
     public void setStaffWechat(String staffWechat) {
         this.staffWechat = staffWechat;
+    }
+
+    public String getStaffQq() {
+        return staffQq;
+    }
+
+    public void setStaffQq(String staffQq) {
+        this.staffQq = staffQq;
     }
 
     public String getStaffCredit() {
@@ -302,22 +302,6 @@ public class StaffEntity {
         this.staffAddress = staffAddress;
     }
 
-    public Integer getWorkExperienceId() {
-        return workExperienceId;
-    }
-
-    public void setWorkExperienceId(Integer workExperienceId) {
-        this.workExperienceId = workExperienceId;
-    }
-
-    public Integer getEducationId() {
-        return educationId;
-    }
-
-    public void setEducationId(Integer educationId) {
-        this.educationId = educationId;
-    }
-
     public Date getCreatedTime() {
         return createdTime;
     }
@@ -334,11 +318,11 @@ public class StaffEntity {
         this.updatedTime = updatedTime;
     }
 
-    public int getIsDeleted() {
+    public Integer getIsDeleted() {
         return isDeleted;
     }
 
-    public void setIsDeleted(int isDeleted) {
+    public void setIsDeleted(Integer isDeleted) {
         this.isDeleted = isDeleted;
     }
 
@@ -355,11 +339,11 @@ public class StaffEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StaffEntity that = (StaffEntity) o;
-        return staffId == that.staffId && staffPhone == that.staffPhone && deptId == that.deptId && isDeleted == that.isDeleted && revision == that.revision && Objects.equals(staffName, that.staffName) && Objects.equals(staffSex, that.staffSex) && Objects.equals(staffEmail, that.staffEmail) && Objects.equals(staffPicture, that.staffPicture) && Objects.equals(staffBirthday, that.staffBirthday) && Objects.equals(staffOutlook, that.staffOutlook) && Objects.equals(staffEducation, that.staffEducation) && Objects.equals(positionName, that.positionName) && Objects.equals(staffPass, that.staffPass) && Objects.equals(staffHiredate, that.staffHiredate) && Objects.equals(workerId, that.workerId) && Objects.equals(staffIdentity, that.staffIdentity) && Objects.equals(staffMajor, that.staffMajor) && Objects.equals(staffEmergency, that.staffEmergency) && Objects.equals(staffWechat, that.staffWechat) && Objects.equals(staffCredit, that.staffCredit) && Objects.equals(staffBlood, that.staffBlood) && Objects.equals(staffSign, that.staffSign) && Objects.equals(staffMarital, that.staffMarital) && Objects.equals(staffRegistered, that.staffRegistered) && Objects.equals(staffSchool, that.staffSchool) && Objects.equals(staffAddress, that.staffAddress) && Objects.equals(workExperienceId, that.workExperienceId) && Objects.equals(educationId, that.educationId) && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime);
+        return staffId == that.staffId && staffPhone == that.staffPhone && postId == that.postId && deptId == that.deptId && isDeleted == that.isDeleted && revision == that.revision && Objects.equals(staffName, that.staffName) && Objects.equals(staffSex, that.staffSex) && Objects.equals(staffEmail, that.staffEmail) && Objects.equals(staffPicture, that.staffPicture) && Objects.equals(staffBirthday, that.staffBirthday) && Objects.equals(staffOutlook, that.staffOutlook) && Objects.equals(staffEducation, that.staffEducation) && Objects.equals(staffPass, that.staffPass) && Objects.equals(staffHiredate, that.staffHiredate) && Objects.equals(workerId, that.workerId) && Objects.equals(staffIdentity, that.staffIdentity) && Objects.equals(staffMajor, that.staffMajor) && Objects.equals(staffEmergency, that.staffEmergency) && Objects.equals(staffWechat, that.staffWechat) && Objects.equals(staffQq, that.staffQq) && Objects.equals(staffCredit, that.staffCredit) && Objects.equals(staffBlood, that.staffBlood) && Objects.equals(staffSign, that.staffSign) && Objects.equals(staffMarital, that.staffMarital) && Objects.equals(staffRegistered, that.staffRegistered) && Objects.equals(staffSchool, that.staffSchool) && Objects.equals(staffAddress, that.staffAddress) && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(staffId, staffName, staffSex, staffPhone, staffEmail, staffPicture, staffBirthday, staffOutlook, staffEducation, positionName, staffPass, staffHiredate, workerId, staffIdentity, deptId, staffMajor, staffEmergency, staffWechat, staffCredit, staffBlood, staffSign, staffMarital, staffRegistered, staffSchool, staffAddress, workExperienceId, educationId, createdTime, updatedTime, isDeleted, revision);
+        return Objects.hash(staffId, staffName, staffSex, staffPhone, staffEmail, staffPicture, staffBirthday, staffOutlook, staffEducation, postId, staffPass, staffHiredate, workerId, staffIdentity, deptId, staffMajor, staffEmergency, staffWechat, staffQq, staffCredit, staffBlood, staffSign, staffMarital, staffRegistered, staffSchool, staffAddress, createdTime, updatedTime, isDeleted, revision);
     }
 }

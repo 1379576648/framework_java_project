@@ -146,7 +146,7 @@ public class MethodService {
             String s1 = jsonObject1.getString("user_list");
             List<Object> list = JSON.parseArray(s1, Object.class);
             JSONObject jsonObject2 = new JSONObject((Map<String, Object>) list.get(0));
-            if (Double.parseDouble(String.valueOf(jsonObject2.get("score"))) > 80) {
+            if (Double.parseDouble(String.valueOf(jsonObject2.get("score"))) > 70) {
                 String id = (String) jsonObject2.get("user_id");
                 map.put("成功",id);
                 return map;
