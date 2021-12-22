@@ -13,15 +13,15 @@ import org.springframework.context.annotation.Bean;
  * @author 周刘奇
  */
 @SpringBootApplication
-/*
+/**
  在服务启动后自动注册到Eureka中
  */
 @EnableEurekaClient
-/*
+/**
  * 服务发现~
  */
 @EnableDiscoveryClient
-/*
+/**
 添加对熔断的支持
  */
 @EnableCircuitBreaker
@@ -30,7 +30,7 @@ public class ProviderHystrix8008 {
         SpringApplication.run(ProviderHystrix8008.class, args);
     }
 
-    /*
+    /**
     增加一个servlet
      */
     @Bean
