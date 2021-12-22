@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.service;
 
-import com.trkj.framework.mybatisplus.entity.Staff;
+import com.trkj.framework.entity.mybatisplus.Staff;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

@@ -3,7 +3,7 @@
 <mapper namespace="com.trkj.framework.mybatisplus.mapper.StaffMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.trkj.framework.mybatisplus.entity.Staff">
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.Staff">
         <id column="STAFF_ID" property="staffId" />
         <result column="STAFF_NAME" property="staffName" />
         <result column="STAFF_SEX" property="staffSex" />
