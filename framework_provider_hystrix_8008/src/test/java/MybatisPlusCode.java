@@ -12,7 +12,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 public class MybatisPlusCode {
     public static void main(String[] args) {
         //需要构建一个代码自动生成器 对象
-        AutoGenerator autoGenerator = new AutoGenerator(); 
+        AutoGenerator autoGenerator = new AutoGenerator();
         //配置策略
         //1.全局配置
         GlobalConfig globalConfig = new GlobalConfig();
@@ -74,7 +74,7 @@ public class MybatisPlusCode {
         //4、策略配置
         StrategyConfig strategyConfig = new StrategyConfig();
         //数据库表名
-        strategyConfig.setInclude("DEPT");
+        strategyConfig.setInclude("GLORY");
         //包的命名规则
         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
         //列的名字
