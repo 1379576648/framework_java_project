@@ -17,6 +17,7 @@ public class RegisterController {
 
     @PostMapping("/register")
     public AjaxResponse register(@RequestBody Map<String, Object> map) {
+        System.out.println(map.toString());
         return AjaxResponse.success(registerClinetService.register(map));
     }
     @GetMapping("/toLogin")
