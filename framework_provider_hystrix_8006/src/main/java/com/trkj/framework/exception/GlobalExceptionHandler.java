@@ -1,7 +1,5 @@
 package com.trkj.framework.exception;
 
-import com.trkj.framework.exception.CustomError;
-import com.trkj.framework.exception.CustomErrorType;
 import com.trkj.framework.vo.AjaxResponse;
 import io.jsonwebtoken.SignatureException;
 import lombok.extern.slf4j.Slf4j;

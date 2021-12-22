@@ -20,8 +20,9 @@ public class MybatisPlusCode {
         String property = System.getProperty("user.dir");
         //代码输出目录
         globalConfig.setOutputDir(property + "/framework_provider_hystrix_8008/src/main/java/");
+//        F:\HumanProject\framework_java_project\framework_provider_hystrix_8008\src\main\java\
         /*生成作者的信息*/
-        globalConfig.setAuthor("劉祁");
+        globalConfig.setAuthor("陈豆");
         //是否打开资源管理器
         globalConfig.setOpen(false);
         //是否覆盖原来生成的文件

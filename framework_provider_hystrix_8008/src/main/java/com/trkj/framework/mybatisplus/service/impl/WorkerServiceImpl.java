@@ -1,6 +1,6 @@
 package com.trkj.framework.mybatisplus.service.impl;
 
-import com.trkj.framework.entity.mybatisplus.Worker;
+import com.trkj.framework.mybatisplus.entity.Worker;
 import com.trkj.framework.mybatisplus.mapper.WorkerMapper;
 import com.trkj.framework.mybatisplus.service.WorkerService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
  * 转正 服务实现类
  * </p>
  *
- * @author 劉祁
+ * @author 陈豆
  * @since 2021-12-22
  */
 @Service

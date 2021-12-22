@@ -1,16 +1,16 @@
 package com.trkj.framework.mybatisplus.service;
 
-import com.trkj.framework.entity.mybatisplus.Glory;
+import com.trkj.framework.mybatisplus.entity.Staff;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- * 荣誉/奖励表 服务类
+ * 员工表 服务类
  * </p>
  *
- * @author 劉祁
+ * @author 陈豆
  * @since 2021-12-22
  */
-public interface GloryService extends IService<Glory> {
+public interface StaffService extends IService<Staff> {
 
 }

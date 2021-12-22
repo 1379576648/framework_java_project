@@ -1,7 +1,5 @@
 package com.trkj.framework.exception;
 
-import com.trkj.framework.exception.CustomErrorType;
-
 public class CustomError extends RuntimeException {
     //异常错误编码
     private int code;
