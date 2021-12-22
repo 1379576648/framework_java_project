@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.PunishMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.Punish">
+        <id column="PUNISH_ID" property="punishId" />
+        <result column="PUNISH_TYPE" property="punishType" />
+        <result column="STAFF_ID" property="staffId" />
+        <result column="PUNISH_CAUSE" property="punishCause" />
+        <result column="PUNISH_UNIT" property="punishUnit" />
+        <result column="IS_REVOCATION" property="isRevocation" />
+        <result column="PUNISH_REMARK" property="punishRemark" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="IS_DELETED" property="isDeleted" />
+        <result column="REVISION" property="revision" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        PUNISH_ID, PUNISH_TYPE, STAFF_ID, PUNISH_CAUSE, PUNISH_UNIT, IS_REVOCATION, PUNISH_REMARK, CREATED_TIME, UPDATED_TIME, IS_DELETED, REVISION
+    </sql>
+
+</mapper>
