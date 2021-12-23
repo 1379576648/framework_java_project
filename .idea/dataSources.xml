@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="framework_provider_hystrix_8001/Hibernate" uuid="594303ad-c3a3-47d9-a750-e14e5c90da2b">
+    <data-source source="LOCAL" name="@localhost" uuid="8498da81-737c-4cef-8c00-1d20ed978741">
       <driver-ref>oracle.19</driver-ref>
       <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>Hibernate</remarks>
       <auto-commit>false</auto-commit>
       <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
-      <jdbc-url>jdbc:oracle:thin:@127.0.0.1:1521:orcl</jdbc-url>
+      <jdbc-url>jdbc:oracle:thin:@localhost:1521:orcl</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
+    <data-source source="LOCAL" name="@localhost [2]" uuid="749d2776-2ef7-4cfc-b2a0-cabb62fc526e">
+      <driver-ref>oracle.19</driver-ref>
+      <synchronize>true</synchronize>
+      <auto-commit>false</auto-commit>
+      <jdbc-driver>oracle.jdbc.OracleDriver</jdbc-driver>
+      <jdbc-url>jdbc:oracle:thin:@localhost:1521:orcl</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>
