@@ -2,6 +2,9 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trkj.framework.entity.mybatisplus.staff_workvo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +14,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author suki
  * @since 2021-12-22
  */
-public interface WorkExperienceService extends IService<WorkExperience> {
+public interface WorkExperienceService extends IService<staff_workvo> {
 
+    List<staff_workvo> staffSelect();
 }
