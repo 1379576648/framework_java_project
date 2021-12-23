@@ -17,7 +17,17 @@ public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
         return new RegisterClinetService() {
             @Override
              public Object register(Map<String, Object> map) {
-                Map<String, Object> objectMap = new HashMap<>();
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                System.out.println(objectMap.toString());
+                AjaxResponse response = new AjaxResponse();
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object login(Map<String, Object> map) {
+                Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
                 System.out.println(objectMap.toString());

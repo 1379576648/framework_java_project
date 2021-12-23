@@ -14,10 +14,18 @@ import java.util.Map;
 @FeignClient(value = "REGISTER-8001/provider", fallbackFactory = RegisterClinetServiceFallbackfactory.class)
 public interface RegisterClinetService {
     /***
-     * 登录接口
+     * 人脸识别登录
      * @param map
      * @return
      */
     @PostMapping("/register")
     public Object register(@RequestBody Map<String, Object> map);
+
+    /***
+     * 账号密码登录
+     * @param map
+     * @return
+     */
+    @PostMapping("/login")
+    public Object login(@RequestBody Map<String,Object> map);
 }

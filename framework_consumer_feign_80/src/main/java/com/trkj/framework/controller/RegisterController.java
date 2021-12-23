@@ -15,19 +15,29 @@ public class RegisterController {
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    /***
+     * 人脸识别登录
+     * @param map
+     * @return
+     */
     @PostMapping("/register")
     public AjaxResponse register(@RequestBody Map<String, Object> map) {
-        System.out.println(map.toString());
         return AjaxResponse.success(registerClinetService.register(map));
     }
-    @GetMapping("/toLogin")
-    public String toLogin(@RequestParam("name") String name, @RequestParam("id") String id){
-        String token=jwtTokenUtil.generateToken(name,id);
-        System.out.println(token);
-        return "index";
-    }
-    @GetMapping("/qw")
-    public String qw(){
-        return "不是吧";
+//    @GetMapping("/login")
+//    public AjaxResponse toLogin(@RequestParam("name") String name, @RequestParam("id") String id){
+//        String token=jwtTokenUtil.generateToken(name,id);
+//        System.out.println(token);
+//        return AjaxResponse.success();
+//    }
+
+    /***
+     * 账号密码登录
+     * @param map
+     * @return
+     */
+    @PostMapping("/login")
+    public AjaxResponse login(@RequestBody Map<String,Object> map){
+        return AjaxResponse.success(registerClinetService.login(map));
     }
 }
