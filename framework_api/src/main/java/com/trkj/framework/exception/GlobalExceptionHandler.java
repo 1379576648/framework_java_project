@@ -30,7 +30,5 @@ public class GlobalExceptionHandler {
         }
         log.info("系统产生了异常");
         return AjaxResponse.error(new CustomError(CustomErrorType.SYSTEM_ERROR, e.getMessage()));
-
-
     }
 }

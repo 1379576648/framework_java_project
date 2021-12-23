@@ -21,6 +21,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * @author 13795
+ */
 @Configuration
 @Slf4j
 public class RedisConfig {
@@ -51,7 +54,6 @@ public class RedisConfig {
 //                LaissezFaireSubTypeValidator.instance ,
 //                ObjectMapper.DefaultTyping.NON_FINAL,
 //                JsonTypeInfo.As.PROPERTY);
-
 
         //简单的字符串序列化
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
