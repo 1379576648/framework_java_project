@@ -1,6 +1,6 @@
 package com.trkj.framework.mybatisplus.service;
 
-import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
+import com.trkj.framework.entity.mybatis.Auditflowdetail;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -8,8 +8,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * 审批流明细表 服务类
  * </p>
  *
- * @author 里予
- * @since 2021-12-22
+ * @author 劉祁
+ * @since 2021-12-27
  */
 public interface AuditflowdetailService extends IService<Auditflowdetail> {
 

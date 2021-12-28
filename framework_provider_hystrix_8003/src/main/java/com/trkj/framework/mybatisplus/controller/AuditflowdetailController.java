@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -9,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
  * 审批流明细表 前端控制器
  * </p>
  *
- * @author 里予
- * @since 2021-12-22
+ * @author 劉祁
+ * @since 2021-12-27
  */
 @RestController
 @RequestMapping("/mybatisplus/auditflowdetail")
