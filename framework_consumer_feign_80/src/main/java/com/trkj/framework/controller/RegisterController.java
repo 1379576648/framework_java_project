@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ * @author 13795
+ */
 @RestController
 public class RegisterController {
     @Autowired

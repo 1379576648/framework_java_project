@@ -21,6 +21,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 
 import java.text.SimpleDateFormat;
 
+/**
+ * @author 13795
+ */
 @Configuration
 @Slf4j
 public class RedisConfig {

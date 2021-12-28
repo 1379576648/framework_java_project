@@ -1,5 +1,6 @@
 package com.trkj.framework.entity.jpa;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -40,9 +41,11 @@ public class RegisterLogEntity {
     @Column(name = "REGISTER_LOG_GENRE", nullable = true, precision = 0)
     private Integer registerLogGenre;
     @Basic
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @Column(name = "CREATED_TIME", nullable = false)
     private Date createdTime;
     @Basic
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @Column(name = "UPDATED_TIME", nullable = false)
     private Date updatedTime;
     @Basic

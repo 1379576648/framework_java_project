@@ -9,6 +9,9 @@ import javax.jws.soap.SOAPBinding;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author 13795
+ */
 //降级~
 @Component
 public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
@@ -20,8 +23,6 @@ public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
-                System.out.println(objectMap.toString());
-                AjaxResponse response = new AjaxResponse();
                 return AjaxResponse.success(objectMap);
             }
 
@@ -30,8 +31,6 @@ public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
-                System.out.println(objectMap.toString());
-                AjaxResponse response = new AjaxResponse();
                 return AjaxResponse.success(objectMap);
             }
         };
