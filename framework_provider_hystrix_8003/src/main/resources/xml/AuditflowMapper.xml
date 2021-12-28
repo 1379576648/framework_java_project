@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.AuditflowMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatis.Auditflow">
+        <id column="AUDITFLOW_ID" property="auditflowId" />
+        <result column="AUDITFLOW_TITLE" property="auditflowTitle" />
+        <result column="AUDITFLOW_TYPE" property="auditflowType" />
+        <result column="STAFF_ID" property="staffId" />
+        <result column="STAFF_NAME" property="staffName" />
+        <result column="AUDITFLOW_STATE" property="auditflowState" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="REVISION" property="revision" />
+        <result column="IS_DELETED" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        AUDITFLOW_ID, AUDITFLOW_TITLE, AUDITFLOW_TYPE, STAFF_ID, STAFF_NAME, AUDITFLOW_STATE, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
+    </sql>
+
+</mapper>
