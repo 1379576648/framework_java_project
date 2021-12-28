@@ -8,6 +8,9 @@ import com.trkj.framework.vo.Auditflowone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * <p>
  * 审批主表 服务实现类
@@ -39,5 +42,10 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Override
     public IPage<Auditflowone> selectPageVo1(Page<Auditflowone> page) {
         return auditflowMapper.two(page);
+    }
+
+    @Override
+    public List<Auditflowone> selectDetailsAuditflow(HashMap<String, Object> map) {
+        return auditflowMapper.selectDetailsAuditflow(map);
     }
 }
