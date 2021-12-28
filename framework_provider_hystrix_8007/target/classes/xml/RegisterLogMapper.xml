@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.RegisterLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.RegisterLog">
+        <id column="REGISTER_LOG_ID" property="registerLogId" />
+        <result column="REGISTER_LOG_PEOPLE" property="registerLogPeople" />
+        <result column="REGISTER_LOG_PHONE" property="registerLogPhone" />
+        <result column="REGISTER_LOG_IP" property="registerLogIp" />
+        <result column="REGISTER_LOG_TYPE" property="registerLogType" />
+        <result column="REGISTER_LOG_STATE" property="registerLogState" />
+        <result column="REGISTER_LOG_BROWSER" property="registerLogBrowser" />
+        <result column="REGISTER_LOG_GENRE" property="registerLogGenre" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="REVISION" property="revision" />
+        <result column="IS_DELETED" property="isDeleted" />
+        <result column="REGISTER_LOG_IPNAME" property="registerLogIpname" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        REGISTER_LOG_ID, REGISTER_LOG_PEOPLE, REGISTER_LOG_PHONE, REGISTER_LOG_IP, REGISTER_LOG_TYPE, REGISTER_LOG_STATE, REGISTER_LOG_BROWSER, REGISTER_LOG_GENRE, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED, REGISTER_LOG_IPNAME
+    </sql>
+
+</mapper>
