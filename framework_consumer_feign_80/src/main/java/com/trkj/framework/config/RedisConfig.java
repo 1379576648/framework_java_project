@@ -52,7 +52,6 @@ public class RedisConfig {
 //                ObjectMapper.DefaultTyping.NON_FINAL,
 //                JsonTypeInfo.As.PROPERTY);
 
-
         //简单的字符串序列化
         StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         //设置字符键的序列化方式
