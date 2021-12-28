@@ -2,8 +2,8 @@ package com.trkj.framework.mybatisplus.mapper;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.trkj.framework.entity.mybatis.Auditflow;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.trkj.framework.entity.mybatisplus.Auditflow;
 import com.trkj.framework.vo.Auditflowone;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Select;
