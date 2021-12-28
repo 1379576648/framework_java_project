@@ -2,8 +2,6 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.trkj.framework.entity.mybatis.Auditflow;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.trkj.framework.vo.Auditflowone;
 
 /**

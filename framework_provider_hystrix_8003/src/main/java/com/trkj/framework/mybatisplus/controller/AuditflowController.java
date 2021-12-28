@@ -1,23 +1,15 @@
 package com.trkj.framework.mybatisplus.controller;
 
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatis.Auditflow;
-import com.trkj.framework.entity.mybatis.Dept;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
 import com.trkj.framework.vo.Auditflowone;
-import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
