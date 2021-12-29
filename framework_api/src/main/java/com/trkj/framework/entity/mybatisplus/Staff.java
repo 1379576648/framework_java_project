@@ -1,24 +1,23 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
+import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import java.io.Serializable;
-import java.util.Date;
-
 /**
  * <p>
  * 员工表
  * </p>
  *
- * @author 劉祁
- * @since 2021-12-22
+ * @author suki
+ * @since 2021-12-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -131,6 +130,10 @@ public class Staff implements Serializable {
     @ApiModelProperty(value = "现住地址")
     @TableField("STAFF_ADDRESS")
     private String staffAddress;
+
+    @ApiModelProperty(value = "员工状态")
+    @TableField("STAFF_STATE")
+    private Long staffState;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")
