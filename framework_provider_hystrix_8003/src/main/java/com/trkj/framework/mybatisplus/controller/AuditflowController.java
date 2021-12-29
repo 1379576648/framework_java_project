@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,5 +63,26 @@ public class AuditflowController {
         map.put("succeed","服务发生雪崩");
         return page;
     }
+
+    // 根据审批类型的加班/审批人查询已处理的详情信息
+    @GetMapping("/selectDetailsAuditflow")
+    public Auditflowone selectDetailsAuditflow(int id,String name1,String name2) {
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("id", id);
+        map.put("name1", name1);
+        map.put("name2", name2);
+        List<Auditflowone> users = auditflowService.selectDetailsAuditflow(map);
+        return null;
+    }
+
+    // // 备选方案
+    // public Object HystixGet2(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
+    //     Page<Auditflowone> page = new Page<>(currentPage, pagesize);
+    //     Map<String, Object> map=new HashMap<String, Object>();
+    //     map.put("state",500);
+    //     map.put("succeed","服务发生雪崩");
+    //     return page;
+    // }
+
 }
 
