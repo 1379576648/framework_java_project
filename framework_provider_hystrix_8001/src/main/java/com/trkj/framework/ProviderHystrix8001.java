@@ -29,7 +29,6 @@ public class ProviderHystrix8001 {
     public static void main(String[] args) {
         SpringApplication.run(ProviderHystrix8001.class, args);
     }
-
     /*
     增加一个servlet
      */

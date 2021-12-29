@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.service.impl;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.mybatisplus.mapper.EmploymentTableMapper;
 import com.trkj.framework.mybatisplus.service.EmploymentTableService;
+import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,5 +46,13 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     @Override
     public IPage<WorkVo> selectwork(Page<WorkVo> page) {
         return employmentTableMapper.selectwork(page);
+    }
+
+    /**
+     *查询转正记录
+     */
+    @Override
+    public IPage<FullVo> selectpost(Page<FullVo> page) {
+        return employmentTableMapper.selectpost(page);
     }
 }

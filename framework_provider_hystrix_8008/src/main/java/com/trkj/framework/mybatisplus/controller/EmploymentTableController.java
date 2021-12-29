@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.mybatisplus.service.EmploymentTableService;
+import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,18 @@ public class EmploymentTableController {
         map.put("succeed",employmentTableService.selectwork(page));
         return map;
 
+    }
+
+    /**
+     * 查询转正记录
+     */
+    @GetMapping("/selectpost")
+    public Object selectpost(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
+        Page<FullVo> page = new Page<>(currentPage,pagesize);
+        Map<String, Object> map = new HashMap<>();
+        map.put("state",200);
+        map.put("succeed",employmentTableService.selectpost(page));
+        return map;
     }
 }
 

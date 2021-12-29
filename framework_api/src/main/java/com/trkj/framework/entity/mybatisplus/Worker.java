@@ -16,8 +16,8 @@ import lombok.experimental.Accessors;
  * 转正
  * </p>
  *
- * @author 劉祁
- * @since 2021-12-22
+ * @author suki
+ * @since 2021-12-29
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,10 +35,6 @@ public class Worker implements Serializable {
     @ApiModelProperty(value = "审批编号")
     @TableField("AUDITFLOW_ID")
     private Long auditflowId;
-
-    @ApiModelProperty(value = "员工编号")
-    @TableField("STAFF_ID")
-    private Long staffId;
 
     @ApiModelProperty(value = "员工名称")
     @TableField("STAFF_NAME")
