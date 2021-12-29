@@ -7,6 +7,7 @@ import com.trkj.framework.mybatisplus.service.RegisterLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,5 +46,60 @@ public class RegisterLogController {
         map1.put("info","服务发生雪崩");
         return map1;
     }
+
+    /**
+     * 多选删除
+     * @param list
+     * @return
+     */
+    @PostMapping("/checkDelete")
+    @HystrixCommand(fallbackMethod = "checkDeleteHystrix")
+    public Object checkDelete(@RequestBody ArrayList<Integer> list){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",registerLogService.checkDelete(list));
+        return map1;
+    }
+
+    /***
+     * 备选方案
+     * @param list
+     * @return
+     */
+    public Object checkDeleteHystrix(@RequestBody ArrayList<Integer> list){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /***
+     * 清空数据
+     * @return
+     */
+    @DeleteMapping("/emptyList")
+    @HystrixCommand(fallbackMethod = "emptyListHystrix")
+    public Object emptyList(){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",registerLogService.emptyList());
+        return map1;
+    }
+
+    /**
+     * 备选方案
+     * @return
+     */
+    public Object emptyListHystrix(){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
 }
 

@@ -11,7 +11,7 @@ import java.util.Date;
 
 /**
  * <p>
- * 审批主表
+ * 审批vo
  * </p>
  *
  * @author 劉祁
@@ -36,9 +36,13 @@ public class Auditflowone implements Serializable {
     @TableField("STAFF_NAME")
     private String staffName1;
 
+    @ApiModelProperty(value = "审核状态")
+    @TableField("AUDITFLOWDETAI_STATE")
+    private Long auditflowdetaiState;
+
     @ApiModelProperty(value = "申请状态")
     @TableField("AUDITFLOW_STATE")
-    private Long auditflowState;
+    private Long auditflowstate;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")
@@ -48,8 +52,15 @@ public class Auditflowone implements Serializable {
     @TableField("STAFF_NAME")
     private String staffName2;
 
-
     @ApiModelProperty(value = "修改时间")
     @TableField("UPDATED_TIME")
     private Date updatedTime;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 }

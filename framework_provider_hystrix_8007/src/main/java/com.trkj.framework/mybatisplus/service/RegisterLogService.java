@@ -1,10 +1,9 @@
 package com.trkj.framework.mybatisplus.service;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
+
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -21,4 +20,18 @@ public interface RegisterLogService {
      * @return
      */
     IPage<RegisterLog> selectRegisterLogAll( RegisterLog registerLog);
+
+    /***
+     * 多选删除
+     * @param list
+     * @return
+     */
+    String checkDelete(ArrayList<Integer> list);
+
+    /**
+     * 清空数据
+     * @return
+     */
+    String emptyList();
+
 }
