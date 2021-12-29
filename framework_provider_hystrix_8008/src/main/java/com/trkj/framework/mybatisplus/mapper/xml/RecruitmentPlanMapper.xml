@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.RecruitmentPlanMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.RecruitmentPlan">
+        <id column="RECRUITMENT_PLAN_ID" property="recruitmentPlanId" />
+        <result column="DEPT_ID" property="deptId" />
+        <result column="DEPT_POST_ID" property="deptPostId" />
+        <result column="EDUCATION_NAME" property="educationName" />
+        <result column="RECRUITMENT_PLAN_NUMBER" property="recruitmentPlanNumber" />
+        <result column="RECRUITMENT_PLAN_START_TIME" property="recruitmentPlanStartTime" />
+        <result column="RECRUITMENT_PLAN_END_TIME" property="recruitmentPlanEndTime" />
+        <result column="RECRUITMENT_PLAN_SALARY_ID" property="recruitmentPlanSalaryId" />
+        <result column="RECRUITMENT_ZT" property="recruitmentZt" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="REVISION" property="revision" />
+        <result column="IS_DELETED" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        RECRUITMENT_PLAN_ID, DEPT_ID, DEPT_POST_ID, EDUCATION_NAME, RECRUITMENT_PLAN_NUMBER, RECRUITMENT_PLAN_START_TIME, RECRUITMENT_PLAN_END_TIME, RECRUITMENT_PLAN_SALARY_ID, RECRUITMENT_ZT, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
+    </sql>
+
+</mapper>

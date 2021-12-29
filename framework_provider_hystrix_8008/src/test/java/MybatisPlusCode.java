@@ -21,7 +21,7 @@
 //         //代码输出目录
 //         globalConfig.setOutputDir(property + "/framework_provider_hystrix_8008/src/main/java/");
 //         /*生成作者的信息*/
-//         globalConfig.setAuthor("劉祁");
+//         globalConfig.setAuthor("suki");
 //         //是否打开资源管理器
 //         globalConfig.setOpen(false);
 //         //是否覆盖原来生成的文件
@@ -74,7 +74,7 @@
 //         //4、策略配置
 //         StrategyConfig strategyConfig = new StrategyConfig();
 //         //数据库表名
-//         strategyConfig.setInclude("DEPT");
+//         strategyConfig.setInclude("WORK_EXPERIENCE");
 //         //包的命名规则
 //         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
 //         //列的名字

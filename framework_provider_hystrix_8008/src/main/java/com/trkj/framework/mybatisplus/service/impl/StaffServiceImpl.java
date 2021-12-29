@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 员工表 服务实现类
  * </p>
  *
- * @author 陈豆
- * @since 2021-12-22
+ * @author suki
+ * @since 2021-12-29
  */
 @Service
 public class StaffServiceImpl extends ServiceImpl<StaffMapper, Staff> implements StaffService {
