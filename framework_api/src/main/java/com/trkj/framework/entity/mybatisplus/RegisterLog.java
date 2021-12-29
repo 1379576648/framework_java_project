@@ -2,6 +2,7 @@ package com.trkj.framework.entity.mybatisplus;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -77,6 +78,7 @@ public class RegisterLog implements Serializable {
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除 0:未删 1:已删")
+    @TableLogic
     @TableField(value = "IS_DELETED")
     private Long isDeleted;
 

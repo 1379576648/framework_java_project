@@ -7,6 +7,7 @@ import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +22,22 @@ public class RegisterLogClinetServiceFallbackfactory implements FallbackFactory 
         return new RegisterLogClinetService() {
             @Override
             public AjaxResponse selectRegisterLogAll( @RequestBody  RegisterLog registerLog) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object checkDelete(@RequestBody  ArrayList<Integer> list) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object emptyList() {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
