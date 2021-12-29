@@ -8,7 +8,22 @@ import org.springframework.web.bind.annotation.RequestParam;
 @FeignClient(value = "REGISTER-8008/provider", fallbackFactory = HireClientServiceFallbackfactory.class)
 public interface HireClientService {
 
+    /**
+     * 查询已录用待入职的员工
+     */
     @GetMapping("/selectpage")
     Object selecthirepage(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize);
+
+    /**
+     * 查询已经淘汰的员工
+     */
+    @GetMapping("/selectabandon")
+    Object selectabandon(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize);
+
+    /**
+     * 查询工作经历
+     */
+    @GetMapping("/selectwork")
+    Object selectwork(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize);
 }
 
