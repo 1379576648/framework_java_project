@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
+import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
 
 import java.util.HashMap;
@@ -31,9 +32,9 @@ public interface AuditflowService {
      * @return
      */
     IPage<Auditflowone> selectEnddAuditflow(Auditflowone auditflowone);
-    //
-    // /**
-    //  * 根据审批类型的加班/审批人查询已处理的详情信息
-    //  */
-    // List<Auditflowone> selectDetailsAuditflow(HashMap<String, Object> map);
+
+    /**
+     * 根据审批类型的加班/审批人查询已处理的详情信息
+     */
+    List<AuditflowDetailsVo> selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo);
 }
