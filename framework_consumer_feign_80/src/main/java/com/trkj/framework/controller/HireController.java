@@ -12,14 +12,29 @@ public class HireController {
     private HireClientService hireClientService =null;
 
     /**
-     *
-     * @param currentPage
-     * @param pagesize
-     * @return
+     * 查询已录用待入职的员工
      */
     @GetMapping("/selectpage")
     public Object selecthirepage(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize) {
         return hireClientService.selecthirepage(currentPage,pagesize);
+    }
+
+    /**
+     * 查询已经淘汰的员工
+     */
+
+    @GetMapping("/selectabandon")
+    public Object selectabandon(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
+        return hireClientService.selectabandon(currentPage,pagesize);
+
+    }
+
+    /**
+     * 查询工作经历
+     */
+    @GetMapping("/selectwork")
+    public Object selectwork(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
+        return hireClientService.selectwork(currentPage,pagesize);
     }
 
 

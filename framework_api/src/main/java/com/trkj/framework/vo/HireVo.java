@@ -61,9 +61,13 @@ public class HireVo {
     @TableField("RESUME_POLITICAL_OUTLOOK")
     private String resumePoliticalOutlook;
 
-    @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
-    private Date createdTime;
+    @ApiModelProperty(value = "入职日期")
+    @TableField("HIREDATE")
+    private Date hiredate;
+
+    @ApiModelProperty(value = "放弃原因")
+    @TableField("WAIVE_REASON")
+    private String waiveReason;
 
     @ApiModelProperty(value = "部门名称")
     @TableField("DEPT_NAME")
