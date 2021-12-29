@@ -98,7 +98,7 @@ public class RegisterLog implements Serializable {
     @TableField(exist = false)
     private Integer currenPage;
 
-    @ApiModelProperty(value = "当前页")
+    @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
     private Integer pageSize;
 

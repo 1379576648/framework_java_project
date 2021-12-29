@@ -1,8 +1,9 @@
 package com.trkj.framework.service.client.system;
 
+import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 
-import com.trkj.framework.service.client.fallbackfactory.RegisterLogClinetServiceFallbackfactory;
+import com.trkj.framework.service.client.fallbackfactory.SystemClinetServiceFallbackfactory;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,13 +11,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * @author 13795
  */
-@FeignClient(value = "REGISTER-8007/provider", fallbackFactory = RegisterLogClinetServiceFallbackfactory.class)
-public interface RegisterLogClinetService {
+@FeignClient(value = "REGISTER-8007/provider", fallbackFactory = SystemClinetServiceFallbackfactory.class)
+public interface SystemClinetService {
     /***
      *  登录日志分页查询
      * @param registerLog
@@ -39,4 +39,12 @@ public interface RegisterLogClinetService {
      */
     @DeleteMapping("/emptyList")
     public Object emptyList();
+
+    /***
+     *分页查询所有公告数据
+     * @param notice
+     * @return
+     */
+    @PostMapping("/selectNoticeAll")
+    public Object selectNoticeAll(@RequestBody Notice notice);
 }

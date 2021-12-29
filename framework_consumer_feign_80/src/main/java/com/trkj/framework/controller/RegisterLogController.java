@@ -1,14 +1,12 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
-import com.trkj.framework.service.client.system.RegisterLogClinetService;
+import com.trkj.framework.service.client.system.SystemClinetService;
 import com.trkj.framework.vo.AjaxResponse;
-import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * @author 13795
@@ -16,7 +14,7 @@ import java.util.Map;
 @RestController
 public class RegisterLogController {
     @Autowired
-    private RegisterLogClinetService registerLogClinetService=null;
+    private SystemClinetService systemClinetService =null;
 
     /***
      * 登录日志分页查询
@@ -25,7 +23,7 @@ public class RegisterLogController {
      */
     @PostMapping("/selectRegisterLogAll")
     public AjaxResponse selectRegisterLogAll( @RequestBody  RegisterLog registerLog){
-        return AjaxResponse.success(registerLogClinetService.selectRegisterLogAll(registerLog)) ;
+        return AjaxResponse.success(systemClinetService.selectRegisterLogAll(registerLog)) ;
     }
 
     /***
@@ -35,7 +33,7 @@ public class RegisterLogController {
      */
     @PostMapping("/checkDelete")
     public AjaxResponse checkDelete(@RequestBody ArrayList<Integer> list){
-        return AjaxResponse.success(registerLogClinetService.checkDelete(list));
+        return AjaxResponse.success(systemClinetService.checkDelete(list));
     }
 
     /**
@@ -44,6 +42,6 @@ public class RegisterLogController {
      */
     @DeleteMapping("/emptyList")
     public AjaxResponse emptyList(){
-        return AjaxResponse.success(registerLogClinetService.emptyList());
+        return AjaxResponse.success(systemClinetService.emptyList());
     }
  }
