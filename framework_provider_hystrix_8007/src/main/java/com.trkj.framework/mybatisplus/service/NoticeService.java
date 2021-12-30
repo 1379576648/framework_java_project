@@ -3,6 +3,8 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Notice;
 
+import java.util.ArrayList;
+
 /**
  * <p>
  * 公告表 服务类
@@ -19,4 +21,10 @@ public interface NoticeService  {
      */
     IPage<Notice> selectNoticeAll(Notice registerLog);
 
+    /***
+     * 多选删除
+     * @param list
+     * @return
+     */
+     String checkNoticeDelete(ArrayList<Integer> list);
 }

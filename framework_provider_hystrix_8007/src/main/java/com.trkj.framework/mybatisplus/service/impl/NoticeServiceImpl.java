@@ -4,10 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Notice;
+import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.mybatisplus.mapper.NoticeMapper;
 import com.trkj.framework.mybatisplus.service.NoticeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
 
 /**
  * <p>
@@ -51,5 +55,16 @@ public class NoticeServiceImpl implements NoticeService {
         //逻辑删除查询
         queryWrapper.eq("IS_DELETED",0);
         return noticeMapper.selectNoticeAll(page,queryWrapper);
+    }
+
+    @Override
+    @Transactional
+    public String checkNoticeDelete(ArrayList<Integer> list) {
+        for (int i = 0; i <list.size() ; i++) {
+            if (noticeMapper.deleteById(list.get(i))<=0){
+                return "失败";
+            }
+        }
+        return "成功";
     }
 }

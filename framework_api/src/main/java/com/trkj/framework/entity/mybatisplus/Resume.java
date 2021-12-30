@@ -5,6 +5,8 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -16,8 +18,8 @@ import lombok.experimental.Accessors;
  * 简历表
  * </p>
  *
- * @author suki
- * @since 2021-12-29
+ * @author 劉祁
+ * @since 2021-12-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)

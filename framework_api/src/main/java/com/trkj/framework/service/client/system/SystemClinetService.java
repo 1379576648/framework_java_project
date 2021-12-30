@@ -26,18 +26,18 @@ public interface SystemClinetService {
     public Object selectRegisterLogAll(@RequestBody  RegisterLog registerLog);
 
     /***
-     * 复选删除
+     * 登录日志复选删除
      * @param list
      * @return
      */
-    @PostMapping("/checkDelete")
+    @DeleteMapping("/checkRegisterLogDelete")
     public Object checkDelete(@RequestBody ArrayList<Integer> list);
 
     /***
-     * 清空数据
+     * 登录日志清空数据
      * @return
      */
-    @DeleteMapping("/emptyList")
+    @DeleteMapping("/emptyRegisterLogList")
     public Object emptyList();
 
     /***
@@ -47,4 +47,12 @@ public interface SystemClinetService {
      */
     @PostMapping("/selectNoticeAll")
     public Object selectNoticeAll(@RequestBody Notice notice);
+
+    /***
+     * 公告复选删除
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/checkNoticeDelete")
+    public Object checkNoticeDelete(@RequestBody ArrayList<Integer> list);
 }
