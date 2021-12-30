@@ -36,6 +36,9 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(objectMap);
             }
 
+            /**
+             *查询工作经历
+             */
             @Override
             public Object selectwork(int currentPage, int pagesize) {
                 Map<String, Object> objectMap = new HashMap<>();
@@ -43,6 +46,18 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
                     }
-                };
-        }
+
+            /**
+             * 查询转正记录
+             */
+            @Override
+            public Object selectpost(int currentPage, int pagesize) {
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+        };
+    }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
+import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
 import org.apache.ibatis.annotations.Mapper;
@@ -60,6 +61,19 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
             "LEFT JOIN STAFF s " +
             "on w.STAFF_ID=s.STAFF_ID")
     IPage<WorkVo> selectwork(Page<WorkVo> page);
+
+    /**
+     * 查询转正记录
+     */
+    @Select("SELECT s.STAFF_ID,w.WORKER_ID,s.STAFF_NAME,s.STAFF_IDENTITY,s.STAFF_HIREDATE,d.DEPT_NAME,dp.POST_NAME " +
+            "FROM STAFF s " +
+            "LEFT JOIN WORKER w " +
+            "on s.WORKER_ID=w.WORKER_ID " +
+            "LEFT JOIN DEPT_POST dp " +
+            "on s.DEPT_POST_ID=dp.DEPT_POST_ID " +
+            "LEFT JOIN  DEPT d " +
+            "on w.DEPT_ID=d.DEPT_ID")
+    IPage<FullVo> selectpost(Page<FullVo> page);
 
 
 

@@ -25,5 +25,11 @@ public interface HireClientService {
      */
     @GetMapping("/selectwork")
     Object selectwork(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize);
+
+    /**
+     * 查询转正记录
+     */
+    @GetMapping("/selectpost")
+    Object selectpost(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize);
 }
 

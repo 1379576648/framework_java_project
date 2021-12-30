@@ -2,6 +2,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.AjaxResponse;
+import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
@@ -24,6 +25,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object selectEnddAuditflow(Auditflowone auditflowone) {
+                Map<String, Object> map=new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo) {
                 Map<String, Object> map=new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

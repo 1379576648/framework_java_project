@@ -16,8 +16,8 @@ import lombok.experimental.Accessors;
  * 招聘计划表
  * </p>
  *
- * @author suki
- * @since 2021-12-29
+ * @author 劉祁
+ * @since 2021-12-23
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -79,6 +79,10 @@ public class RecruitmentPlan implements Serializable {
     @ApiModelProperty(value = "逻辑删除;1表示删除，0 表示未删除")
     @TableField("IS_DELETED")
     private Long isDeleted;
+
+    @ApiModelProperty(value = "招聘计划名称")
+    @TableField("RECRUITMENT_PLAN_NAME")
+    private String recruitmentPlanName;
 
 
 }

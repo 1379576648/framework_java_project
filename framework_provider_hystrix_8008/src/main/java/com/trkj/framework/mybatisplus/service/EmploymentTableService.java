@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
 
@@ -29,5 +30,10 @@ public interface EmploymentTableService {
      * 查询工作经历
      */
     IPage<WorkVo> selectwork(Page<WorkVo> page);
+
+    /**
+     * 查询转正记录
+     */
+    IPage<FullVo> selectpost(Page<FullVo> page);
 
 }

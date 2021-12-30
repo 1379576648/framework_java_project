@@ -37,5 +37,14 @@ public class HireController {
         return hireClientService.selectwork(currentPage,pagesize);
     }
 
+    /**
+     * 查询转正记录
+     */
+
+    @GetMapping("/selectpost")
+    public Object selectpost(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
+        return hireClientService.selectpost(currentPage,pagesize);
+
+    }
 
 }

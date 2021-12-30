@@ -1,16 +1,12 @@
 package com.trkj.framework.mybatisplus.controller;
 
-
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
+import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 /**
@@ -68,25 +64,25 @@ public class AuditflowController {
         return map1;
     }
 
-    // // 根据审批类型的加班/审批人查询已处理的详情信息
-    // @GetMapping("/selectDetailsAuditflow")
-    // public Auditflowone selectDetailsAuditflow(int id,String name1,String name2) {
-    //     HashMap<String, Object> map = new HashMap<>();
-    //     map.put("id", id);
-    //     map.put("name1", name1);
-    //     map.put("name2", name2);
-    //     List<Auditflowone> users = auditflowService.selectDetailsAuditflow(map);
-    //     return null;
-    // }
-
-    // // 备选方案
-    // public Object HystixGet2(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize){
-    //     Page<Auditflowone> page = new Page<>(currentPage, pagesize);
-    //     Map<String, Object> map=new HashMap<String, Object>();
-    //     map.put("state",500);
-    //     map.put("succeed","服务发生雪崩");
-    //     return page;
-    // }
+    // 根据审批类型的加班/审批人查询已处理的详情信息
+    @PostMapping("/selectDetailsAuditflow")
+    @HystrixCommand(fallbackMethod = "HystixGet3")
+    public Object selectDetailsAuditflow(@RequestBody AuditflowDetailsVo auditflowDetailsVo) {
+        System.out.println("22222222222222222222222222222222222222222222222222");
+        System.out.println(auditflowDetailsVo);
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",auditflowService.selectDetailsAuditflow(auditflowDetailsVo));
+        return map1;
+    }
+    // 备选方案
+    public Object HystixGet3(@RequestBody AuditflowDetailsVo auditflowDetailsVo){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
 
 }
 
