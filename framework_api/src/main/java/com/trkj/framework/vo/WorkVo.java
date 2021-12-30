@@ -47,4 +47,12 @@ public class WorkVo {
     @ApiModelProperty(value = "工作描述")
     @TableField("POSITION_DESCRIBE")
     private String positionDescribe;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 }

@@ -34,4 +34,12 @@ public class FullVo {
     @ApiModelProperty(value = "转正日期")
     @TableField("WORKER_DATE")
     private Date workerDate;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 }
