@@ -46,7 +46,7 @@
         <orcle.verison>19.3.0.0</orcle.verison>
         <spring-cloud-version>Greenwich.SR1</spring-cloud-version>
         <logback-core.version>1.2.3</logback-core.version>
-        <mybatis-plus-boot-starter.version>3.0.5</mybatis-plus-boot-starter.version>
+        <mybatis-plus-boot-starter.version>3.1.1</mybatis-plus-boot-starter.version>
         <springfox-swagger.verison>2.7.0</springfox-swagger.verison>
         <velocity-engine-core.version>2.0</velocity-engine-core.version>
     </properties>

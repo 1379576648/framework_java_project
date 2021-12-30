@@ -1,6 +1,7 @@
 package com.trkj.framework;
 
 import com.netflix.hystrix.contrib.metrics.eventstream.HystrixMetricsStreamServlet;
+import org.apache.ibatis.annotations.Mapper;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -25,6 +26,7 @@ import org.springframework.context.annotation.Bean;
 添加对熔断的支持
  */
 @EnableCircuitBreaker
+/*@Mapper("com.trkj.framework.mybatisplus.mapper")*/
 public class ProviderHystrix8010 {
     public static void main(String[] args) {
         SpringApplication.run(ProviderHystrix8010.class, args);
