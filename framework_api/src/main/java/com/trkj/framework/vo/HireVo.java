@@ -2,6 +2,7 @@ package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -31,6 +32,7 @@ public class HireVo {
     @TableField("REMARKS")
     private String remarks;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField("HIREDATE")
     private Date hiredate;
 
@@ -65,6 +67,7 @@ public class HireVo {
     @TableField("RESUME_INTRODUCE")
     private String resumeIntroduce;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("RESUME_BIRTHDAY")
     private Date resumeBirthday;
@@ -86,6 +89,7 @@ public class HireVo {
     @TableField("INVITE_STATE")
     private String inviteState;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "投简时间")
     @TableField("TOUJ_TIME")
     private Date toujTime;
@@ -122,10 +126,12 @@ public class HireVo {
     @TableField("RECRUITMENT_PLAN_NUMBER")
     private Long recruitmentPlanNumber;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("RECRUITMENT_PLAN_START_TIME")
     private Date recruitmentPlanStartTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("RECRUITMENT_PLAN_END_TIME")
     private Date recruitmentPlanEndTime;
@@ -138,10 +144,12 @@ public class HireVo {
     @TableField("RECRUITMENT_ZT")
     private Long recruitmentZt;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")
     private Date createdTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
     @TableField("UPDATED_TIME")
     private Date updatedTime;

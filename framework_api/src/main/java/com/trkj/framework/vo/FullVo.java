@@ -1,6 +1,7 @@
 package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -27,10 +28,12 @@ public class FullVo {
     @TableField("POST_NAME")
     private String postName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "入职日期")
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "转正日期")
     @TableField("WORKER_DATE")
     private Date workerDate;
