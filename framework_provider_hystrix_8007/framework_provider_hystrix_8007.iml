@@ -7,7 +7,11 @@
           <map>
             <entry key="com.zeroturnaround.jrebel.FormatVersion" value="7.0.0" />
             <entry key="jrebelEnabled" value="true" />
+<<<<<<<< HEAD:framework_api/framework_api.iml
             <entry key="lastExternalPluginCheckTime" value="1640264710682" />
+========
+            <entry key="lastExternalPluginCheckTime" value="1640306128184" />
+>>>>>>>> 6f29b6027c3259e2bf719b643b70a7c86c3968a5:framework_provider_hystrix_8007/framework_provider_hystrix_8007.iml
           </map>
         </option>
         <option name="version" value="3" />

@@ -11,8 +11,8 @@ import org.springframework.stereotype.Service;
  * 转正 服务实现类
  * </p>
  *
- * @author 陈豆
- * @since 2021-12-22
+ * @author suki
+ * @since 2021-12-29
  */
 @Service
 public class WorkerServiceImpl extends ServiceImpl<WorkerMapper, Worker> implements WorkerService {

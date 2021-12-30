@@ -6,7 +6,6 @@
     <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.Worker">
         <id column="WORKER_ID" property="workerId" />
         <result column="AUDITFLOW_ID" property="auditflowId" />
-        <result column="STAFF_ID" property="staffId" />
         <result column="STAFF_NAME" property="staffName" />
         <result column="DEPT_ID" property="deptId" />
         <result column="WORKER_TYPE" property="workerType" />
@@ -21,7 +20,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        WORKER_ID, AUDITFLOW_ID, STAFF_ID, STAFF_NAME, DEPT_ID, WORKER_TYPE, WORKER_REMARKS, WORKER_STATE, WORKER_DATE, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
+        WORKER_ID, AUDITFLOW_ID, STAFF_NAME, DEPT_ID, WORKER_TYPE, WORKER_REMARKS, WORKER_STATE, WORKER_DATE, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
     </sql>
 
 </mapper>

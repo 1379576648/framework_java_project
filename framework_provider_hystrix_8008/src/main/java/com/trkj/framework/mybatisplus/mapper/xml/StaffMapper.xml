@@ -30,15 +30,17 @@
         <result column="STAFF_REGISTERED" property="staffRegistered" />
         <result column="STAFF_SCHOOL" property="staffSchool" />
         <result column="STAFF_ADDRESS" property="staffAddress" />
+        <result column="STAFF_STATE" property="staffState" />
         <result column="CREATED_TIME" property="createdTime" />
         <result column="UPDATED_TIME" property="updatedTime" />
         <result column="IS_DELETED" property="isDeleted" />
         <result column="REVISION" property="revision" />
+        <result column="POST_ID" property="postId" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        STAFF_ID, STAFF_NAME, STAFF_SEX, STAFF_PHONE, STAFF_EMAIL, STAFF_PICTURE, STAFF_BIRTHDAY, STAFF_OUTLOOK, STAFF_EDUCATION, DEPT_POST_ID, STAFF_PASS, STAFF_HIREDATE, WORKER_ID, STAFF_IDENTITY, DEPT_ID, STAFF_MAJOR, STAFF_EMERGENCY, STAFF_WECHAT, STAFF_QQ, STAFF_CREDIT, STAFF_BLOOD, STAFF_SIGN, STAFF_MARITAL, STAFF_REGISTERED, STAFF_SCHOOL, STAFF_ADDRESS, CREATED_TIME, UPDATED_TIME, IS_DELETED, REVISION
+        STAFF_ID, STAFF_NAME, STAFF_SEX, STAFF_PHONE, STAFF_EMAIL, STAFF_PICTURE, STAFF_BIRTHDAY, STAFF_OUTLOOK, STAFF_EDUCATION, DEPT_POST_ID, STAFF_PASS, STAFF_HIREDATE, WORKER_ID, STAFF_IDENTITY, DEPT_ID, STAFF_MAJOR, STAFF_EMERGENCY, STAFF_WECHAT, STAFF_QQ, STAFF_CREDIT, STAFF_BLOOD, STAFF_SIGN, STAFF_MARITAL, STAFF_REGISTERED, STAFF_SCHOOL, STAFF_ADDRESS, STAFF_STATE, CREATED_TIME, UPDATED_TIME, IS_DELETED, REVISION, POST_ID
     </sql>
 
 </mapper>
