@@ -6,6 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.mybatisplus.mapper.AuditflowMapper;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
+import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -66,8 +67,15 @@ public class AuditflowServiceImpl implements AuditflowService {
         return auditflowMapper.selectEnddAuditflow(page, queryWrapper);
     }
 
-    // @Override
-    // public List<Auditflowone> selectDetailsAuditflow(HashMap<String, Object> map) {
-    //     return auditflowMapper.selectDetailsAuditflow(map);
-    // }
+    @Override
+    public List<AuditflowDetailsVo> selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo) {
+        QueryWrapper<AuditflowDetailsVo> queryWrapper = new QueryWrapper<>();
+        // queryWrapper.eq("b.STAFF_NAME", "部门经理");
+        // queryWrapper.eq("a.AUDITFLOW_ID",1);
+        // queryWrapper.eq("o.STAFF_NAME","小明");
+        queryWrapper.eq("b.STAFF_NAME",auditflowDetailsVo.getStaffName2() );
+        queryWrapper.eq("a.AUDITFLOW_ID",auditflowDetailsVo.getAuditflowId());
+        queryWrapper.eq("o.STAFF_NAME",auditflowDetailsVo.getStaffName1());
+        return auditflowMapper.selectDetailsAuditflow(queryWrapper);
+    }
 }
