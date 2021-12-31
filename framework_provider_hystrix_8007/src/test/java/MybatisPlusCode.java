@@ -56,7 +56,7 @@
 //         //3.包的配置
 //         PackageConfig packageConfig = new PackageConfig();
 //         //模块名
-//         packageConfig.setModuleName("mybatisplus");
+//         packageConfig.setModuleName("mybatisplu1s");
 //         //放在哪一个包下
 //         packageConfig.setParent("com.trkj.framework");
 //         //实体类的名字
@@ -74,7 +74,7 @@
 //         //4、策略配置
 //         StrategyConfig strategyConfig = new StrategyConfig();
 //         //数据库表名
-//         strategyConfig.setInclude("NOTICE");
+//         strategyConfig.setInclude("NOTICE_STAFF");
 //         //包的命名规则
 //         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
 //         //列的名字

@@ -131,9 +131,9 @@ public class Staff implements Serializable {
     @TableField("STAFF_ADDRESS")
     private String staffAddress;
 
-    @ApiModelProperty(value = "员工状态")
-    @TableField("STAFF_STATE")
-    private Long staffState;
+//    @ApiModelProperty(value = "员工状态")
+//    @TableField("STAFF_STATE")
+//    private Long staffState;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")

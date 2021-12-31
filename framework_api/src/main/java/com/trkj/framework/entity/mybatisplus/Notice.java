@@ -9,7 +9,9 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -34,7 +36,7 @@ public class Notice implements Serializable {
 
     @ApiModelProperty(value = "公告编号")
     @TableId("NOTICE_ID")
-    private Long noticeId;
+    private Integer noticeId;
 
     @ApiModelProperty(value = "员工编号")
     @TableField("STAFF_ID")
@@ -102,4 +104,11 @@ public class Notice implements Serializable {
     private Integer pageSize;
 
 
+    @ApiModelProperty(value = "部门职位编号")
+    @TableField(exist = false)
+    private Integer deptPostId;
+
+    @ApiModelProperty(value = "部门编号集合")
+    @TableField(exist = false)
+    private ArrayList<String> deptNameList;
 }

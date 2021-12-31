@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author 13795
  */
 @RestController
+@RequestMapping("/registerLog")
 public class RegisterLogController {
     @Autowired
     private SystemClinetService systemClinetService =null;
