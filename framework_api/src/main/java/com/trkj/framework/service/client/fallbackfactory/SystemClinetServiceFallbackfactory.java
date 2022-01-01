@@ -7,6 +7,7 @@ import com.trkj.framework.vo.AjaxResponse;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -87,6 +88,22 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object updateNotice(Notice notice) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object peropleNoticeViewed(Integer id) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object unseenNoticePerson(Integer id) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");

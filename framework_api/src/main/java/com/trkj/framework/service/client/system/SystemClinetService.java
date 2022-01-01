@@ -86,4 +86,21 @@ public interface SystemClinetService {
      */
     @PutMapping("/updateNotice")
     public Object updateNotice(@RequestBody Notice notice);
+
+
+    /***
+     * 已看公告人员
+     * @param id
+     * @return
+     */
+    @GetMapping("/peropleNoticeViewed")
+    public Object peropleNoticeViewed (@RequestParam("id") Integer id);
+
+    /***
+     * 未看公告人员
+     * @param id
+     * @return
+     */
+    @GetMapping("/unseenNoticePerson")
+    public Object unseenNoticePerson (@RequestParam("id") Integer id);
 }

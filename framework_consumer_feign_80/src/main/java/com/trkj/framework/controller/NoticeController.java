@@ -80,4 +80,24 @@ public class NoticeController {
     public AjaxResponse updateNotice(@RequestBody Notice notice){
        return AjaxResponse.success(systemClinetService.updateNotice(notice));
     }
+
+    /***
+     * 已看公告人员
+     * @param id
+     * @return
+     */
+    @GetMapping("/peropleNoticeViewed")
+    public AjaxResponse peropleNoticeViewed(@RequestParam("id") Integer id){
+        return AjaxResponse.success(systemClinetService.peropleNoticeViewed(id));
+    }
+
+    /**
+     * 未看公告人员
+     * @param id
+     * @return
+     */
+    @GetMapping("/unseenNoticePerson")
+    public AjaxResponse unseenNoticePerson(@RequestParam("id") Integer id){
+        return AjaxResponse.success(systemClinetService.unseenNoticePerson(id));
+    }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.DeptPost;
 import com.trkj.framework.entity.mybatisplus.Notice;
+import com.trkj.framework.entity.mybatisplus.Staff;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -58,4 +59,19 @@ public interface NoticeService  {
      * @return
      */
      String updateNotice(Notice notice);
+
+
+    /***
+     * 已看公告人员
+     * @param integer
+     * @return
+     */
+     List<Staff> peropleNoticeViewed(Integer integer);
+
+    /***
+     * 未看公告人员
+     * @param integer
+     * @return
+     */
+     List<Staff> unseenNoticePerson(Integer integer);
 }

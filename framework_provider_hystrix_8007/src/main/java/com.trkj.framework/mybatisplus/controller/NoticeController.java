@@ -6,6 +6,7 @@ import com.sun.corba.se.spi.ior.ObjectKey;
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.mybatisplus.service.NoticeService;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -157,6 +158,51 @@ public class NoticeController {
     }
     //备选方案
     public Object updateNoticeHystrix(@RequestBody Notice notice){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /***
+     * 已看公告人员
+     * @param id
+     * @return
+     */
+    @GetMapping("/peropleNoticeViewed")
+    @HystrixCommand(fallbackMethod = "peropleNoticeViewedHystrix")
+    public Object peropleNoticeViewed(@RequestParam("id") Integer id){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",noticeService.peropleNoticeViewed(id));
+        return map1;
+    }
+    //备选方案
+    public Object peropleNoticeViewedHystrix(@RequestParam("id") Integer id){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+    /***
+     * 未看公告人员
+     * @param id
+     * @return
+     */
+    @GetMapping("/unseenNoticePerson")
+    @HystrixCommand(fallbackMethod = "unseenNoticePersonHystrix")
+    public Object unseenNoticePerson(@RequestParam("id") Integer id){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",noticeService.unseenNoticePerson(id));
+        return map1;
+    }
+    //备选方案
+    public Object unseenNoticePersonHystrix(@RequestParam("id") Integer id){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
