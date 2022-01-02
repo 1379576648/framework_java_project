@@ -94,12 +94,7 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.51</version>
         </dependency>
-        <!--获取浏览器名称-->
-        <dependency>
-            <groupId>eu.bitwalker</groupId>
-            <artifactId>UserAgentUtils</artifactId>
-            <version>1.20</version>
-        </dependency>
+
     </dependencies>
 
 </project>

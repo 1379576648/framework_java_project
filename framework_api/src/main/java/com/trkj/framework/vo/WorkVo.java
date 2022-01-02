@@ -2,6 +2,7 @@ package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -20,10 +21,12 @@ public class WorkVo {
     @TableId("WORK_EXPERIENCE_ID")
     private Long workExperienceId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("WORK_STARE_TIME")
     private Date workStareTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("WORK_END_TIME")
     private Date workEndTime;
@@ -47,4 +50,12 @@ public class WorkVo {
     @ApiModelProperty(value = "工作描述")
     @TableField("POSITION_DESCRIBE")
     private String positionDescribe;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 }

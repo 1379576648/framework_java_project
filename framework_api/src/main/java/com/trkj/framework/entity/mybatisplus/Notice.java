@@ -1,8 +1,7 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -10,7 +9,9 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -25,13 +26,17 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("NOTICE")
 @ApiModel(value="Notice对象", description="公告表")
+/***
+ * value=自增序列名 clazz=实体类的数据类型
+ */
+@KeySequence(value = "NOTICE_ID",clazz = Integer.class)
 public class Notice implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "公告编号")
     @TableId("NOTICE_ID")
-    private Long noticeId;
+    private Integer noticeId;
 
     @ApiModelProperty(value = "员工编号")
     @TableField("STAFF_ID")
@@ -62,18 +67,22 @@ public class Notice implements Serializable {
     private String noticeMatter;
 
     @ApiModelProperty(value = "创建时间 精确到秒")
-    @TableField("CREATED_TIME")
+    @TableField(value = "CREATED_TIME" ,fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间 精确到秒")
-    @TableField("UPDATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
+    @Version
     @TableField("REVISION")
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")
+    @TableLogic
     @TableField("IS_DELETED")
     private Long isDeleted;
 
@@ -95,4 +104,11 @@ public class Notice implements Serializable {
     private Integer pageSize;
 
 
+    @ApiModelProperty(value = "部门职位编号")
+    @TableField(exist = false)
+    private Integer deptPostId;
+
+    @ApiModelProperty(value = "部门编号集合")
+    @TableField(exist = false)
+    private ArrayList<String> deptNameList;
 }

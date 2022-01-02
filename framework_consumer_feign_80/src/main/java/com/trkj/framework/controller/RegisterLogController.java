@@ -12,6 +12,7 @@ import java.util.ArrayList;
  * @author 13795
  */
 @RestController
+@RequestMapping("/registerLog")
 public class RegisterLogController {
     @Autowired
     private SystemClinetService systemClinetService =null;
@@ -31,7 +32,7 @@ public class RegisterLogController {
      * @param list
      * @return
      */
-    @PostMapping("/checkDelete")
+    @DeleteMapping("/checkRegisterLogDelete")
     public AjaxResponse checkDelete(@RequestBody ArrayList<Integer> list){
         return AjaxResponse.success(systemClinetService.checkDelete(list));
     }
@@ -40,7 +41,7 @@ public class RegisterLogController {
      * 清空数据
      * @return
      */
-    @DeleteMapping("/emptyList")
+    @DeleteMapping("/emptyRegisterLogList")
     public AjaxResponse emptyList(){
         return AjaxResponse.success(systemClinetService.emptyList());
     }

@@ -1,10 +1,13 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.service.client.hire.HireClientService;
+import com.trkj.framework.vo.AjaxResponse;
+import com.trkj.framework.vo.FullVo;
+import com.trkj.framework.vo.HireVo;
+import com.trkj.framework.vo.WorkVo;
+import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class HireController {
@@ -14,36 +17,36 @@ public class HireController {
     /**
      * 查询已录用待入职的员工
      */
-    @GetMapping("/selectpage")
-    public Object selecthirepage(@RequestParam("currentPage") int currentPage, @RequestParam("pagesize") int pagesize) {
-        return hireClientService.selecthirepage(currentPage,pagesize);
+    @PostMapping("/selectpage")
+    public AjaxResponse selecthirepage(@RequestBody HireVo hireVo) {
+        return AjaxResponse.success(hireClientService.selecthirepage(hireVo));
     }
 
     /**
      * 查询已经淘汰的员工
      */
 
-    @GetMapping("/selectabandon")
-    public Object selectabandon(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
-        return hireClientService.selectabandon(currentPage,pagesize);
+    @PostMapping("/selectabandon")
+    public AjaxResponse selectabandon(@RequestBody HireVo hireVo){
+        return AjaxResponse.success(hireClientService.selectabandon(hireVo));
 
     }
 
     /**
      * 查询工作经历
      */
-    @GetMapping("/selectwork")
-    public Object selectwork(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
-        return hireClientService.selectwork(currentPage,pagesize);
+    @PostMapping("/selectwork")
+    public Object selectwork(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectwork(workVo));
     }
 
     /**
-     * 查询转正记录
+     * 查询转正
      */
 
-    @GetMapping("/selectpost")
-    public Object selectpost(@RequestParam("currentPage") int currentPage,@RequestParam("pagesize") int pagesize){
-        return hireClientService.selectpost(currentPage,pagesize);
+    @PostMapping("/selectpost")
+    public Object selectpost(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.selectpost(fullVo));
 
     }
 
