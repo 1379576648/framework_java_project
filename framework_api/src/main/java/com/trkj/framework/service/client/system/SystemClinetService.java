@@ -6,9 +6,7 @@ import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.service.client.fallbackfactory.SystemClinetServiceFallbackfactory;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 
@@ -55,4 +53,54 @@ public interface SystemClinetService {
      */
     @DeleteMapping("/checkNoticeDelete")
     public Object checkNoticeDelete(@RequestBody ArrayList<Integer> list);
+
+    /***
+     * 查询所有的部门列表
+     * @return
+     */
+    @GetMapping("/selectDeptList")
+    public  Object selectDeptList();
+
+    /***
+     * 新增公告
+     * @param notice
+     * @return
+     */
+    @PostMapping("/insertNotice")
+    public Object insertNotice(@RequestBody Notice notice);
+
+
+    /***
+     * 查询当前公告绑定的部门
+     * @param id
+     * @return
+     */
+    @GetMapping("/selectPossessDeptList")
+    public Object selectPossessDeptList(@RequestParam("id") Integer id);
+
+
+    /***
+     * 修改公告
+     * @param notice
+     * @return
+     */
+    @PutMapping("/updateNotice")
+    public Object updateNotice(@RequestBody Notice notice);
+
+
+    /***
+     * 已看公告人员
+     * @param id
+     * @return
+     */
+    @GetMapping("/peropleNoticeViewed")
+    public Object peropleNoticeViewed (@RequestParam("id") Integer id);
+
+    /***
+     * 未看公告人员
+     * @param id
+     * @return
+     */
+    @GetMapping("/unseenNoticePerson")
+    public Object unseenNoticePerson (@RequestParam("id") Integer id);
 }

@@ -52,6 +52,8 @@ public class RegisterLogServiceImpl implements RegisterLogService {
         }
         //逻辑删除查询
         queryWrapper.eq("IS_DELETED",0);
+        //按照ID降序
+        queryWrapper.orderByDesc("REGISTER_LOG_ID");
         return registerLogMapper.selectRegisterLogAll(page,queryWrapper);
     }
 
