@@ -72,5 +72,12 @@ public class Auditflowdetail implements Serializable {
     @TableField("IS_DELETED")
     private Long isDeleted;
 
+    @ApiModelProperty(value = "审批流明细编号")
+    @TableField(exist = false)
+    private Long auditflowdetailId2;
+
+    @ApiModelProperty(value = "审批流明细编号")
+    @TableField(exist = false)
+    private Long auditflowdetailId3;
 
 }
