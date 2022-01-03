@@ -26,7 +26,7 @@ import java.util.List;
  * 审批主表 服务实现类
  * </p>
  *
- * @author 劉祁
+ * @author 里予
  * @since 2021-12-27
  */
 @Service
@@ -114,11 +114,11 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Transactional(rollbackFor = Exception.class)
     public int updateApprovalState(Auditflowdetail auditflowdetail) {
         final var i = auditflowdetailMapper.updateById(auditflowdetail);
-        if (i == 1) {
+        if (i >= 1) {
             final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
-            QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
-            final var i1 = auditflowdetailMapper.updateApprovalState(queryWrapper);
+            QueryWrapper<Auditflowdetail> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("auditflowdetail_Id", auditflowdetailId2);
+            final var i1 = auditflowdetailMapper.updateApprovalState(queryWrapper1);
             return i1;
         } else {
             return 999;
@@ -135,7 +135,7 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Transactional(rollbackFor = Exception.class)
     public int rejectApprovalState(Auditflowdetail auditflowdetail) {
         final var i = auditflowdetailMapper.updateById(auditflowdetail);
-        if (i == 1) {
+        if (i >= 1) {
             final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
             QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
@@ -147,9 +147,6 @@ public class AuditflowServiceImpl implements AuditflowService {
                 final var i2 = auditflowdetailMapper.rejectApprovalState2(queryWrapper1);
                 if (i2 == 1) {
                     final var auditflowId = auditflowdetail.getAuditflowId();
-                    System.out.println("1111111111111111111111111111111111111111111111111111111111111111111111");
-                    System.out.println(auditflowId);
-                    System.out.println("11111111111111111111111111111111111111111111111111111111111111111111111111");
                     QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
                     queryWrapper2.eq("auditflow_Id", auditflowId);
                     final var i3 = auditflowMapper.rejectApprovalState(queryWrapper2);

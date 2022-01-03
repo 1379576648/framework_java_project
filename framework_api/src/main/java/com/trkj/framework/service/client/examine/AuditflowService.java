@@ -68,4 +68,13 @@ public interface AuditflowService {
      */
     @PostMapping("/queryDetail")
     Object queryDetail(@RequestBody Auditflowdetail auditflowdetail);
+
+    /**
+     * 根据审批类型的请假/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectLeaveAll")
+    Object selectLeaveAll(@RequestBody Auditflowone auditflowone);
 }
