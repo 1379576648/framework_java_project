@@ -5,8 +5,10 @@ import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.LeaveDetailsVo;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,10 +17,10 @@ import java.util.Map;
 public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
     @Override
     public Object create(Throwable throwable) {
-        return new AuditflowService(){
+        return new AuditflowService() {
             @Override
             public Object selectAuditflowoneAll(Auditflowone auditflowone) {
-                Map<String, Object> map=new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
@@ -26,7 +28,7 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object selectEnddAuditflow(Auditflowone auditflowone) {
-                Map<String, Object> map=new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
@@ -34,7 +36,7 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo) {
-                Map<String, Object> map=new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
@@ -42,7 +44,7 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object updateApprovalState(Auditflowdetail auditflowdetail) {
-                Map<String, Object> map=new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
@@ -50,7 +52,7 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object rejectApprovalState(Auditflowdetail auditflowdetail) {
-                Map<String, Object> map=new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
@@ -58,7 +60,7 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object queryDetail(Auditflowdetail auditflowdetail) {
-                Map<String, Object> map=new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
@@ -66,12 +68,27 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object selectLeaveAll(Auditflowone auditflowone) {
-                Map<String, Object> map=new HashMap<String, Object>();
+                Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
             }
 
+            @Override
+            public Object selectEndLeaveAll(Auditflowone auditflowone) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectDetailsLeaves(LeaveDetailsVo leaveDetailsVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
         };
     }
 }

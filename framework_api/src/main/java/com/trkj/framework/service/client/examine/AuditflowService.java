@@ -7,6 +7,7 @@ import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFa
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.LeaveDetailsVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,4 +78,17 @@ public interface AuditflowService {
      */
     @PostMapping("/selectLeaveAll")
     Object selectLeaveAll(@RequestBody Auditflowone auditflowone);
+
+    @PostMapping("/selectEndLeaveAll")
+    Object selectEndLeaveAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的加班/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsLeaves")
+    Object selectDetailsLeaves(@RequestBody LeaveDetailsVo leaveDetailsVo);
+
 }
