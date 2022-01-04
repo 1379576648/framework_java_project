@@ -6,10 +6,10 @@
 -->
 <application generated-by="intellij" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://update.zeroturnaround.com/jrebel/rebel-2_3.xsd">
 
-	<id>招聘管理</id>
+	<id>framework_provider_hystrix_8009</id>
 
 	<classpath>
-		<dir name="D:/编程资料/编程项目/IDEA项目/Project/framework_project/framework_provider_hystrix_register_8007/target/classes">
+		<dir name="D:/project/framework_java_project/framework_provider_hystrix_8009/target/classes">
 		</dir>
 	</classpath>
 

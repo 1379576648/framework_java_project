@@ -40,7 +40,6 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         //根据姓名模糊查询
         if(hireVo.getResumeName()!=null){
             queryWrapper.like("r.RESUME_NAME",hireVo.getResumeName());
-            System.out.println(hireVo.getResumeName());
         }
         queryWrapper.eq("e.EMPLOYMENT_STATE", 0);
         return employmentTableMapper.selectpage(page, queryWrapper);

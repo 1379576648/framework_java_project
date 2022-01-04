@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
@@ -27,7 +28,7 @@ public interface AuditflowService {
     IPage<Auditflowone> selectAuditflowoneAll(Auditflowone auditflowone);
 
     /**
-     *  根据审批类型的加班/审批人查询待处理的审批
+     *  根据审批类型的加班/审批人查询已处理的审批
      * @param
      * @return
      */
@@ -35,6 +36,29 @@ public interface AuditflowService {
 
     /**
      * 根据审批类型的加班/审批人查询已处理的详情信息
+     * @param auditflowDetailsVo
+     * @return
      */
     List<AuditflowDetailsVo> selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo);
+
+    /**
+     * 根据审批明细表ID修改其状态 通过
+     * @param
+     * @return
+     */
+    int updateApprovalState(Auditflowdetail auditflowdetail);
+
+    /**
+     * 根据审批明细表ID修改其状态 驳回
+     * @param
+     * @return
+     */
+    int rejectApprovalState(Auditflowdetail auditflowdetail);
+
+    /**
+     *根据审批编号查询对应的审批明细表编号
+     * @param auditflowdetail
+     * @return
+     */
+    List<Auditflowdetail> queryDetail(Auditflowdetail auditflowdetail);
 }
