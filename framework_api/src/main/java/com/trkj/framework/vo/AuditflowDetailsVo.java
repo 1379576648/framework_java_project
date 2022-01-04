@@ -2,6 +2,7 @@ package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -30,9 +31,13 @@ public class AuditflowDetailsVo implements Serializable {
     @TableField("STAFF_NAME")
     private String staffName1;
 
-    @ApiModelProperty(value = "审核状态")
+    @ApiModelProperty(value = "当前审批状态")
     @TableField("AUDITFLOWDETAI_STATE")
     private Long auditflowdetaiState;
+
+    @ApiModelProperty(value = "审核状态")
+    @TableField("AUDITFLOW_STATE")
+    private Long auditflowstate;
 
     @ApiModelProperty(value = "审批人")
     @TableField("STAFF_NAME")
@@ -40,8 +45,9 @@ public class AuditflowDetailsVo implements Serializable {
 
     @ApiModelProperty(value = "审核备注")
     @TableField("AUDITFLOWDETAI_REMARKS")
-    private String auditflowdetai_remarks;
+    private String auditflowdetaiRemarks;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "审核时间")
     @TableField("AUDITFLOWDETAI_DATE")
     private Date auditflowdetaiDate;
@@ -58,10 +64,12 @@ public class AuditflowDetailsVo implements Serializable {
     @TableField("OVERTIMEASK_REMARKS")
     private String overtimeaskremarks;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "加班开始时间")
     @TableField("OVERTIMEASK_S_DATE")
     private Date overtimeaskSDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "加班结束时间")
     @TableField("OVERTIMEASK_S_DATE")
     private Date overtimeaskEDate;

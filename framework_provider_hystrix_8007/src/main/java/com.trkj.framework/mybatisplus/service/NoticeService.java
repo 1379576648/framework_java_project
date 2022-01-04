@@ -1,7 +1,13 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trkj.framework.entity.mybatisplus.Dept;
+import com.trkj.framework.entity.mybatisplus.DeptPost;
 import com.trkj.framework.entity.mybatisplus.Notice;
+import com.trkj.framework.entity.mybatisplus.Staff;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -19,4 +25,53 @@ public interface NoticeService  {
      */
     IPage<Notice> selectNoticeAll(Notice registerLog);
 
+    /***
+     * 多选删除
+     * @param list
+     * @return
+     */
+     String checkNoticeDelete(ArrayList<Integer> list);
+
+    /***
+     * 查询所有部门列表
+     * @return
+     */
+     List<Dept> selectDeptList();
+
+
+    /***
+     * 添加公告
+     * @param notice
+     * @return
+     */
+     String  insertNotice(Notice notice);
+
+    /***
+     * 查询当前公告绑定的部门
+     * @param integer
+     * @return
+     */
+     List<Dept> selectPossessDeptList(Integer integer);
+
+    /***
+     * 修改公告
+     * @param notice
+     * @return
+     */
+     String updateNotice(Notice notice);
+
+
+    /***
+     * 已看公告人员
+     * @param integer
+     * @return
+     */
+     List<Staff> peropleNoticeViewed(Integer integer);
+
+    /***
+     * 未看公告人员
+     * @param integer
+     * @return
+     */
+     List<Staff> unseenNoticePerson(Integer integer);
 }

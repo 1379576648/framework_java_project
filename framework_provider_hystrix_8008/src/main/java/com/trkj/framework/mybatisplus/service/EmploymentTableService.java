@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
@@ -16,24 +17,25 @@ import com.trkj.framework.vo.WorkVo;
  */
 
 public interface EmploymentTableService {
+
     /**
-     * 查询已录用待入职的员工
+     *  查询已录用待入职的员工
      */
-    IPage<HireVo> selectpage(Page<HireVo> page);
+    IPage<HireVo> selectpage(HireVo hireVo);
 
     /**
      * 查询已经淘汰的员工
      */
-    IPage<HireVo> selectabandon(Page<HireVo> page);
+    IPage<HireVo> selectabandon(HireVo hireVo);
 
     /**
      * 查询工作经历
      */
-    IPage<WorkVo> selectwork(Page<WorkVo> page);
+    IPage<WorkVo> selectwork(WorkVo workVo);
 
     /**
-     * 查询转正记录
+     * 查询转正
      */
-    IPage<FullVo> selectpost(Page<FullVo> page);
+    IPage<FullVo> selectpost(FullVo fullVo);
 
 }

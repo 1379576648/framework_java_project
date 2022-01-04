@@ -52,8 +52,8 @@ public class RegisterLogController {
      * @param list
      * @return
      */
-    @PostMapping("/checkDelete")
-    @HystrixCommand(fallbackMethod = "checkDeleteHystrix")
+    @DeleteMapping("/checkRegisterLogDelete")
+    @HystrixCommand(fallbackMethod = "checkRegisterLogDeleteHystrix")
     public Object checkDelete(@RequestBody ArrayList<Integer> list){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
@@ -68,7 +68,7 @@ public class RegisterLogController {
      * @param list
      * @return
      */
-    public Object checkDeleteHystrix(@RequestBody ArrayList<Integer> list){
+    public Object checkRegisterLogDeleteHystrix(@RequestBody ArrayList<Integer> list){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -79,8 +79,8 @@ public class RegisterLogController {
      * 清空数据
      * @return
      */
-    @DeleteMapping("/emptyList")
-    @HystrixCommand(fallbackMethod = "emptyListHystrix")
+    @DeleteMapping("/emptyRegisterLogList")
+    @HystrixCommand(fallbackMethod = "emptyRegisterLogListHystrix")
     public Object emptyList(){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
@@ -94,7 +94,7 @@ public class RegisterLogController {
      * 备选方案
      * @return
      */
-    public Object emptyListHystrix(){
+    public Object emptyRegisterLogListHystrix(){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
