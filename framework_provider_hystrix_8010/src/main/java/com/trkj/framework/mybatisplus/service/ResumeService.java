@@ -15,6 +15,6 @@ import com.trkj.framework.vo.ResumeVo;
  * @since 2021-12-23
  */
 public interface ResumeService extends IService<ResumeVo> {
-        IPage<ResumeVo> selectPageVo(Page<ResumeVo> page);
+        IPage<ResumeVo> selectPageVo(ResumeVo resumeVo);
         IPage<ResumeVo> selectAll(Page<ResumeVo> page);
 }
