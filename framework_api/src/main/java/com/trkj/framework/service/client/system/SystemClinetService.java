@@ -3,8 +3,10 @@ package com.trkj.framework.service.client.system;
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 
+import com.trkj.framework.entity.mybatisplus.Role;
 import com.trkj.framework.service.client.fallbackfactory.SystemClinetServiceFallbackfactory;
 import com.trkj.framework.vo.AjaxResponse;
+import org.aspectj.apache.bcel.generic.IINC;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -103,4 +105,21 @@ public interface SystemClinetService {
      */
     @GetMapping("/unseenNoticePerson")
     public Object unseenNoticePerson (@RequestParam("id") Integer id);
+
+    /**
+     * 分页查询所有的角色数据
+     * @param role
+     * @return
+     */
+    @PostMapping("/selectRoleAll")
+    public  Object selectRoleAll(@RequestBody Role role);
+
+
+    /***
+     * 多选或者单选删除角色数据
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/checkRoleDelete")
+    public Object checkRoleDelete(@RequestBody ArrayList<Integer> list);
 }

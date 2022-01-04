@@ -4,36 +4,28 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.mybatisplus.mapper.AuditflowoneMapper;
-import com.trkj.framework.mybatisplus.service.LeaveService;
+import com.trkj.framework.mybatisplus.service.TraveService;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.LeaveDetailsVo;
+import com.trkj.framework.vo.TravelDetailsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-/**
- * <p>
- * 请假表 服务实现类
- * </p>
- *
- * @author 里予
- * @since 2022-1-2
- */
 @Service
-public class LeaveServicelmpl implements LeaveService {
+public class TraveServicelmpl implements TraveService {
     @Autowired
     private AuditflowoneMapper auditflowoneMapper;
 
-
     /**
-     * 根据审批类型的加班/审批人查询待处理的审批
+     * 根据审批类型的出差/审批人查询待处理的审批
      *
      * @param
      * @return
      */
     @Override
-    public IPage<Auditflowone> selectLeaveAll(Auditflowone auditflowone) {
+    public IPage<Auditflowone> selectTravelAll(Auditflowone auditflowone) {
         Page<Auditflowone> page = new Page<>(auditflowone.getCurrentPage(), auditflowone.getPagesize());
         QueryWrapper<Auditflowone> queryWrapper = new QueryWrapper<>();
         if (auditflowone.getStaffName1() != null) {
@@ -46,18 +38,18 @@ public class LeaveServicelmpl implements LeaveService {
         }
         queryWrapper.eq("b.STAFF_NAME", "部门经理");
         queryWrapper.eq("b.AUDITFLOWDETAI_STATE", 1);
-        queryWrapper.eq("a.AUDITFLOW_TYPE", "请假");
+        queryWrapper.eq("a.AUDITFLOW_TYPE", "出差");
         return auditflowoneMapper.selectAuditflowoneAll(page, queryWrapper);
     }
 
     /**
-     * 根据审批类型的加班/审批人查询已处理的审批
+     * 根据审批类型的出差/审批人查询已处理的审批
      *
      * @param
      * @return
      */
     @Override
-    public IPage<Auditflowone> selectEndLeaveAll(Auditflowone auditflowone) {
+    public IPage<Auditflowone> selectEndTravelAll(Auditflowone auditflowone) {
         Page<Auditflowone> page = new Page<>(auditflowone.getCurrentPage(), auditflowone.getPagesize());
         QueryWrapper<Auditflowone> queryWrapper = new QueryWrapper<>();
         if (auditflowone.getStaffName1() != null) {
@@ -71,23 +63,23 @@ public class LeaveServicelmpl implements LeaveService {
         // eq 等于 ne 不等于
         queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 1);
         queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 0);
-        queryWrapper.eq("a.AUDITFLOW_TYPE", "请假");
+        queryWrapper.eq("a.AUDITFLOW_TYPE", "出差");
         queryWrapper.eq("b.STAFF_NAME", "部门经理");
         return auditflowoneMapper.selectEnddAuditflow(page, queryWrapper);
     }
 
     /**
-     * 根据审批类型的加班/审批人查询已处理的详情信息
+     * 根据审批类型的出差/审批人查询已处理的详情信息
      *
      * @param
      * @return
      */
     @Override
-    public List<LeaveDetailsVo> selectDetailsLeaves(LeaveDetailsVo leaveDetailsVo) {
-        QueryWrapper<LeaveDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", leaveDetailsVo.getStaffName2());
-        queryWrapper.eq("a.AUDITFLOW_ID", leaveDetailsVo.getAuditflowId());
-        queryWrapper.eq("l.STAFF_NAME", leaveDetailsVo.getStaffName1());
-        return auditflowoneMapper.selectDetailsLeaves(queryWrapper);
+    public List<TravelDetailsVo> selectDetailsTrave(TravelDetailsVo travelDetailsVo) {
+        QueryWrapper<TravelDetailsVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("b.STAFF_NAME", travelDetailsVo.getStaffName2());
+        queryWrapper.eq("a.AUDITFLOW_ID", travelDetailsVo.getAuditflowId());
+        queryWrapper.eq("t.STAFF_NAME", travelDetailsVo.getStaffName1());
+        return auditflowoneMapper.selectDetailsTrave(queryWrapper);
     }
 }

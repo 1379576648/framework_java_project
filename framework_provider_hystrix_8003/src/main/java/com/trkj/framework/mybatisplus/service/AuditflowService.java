@@ -28,7 +28,7 @@ public interface AuditflowService {
     IPage<Auditflowone> selectAuditflowoneAll(Auditflowone auditflowone);
 
     /**
-     *  根据审批类型的加班/审批人查询待处理的审批
+     *  根据审批类型的加班/审批人查询已处理的审批
      * @param
      * @return
      */

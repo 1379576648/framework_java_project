@@ -2,19 +2,15 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.LeaveDetailsVo;
+import com.trkj.framework.vo.TravelDetailsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.HashMap;
-import java.util.Map;
-
 @RestController
-public class LeaveController {
+public class TraveController {
     @Autowired
     private AuditflowService auditflowService;
 
@@ -24,9 +20,9 @@ public class LeaveController {
      * @param auditflowone
      * @return
      */
-    @PostMapping("/selectLeaveAll")
-    public AjaxResponse selectLeaveAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectLeaveAll(auditflowone));
+    @PostMapping("/selectTravelAll")
+    public AjaxResponse selectTravelAll(@RequestBody Auditflowone auditflowone) {
+        return AjaxResponse.success(auditflowService.selectTravelAll(auditflowone));
     }
 
     /**
@@ -35,9 +31,9 @@ public class LeaveController {
      * @param auditflowone
      * @return
      */
-    @PostMapping("/selectEndLeaveAll")
-    public AjaxResponse selectEndLeaveAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectEndLeaveAll(auditflowone));
+    @PostMapping("/selectEndTravelAll")
+    public AjaxResponse selectEndTravelAll(@RequestBody Auditflowone auditflowone) {
+        return AjaxResponse.success(auditflowService.selectEndTravelAll(auditflowone));
     }
 
     /**
@@ -46,8 +42,8 @@ public class LeaveController {
      * @param
      * @return
      */
-    @PostMapping("/selectDetailsLeaves")
-    public AjaxResponse selectDetailsLeaves(@RequestBody LeaveDetailsVo leaveDetailsVo) {
-        return AjaxResponse.success(auditflowService.selectDetailsLeaves(leaveDetailsVo));
+    @PostMapping("/selectDetailsTrave")
+    public AjaxResponse selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo) {
+        return AjaxResponse.success(auditflowService.selectDetailsTrave(travelDetailsVo));
     }
 }
