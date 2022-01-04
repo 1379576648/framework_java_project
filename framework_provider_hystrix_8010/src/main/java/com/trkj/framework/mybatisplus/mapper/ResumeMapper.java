@@ -25,9 +25,9 @@ public interface ResumeMapper extends BaseMapper<ResumeVo> {
 
     // 新简历
     @Select("select a.RESUME_NAME,b.POST_NAME,a.RESUME_SEX,a.RESUME_EDUCATION,a.RESUME_PHONE,a.RESUME_MAILBOX,a.RESUME_BIRTHDAY from RECRUITMENT_PLAN c LEFT JOIN RESUME a on c.RECRUITMENT_PLAN_ID=a.RECRUITMENT_PLAN_ID LEFT JOIN DEPT_POST b on b.DEPT_POST_ID=c.DEPT_POST_ID ${ew.customSqlSegment}")
-    IPage<ResumeVo> selectPageVo(Page<ResumeVo> pag, @Param(Constants.WRAPPER) QueryWrapper<ResumeVo> queryWrapper);
+    IPage<ResumeVo> selectPageVo(Page<ResumeVo> page, @Param(Constants.WRAPPER) QueryWrapper<ResumeVo> queryWrapper);
 
     // 全部简历
-    @Select("select a.RESUME_NAME,b.POST_NAME,a.RESUME_SEX,a.RESUME_EDUCATION,a.RESUME_PHONE,a.RESUME_MAILBOX,a.RESUME_BIRTHDAY from RESUME a,RECRUITMENT_PLAN c,DEPT_POST b where a.RECRUITMENT_PLAN_ID=c.RECRUITMENT_PLAN_ID and b.DEPT_POST_ID=c.DEPT_POST_ID")
-    IPage<ResumeVo> selectAll(Page<ResumeVo> page);
+    @Select("select a.RESUME_NAME,b.POST_NAME,a.RESUME_SEX,a.RESUME_EDUCATION,a.RESUME_PHONE,a.RESUME_MAILBOX,a.RESUME_BIRTHDAY from RECRUITMENT_PLAN c LEFT JOIN RESUME a on c.RECRUITMENT_PLAN_ID=a.RECRUITMENT_PLAN_ID LEFT JOIN DEPT_POST b on b.DEPT_POST_ID=c.DEPT_POST_ID ${ew.customSqlSegment}")
+    IPage<ResumeVo> selectAll(Page<ResumeVo> page, @Param(Constants.WRAPPER) QueryWrapper<ResumeVo> queryWrapper);
 }

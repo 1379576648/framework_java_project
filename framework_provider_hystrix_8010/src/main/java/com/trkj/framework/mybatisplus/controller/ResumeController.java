@@ -45,14 +45,20 @@ public class ResumeController {
     }
 
     // 全部简历
-    @GetMapping("/selectAllresume")
+    @PostMapping("/selectAllresume")
     @HystrixCommand(fallbackMethod = "HystixResume")
-    public Object queryAll(@RequestParam("currenPage") int currenPage,@RequestParam("pagesize") int pagesize){
-        Page<ResumeVo> page = new Page<>(currenPage, pagesize);
-        Map<String, Object> map = new HashMap<>();
+    public Object queryAll(@RequestBody ResumeVo resumeVo){
+        Map<String, Object> map = new HashMap<>(2);
         map.put("state",200);
-        map.put("succed",resumeService.selectAll(page));
+        map.put("succed",resumeService.selectAll(resumeVo));
         return map;
+    }
+    // 备选方案
+    public Object HystixResume(@RequestBody ResumeVo resumeVo){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
     }
 }
 
