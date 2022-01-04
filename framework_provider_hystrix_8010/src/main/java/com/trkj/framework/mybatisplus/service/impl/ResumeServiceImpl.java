@@ -1,5 +1,6 @@
 package com.trkj.framework.mybatisplus.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Resume;
@@ -24,9 +25,17 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
     @Autowired
     private ResumeMapper resumeMapper;
 
+    /**
+     * 新简历查询
+     * @param
+     * @return
+     */
     @Override
-    public IPage<ResumeVo> selectPageVo(Page<ResumeVo> page) {
-        return resumeMapper.selectPageVo(page);
+    public IPage<ResumeVo> selectPageVo(ResumeVo resumeVo) {
+        Page<ResumeVo> page=new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
+        QueryWrapper<ResumeVo> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("RESUME_ZT",0);
+        return resumeMapper.selectPageVo(page,queryWrapper);
     }
 
     @Override
