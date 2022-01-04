@@ -120,4 +120,32 @@ public interface AuditflowService {
      */
     @PostMapping("/selectDetailsTrave")
     Object selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo);
+
+    /**
+     * 根据审批类型的请假/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectCardAll")
+    Object selectCardAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndCardAll")
+    Object selectEndCardAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsCards")
+    Object selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo);
+
 }
