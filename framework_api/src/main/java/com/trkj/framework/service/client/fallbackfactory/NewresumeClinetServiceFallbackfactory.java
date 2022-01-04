@@ -25,7 +25,7 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object queryAll(int currenPage, int pagesize) {
+            public Object queryAll(ResumeVo resumeVo) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");

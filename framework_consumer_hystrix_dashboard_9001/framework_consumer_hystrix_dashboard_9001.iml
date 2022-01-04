@@ -7,13 +7,10 @@
           <map>
             <entry key="com.zeroturnaround.jrebel.FormatVersion" value="7.0.0" />
             <entry key="jrebelEnabled" value="true" />
-<<<<<<<< HEAD:framework_consumer_feign_80/framework_consumer_feign_80.iml
-========
             <entry key="lastExternalPluginCheckTime" value="1640910961174" />
->>>>>>>> 8515e37d338cf34029af75739709638513c7e328:framework_consumer_hystrix_dashboard_9001/framework_consumer_hystrix_dashboard_9001.iml
           </map>
         </option>
-        <option name="version" value="2" />
+        <option name="version" value="3" />
       </configuration>
     </facet>
   </component>

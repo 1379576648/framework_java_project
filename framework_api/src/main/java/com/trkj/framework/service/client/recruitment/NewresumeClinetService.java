@@ -14,6 +14,6 @@ public interface NewresumeClinetService {
     @PostMapping("/selectResume")
     Object queryResume(@RequestBody ResumeVo resumeVo);
 
-    @GetMapping("/selectAllresume")
-    Object queryAll(@RequestParam("currenPage") int currenPage,@RequestParam("pagesize") int pagesize);
+    @PostMapping("/selectAllresume")
+    Object queryAll(@RequestBody ResumeVo resumeVo);
 }

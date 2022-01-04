@@ -15,8 +15,8 @@ public class ResumeController {
         return newresumeClinetService.queryResume(resumeVo);
     }
 
-    @GetMapping("/selectAllresume")
-    private Object queryAll(@RequestParam("currenPage") int currenPage,@RequestParam("pagesize") int pagesize){
-        return newresumeClinetService.queryAll(currenPage,pagesize);
+    @PostMapping("/selectAllresume")
+    private Object queryAll(@RequestBody ResumeVo resumeVo){
+        return newresumeClinetService.queryAll(resumeVo);
     }
 }
