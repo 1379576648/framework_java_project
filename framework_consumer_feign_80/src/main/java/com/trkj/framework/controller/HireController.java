@@ -1,5 +1,6 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.hire.HireClientService;
@@ -18,6 +19,8 @@ public class HireController {
 
     /**
      * 查询已录用待入职的员工
+     * @param hireVo
+     * @return
      */
     @PostMapping("/selectpage")
     public AjaxResponse selecthirepage(@RequestBody HireVo hireVo) {
@@ -26,6 +29,8 @@ public class HireController {
 
     /**
      * 查询已经淘汰的员工
+     * @param hireVo
+     * @return
      */
 
     @PostMapping("/selectabandon")
@@ -36,6 +41,8 @@ public class HireController {
 
     /**
      * 查询工作经历
+     * @param workVo
+     * @return
      */
     @PostMapping("/selectwork")
     public AjaxResponse selectwork(@RequestBody WorkVo workVo){
@@ -44,6 +51,8 @@ public class HireController {
 
     /**
      * 查询转正
+     * @param fullVo
+     * @return
      */
 
     @PostMapping("/selectpost")
@@ -52,12 +61,24 @@ public class HireController {
 
     }
 
-    /***
+    /**
      * 新增员工
+     * @param hireVo
+     * @return
      */
     @PostMapping("/insertStaff")
     public AjaxResponse insertStaff(@RequestBody HireVo hireVo){
         return AjaxResponse.success(hireClientService.insertStaff(hireVo));
+    }
+
+    /**
+     * 修改录用表状态
+     * @param employmentTable
+     * @return
+     */
+    @PostMapping("/updateEmploymentState")
+    public AjaxResponse updateEmploymentState(@RequestBody EmploymentTable employmentTable){
+        return AjaxResponse.success(hireClientService.updateEmploymentState(employmentTable));
     }
 
 }
