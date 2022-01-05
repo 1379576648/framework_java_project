@@ -175,7 +175,6 @@ public interface AuditflowService {
     @PostMapping("/selectDetailsQuit")
     Object selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo);
 
-
     /**
      * 根据审批类型的调薪/审批人查询待处理的审批
      *
@@ -202,4 +201,31 @@ public interface AuditflowService {
      */
     @PostMapping("/selectDetailsSalary")
     Object selectDetailsSalary(@RequestBody SalaryDetailsVo salaryDetailsVo);
+
+    /**
+     * 根据审批类型的调薪/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectTransferAll")
+    Object selectTransferAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的调薪/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndTransferAll")
+    Object selectEndTransferAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的调薪/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsTransfer")
+    Object selectDetailsTransfer(@RequestBody TransferDetailsVo transferDetailsVo);
 }
