@@ -1,5 +1,6 @@
 package com.trkj.framework.service.client.hire;
 
+import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
@@ -18,24 +19,32 @@ public interface HireClientService {
 
     /**
      * 查询已录用待入职的员工
+     * @param hireVo
+     * @return
      */
     @PostMapping ("/selectpage")
     Object selecthirepage(@RequestBody HireVo hireVo);
 
     /**
      * 查询已经淘汰的员工
+     * @param hireVo
+     * @return
      */
     @PostMapping("/selectabandon")
     Object selectabandon(@RequestBody HireVo hireVo);
 
     /**
      * 查询工作经历
+     * @param workVo
+     * @return
      */
     @PostMapping("/selectwork")
     Object selectwork(@RequestBody WorkVo workVo);
 
     /**
      * 查询转正
+     * @param fullVo
+     * @return
      */
     @PostMapping("/selectpost")
     Object selectpost(@RequestBody FullVo fullVo);
@@ -47,5 +56,13 @@ public interface HireClientService {
      */
     @PostMapping("/insertStaff")
     Object insertStaff(@RequestBody HireVo hireVo);
+
+    /**
+     * 修改录用状态
+     * @param employmentTable
+     * @return
+     */
+    @PostMapping("/updateEmploymentState")
+    Object updateEmploymentState(@RequestBody EmploymentTable employmentTable);
 }
 

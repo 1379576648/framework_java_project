@@ -8,6 +8,7 @@ import com.trkj.framework.mybatisplus.service.EmploymentTableService;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
@@ -192,7 +193,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
                 s="成功";
             }else if(row3>=1){
                 s="成功";
-            } else {
+            }
+            else {
                 return "添加失败";
             }
         } else {
@@ -201,7 +203,19 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         return s;
     }
 
-
-
-
+    /**
+     * 修改录用状态
+     * @param employmentTable
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateEmploymentState(EmploymentTable employmentTable) {
+        final var i = employmentTableMapper.updateById(employmentTable);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
+    }
 }

@@ -1,13 +1,12 @@
 package com.trkj.framework.mybatisplus.controller;
 
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.Notice;
-import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.mybatisplus.service.EmploymentTableService;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -131,6 +130,22 @@ public class EmploymentTableController {
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
         return map1;
+    }
+
+    /**
+     * 修改录用状态
+     * @param
+     * @return
+     */
+    @PostMapping("updateEmploymentState")
+    public int updateEmploymentState(@RequestBody EmploymentTable employmentId){
+        employmentId.setEmploymentState(1L);
+        final var i = employmentTableService.updateEmploymentState(employmentId);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
     }
 }
 
