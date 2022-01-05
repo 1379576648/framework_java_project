@@ -1,6 +1,7 @@
 package com.trkj.framework.config;
 
 import com.baomidou.mybatisplus.core.injector.ISqlInjector;
+import com.baomidou.mybatisplus.extension.incrementer.OracleKeyGenerator;
 import com.baomidou.mybatisplus.extension.injector.LogicSqlInjector;
 import com.baomidou.mybatisplus.extension.plugins.OptimisticLockerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.PaginationInterceptor;
@@ -11,6 +12,14 @@ import org.springframework.context.annotation.Profile;
 
 @Configuration // 配置类
 public class MyBatisPlusConfig {
+    /**
+     * 序列生成器
+     */
+    @Bean
+    public OracleKeyGenerator oracleKeyGenerator(){
+        return new OracleKeyGenerator();
+    }
+
     //注册我们的乐观锁插件
     @Bean
     public OptimisticLockerInterceptor optimisticLockerInterceptor() {

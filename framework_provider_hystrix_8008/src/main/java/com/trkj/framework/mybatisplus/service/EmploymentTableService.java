@@ -2,10 +2,14 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.Resume;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -37,5 +41,10 @@ public interface EmploymentTableService {
      * 查询转正
      */
     IPage<FullVo> selectpost(FullVo fullVo);
+
+    /**
+     * 添加员工
+     */
+    String insertStaff(HireVo hireVo);
 
 }

@@ -2,6 +2,8 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Notice;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.EmploymentTableService;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
@@ -104,6 +106,27 @@ public class EmploymentTableController {
     }
     // 备选方案
     public Object HystixGet4(@RequestBody FullVo fullVo){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 添加员工
+     */
+    @PostMapping("/insertStaff")
+    @HystrixCommand(fallbackMethod = "HystixGet5")
+    public Object insertStaff(@RequestBody HireVo hireVo){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",employmentTableService.insertStaff(hireVo));
+        return map1;
+    }
+    //备选方案
+    public Object HystixGet5(@RequestBody HireVo hireVo){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");

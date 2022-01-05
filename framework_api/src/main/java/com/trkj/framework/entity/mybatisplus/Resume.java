@@ -1,5 +1,6 @@
 package com.trkj.framework.entity.mybatisplus;
 
+import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -26,6 +27,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("RESUME")
 @ApiModel(value="Resume对象", description="简历表")
+@KeySequence(value = "RESUME_ID",clazz = Long.class)
 public class Resume implements Serializable {
 
     private static final long serialVersionUID = 1L;

@@ -120,4 +120,112 @@ public interface AuditflowService {
      */
     @PostMapping("/selectDetailsTrave")
     Object selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo);
+
+    /**
+     * 根据审批类型的请假/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectCardAll")
+    Object selectCardAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndCardAll")
+    Object selectEndCardAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsCards")
+    Object selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo);
+
+    /**
+     * 根据审批类型的离职/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectQuitAll")
+    Object selectQuitAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的离职/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndQuitAll")
+    Object selectEndQuitAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的离职/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsQuit")
+    Object selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo);
+
+    /**
+     * 根据审批类型的调薪/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectSalaryAll")
+    Object selectSalaryAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的调薪/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndSalaryAll")
+    Object selectEndSalaryAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的调薪/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsSalary")
+    Object selectDetailsSalary(@RequestBody SalaryDetailsVo salaryDetailsVo);
+
+    /**
+     * 根据审批类型的调薪/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectTransferAll")
+    Object selectTransferAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的调薪/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndTransferAll")
+    Object selectEndTransferAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的调薪/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsTransfer")
+    Object selectDetailsTransfer(@RequestBody TransferDetailsVo transferDetailsVo);
 }

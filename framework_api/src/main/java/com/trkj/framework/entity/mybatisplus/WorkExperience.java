@@ -1,9 +1,8 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,20 +16,21 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author suki
- * @since 2021-12-29
+ * @since 2022-01-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("WORK_EXPERIENCE")
 @ApiModel(value="WorkExperience对象", description="工作经历表")
+@KeySequence(value = "WORK_EXPERIENCE_ID",clazz = Integer.class)
 public class WorkExperience implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "编号")
     @TableId("WORK_EXPERIENCE_ID")
-    private Long workExperienceId;
+    private Integer workExperienceId;
 
     @ApiModelProperty(value = "开始时间")
     @TableField("WORK_STARE_TIME")
@@ -42,7 +42,7 @@ public class WorkExperience implements Serializable {
 
     @ApiModelProperty(value = "员工编号外键")
     @TableField("STAFF_ID")
-    private Long staffId;
+    private Integer staffId;
 
     @ApiModelProperty(value = "公司名称")
     @TableField("COMPANY_NAME")
@@ -65,11 +65,11 @@ public class WorkExperience implements Serializable {
     private Long positionSqmonthly;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
@@ -78,6 +78,7 @@ public class WorkExperience implements Serializable {
 
     @ApiModelProperty(value = "逻辑删除;1表示删除，0 表示未删除")
     @TableField("IS_DELETED")
+    @TableLogic
     private Long isDeleted;
 
 

@@ -38,8 +38,16 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         return resumeMapper.selectPageVo(page,queryWrapper);
     }
 
+    /**
+     * 全部简历查询
+     * @param
+     * @return
+     */
     @Override
-    public IPage<ResumeVo> selectAll(Page<ResumeVo> page) {
-        return resumeMapper.selectAll(page);
+    public IPage<ResumeVo> selectAll(ResumeVo resumeVo) {
+        Page<ResumeVo> page=new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
+        QueryWrapper<ResumeVo> queryWrapper=new QueryWrapper<>();
+        queryWrapper.isNotNull("RESUME_ZT");
+        return resumeMapper.selectAll(page,queryWrapper);
     }
 }
