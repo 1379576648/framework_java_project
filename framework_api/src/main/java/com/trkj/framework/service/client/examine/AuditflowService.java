@@ -228,4 +228,31 @@ public interface AuditflowService {
      */
     @PostMapping("/selectDetailsTransfer")
     Object selectDetailsTransfer(@RequestBody TransferDetailsVo transferDetailsVo);
+
+    /**
+     * 根据审批类型的转正/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectWorkerlAll")
+    Object selectWorkerlAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的转正/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndWorkerlAll")
+    Object selectEndWorkerlAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的转正/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsWorker")
+    Object selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo);
 }
