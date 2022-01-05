@@ -1,5 +1,7 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Notice;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.FullVo;
@@ -36,7 +38,7 @@ public class HireController {
      * 查询工作经历
      */
     @PostMapping("/selectwork")
-    public Object selectwork(@RequestBody WorkVo workVo){
+    public AjaxResponse selectwork(@RequestBody WorkVo workVo){
         return AjaxResponse.success(hireClientService.selectwork(workVo));
     }
 
@@ -45,9 +47,17 @@ public class HireController {
      */
 
     @PostMapping("/selectpost")
-    public Object selectpost(@RequestBody FullVo fullVo){
+    public AjaxResponse selectpost(@RequestBody FullVo fullVo){
         return AjaxResponse.success(hireClientService.selectpost(fullVo));
 
+    }
+
+    /***
+     * 新增员工
+     */
+    @PostMapping("/insertStaff")
+    public AjaxResponse insertStaff(@RequestBody HireVo hireVo){
+        return AjaxResponse.success(hireClientService.insertStaff(hireVo));
     }
 
 }

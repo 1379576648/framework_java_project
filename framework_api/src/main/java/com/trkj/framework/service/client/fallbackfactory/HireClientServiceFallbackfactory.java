@@ -1,5 +1,6 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.FullVo;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import java.util.Map;
+
 @Component
 public class HireClientServiceFallbackfactory implements FallbackFactory {
     @Override
@@ -20,8 +22,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
             @Override
             public Object selecthirepage(HireVo hireVo) {
                 Map<String, Object> objectMap = new HashMap<>();
-                objectMap.put("state",100);
-                objectMap.put("info","服务发生关闭");
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
 
@@ -31,8 +33,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
             @Override
             public Object selectabandon(HireVo hireVo) {
                 Map<String, Object> objectMap = new HashMap<>();
-                objectMap.put("state",100);
-                objectMap.put("info","服务发生关闭");
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
 
@@ -45,7 +47,7 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
-                    }
+            }
 
             /**
              * 查询转正
@@ -53,6 +55,18 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
             @Override
             public Object selectpost(FullVo fullVo) {
                 Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            /**
+             *新增员工
+             */
+
+            @Override
+            public Object insertStaff(HireVo hireVo) {
+                Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);

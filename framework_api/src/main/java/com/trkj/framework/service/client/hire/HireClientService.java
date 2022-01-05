@@ -1,5 +1,7 @@
 package com.trkj.framework.service.client.hire;
 
+import com.trkj.framework.entity.mybatisplus.Notice;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.FullVo;
@@ -37,5 +39,13 @@ public interface HireClientService {
      */
     @PostMapping("/selectpost")
     Object selectpost(@RequestBody FullVo fullVo);
+
+    /**
+     * 新增员工
+     * @param hireVo
+     * @return
+     */
+    @PostMapping("/insertStaff")
+    Object insertStaff(@RequestBody HireVo hireVo);
 }
 

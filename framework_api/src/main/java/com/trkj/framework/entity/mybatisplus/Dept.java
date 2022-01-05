@@ -1,5 +1,6 @@
 package com.trkj.framework.entity.mybatisplus;
 
+import com.baomidou.mybatisplus.annotation.KeySequence;
 import com.baomidou.mybatisplus.annotation.TableName;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -24,13 +25,14 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("DEPT")
 @ApiModel(value="Dept对象", description="部门表")
+@KeySequence(value = "DEPT_ID",clazz = int.class)
 public class Dept implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "部门编号")
     @TableId("DEPT_ID")
-    private Long deptId;
+    private int deptId;
 
     @ApiModelProperty(value = "状态;0：启用  1：禁用")
     @TableField("DEPT_STATE")
@@ -42,7 +44,7 @@ public class Dept implements Serializable {
 
     @ApiModelProperty(value = "部门负责人;提供ID到员工表锁定具体的人")
     @TableField("STAFF_ID")
-    private Long staffId;
+    private Integer staffId;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")

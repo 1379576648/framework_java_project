@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.StaffMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.Staff">
+        <id column="STAFF_ID" property="staffId" />
+        <result column="STAFF_NAME" property="staffName" />
+        <result column="STAFF_SEX" property="staffSex" />
+        <result column="STAFF_PHONE" property="staffPhone" />
+        <result column="STAFF_EMAIL" property="staffEmail" />
+        <result column="STAFF_PICTURE" property="staffPicture" />
+        <result column="STAFF_BIRTHDAY" property="staffBirthday" />
+        <result column="STAFF_OUTLOOK" property="staffOutlook" />
+        <result column="STAFF_EDUCATION" property="staffEducation" />
+        <result column="DEPT_POST_ID" property="deptPostId" />
+        <result column="STAFF_PASS" property="staffPass" />
+        <result column="STAFF_HIREDATE" property="staffHiredate" />
+        <result column="WORKER_ID" property="workerId" />
+        <result column="STAFF_IDENTITY" property="staffIdentity" />
+        <result column="DEPT_ID" property="deptId" />
+        <result column="STAFF_MAJOR" property="staffMajor" />
+        <result column="STAFF_EMERGENCY" property="staffEmergency" />
+        <result column="STAFF_WECHAT" property="staffWechat" />
+        <result column="STAFF_QQ" property="staffQq" />
+        <result column="STAFF_CREDIT" property="staffCredit" />
+        <result column="STAFF_BLOOD" property="staffBlood" />
+        <result column="STAFF_SIGN" property="staffSign" />
+        <result column="STAFF_MARITAL" property="staffMarital" />
+        <result column="STAFF_REGISTERED" property="staffRegistered" />
+        <result column="STAFF_SCHOOL" property="staffSchool" />
+        <result column="STAFF_ADDRESS" property="staffAddress" />
+        <result column="STAFF_STATE" property="staffState" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="IS_DELETED" property="isDeleted" />
+        <result column="REVISION" property="revision" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        STAFF_ID, STAFF_NAME, STAFF_SEX, STAFF_PHONE, STAFF_EMAIL, STAFF_PICTURE, STAFF_BIRTHDAY, STAFF_OUTLOOK, STAFF_EDUCATION, DEPT_POST_ID, STAFF_PASS, STAFF_HIREDATE, WORKER_ID, STAFF_IDENTITY, DEPT_ID, STAFF_MAJOR, STAFF_EMERGENCY, STAFF_WECHAT, STAFF_QQ, STAFF_CREDIT, STAFF_BLOOD, STAFF_SIGN, STAFF_MARITAL, STAFF_REGISTERED, STAFF_SCHOOL, STAFF_ADDRESS, STAFF_STATE, CREATED_TIME, UPDATED_TIME, IS_DELETED, REVISION
+    </sql>
+
+</mapper>
