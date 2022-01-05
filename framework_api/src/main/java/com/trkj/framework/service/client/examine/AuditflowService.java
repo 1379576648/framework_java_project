@@ -148,4 +148,31 @@ public interface AuditflowService {
     @PostMapping("/selectDetailsCards")
     Object selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo);
 
+    /**
+     * 根据审批类型的离职/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectQuitAll")
+    Object selectQuitAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的离职/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndQuitAll")
+    Object selectEndQuitAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的离职/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsQuit")
+    Object selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo);
+
 }
