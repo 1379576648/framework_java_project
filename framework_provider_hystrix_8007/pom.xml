@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>framework_provider_hystrix_8007</artifactId>
-
     <dependencies>
         <!--加入Hystrix依赖-->
         <dependency>
