@@ -20,10 +20,10 @@ import org.apache.ibatis.annotations.Param;
 @Mapper
 public interface NoticeStaffMapper extends BaseMapper<NoticeStaff> {
     /***
-     * 物理删除公告员工表数据
+     * 逻辑删除公告员工表数据
      * @param queryWrapper
      * @return
      */
     @Delete("delete from NOTICE_STAFF ${ew.customSqlSegment}")
-    int deleteNoticeStaff(@Param(Constants.WRAPPER) QueryWrapper<NoticeDept> queryWrapper);
+    int deleteNoticeStaff(@Param(Constants.WRAPPER) QueryWrapper<NoticeStaff> queryWrapper);
 }

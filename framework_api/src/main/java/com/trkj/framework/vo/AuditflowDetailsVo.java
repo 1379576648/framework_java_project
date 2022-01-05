@@ -45,7 +45,7 @@ public class AuditflowDetailsVo implements Serializable {
 
     @ApiModelProperty(value = "审核备注")
     @TableField("AUDITFLOWDETAI_REMARKS")
-    private String auditflowdetai_remarks;
+    private String auditflowdetaiRemarks;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "审核时间")

@@ -2,6 +2,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
+import com.trkj.framework.entity.mybatisplus.Role;
 import com.trkj.framework.service.client.system.SystemClinetService;
 import com.trkj.framework.vo.AjaxResponse;
 import feign.hystrix.FallbackFactory;
@@ -104,6 +105,22 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object unseenNoticePerson(Integer id) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object selectRoleAll(Role role) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object checkRoleDelete(ArrayList<Integer> list) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");

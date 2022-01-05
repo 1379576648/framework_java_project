@@ -14,9 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * <p>
- * 审批主表 前端控制器
- * </p>
+ * 加班 前端控制器
  *
  * @author 劉祁
  * @since 2021-12-27
@@ -103,6 +101,7 @@ public class AuditflowController {
     @PostMapping("/update_Approval_State")
     public int updateApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
         auditflowdetail1.setAuditflowdetaiState(2L);
+        auditflowdetail1.setAuditflowdetaiRemarks(auditflowdetail1.getAuditflowdetaiRemarks());
         final var i = auditflowService.updateApprovalState(auditflowdetail1);
         if (i==1){
             return 666;
@@ -119,6 +118,7 @@ public class AuditflowController {
     @PostMapping("/reject_Approval_State")
     public int rejectApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
         auditflowdetail1.setAuditflowdetaiState(3L);
+        auditflowdetail1.setAuditflowdetaiRemarks(auditflowdetail1.getAuditflowdetaiRemarks());
         final var i = auditflowService.rejectApprovalState(auditflowdetail1);
         if (i==1){
             return 666;

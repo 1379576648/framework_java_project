@@ -1,6 +1,7 @@
 package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.trkj.framework.entity.mybatisplus.Resume;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,6 +15,15 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ResumeVo implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @ApiModelProperty(value = "编号")
+    @TableId("RECRUITMENT_PLAN_ID")
+    private Long recruitmentPlanId;
+
+    @ApiModelProperty(value = "部门编号")
+    @TableId("DEPT_ID")
+    private Long deptId;
 
     @ApiModelProperty(value = "名字")
     @TableField("RESUME_NAME")
@@ -43,4 +53,12 @@ public class ResumeVo implements Serializable {
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     @TableField("RESUME_BIRTHDAY")
     private Date resumeBirthday;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 }

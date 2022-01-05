@@ -2,6 +2,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
 import com.trkj.framework.vo.AjaxResponse;
+import com.trkj.framework.vo.ResumeVo;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -16,7 +17,7 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
     public Object create(Throwable throwable) {
         return new NewresumeClinetService() {
             @Override
-            public Object queryResume(int currenPage, int pagesize) {
+            public Object queryResume(ResumeVo resumeVo) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
@@ -24,7 +25,7 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object queryAll(int currenPage, int pagesize) {
+            public Object queryAll(ResumeVo resumeVo) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");

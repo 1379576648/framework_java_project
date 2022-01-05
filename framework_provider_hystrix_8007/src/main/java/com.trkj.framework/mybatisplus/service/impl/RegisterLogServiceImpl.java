@@ -57,23 +57,32 @@ public class RegisterLogServiceImpl implements RegisterLogService {
         return registerLogMapper.selectRegisterLogAll(page,queryWrapper);
     }
 
+    /***
+     * 删除登录日志
+     * @param list
+     * @return
+     */
     @Override
     public String checkDelete(ArrayList<Integer> list) {
         for (int i = 0; i <list.size() ; i++) {
             if (registerLogMapper.deleteById(list.get(i))<=0){
-                return "失败";
+                return "删除登录日志表数据失败";
             }
         }
         return "成功";
     }
 
+    /***
+     * 清空登录日志
+     * @return
+     */
     @Override
     @Transactional
     public String emptyList() {
         QueryWrapper<RegisterLog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("IS_DELETED",0);
         if (registerLogMapper.delete(queryWrapper)<=0){
-            return "失败";
+            return "清空登录日志表数据失败";
         }
         return "成功";
     }

@@ -4,9 +4,7 @@ import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.service.client.fallbackfactory.AuditflowClinetServiceFallbackfactory;
 import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFallbackfactory;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,7 +24,7 @@ public interface AuditflowService {
     Object selectAuditflowoneAll(@RequestBody Auditflowone auditflowone);
 
     /**
-     * 根据审批类型的加班/审批人查询待处理的审批
+     * 根据审批类型的加班/审批人查询已处理的审批
      * @param
      * @param
      * @return
@@ -68,4 +66,113 @@ public interface AuditflowService {
      */
     @PostMapping("/queryDetail")
     Object queryDetail(@RequestBody Auditflowdetail auditflowdetail);
+
+    /**
+     * 根据审批类型的请假/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectLeaveAll")
+    Object selectLeaveAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndLeaveAll")
+    Object selectEndLeaveAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsLeaves")
+    Object selectDetailsLeaves(@RequestBody LeaveDetailsVo leaveDetailsVo);
+
+    /**
+     * 根据审批类型的请假/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectTravelAll")
+    Object selectTravelAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndTravelAll")
+    Object selectEndTravelAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsTrave")
+    Object selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo);
+
+    /**
+     * 根据审批类型的请假/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectCardAll")
+    Object selectCardAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndCardAll")
+    Object selectEndCardAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的请假/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsCards")
+    Object selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo);
+
+    /**
+     * 根据审批类型的离职/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectQuitAll")
+    Object selectQuitAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的离职/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndQuitAll")
+    Object selectEndQuitAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的离职/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsQuit")
+    Object selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo);
+
 }
