@@ -19,7 +19,7 @@ public class SalaryServicelmpl implements SalaryService {
     private AuditflowoneMapper auditflowoneMapper;
 
     /**
-     * 根据审批类型的出差/审批人查询待处理的审批
+     * 根据审批类型的调薪/审批人查询待处理的审批
      *
      * @param
      * @return
@@ -43,7 +43,7 @@ public class SalaryServicelmpl implements SalaryService {
     }
 
     /**
-     * 根据审批类型的出差/审批人查询已处理的审批
+     * 根据审批类型的调薪/审批人查询已处理的审批
      *
      * @param
      * @return
@@ -69,7 +69,7 @@ public class SalaryServicelmpl implements SalaryService {
     }
 
     /**
-     * 根据审批类型的出差/审批人查询已处理的详情信息
+     * 根据审批类型的调薪/审批人查询已处理的详情信息
      *
      * @param
      * @return

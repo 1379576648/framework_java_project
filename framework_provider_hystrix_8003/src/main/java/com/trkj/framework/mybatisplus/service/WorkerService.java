@@ -15,21 +15,21 @@ import java.util.List;
  */
 public interface WorkerService {
     /**
-     *  根据审批类型的出差/审批人查询待处理的审批
+     *  根据审批类型的转正/审批人查询待处理的审批
      * @param
      * @return
      */
     IPage<Auditflowone> selectWorkerlAll(Auditflowone auditflowone);
 
     /**
-     *  根据审批类型的出差/审批人查询已处理的审批
+     *  根据审批类型的转正/审批人查询已处理的审批
      * @param
      * @return
      */
     IPage<Auditflowone> selectEndWorkerlAll(Auditflowone auditflowone);
 
     /**
-     * 根据审批类型的出差/审批人查询已处理的详情信息
+     * 根据审批类型的转正/审批人查询已处理的详情信息
      * @param
      * @return
      */
