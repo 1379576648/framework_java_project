@@ -59,10 +59,17 @@ public interface EmploymentTableService {
     String insertStaff(HireVo hireVo);
 
     /**
-     * 修改录用状态
+     * 修改录用状态为已录用
      * @param employmentTable
      * @return
      */
     int updateEmploymentState(EmploymentTable employmentTable);
+
+    /**
+     * 修改录用状态为已淘汰以及放弃原因
+     * @param employmentTable
+     * @return
+     */
+    int updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable);
 
 }

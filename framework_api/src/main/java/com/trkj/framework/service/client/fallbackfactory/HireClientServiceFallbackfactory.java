@@ -99,6 +99,19 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 修改录用状态为已淘汰以及放弃原因
+             * @param employmentTable
+             * @return
+             */
+            @Override
+            public Object updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }
