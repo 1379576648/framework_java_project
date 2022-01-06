@@ -49,18 +49,20 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
     /**
      * 查询工作经历
      * @param page
+     * @param queryWrapper
      * @return
      */
-    @Select("select s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.STAFF_ID,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY from  WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID")
-    IPage<WorkVo> selectwork(Page<WorkVo> page);
+    @Select("select s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.STAFF_ID,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY from  WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
+    IPage<WorkVo> selectwork(Page<WorkVo> page,@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
     /**
      * 查询转正
      * @param page
+     * @param queryWrapper
      * @return
      */
-    @Select("SELECT s.STAFF_ID,w.WORKER_ID,s.STAFF_NAME,s.STAFF_IDENTITY,s.STAFF_HIREDATE,d.DEPT_NAME,dp.POST_NAME FROM STAFF s LEFT JOIN WORKER w on s.WORKER_ID=w.WORKER_ID LEFT JOIN DEPT_POST dp on s.DEPT_POST_ID=dp.DEPT_POST_ID LEFT JOIN  DEPT d on w.DEPT_ID=d.DEPT_ID")
-    IPage<FullVo> selectpost(Page<FullVo> page);
+    @Select("SELECT w.WORKER_ID,w.STAFF_NAME,w.WORKER_TYPE,w.WORKER_REMARKS,w.WORKER_STATE,w.WORKER_DATE,s.STAFF_IDENTITY,s.STAFF_HIREDATE,d.DEPT_NAME,p.POST_NAME FROM WORKER w LEFT JOIN STAFF s on w.WORKER_ID=s.WORKER_ID LEFT JOIN DEPT d on d.DEPT_ID=w.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID=s.DEPT_POST_ID ${ew.customSqlSegment}")
+    IPage<FullVo> selectpost(Page<FullVo> page,@Param(Constants.WRAPPER) QueryWrapper<FullVo> queryWrapper);
 
 
 }

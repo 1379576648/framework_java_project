@@ -3,10 +3,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.hire.HireClientService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.FullVo;
-import com.trkj.framework.vo.HireVo;
-import com.trkj.framework.vo.WorkVo;
+import com.trkj.framework.vo.*;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -106,6 +103,19 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 查询员工花名册
+             * @param staffVo
+             * @return
+             */
+            @Override
+            public Object selectStaff(StaffVo staffVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

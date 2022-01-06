@@ -1,14 +1,8 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
-import com.trkj.framework.entity.mybatisplus.Notice;
-import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.hire.HireClientService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.FullVo;
-import com.trkj.framework.vo.HireVo;
-import com.trkj.framework.vo.WorkVo;
-import org.aspectj.weaver.loadtime.Aj;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -91,5 +85,6 @@ public class HireController {
         return AjaxResponse.success(hireClientService.updateEmploymentStateAndWaiveReasonInt(employmentTable));
 
     }
+
 
 }

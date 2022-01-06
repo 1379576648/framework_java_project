@@ -93,7 +93,12 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     @Override
     public IPage<WorkVo> selectwork(WorkVo workVo) {
         Page<WorkVo> page = new Page<>(workVo.getCurrentPage(),workVo.getPagesize());
-        return employmentTableMapper.selectwork(page);
+        QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
+        //根据姓名进行查询
+       if(workVo.getStaffName()!=null){
+            queryWrapper.like("s.STAFF_NAME",workVo.getStaffName());
+        }
+        return employmentTableMapper.selectwork(page,queryWrapper);
     }
 
     /**
@@ -104,7 +109,12 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     @Override
     public IPage<FullVo> selectpost(FullVo fullVo) {
         Page<FullVo> page = new Page<>(fullVo.getCurrentPage(),fullVo.getPagesize());
-        return employmentTableMapper.selectpost(page);
+        QueryWrapper<FullVo> queryWrapper = new QueryWrapper<>();
+        //根据姓名查询
+        if(fullVo.getStaffName()!=null){
+            queryWrapper.like("s.STAFF_NAME",fullVo.getStaffName());
+        }
+        return employmentTableMapper.selectpost(page,queryWrapper);
     }
 
     /**
