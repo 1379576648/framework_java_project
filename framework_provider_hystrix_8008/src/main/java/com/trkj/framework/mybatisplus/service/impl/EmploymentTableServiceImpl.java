@@ -70,17 +70,25 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
 
     /**
      * 查询已经淘汰的员工
+     * @param hireVo
+     * @return
      */
     @Override
     public IPage<HireVo> selectabandon(HireVo hireVo) {
         Page<HireVo> page = new Page<>(hireVo.getCurrentPage(),hireVo.getPagesize());
         QueryWrapper<HireVo> queryWrapper = new QueryWrapper<>();
+        //根据姓名模糊查询
+        if(hireVo.getResumeName()!=null){
+            queryWrapper.like("r.RESUME_NAME",hireVo.getResumeName());
+        }
         queryWrapper.eq("e.EMPLOYMENT_STATE",2);
         return employmentTableMapper.selectabandon(page,queryWrapper);
     }
 
     /**
      * 查询工作经历
+     * @param workVo
+     * @return
      */
     @Override
     public IPage<WorkVo> selectwork(WorkVo workVo) {
@@ -89,7 +97,9 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     }
 
     /**
-     *查询转正
+     * 查询转正
+     * @param fullVo
+     * @return
      */
     @Override
     public IPage<FullVo> selectpost(FullVo fullVo) {
@@ -98,7 +108,9 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     }
 
     /**
-     * 添加员工
+     * 添加员工,工作经历,教育经历
+     * @param hireVo
+     * @return
      */
 
     @Override
@@ -204,7 +216,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     }
 
     /**
-     * 修改录用状态
+     * 修改录用状态为已录用
      * @param employmentTable
      * @return
      */
@@ -218,4 +230,21 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             return 100;
         }
     }
+
+    /**
+     * 修改录用状态为已淘汰以及放弃原因
+     * @param employmentTable
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable) {
+        final var i = employmentTableMapper.updateById(employmentTable);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
+    }
+
 }

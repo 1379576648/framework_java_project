@@ -81,4 +81,15 @@ public class HireController {
         return AjaxResponse.success(hireClientService.updateEmploymentState(employmentTable));
     }
 
+    /**
+     * 修改录用状态为已淘汰以及放弃原因
+     * @param employmentTable
+     * @return
+     */
+    @PostMapping("/updateEmploymentStateAndWaiveReasonInt")
+    public AjaxResponse updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentTable){
+        return AjaxResponse.success(hireClientService.updateEmploymentStateAndWaiveReasonInt(employmentTable));
+
+    }
+
 }

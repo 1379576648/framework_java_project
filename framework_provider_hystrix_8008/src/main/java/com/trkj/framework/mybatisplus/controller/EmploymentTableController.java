@@ -26,7 +26,11 @@ public class EmploymentTableController {
     @Autowired
     private EmploymentTableService employmentTableService;
 
-    // 查询已录用待入职的员工
+    /**
+     * 查询已录用待入职的员工
+     * @param hireVo
+     * @return
+     */
     @PostMapping("/selectpage")
     @HystrixCommand(fallbackMethod = "HystixGet")
     public Object selecthirepage(@RequestBody HireVo hireVo) {
@@ -48,7 +52,11 @@ public class EmploymentTableController {
     }
 
 
-    // 查询已录用放弃入职的员工
+    /**
+     * 查询已录用放弃入职的员工
+     * @param hireVo
+     * @return
+     */
     @PostMapping("/selectabandon")
     @HystrixCommand(fallbackMethod = "HystixGet2")
     public Object selectabandon(@RequestBody HireVo hireVo) {
@@ -69,7 +77,11 @@ public class EmploymentTableController {
         return map1;
     }
 
-    // 查询工作经历
+    /**
+     * 查询工作经历
+     * @param workVo
+     * @return
+     */
     @PostMapping("/selectwork")
     @HystrixCommand(fallbackMethod = "HystixGet3")
     public Object selectwork(@RequestBody WorkVo workVo) {
@@ -90,7 +102,11 @@ public class EmploymentTableController {
         return map1;
     }
 
-    // 查询转正
+    /**
+     * 查询转正
+     * @param fullVo
+     * @return
+     */
     @PostMapping("/selectpost")
     @HystrixCommand(fallbackMethod = "HystixGet4")
     public Object selectpost(@RequestBody FullVo fullVo) {
@@ -113,6 +129,8 @@ public class EmploymentTableController {
 
     /**
      * 添加员工
+     * @param hireVo
+     * @return
      */
     @PostMapping("/insertStaff")
     @HystrixCommand(fallbackMethod = "HystixGet5")
@@ -141,6 +159,18 @@ public class EmploymentTableController {
     public int updateEmploymentState(@RequestBody EmploymentTable employmentId){
         employmentId.setEmploymentState(1L);
         final var i = employmentTableService.updateEmploymentState(employmentId);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
+    @PostMapping("/updateEmploymentStateAndWaiveReasonInt")
+    public int updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentId){
+        employmentId.setEmploymentState(2L);
+        employmentId.setWaiveReason(employmentId.getWaiveReason());
+        final var i = employmentTableService.updateEmploymentStateAndWaiveReasonInt(employmentId);
         if (i==999){
             return 666;
         }else {
