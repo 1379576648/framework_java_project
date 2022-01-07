@@ -255,4 +255,7 @@ public interface AuditflowService {
      */
     @PostMapping("/selectDetailsWorker")
     Object selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo);
+
+    @GetMapping("/selectDeptList")
+    Object selectDeptAll();
 }

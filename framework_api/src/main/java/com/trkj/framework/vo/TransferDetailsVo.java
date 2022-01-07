@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 审批调薪明细详情
+ * 审批调动明细详情
  */
 @Data
 @NoArgsConstructor
@@ -56,13 +56,13 @@ public class TransferDetailsVo  implements Serializable {
     @TableField("TRANSFER_TYPE")
     private String transfertype;
 
-    @ApiModelProperty(value = "原部门编号")
-    @TableField("CREATED_DEPT_ID")
-    private Long createddeptid;
+    @ApiModelProperty(value = "原部门名称")
+    @TableField("CREATED_DEPT_NAME")
+    private String createddeptname;
 
-    @ApiModelProperty(value = "变动后部门编号")
-    @TableField("UPDATED_DEPT_ID")
-    private String updateddeptid;
+    @ApiModelProperty(value = "变动后部门名称")
+    @TableField("UPDATED_DEPT_NAME")
+    private String updateddeptname;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "生效日期")

@@ -3,20 +3,22 @@ package com.trkj.framework.mybatisplus.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.mybatisplus.mapper.AuditflowoneMapper;
+import com.trkj.framework.mybatisplus.mapper.DeptMapper;
 import com.trkj.framework.mybatisplus.service.TransferService;
 import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.SalaryDetailsVo;
 import com.trkj.framework.vo.TransferDetailsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service
 public class TransferServicelmpl implements TransferService {
     @Autowired
     private AuditflowoneMapper auditflowoneMapper;
+    @Autowired
+    private DeptMapper deptMapper;
 
     @Override
     public IPage<Auditflowone> selectTransferAll(Auditflowone auditflowone) {
@@ -63,5 +65,20 @@ public class TransferServicelmpl implements TransferService {
         queryWrapper.eq("a.AUDITFLOW_ID", transferDetailsVo.getAuditflowId());
         queryWrapper.eq("t.STAFF_NAME", transferDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsTransfer(queryWrapper);
+    }
+
+    /**
+     * 查询所有被启用的部门数据
+     * @return
+     */
+    @Override
+    public List<Dept> selectDeptAll() {
+        //条件构造器
+        QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
+        //逻辑删除 未删除
+        queryWrapper.eq("IS_DELETED", 0);
+        //是否禁用 启用
+        queryWrapper.eq("DEPT_STATE", 0);
+        return deptMapper.selectList(queryWrapper);
     }
 }
