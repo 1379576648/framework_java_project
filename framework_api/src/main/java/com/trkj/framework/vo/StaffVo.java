@@ -2,6 +2,7 @@ package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -12,43 +13,14 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class FullVo {
-    @ApiModelProperty(value = "转正编号")
-    @TableId("WORKER_ID")
-    private Long workerId;
-
-    @ApiModelProperty(value = "审批编号")
-    @TableField("AUDITFLOW_ID")
-    private Long auditflowId;
-
-    @ApiModelProperty(value = "员工名称")
-    @TableField("STAFF_NAME")
-    private String staffName;
-
-    @ApiModelProperty(value = "部门编号")
-    @TableField("DEPT_ID")
-    private Long deptId;
-
-    @ApiModelProperty(value = "转正类型")
-    @TableField("WORKER_TYPE")
-    private String workerType;
-
-    @ApiModelProperty(value = "备注")
-    @TableField("WORKER_REMARKS")
-    private String workerRemarks;
-
-    @ApiModelProperty(value = "状态 0:不同意 1:同意")
-    @TableField("WORKER_STATE")
-    private Long workerState;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @ApiModelProperty(value = "转正日期")
-    @TableField("WORKER_DATE")
-    private Date workerDate;
-
+public class StaffVo {
     @ApiModelProperty(value = "获奖人编号")
     @TableId("STAFF_ID")
     private Integer staffId;
+
+    @ApiModelProperty(value = "员工姓名")
+    @TableField("STAFF_NAME")
+    private String staffName;
 
     @ApiModelProperty(value = "性别")
     @TableField("STAFF_SEX")
@@ -92,9 +64,17 @@ public class FullVo {
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;
 
+    @ApiModelProperty(value = "转正编号")
+    @TableField("WORKER_ID")
+    private Long workerId;
+
     @ApiModelProperty(value = "身份证")
     @TableField("STAFF_IDENTITY")
     private String staffIdentity;
+
+    @ApiModelProperty(value = "部门编号")
+    @TableField("DEPT_ID")
+    private Integer deptId;
 
     @ApiModelProperty(value = "专业")
     @TableField("STAFF_MAJOR")
@@ -155,9 +135,26 @@ public class FullVo {
     @TableField("POST_NAME")
     private String postName;
 
-    @ApiModelProperty(value = "乐观锁")
-    @TableField("REVISION")
-    private Long revision;
+    @ApiModelProperty(value = "审批编号")
+    @TableField("AUDITFLOW_ID")
+    private Long auditflowId;
+
+    @ApiModelProperty(value = "转正类型")
+    @TableField("WORKER_TYPE")
+    private String workerType;
+
+    @ApiModelProperty(value = "备注")
+    @TableField("WORKER_REMARKS")
+    private String workerRemarks;
+
+    @ApiModelProperty(value = "状态 0:不同意 1:同意")
+    @TableField("WORKER_STATE")
+    private Long workerState;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @ApiModelProperty(value = "转正日期")
+    @TableField("WORKER_DATE")
+    private Date workerDate;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")
@@ -167,7 +164,11 @@ public class FullVo {
     @TableField("UPDATED_TIME")
     private Date updatedTime;
 
-    @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")
+    @ApiModelProperty(value = "乐观锁")
+    @TableField("REVISION")
+    private Long revision;
+
+    @ApiModelProperty(value = "逻辑删除")
     @TableField("IS_DELETED")
     private Long isDeleted;
 

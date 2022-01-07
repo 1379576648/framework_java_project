@@ -4,10 +4,7 @@ import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.FullVo;
-import com.trkj.framework.vo.HireVo;
-import com.trkj.framework.vo.WorkVo;
+import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -72,5 +69,13 @@ public interface HireClientService {
      */
     @PostMapping("/updateEmploymentStateAndWaiveReasonInt")
     Object updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentTable);
+
+    /**
+     * 查询员工花名册
+     * @param staffVo
+     * @return
+     */
+    @PostMapping("/selectStaff")
+    Object selectStaff(@RequestBody StaffVo staffVo);
 }
 
