@@ -23,4 +23,11 @@ public interface StaffService {
      */
     public Object findStaffByPhoneAndPass(Map<String,Object> map);
 
+    /***
+     * 查询用户角色下菜单列表
+     * @param id
+     * @return
+     */
+    public Object  menuList(Integer id);
+
 }

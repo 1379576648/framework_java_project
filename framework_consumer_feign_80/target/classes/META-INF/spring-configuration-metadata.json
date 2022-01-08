@@ -1,0 +1,27 @@
+{
+  "groups": [
+    {
+      "name": "jwt",
+      "type": "com.trkj.framework.util.JwtTokenUtil",
+      "sourceType": "com.trkj.framework.util.JwtTokenUtil"
+    }
+  ],
+  "properties": [
+    {
+      "name": "jwt.expire",
+      "type": "java.lang.Long",
+      "sourceType": "com.trkj.framework.util.JwtTokenUtil"
+    },
+    {
+      "name": "jwt.header",
+      "type": "java.lang.String",
+      "sourceType": "com.trkj.framework.util.JwtTokenUtil"
+    },
+    {
+      "name": "jwt.secret",
+      "type": "java.lang.String",
+      "sourceType": "com.trkj.framework.util.JwtTokenUtil"
+    }
+  ],
+  "hints": []
+}

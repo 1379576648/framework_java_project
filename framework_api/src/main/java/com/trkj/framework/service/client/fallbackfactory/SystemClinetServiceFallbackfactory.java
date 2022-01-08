@@ -126,6 +126,11 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
+
+            @Override
+            public Object menuPowerList() {
+                return null;
+            }
         };
     }
 }
