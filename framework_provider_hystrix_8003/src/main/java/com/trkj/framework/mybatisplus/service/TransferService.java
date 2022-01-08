@@ -1,10 +1,9 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.SalaryDetailsVo;
 import com.trkj.framework.vo.TransferDetailsVo;
-
 import java.util.List;
 
 public interface TransferService {
@@ -28,4 +27,11 @@ public interface TransferService {
      * @return
      */
     List<TransferDetailsVo> selectDetailsTransfer(TransferDetailsVo transferDetailsVo);
+
+    /**
+     * 点击异动查询所有部门
+     * @param
+     * @return
+     */
+    List<Dept>selectDeptAll();
 }

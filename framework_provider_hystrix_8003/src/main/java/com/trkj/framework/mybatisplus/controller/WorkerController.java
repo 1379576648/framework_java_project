@@ -1,14 +1,19 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Dept;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.WorkerService;
 import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.DeptPostVo;
 import com.trkj.framework.vo.TravelDetailsVo;
 import com.trkj.framework.vo.WorkerDetaIsVo;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -84,10 +89,33 @@ public class WorkerController {
         return map1;
     }
 
-    public Object HystixGet3(@RequestBody WorkerDetaIsVo workerDetaIsVo  ) {
+    public Object HystixGet3(@RequestBody WorkerDetaIsVo workerDetaIsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 根据员工名册查询其员工状态
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectStaffState")
+    public int selectStaffState(@RequestBody Staff staff){
+        final var i = workerService.selectById(staff);
+        return i;
+    }
+
+    /**
+     * 根据部门名称查询其部门经理
+     * @return
+     */
+    @PostMapping("/根据其部门名称查询其部门经理")
+    public Object selectDeptPostName(@RequestBody DeptPostVo deptPostVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectDeptPostName(deptPostVo));
         return map1;
     }
 }

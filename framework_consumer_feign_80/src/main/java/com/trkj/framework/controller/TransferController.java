@@ -5,6 +5,7 @@ import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.TransferDetailsVo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,5 +46,15 @@ public class TransferController {
     @PostMapping("/selectDetailsTransfer")
     public AjaxResponse selectDetailsTransfer(@RequestBody TransferDetailsVo transferDetailsVo) {
         return AjaxResponse.success(auditflowService.selectDetailsTransfer(transferDetailsVo));
+    }
+
+    /**
+     *  点击异动查询所有部门
+     * @param
+     * @return
+     */
+    @GetMapping("/selectDeptList")
+    public AjaxResponse selectDeptAll(){
+        return AjaxResponse.success(auditflowService.selectDeptAll());
     }
 }
