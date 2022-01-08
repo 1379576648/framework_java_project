@@ -1,7 +1,9 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.DeptPostVo;
 import com.trkj.framework.vo.TravelDetailsVo;
 import com.trkj.framework.vo.WorkerDetaIsVo;
 
@@ -34,4 +36,13 @@ public interface WorkerService {
      * @return
      */
     List<WorkerDetaIsVo> selectDetailsWorker(WorkerDetaIsVo workerDetaIsVo);
+
+    /**
+     * 根据员工名册查询其员工状态
+     * @param staff
+     * @return
+     */
+    int selectById(Staff staff);
+
+    List<DeptPostVo>selectDeptPostName(DeptPostVo deptPostVo);
 }
