@@ -1,11 +1,9 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
+import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.hire.HireClientService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.FullVo;
-import com.trkj.framework.vo.HireVo;
-import com.trkj.framework.vo.WorkVo;
+import com.trkj.framework.vo.*;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
@@ -19,6 +17,11 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
     @Override
     public Object create(Throwable throwable) {
         return new HireClientService() {
+            /**
+             * 查询已录用待入职的员工
+             * @param hireVo
+             * @return
+             */
             @Override
             public Object selecthirepage(HireVo hireVo) {
                 Map<String, Object> objectMap = new HashMap<>();
@@ -29,6 +32,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
 
             /**
              * 查询已经淘汰的员工
+             * @param hireVo
+             * @return
              */
             @Override
             public Object selectabandon(HireVo hireVo) {
@@ -39,7 +44,9 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
             }
 
             /**
-             *查询工作经历
+             * 查询工作经历
+             * @param workVo
+             * @return
              */
             @Override
             public Object selectwork(WorkVo workVo) {
@@ -51,6 +58,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
 
             /**
              * 查询转正
+             * @param fullVo
+             * @return
              */
             @Override
             public Object selectpost(FullVo fullVo) {
@@ -61,7 +70,9 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
             }
 
             /**
-             *新增员工
+             * 新增员工
+             * @param hireVo
+             * @return
              */
 
             @Override
@@ -70,6 +81,45 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
+            }
+
+            /**
+             * 修改录用表状态
+             * @param employmentTable
+             * @return
+             */
+            @Override
+            public Object updateEmploymentState(EmploymentTable employmentTable) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改录用状态为已淘汰以及放弃原因
+             * @param employmentTable
+             * @return
+             */
+            @Override
+            public Object updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 查询员工花名册
+             * @param staffVo
+             * @return
+             */
+            @Override
+            public Object selectStaff(StaffVo staffVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
             }
 
         };

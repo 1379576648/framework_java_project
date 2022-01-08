@@ -95,7 +95,7 @@ public interface AuditflowService {
     Object selectDetailsLeaves(@RequestBody LeaveDetailsVo leaveDetailsVo);
 
     /**
-     * 根据审批类型的请假/审批人查询待处理的审批
+     * 根据审批类型的出差/审批人查询待处理的审批
      *
      * @param auditflowone
      * @return
@@ -104,7 +104,7 @@ public interface AuditflowService {
     Object selectTravelAll(@RequestBody Auditflowone auditflowone);
 
     /**
-     * 根据审批类型的请假/审批人查询已处理的审批
+     * 根据审批类型的出差/审批人查询已处理的审批
      * @param
      * @param
      * @return
@@ -113,7 +113,7 @@ public interface AuditflowService {
     Object selectEndTravelAll(@RequestBody Auditflowone auditflowone);
 
     /**
-     * 根据审批类型的请假/审批人查询已处理的详情信息
+     * 根据审批类型的出差/审批人查询已处理的详情信息
      *
      * @param
      * @return
@@ -122,7 +122,7 @@ public interface AuditflowService {
     Object selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo);
 
     /**
-     * 根据审批类型的请假/审批人查询待处理的审批
+     * 根据审批类型的补打卡/审批人查询待处理的审批
      *
      * @param auditflowone
      * @return
@@ -131,7 +131,7 @@ public interface AuditflowService {
     Object selectCardAll(@RequestBody Auditflowone auditflowone);
 
     /**
-     * 根据审批类型的请假/审批人查询已处理的审批
+     * 根据审批类型的补打卡/审批人查询已处理的审批
      * @param
      * @param
      * @return
@@ -140,7 +140,7 @@ public interface AuditflowService {
     Object selectEndCardAll(@RequestBody Auditflowone auditflowone);
 
     /**
-     * 根据审批类型的请假/审批人查询已处理的详情信息
+     * 根据审批类型的补打卡/审批人查询已处理的详情信息
      *
      * @param
      * @return
@@ -203,7 +203,7 @@ public interface AuditflowService {
     Object selectDetailsSalary(@RequestBody SalaryDetailsVo salaryDetailsVo);
 
     /**
-     * 根据审批类型的调薪/审批人查询待处理的审批
+     * 根据审批类型的调动/审批人查询待处理的审批
      *
      * @param auditflowone
      * @return
@@ -212,7 +212,7 @@ public interface AuditflowService {
     Object selectTransferAll(@RequestBody Auditflowone auditflowone);
 
     /**
-     * 根据审批类型的调薪/审批人查询已处理的审批
+     * 根据审批类型的调动/审批人查询已处理的审批
      * @param
      * @param
      * @return
@@ -221,11 +221,41 @@ public interface AuditflowService {
     Object selectEndTransferAll(@RequestBody Auditflowone auditflowone);
 
     /**
-     * 根据审批类型的调薪/审批人查询已处理的详情信息
+     * 根据审批类型的调动/审批人查询已处理的详情信息
      *
      * @param
      * @return
      */
     @PostMapping("/selectDetailsTransfer")
     Object selectDetailsTransfer(@RequestBody TransferDetailsVo transferDetailsVo);
+
+    /**
+     * 根据审批类型的转正/审批人查询待处理的审批
+     *
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectWorkerlAll")
+    Object selectWorkerlAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的转正/审批人查询已处理的审批
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEndWorkerlAll")
+    Object selectEndWorkerlAll(@RequestBody Auditflowone auditflowone);
+
+    /**
+     * 根据审批类型的转正/审批人查询已处理的详情信息
+     *
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDetailsWorker")
+    Object selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo);
+
+    @GetMapping("/selectDeptList")
+    Object selectDeptAll();
 }

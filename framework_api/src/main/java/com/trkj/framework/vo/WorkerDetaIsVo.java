@@ -11,12 +11,12 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 审批调动明细详情
+ * 审批出差明细详情
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransferDetailsVo  implements Serializable {
+public class WorkerDetaIsVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "审批编号")
@@ -52,21 +52,18 @@ public class TransferDetailsVo  implements Serializable {
     @TableField("AUDITFLOWDETAI_DATE")
     private Date auditflowdetaiDate;
 
-    @ApiModelProperty(value = "异动类型")
-    @TableField("TRANSFER_TYPE")
-    private String transfertype;
+    @ApiModelProperty(value = "转正类型")
+    @TableField("WORKER_TYPE")
+    private String workertype;
 
-    @ApiModelProperty(value = "原部门名称")
-    @TableField("CREATED_DEPT_NAME")
-    private String createddeptname;
-
-    @ApiModelProperty(value = "变动后部门名称")
-    @TableField("UPDATED_DEPT_NAME")
-    private String updateddeptname;
+    @ApiModelProperty(value = "备注")
+    @TableField("WORKER_REMARKS")
+    private String workerremarks;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @ApiModelProperty(value = "生效日期")
-    @TableField("TAKE_EFFECT_DATE")
-    private Date takeeffectdate;
-}
+    @ApiModelProperty(value = "转正日期")
+    @TableField("WORKER_DATE")
+    private Date workerdate;
 
+
+}
