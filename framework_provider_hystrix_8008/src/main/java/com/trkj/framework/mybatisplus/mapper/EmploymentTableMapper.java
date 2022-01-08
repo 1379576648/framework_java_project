@@ -61,7 +61,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT w.WORKER_ID,w.STAFF_NAME,w.WORKER_TYPE,w.WORKER_REMARKS,w.WORKER_STATE,w.WORKER_DATE,s.STAFF_IDENTITY,s.STAFF_HIREDATE,d.DEPT_NAME,p.POST_NAME FROM WORKER w LEFT JOIN STAFF s on w.WORKER_ID=s.WORKER_ID LEFT JOIN DEPT d on d.DEPT_ID=w.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID=s.DEPT_POST_ID ${ew.customSqlSegment}")
+    @Select("SELECT s.STAFF_NAME,s.STAFF_STATE,s.STAFF_IDENTITY,d.DEPT_NAME,p.POST_NAME,s.STAFF_HIREDATE FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID=s.DEPT_POST_ID ${ew.customSqlSegment}")
     IPage<FullVo> selectpost(Page<FullVo> page,@Param(Constants.WRAPPER) QueryWrapper<FullVo> queryWrapper);
 
 

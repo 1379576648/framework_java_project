@@ -46,5 +46,28 @@ public class StaffController {
         return map1;
     }
 
+    /**
+     * 根据id查询员工信息
+     * @param staffVo
+     * @return
+     */
+    @PostMapping("/selectStaffAll")
+    @HystrixCommand(fallbackMethod = "HystixGet2")
+    public Object selectStaffAll(@RequestBody StaffVo staffVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", staffService.selectStaffAll(staffVo));
+        System.out.println(staffVo);
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet2(@RequestBody StaffVo staffVo){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
 }
 
