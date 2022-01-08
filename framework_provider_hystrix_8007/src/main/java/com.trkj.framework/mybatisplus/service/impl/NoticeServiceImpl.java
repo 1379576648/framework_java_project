@@ -175,7 +175,7 @@ public class NoticeServiceImpl implements NoticeService {
                                     //公告编号
                                     noticeStaff.setNoticeId(Long.valueOf(notice.getNoticeId()));
                                     //员工编号
-                                    noticeStaff.setStaffId(staff.getStaffId());
+                                    noticeStaff.setStaffId(Long.valueOf(staff.getStaffId()));
                                     //公告员工状态 未读
                                     noticeStaff.setNoticeState(0L);
                                     if (noticeStaffMapper.insert(noticeStaff) >= 1) {
@@ -257,7 +257,7 @@ public class NoticeServiceImpl implements NoticeService {
                                     //公告编号
                                     noticeStaff.setNoticeId(Long.valueOf(notice.getNoticeId()));
                                     //员工编号
-                                    noticeStaff.setStaffId(staff.getStaffId());
+                                    noticeStaff.setStaffId(Long.valueOf(staff.getStaffId()));
                                     //公告员工状态 未读
                                     noticeStaff.setNoticeState(0L);
                                     if (noticeStaffMapper.insert(noticeStaff) >= 1) {

@@ -3,6 +3,8 @@ package com.trkj.framework.jpa.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.distinguish.service.MethodService;
 import com.trkj.framework.entity.jpa.RegisterLogEntity;
+import com.trkj.framework.entity.jpa.StaffEntity;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.jpa.service.StaffService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -39,8 +41,15 @@ public class StaffController {
         }else{
             //存入到map
             map.put("成功",map2.get("成功"));
+            StaffEntity staff =staffService.staffId(map);
             //返回员工信息
-            map1.put("succeed",staffService.staffId(map));
+            map1.put("succeed",staff);
+            //如果员工不为空
+            if (staff!=null){
+                //返回菜单列表
+                map1.put("menuList",staffService.menuList(staff.getStaffId()));
+            }
+
         }
         return  map1;
     }
@@ -63,8 +72,10 @@ public class StaffController {
         Map<String,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
+        StaffEntity staffEntity = (StaffEntity) staffService.findStaffByPhoneAndPass(map);
         //成功结果
-        map1.put("succeed",staffService.findStaffByPhoneAndPass(map));
+        map1.put("succeed",staffEntity);
+        map1.put("menuList",staffService.menuList(staffEntity.getStaffId()));
         return map1;
     }
     //备选方法
