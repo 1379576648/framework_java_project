@@ -23,5 +23,15 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.selectStaff(staffVo));
     }
 
+    /**
+     * 根据id查询员工信息
+     * @param staffVo
+     * @return
+     */
+    @PostMapping("/selectStaffAll")
+    public AjaxResponse selectStaffAll(@RequestBody StaffVo staffVo){
+        return AjaxResponse.success(hireClientService.selectStaffAll(staffVo));
+    }
+
 
 }

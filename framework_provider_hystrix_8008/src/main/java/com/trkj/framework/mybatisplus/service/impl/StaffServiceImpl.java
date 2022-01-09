@@ -11,6 +11,8 @@ import com.trkj.framework.vo.StaffVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * <p>
  * 员工表 服务实现类
@@ -37,6 +39,19 @@ public class StaffServiceImpl implements StaffService {
         if(staffVo.getStaffName()!=null){
             queryWrapper.like("s.STAFF_NAME",staffVo.getStaffName());
         }
+        queryWrapper.ne("s.STAFF_STATE",1);
         return staffMapper.selectStaff(page,queryWrapper);
+    }
+
+    /**
+     * 根据id查询员工信息
+     * @param staffVo
+     * @return
+     */
+    @Override
+    public List<StaffVo> selectStaffAll(StaffVo staffVo) {
+        QueryWrapper<StaffVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("s.STAFF_ID",staffVo.getStaffId());
+        return staffMapper.selectStaffAll(queryWrapper);
     }
 }
