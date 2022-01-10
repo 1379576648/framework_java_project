@@ -7,6 +7,7 @@ import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.mapper.StaffMapper;
 import com.trkj.framework.mybatisplus.service.StaffService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -54,4 +55,23 @@ public class StaffServiceImpl implements StaffService {
         queryWrapper.eq("s.STAFF_ID",staffVo.getStaffId());
         return staffMapper.selectStaffAll(queryWrapper);
     }
+
+    /**
+     * 查询历史花名册
+     * @param staffQuitVo
+     * @return
+     */
+    @Override
+    public IPage<StaffQuitVo> selectQuit(StaffQuitVo staffQuitVo) {
+        Page<StaffQuitVo> page = new Page<>(staffQuitVo.getCurrentPage(),staffQuitVo.getPagesize());
+        QueryWrapper<StaffQuitVo> queryWrapper = new QueryWrapper<>();
+        //根据名称查询
+        if(staffQuitVo.getStaffName()!=null){
+            queryWrapper.like("s.STAFF_NAME",staffQuitVo.getStaffName());
+        }
+        queryWrapper.eq("s.STAFF_STATE",1);
+        return staffMapper.selectQuit(page,queryWrapper);
+    }
+
+
 }

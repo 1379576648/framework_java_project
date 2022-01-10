@@ -85,5 +85,13 @@ public interface HireClientService {
      */
     @PostMapping("/selectStaffAll")
     Object selectStaffAll(@RequestBody StaffVo staffVo);
+
+    /**
+     * 查询历史花名册
+     * @param staffQuitVo
+     * @return
+     */
+    @PostMapping("/selectQuit")
+    Object selectQuit(@RequestBody StaffQuitVo staffQuitVo);
 }
 

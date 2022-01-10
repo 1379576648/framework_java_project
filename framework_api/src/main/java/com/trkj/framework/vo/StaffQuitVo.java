@@ -2,7 +2,6 @@ package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,7 +11,9 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class StaffVo {
+public class StaffQuitVo {
+    private static final long serialVersionUID = 1L;
+
     @ApiModelProperty(value = "获奖人编号")
     @TableId("STAFF_ID")
     private Integer staffId;
@@ -37,7 +38,6 @@ public class StaffVo {
     @TableField("STAFF_PICTURE")
     private String staffPicture;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("STAFF_BIRTHDAY")
     private Date staffBirthday;
@@ -58,7 +58,6 @@ public class StaffVo {
     @TableField("STAFF_PASS")
     private String staffPass;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "入职日期")
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;
@@ -122,13 +121,41 @@ public class StaffVo {
     @TableField("STAFF_STATE")
     private Long staffState;
 
-    @ApiModelProperty(value = "状态;0：启用  1：禁用")
-    @TableField("DEPT_STATE")
-    private Long deptState;
-
     @ApiModelProperty(value = "员工工龄")
     @TableField("WORK_AGE")
     private String workAge;
+
+    @ApiModelProperty(value = "离职编号")
+    @TableId("QUIT_ID")
+    private Long quitId;
+
+    @ApiModelProperty(value = "审批编号")
+    @TableField("AUDITFLOW_ID")
+    private Long auditflowId;
+
+    @ApiModelProperty(value = "离职类型")
+    @TableField("QUIT_TYPE")
+    private String quitType;
+
+    @ApiModelProperty(value = "离职说明")
+    @TableField("QUIT_EXPLAIN")
+    private String quitExplain;
+
+    @ApiModelProperty(value = "状态 0:不同意 1:同意")
+    @TableField("QUIT_STATE")
+    private Long quitState;
+
+    @ApiModelProperty(value = "申请离职日期")
+    @TableField("APPLY_QUIT_DATE")
+    private Date applyQuitDate;
+
+    @ApiModelProperty(value = "正式离职日期")
+    @TableField("FORMAL_QUIT_DATE")
+    private Date formalQuitDate;
+
+    @ApiModelProperty(value = "状态;0：启用  1：禁用")
+    @TableField("DEPT_STATE")
+    private Long deptState;
 
     @ApiModelProperty(value = "部门名称")
     @TableField("DEPT_NAME")
@@ -137,27 +164,6 @@ public class StaffVo {
     @ApiModelProperty(value = "职位名称")
     @TableField("POST_NAME")
     private String postName;
-
-    @ApiModelProperty(value = "审批编号")
-    @TableField("AUDITFLOW_ID")
-    private Long auditflowId;
-
-    @ApiModelProperty(value = "转正类型")
-    @TableField("WORKER_TYPE")
-    private String workerType;
-
-    @ApiModelProperty(value = "备注")
-    @TableField("WORKER_REMARKS")
-    private String workerRemarks;
-
-    @ApiModelProperty(value = "状态 0:不同意 1:同意")
-    @TableField("WORKER_STATE")
-    private Long workerState;
-
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @ApiModelProperty(value = "转正日期")
-    @TableField("WORKER_DATE")
-    private Date workerDate;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")

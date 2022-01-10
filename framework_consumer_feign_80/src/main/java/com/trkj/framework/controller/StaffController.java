@@ -2,6 +2,7 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.AjaxResponse;
+import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,5 +34,14 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.selectStaffAll(staffVo));
     }
 
+    /**
+     * 查询历史花名册
+     * @param staffQuitVo
+     * @return
+     */
+    @PostMapping("/selectQuit")
+    public AjaxResponse selectQuit(@RequestBody StaffQuitVo staffQuitVo){
+        return AjaxResponse.success(hireClientService.selectQuit(staffQuitVo));
+    }
 
 }

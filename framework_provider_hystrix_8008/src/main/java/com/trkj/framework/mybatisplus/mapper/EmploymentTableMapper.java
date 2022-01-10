@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
+import com.trkj.framework.entity.mybatisplus.NoticeDept;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
@@ -61,7 +62,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT s.STAFF_NAME,s.STAFF_STATE,s.STAFF_IDENTITY,d.DEPT_NAME,p.POST_NAME,s.STAFF_HIREDATE FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID=s.DEPT_POST_ID ${ew.customSqlSegment}")
+    @Select("SELECT s.STAFF_NAME , s.STAFF_STATE , s.STAFF_IDENTITY , d.DEPT_NAME , p.POST_NAME , s.STAFF_HIREDATE FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID = s.DEPT_POST_ID ${ew.customSqlSegment} ")
     IPage<FullVo> selectpost(Page<FullVo> page,@Param(Constants.WRAPPER) QueryWrapper<FullVo> queryWrapper);
 
 
