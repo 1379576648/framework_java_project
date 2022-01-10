@@ -2,7 +2,6 @@ package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -38,7 +37,7 @@ public class StaffVo {
     @TableField("STAFF_PICTURE")
     private String staffPicture;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("STAFF_BIRTHDAY")
     private Date staffBirthday;
@@ -126,6 +125,10 @@ public class StaffVo {
     @ApiModelProperty(value = "状态;0：启用  1：禁用")
     @TableField("DEPT_STATE")
     private Long deptState;
+
+    @ApiModelProperty(value = "员工工龄")
+    @TableField("WORK_AGE")
+    private String workAge;
 
     @ApiModelProperty(value = "部门名称")
     @TableField("DEPT_NAME")

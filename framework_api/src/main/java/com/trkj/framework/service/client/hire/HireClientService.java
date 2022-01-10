@@ -77,5 +77,21 @@ public interface HireClientService {
      */
     @PostMapping("/selectStaff")
     Object selectStaff(@RequestBody StaffVo staffVo);
+
+    /**
+     * 根据id查询员工信息
+     * @param staffVo
+     * @return
+     */
+    @PostMapping("/selectStaffAll")
+    Object selectStaffAll(@RequestBody StaffVo staffVo);
+
+    /**
+     * 查询历史花名册
+     * @param staffQuitVo
+     * @return
+     */
+    @PostMapping("/selectQuit")
+    Object selectQuit(@RequestBody StaffQuitVo staffQuitVo);
 }
 

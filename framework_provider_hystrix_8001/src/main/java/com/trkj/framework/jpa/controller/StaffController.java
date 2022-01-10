@@ -72,10 +72,18 @@ public class StaffController {
         Map<String,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
-        StaffEntity staffEntity = (StaffEntity) staffService.findStaffByPhoneAndPass(map);
+        StaffEntity staffEntity =  staffService.findStaffByPhoneAndPass(map);
         //成功结果
         map1.put("succeed",staffEntity);
-        map1.put("menuList",staffService.menuList(staffEntity.getStaffId()));
+        if (staffEntity!=null ){
+            if (staffEntity.getError()==null){
+                map1.put("menuList",staffService.menuList(staffEntity.getStaffId()));
+            }else{
+                map1.put("menuList","");
+            }
+        }else{
+            map1.put("menuList","");
+        }
         return map1;
     }
     //备选方法

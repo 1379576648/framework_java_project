@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.mybatisplus.service.StaffService;
+import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -46,5 +47,50 @@ public class StaffController {
         return map1;
     }
 
+    /**
+     * 根据id查询员工信息
+     * @param staffVo
+     * @return
+     */
+    @PostMapping("/selectStaffAll")
+    @HystrixCommand(fallbackMethod = "HystixGet2")
+    public Object selectStaffAll(@RequestBody StaffVo staffVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", staffService.selectStaffAll(staffVo));
+        System.out.println(staffVo);
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet2(@RequestBody StaffVo staffVo){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 查询历史花名册
+     * @param staffQuitVo
+     * @return
+     */
+    @PostMapping("/selectQuit")
+    @HystrixCommand(fallbackMethod = "HystixGet3")
+    public Object selectQuit(@RequestBody StaffQuitVo staffQuitVo){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.selectQuit(staffQuitVo));
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet3(@RequestBody StaffQuitVo staffQuitVo){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
 }
 

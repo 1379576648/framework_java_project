@@ -2,6 +2,7 @@ package com.trkj.framework.jpa.service;
 
 import com.trkj.framework.entity.jpa.RegisterLogEntity;
 import com.trkj.framework.entity.jpa.StaffEntity;
+import com.trkj.framework.entity.mybatisplus.Staff;
 
 import java.util.Map;
 
@@ -21,7 +22,7 @@ public interface StaffService {
      * @param map
      * @return
      */
-    public Object findStaffByPhoneAndPass(Map<String,Object> map);
+    public StaffEntity findStaffByPhoneAndPass(Map<String,Object> map);
 
     /***
      * 查询用户角色下菜单列表

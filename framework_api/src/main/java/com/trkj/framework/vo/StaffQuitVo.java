@@ -1,31 +1,17 @@
-package com.trkj.framework.entity.mybatisplus;
+package com.trkj.framework.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.io.Serializable;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-/**
- * <p>
- * 员工表
- * </p>
- *
- * @author suki
- * @since 2022-01-04
- */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("STAFF")
-@ApiModel(value="Staff对象", description="员工表")
-@KeySequence(value = "STAFF_ID",clazz = Integer.class)
-public class Staff implements Serializable {
-
+@NoArgsConstructor
+@AllArgsConstructor
+public class StaffQuitVo {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "获奖人编号")
@@ -139,22 +125,67 @@ public class Staff implements Serializable {
     @TableField("WORK_AGE")
     private String workAge;
 
+    @ApiModelProperty(value = "离职编号")
+    @TableId("QUIT_ID")
+    private Long quitId;
+
+    @ApiModelProperty(value = "审批编号")
+    @TableField("AUDITFLOW_ID")
+    private Long auditflowId;
+
+    @ApiModelProperty(value = "离职类型")
+    @TableField("QUIT_TYPE")
+    private String quitType;
+
+    @ApiModelProperty(value = "离职说明")
+    @TableField("QUIT_EXPLAIN")
+    private String quitExplain;
+
+    @ApiModelProperty(value = "状态 0:不同意 1:同意")
+    @TableField("QUIT_STATE")
+    private Long quitState;
+
+    @ApiModelProperty(value = "申请离职日期")
+    @TableField("APPLY_QUIT_DATE")
+    private Date applyQuitDate;
+
+    @ApiModelProperty(value = "正式离职日期")
+    @TableField("FORMAL_QUIT_DATE")
+    private Date formalQuitDate;
+
+    @ApiModelProperty(value = "状态;0：启用  1：禁用")
+    @TableField("DEPT_STATE")
+    private Long deptState;
+
+    @ApiModelProperty(value = "部门名称")
+    @TableField("DEPT_NAME")
+    private String deptName;
+
+    @ApiModelProperty(value = "职位名称")
+    @TableField("POST_NAME")
+    private String postName;
+
     @ApiModelProperty(value = "创建时间")
-    @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
+    @TableField("CREATED_TIME")
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
+    @TableField("UPDATED_TIME")
     private Date updatedTime;
-
-    @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")
-    @TableField("IS_DELETED")
-    @TableLogic
-    private Long isDeleted;
 
     @ApiModelProperty(value = "乐观锁")
     @TableField("REVISION")
     private Long revision;
 
+    @ApiModelProperty(value = "逻辑删除")
+    @TableField("IS_DELETED")
+    private Long isDeleted;
 
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 }
