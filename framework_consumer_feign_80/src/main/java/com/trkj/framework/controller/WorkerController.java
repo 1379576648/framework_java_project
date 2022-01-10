@@ -1,8 +1,11 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Dept;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.DeptPostVo;
 import com.trkj.framework.vo.WorkerDetaIsVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -45,5 +48,39 @@ public class WorkerController {
     @PostMapping("/selectDetailsWorker")
     public AjaxResponse selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo) {
         return AjaxResponse.success(auditflowService.selectDetailsWorker(workerDetaIsVo));
+    }
+
+    /**
+     * 根据员工名册查询其员工状态
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectStaffState")
+    public AjaxResponse selectStaffState(@RequestBody Staff staff){
+        return AjaxResponse.success(auditflowService.selectStaffState(staff));
+    }
+
+    /**
+     * 根据部门编号查询其部门经理
+     * @return
+     */
+    @PostMapping("/selectDeptPostName")
+    public AjaxResponse selectDeptPostName(@RequestBody DeptPostVo deptPostVo){
+        return AjaxResponse.success(auditflowService.selectDeptPostName(deptPostVo));
+    }
+
+    /**
+     * 根据部门编号查询部门名称
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptName")
+    public AjaxResponse selectDeptName(@RequestBody Dept selectDeptName){
+        return AjaxResponse.success(auditflowService.selectDeptName(selectDeptName));
+    }
+
+    @PostMapping("/selectpresident")
+    public AjaxResponse selectpresident(){
+        return AjaxResponse.success(auditflowService.selectpresident());
     }
 }

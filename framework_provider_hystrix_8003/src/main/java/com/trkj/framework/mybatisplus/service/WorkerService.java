@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.DeptPostVo;
@@ -42,7 +43,25 @@ public interface WorkerService {
      * @param staff
      * @return
      */
-    int selectById(Staff staff);
+    Long selectStaffState(Staff staff);
 
+    /**
+     * 根据部门编号查询其部门经理
+     * @return
+     */
     List<DeptPostVo>selectDeptPostName(DeptPostVo deptPostVo);
+
+    /**
+     * 根据部门编号查询其部门名称
+     * @param dept
+     * @return
+     */
+    List<Dept>selectDeptName(Dept dept);
+
+
+    /**
+     * 查询人事经理及总裁（总经理）
+     * @return
+     */
+    List<DeptPostVo>selectpresident();
 }

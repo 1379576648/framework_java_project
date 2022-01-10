@@ -97,25 +97,54 @@ public class WorkerController {
     }
 
     /**
-     * 根据员工名册查询其员工状态
+     * 根据员工名册查询其员工状态 返回1为实习员工
      * @param staff
      * @return
      */
     @PostMapping("/selectStaffState")
-    public int selectStaffState(@RequestBody Staff staff){
-        final var i = workerService.selectById(staff);
-        return i;
+    public Long selectStaffState(@RequestBody Staff staff){
+        final var i = workerService.selectStaffState(staff);
+        if (i ==1L){
+            return 1L;
+        }else {
+            return 0L;
+        }
     }
 
     /**
-     * 根据部门名称查询其部门经理
+     * 根据部门编号查询其部门经理
      * @return
      */
-    @PostMapping("/根据其部门名称查询其部门经理")
+    @PostMapping("/selectDeptPostName")
     public Object selectDeptPostName(@RequestBody DeptPostVo deptPostVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectDeptPostName(deptPostVo));
+        return map1;
+    }
+
+    /**
+     * 根据部门编号查询部门名称
+     * @param dept
+     * @return
+     */
+    @PostMapping("/selectDeptName")
+    public Object selectDeptName(@RequestBody Dept dept){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectDeptName(dept));
+        return map1;
+    }
+
+    /**
+     * 查询人事经理及总裁（总经理）
+     * @return
+     */
+    @PostMapping("/selectpresident")
+    public Object selectpresident(){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectpresident());
         return map1;
     }
 }

@@ -1,7 +1,9 @@
 package com.trkj.framework.service.client.examine;
 
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.fallbackfactory.AuditflowClinetServiceFallbackfactory;
 import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFallbackfactory;
 import com.trkj.framework.vo.*;
@@ -256,6 +258,37 @@ public interface AuditflowService {
     @PostMapping("/selectDetailsWorker")
     Object selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo);
 
+    /**
+     *  点击异动查询所有部门
+     * @param
+     * @return
+     */
     @GetMapping("/selectDeptList")
     Object selectDeptAll();
+
+    /**
+     * 根据员工名册查询其员工状态
+     * @param
+     * @return
+     */
+    @PostMapping("/selectStaffState")
+    Object selectStaffState(@RequestBody Staff staff);
+
+    /**
+     * 根据部门编号查询其部门经理
+     * @return
+     */
+    @PostMapping("/selectDeptPostName")
+    Object selectDeptPostName(@RequestBody DeptPostVo deptPostVo);
+
+    /**
+     * 根据部门编号查询部门名称
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptName")
+    Object selectDeptName(@RequestBody Dept dept);
+
+    @PostMapping("/selectpresident")
+    Object selectpresident();
 }

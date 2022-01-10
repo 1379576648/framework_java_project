@@ -3,18 +3,20 @@ package com.trkj.framework.mybatisplus.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.mapper.AuditflowoneMapper;
+import com.trkj.framework.mybatisplus.mapper.DeptMapper;
 import com.trkj.framework.mybatisplus.mapper.StaffMapper;
 import com.trkj.framework.mybatisplus.service.WorkerService;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.DeptPostVo;
-import com.trkj.framework.vo.TravelDetailsVo;
 import com.trkj.framework.vo.WorkerDetaIsVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -23,6 +25,8 @@ public class WorkerServicelmpl implements WorkerService {
     private AuditflowoneMapper auditflowoneMapper;
     @Autowired
     private StaffMapper staffMapper;
+    @Autowired
+    private DeptMapper deptMapper;
 
     @Override
     public IPage<Auditflowone> selectWorkerlAll(Auditflowone auditflowone) {
@@ -72,31 +76,40 @@ public class WorkerServicelmpl implements WorkerService {
     }
 
     /**
-     * 根据员工名称去查询其员工状态为2实习的员工 条件为逻辑删除为0/员工状态为2实习的 不为空则代表为实习员工，返回1
+     * 根据员工名称去查询其员工状态为2实习的员工 条件为逻辑删除为0/员工状态为2实习的
+     *
      * @param staff
      * @return
      */
     @Override
-    public int selectById(Staff staff) {
+    public Long selectStaffState(Staff staff) {
         QueryWrapper<Staff> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("IS_DELETED", 0);
         queryWrapper.eq("STAFF_STATE", 2);
         queryWrapper.eq("STAFF_NAME", staff.getStaffName());
-        final var staff1 = staffMapper.selectById(queryWrapper);
-        if (staff1 != null) {
-            return 1;
-        }else {
-            return 0;
-        }
+        return staffMapper.selectStaffState(queryWrapper);
     }
 
     @Override
     public List<DeptPostVo> selectDeptPostName(DeptPostVo deptPostVo) {
-        QueryWrapper<DeptPostVo>queryWrapper =new QueryWrapper<>();
-        queryWrapper.eq("a.DEPT_NAME",deptPostVo.getDeptName());
-        queryWrapper.like("d.POST_NAME","经理");
-        queryWrapper.eq("s.IS_DELETED",0);
-        queryWrapper.eq("d.IS_DELETED",0);
+        QueryWrapper<DeptPostVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("a.DEPT_ID", deptPostVo.getDeptId());
+        queryWrapper.like("d.POST_NAME", "经理");
+        queryWrapper.eq("s.IS_DELETED", 0);
+        queryWrapper.eq("d.IS_DELETED", 0);
         return auditflowoneMapper.selectDeptPostName(queryWrapper);
+    }
+
+    @Override
+    public List<Dept> selectDeptName(Dept dept) {
+        final var dept1 = deptMapper.selectById(dept);
+        return Collections.singletonList(dept1);
+    }
+
+    @Override
+    public List<DeptPostVo> selectpresident() {
+        QueryWrapper<DeptPostVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.like("d.POST_NAME", "总裁").or().like("d.POST_NAME", "人事部经理");
+        return deptMapper.selectpresident(queryWrapper);
     }
 }
