@@ -2,6 +2,7 @@ package com.trkj.framework.service.client.recruitment;
 
 import com.trkj.framework.service.client.fallbackfactory.NewresumeClinetServiceFallbackfactory;
 import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFallbackfactory;
+import com.trkj.framework.vo.RecruitmentVo;
 import com.trkj.framework.vo.ResumeVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,4 +17,13 @@ public interface NewresumeClinetService {
 
     @PostMapping("/selectAllresume")
     Object queryAll(@RequestBody ResumeVo resumeVo);
+
+    @PostMapping("/selectCandidate")
+    Object queryCandidate(@RequestBody ResumeVo resumeVo);
+
+    @PostMapping("/selectEliminate")
+    Object queryEliminate(@RequestBody ResumeVo resumeVo);
+
+    @PostMapping("/selectRecruitment")
+    Object queryRecruitment(@RequestBody RecruitmentVo recruitmentVo);
 }
