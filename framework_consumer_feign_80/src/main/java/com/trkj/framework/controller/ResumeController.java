@@ -19,4 +19,14 @@ public class ResumeController {
     private Object queryAll(@RequestBody ResumeVo resumeVo){
         return newresumeClinetService.queryAll(resumeVo);
     }
+
+    @PostMapping("/selectCandidate")
+    private Object queryCandidate(@RequestBody ResumeVo resumeVo){
+        return newresumeClinetService.queryCandidate(resumeVo);
+    }
+
+    @PostMapping("/selectEliminate")
+    private Object queryEliminate(@RequestBody ResumeVo resumeVo){
+        return newresumeClinetService.queryEliminate(resumeVo);
+    }
 }
