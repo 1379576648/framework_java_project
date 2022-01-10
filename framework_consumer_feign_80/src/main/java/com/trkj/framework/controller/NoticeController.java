@@ -20,7 +20,7 @@ import java.util.Map;
 @RequestMapping("/notice")
 public class NoticeController {
     @Autowired
-    private SystemClinetService systemClinetService =null;
+        private SystemClinetService systemClinetService =null;
 
     /***
      * 分页查询所有公告数据

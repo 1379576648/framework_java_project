@@ -122,4 +122,11 @@ public interface SystemClinetService {
      */
     @DeleteMapping("/checkRoleDelete")
     public Object checkRoleDelete(@RequestBody ArrayList<Integer> list);
+
+    /***
+     * 查询所有的菜单列表
+     * @return
+     */
+    @GetMapping("/menuPowerList")
+    public Object menuPowerList();
 }

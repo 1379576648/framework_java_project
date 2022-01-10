@@ -1,9 +1,8 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,20 +16,21 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author suki
- * @since 2021-12-29
+ * @since 2022-01-04
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("STAFF")
 @ApiModel(value="Staff对象", description="员工表")
+@KeySequence(value = "STAFF_ID",clazz = Integer.class)
 public class Staff implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "获奖人编号")
     @TableId("STAFF_ID")
-    private Long staffId;
+    private Integer staffId;
 
     @ApiModelProperty(value = "员工姓名")
     @TableField("STAFF_NAME")
@@ -66,7 +66,7 @@ public class Staff implements Serializable {
 
     @ApiModelProperty(value = "部门职位编号外键")
     @TableField("DEPT_POST_ID")
-    private Long deptPostId;
+    private Integer deptPostId;
 
     @ApiModelProperty(value = "密码")
     @TableField("STAFF_PASS")
@@ -86,7 +86,7 @@ public class Staff implements Serializable {
 
     @ApiModelProperty(value = "部门编号")
     @TableField("DEPT_ID")
-    private Long deptId;
+    private Integer deptId;
 
     @ApiModelProperty(value = "专业")
     @TableField("STAFF_MAJOR")
@@ -131,28 +131,30 @@ public class Staff implements Serializable {
     @TableField("STAFF_ADDRESS")
     private String staffAddress;
 
-//    @ApiModelProperty(value = "员工状态")
-//    @TableField("STAFF_STATE")
-//    private Long staffState;
+    @ApiModelProperty(value = "员工状态")
+    @TableField("STAFF_STATE")
+    private Long staffState;
+
+    @ApiModelProperty(value = "员工工龄")
+    @TableField("WORK_AGE")
+    private String workAge;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")
     @TableField("IS_DELETED")
+    @TableLogic
     private Long isDeleted;
 
     @ApiModelProperty(value = "乐观锁")
     @TableField("REVISION")
     private Long revision;
-
-    @TableField("POST_ID")
-    private Long postId;
 
 
 }

@@ -15,7 +15,7 @@ public class TraveController {
     private AuditflowService auditflowService;
 
     /**
-     * 根据审批类型的请假/审批人查询待处理的审批
+     * 根据审批类型的出差/审批人查询待处理的审批
      *
      * @param auditflowone
      * @return
@@ -26,7 +26,7 @@ public class TraveController {
     }
 
     /**
-     * 根据审批类型的请假/审批人查询已处理的审批
+     * 根据审批类型的出差/审批人查询已处理的审批
      *
      * @param auditflowone
      * @return
@@ -37,7 +37,7 @@ public class TraveController {
     }
 
     /**
-     * 根据审批类型的加班/审批人查询已处理的详情信息
+     * 根据审批类型的出差/审批人查询已处理的详情信息
      *
      * @param
      * @return

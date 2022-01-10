@@ -18,7 +18,7 @@ public class HireVo {
 
     @ApiModelProperty(value = "编号")
     @TableId("EMPLOYMENT_ID")
-    private Long employmentId;
+    private Integer employmentId;
 
     @ApiModelProperty(value = "状态 0:待入职 1:已入职 2：淘汰")
     @TableField("EMPLOYMENT_STATE")
@@ -26,7 +26,7 @@ public class HireVo {
 
     @ApiModelProperty(value = "编号")
     @TableField("RESUME_ID")
-    private Long resumeId;
+    private Integer resumeId;
 
     @ApiModelProperty(value = "备注")
     @TableField("REMARKS")
@@ -77,7 +77,7 @@ public class HireVo {
     private String resumeResidence;
 
     @TableField("RECRUITMENT_PLAN_ID")
-    private Long recruitmentPlanId;
+    private Integer recruitmentPlanId;
 
     @TableField("RESUME_POLITICAL_OUTLOOK")
     private String resumePoliticalOutlook;
@@ -96,11 +96,11 @@ public class HireVo {
 
     @ApiModelProperty(value = "部门编号")
     @TableId("DEPT_ID")
-    private Long deptId;
+    private Integer deptId;
 
     @ApiModelProperty(value = "状态;0：启用  1：禁用")
     @TableField("DEPT_STATE")
-    private Long deptState;
+    private Integer deptState;
 
     @ApiModelProperty(value = "部门名称")
     @TableField("DEPT_NAME")
@@ -112,7 +112,7 @@ public class HireVo {
 
     @ApiModelProperty(value = "部门职位编号")
     @TableId("DEPT_POST_ID")
-    private Long deptPostId;
+    private Integer deptPostId;
 
     @ApiModelProperty(value = "职位名称")
     @TableField("POST_NAME")
@@ -143,6 +143,63 @@ public class HireVo {
     @ApiModelProperty(value = "招聘计划状态: 0 招聘中，1 已结束")
     @TableField("RECRUITMENT_ZT")
     private Long recruitmentZt;
+
+    @ApiModelProperty(value = "编号")
+    @TableId("WORK_EXPERIENCESS_ID")
+    private Long workExperiencessId;
+
+    @ApiModelProperty(value = "开始时间")
+    @TableField("WORK_STARE_TIME")
+    private Date workStareTime;
+
+    @ApiModelProperty(value = "结束时间")
+    @TableField("WORK_END_TIME")
+    private Date workEndTime;
+
+    @ApiModelProperty(value = "公司名称")
+    @TableField("COMPANY_NAME")
+    private String companyName;
+
+    @ApiModelProperty(value = "职位名称")
+    @TableField("POSITION_NAME")
+    private String positionName;
+
+    @ApiModelProperty(value = "所属行业")
+    @TableField("POSITION_INDUSTRY")
+    private String positionIndustry;
+
+    @ApiModelProperty(value = "工作描述")
+    @TableField("POSITION_DESCRIBE")
+    private String positionDescribe;
+
+    @ApiModelProperty(value = "税前月薪")
+    @TableField("POSITION_SQMONTHLY")
+    private Long positionSqmonthly;
+
+    @ApiModelProperty(value = "编号")
+    @TableId("EDUCATIONSS_ID")
+    private Integer educationssId;
+
+    @ApiModelProperty(value = "开始时间")
+    @TableField("EDUCATION_START_TIME")
+    private Date educationStartTime;
+
+    @ApiModelProperty(value = "结束时间")
+    @TableField("EDUCATION_END_TIME")
+    private Date educationEndTime;
+
+
+    @ApiModelProperty(value = "学校名称")
+    @TableField("EDUCATION_STUDENTNAME")
+    private String educationStudentname;
+
+    @ApiModelProperty(value = "所属专业")
+    @TableField("EDUCATION_MAJOR")
+    private String educationMajor;
+
+    @ApiModelProperty(value = "是否全日制")
+    @TableField("EDUCATION_FULL_TIME")
+    private Long educationFullTime;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")

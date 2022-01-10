@@ -65,6 +65,7 @@ public class RegisterLogServiceImpl implements RegisterLogService {
     @Override
     public String checkDelete(ArrayList<Integer> list) {
         for (int i = 0; i <list.size() ; i++) {
+            //通过ID删除表数据
             if (registerLogMapper.deleteById(list.get(i))<=0){
                 return "删除登录日志表数据失败";
             }

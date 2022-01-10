@@ -2,10 +2,15 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.EmploymentTable;
+import com.trkj.framework.entity.mybatisplus.Resume;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,23 +24,52 @@ import com.trkj.framework.vo.WorkVo;
 public interface EmploymentTableService {
 
     /**
-     *  查询已录用待入职的员工
+     * 查询已录用待入职的员工
+     * @param hireVo
+     * @return
      */
     IPage<HireVo> selectpage(HireVo hireVo);
 
     /**
      * 查询已经淘汰的员工
+     * @param hireVo
+     * @return
      */
     IPage<HireVo> selectabandon(HireVo hireVo);
 
     /**
      * 查询工作经历
+     * @param workVo
+     * @return
      */
     IPage<WorkVo> selectwork(WorkVo workVo);
 
     /**
      * 查询转正
+     * @param fullVo
+     * @return
      */
     IPage<FullVo> selectpost(FullVo fullVo);
+
+    /**
+     * 添加员工
+     * @param hireVo
+     * @return
+     */
+    String insertStaff(HireVo hireVo);
+
+    /**
+     * 修改录用状态为已录用
+     * @param employmentTable
+     * @return
+     */
+    int updateEmploymentState(EmploymentTable employmentTable);
+
+    /**
+     * 修改录用状态为已淘汰以及放弃原因
+     * @param employmentTable
+     * @return
+     */
+    int updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable);
 
 }

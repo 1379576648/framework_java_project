@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.sql.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -104,7 +105,8 @@ public class StaffEntity {
     @Basic
     @Column(name = "POST_ID", nullable = true, precision = 0)
     private Integer postId;
-
+    @Transient
+    private Object error;
 
     @Override
     public boolean equals(Object o) {
