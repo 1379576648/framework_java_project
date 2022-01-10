@@ -3,11 +3,9 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.service.WorkerService;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.DeptPostVo;
-import com.trkj.framework.vo.TravelDetailsVo;
-import com.trkj.framework.vo.WorkerDetaIsVo;
+import com.trkj.framework.vo.*;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -146,5 +144,25 @@ public class WorkerController {
         map1.put("state", 200);
         map1.put("info", workerService.selectpresident());
         return map1;
+    }
+
+    /**
+     * 添加转正
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive")
+    public int SubmitPositive(@RequestBody WorkerVo workerVo){
+        return  workerService.SubmitPositive(workerVo);
+    }
+
+    /**
+     * 根据员工名称是否有转正记录
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/selectexaminerecord")
+    public Object selectexaminerecord(@RequestBody WorkerVo workerVo){
+        return workerService.selectexaminerecord(workerVo);
     }
 }

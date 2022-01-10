@@ -289,6 +289,26 @@ public interface AuditflowService {
     @PostMapping("/selectDeptName")
     Object selectDeptName(@RequestBody Dept dept);
 
+    /**
+     * 查询人事经理及总裁（总经理）
+     * @return
+     */
     @PostMapping("/selectpresident")
     Object selectpresident();
+
+    /**
+     * 添加转正
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive")
+    Object SubmitPositive(WorkerVo workerVo);
+
+    /**
+     * 根据员工名称是否有转正记录
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/selectexaminerecord")
+    Object selectexaminerecord(WorkerVo workerVo);
 }

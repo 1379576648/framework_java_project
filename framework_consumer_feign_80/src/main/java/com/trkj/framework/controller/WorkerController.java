@@ -3,10 +3,7 @@ package com.trkj.framework.controller;
 import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.DeptPostVo;
-import com.trkj.framework.vo.WorkerDetaIsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -79,8 +76,33 @@ public class WorkerController {
         return AjaxResponse.success(auditflowService.selectDeptName(selectDeptName));
     }
 
+    /**
+     * 查询人事经理及总裁（总经理）
+     * @return
+     */
     @PostMapping("/selectpresident")
     public AjaxResponse selectpresident(){
         return AjaxResponse.success(auditflowService.selectpresident());
     }
+
+    /**
+     * 添加转正
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive")
+    public AjaxResponse SubmitPositive(@RequestBody WorkerVo workerVo){
+        return AjaxResponse.success(auditflowService.SubmitPositive(workerVo));
+    }
+
+    /**
+     * 根据员工名称是否有转正记录
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/selectexaminerecord")
+    public AjaxResponse selectexaminerecord(@RequestBody WorkerVo workerVo){
+        return AjaxResponse.success(auditflowService.selectexaminerecord(workerVo));
+    }
+
 }
