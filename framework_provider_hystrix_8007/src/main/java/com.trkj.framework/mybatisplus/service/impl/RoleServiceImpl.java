@@ -6,8 +6,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.Role;
+import com.trkj.framework.entity.mybatisplus.RoleMenuPower;
 import com.trkj.framework.entity.mybatisplus.RoleStaff;
 import com.trkj.framework.mybatisplus.mapper.RoleMapper;
+import com.trkj.framework.mybatisplus.mapper.RoleMenuPowerMapper;
 import com.trkj.framework.mybatisplus.mapper.RoleStaffMapper;
 import com.trkj.framework.mybatisplus.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +34,9 @@ public class RoleServiceImpl implements RoleService {
 
     @Autowired
     private RoleStaffMapper roleStaffMapper;
+
+    @Autowired
+    private RoleMenuPowerMapper roleMenuPowerMapper;
 
     /***
      * 分页查询所有的角色数据
@@ -88,12 +93,22 @@ public class RoleServiceImpl implements RoleService {
         for (int i = 0; i < list.size(); i++) {
             //通过角色编号查寻角色员工表的数据
             List<RoleStaff> staffList = roleStaffMapper.selectList(new QueryWrapper<RoleStaff>().eq("ROLE_ID", list.get(i)).eq("IS_DELETED", 0));
-            if (staffList.size()!=0) {
-                if (roleStaffMapper.deleteRoleStaff(new QueryWrapper<RoleStaff>().eq("ROLE_ID", list.get(i)).eq("IS_DELETED", 0)) <=0) {
+            if (staffList.size() != 0) {
+                //通过员工编号删除角色员工表数据
+                if (roleStaffMapper.deleteRoleStaff(new QueryWrapper<RoleStaff>().eq("ROLE_ID", list.get(i)).eq("IS_DELETED", 0)) <= 0) {
                     return "删除角色员工表数据失败";
                 }
             }
-            //通过编号删除角色表数据
+            //通过角色编号查询角色权限表数据
+            List<RoleMenuPower> roleMenuPowers = roleMenuPowerMapper.selectList(new QueryWrapper<RoleMenuPower>().eq("ROLE_ID", list.get(i)).eq("IS_DELETED", 0));
+            if (roleMenuPowers.size() != 0) {
+                //通过角色编号删除角色权限表数据z
+                if (roleMenuPowerMapper.deleteRoleMenuPower(new QueryWrapper<RoleMenuPower>().eq("ROLE_ID", list.get(i)).eq("IS_DELETED", 0)) <= 0) {
+                    return "删除角色权限表数据失败";
+                }
+            }
+
+            //通过角色编号删除角色表数据
             if (roleMapper.deleteById(list.get(i)) >= 1) {
                 s = "成功";
             } else {

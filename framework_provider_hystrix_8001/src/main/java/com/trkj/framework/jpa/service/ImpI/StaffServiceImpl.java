@@ -42,32 +42,34 @@ public class StaffServiceImpl implements StaffService {
     @Transactional
     public StaffEntity staffId(Map<String, Object> map) {
         StaffEntity staffEntity = staffDao.selectId(Integer.parseInt(map.get("成功").toString()));
-        RegisterLogEntity registerLog = new RegisterLogEntity();
-        //登录类型
-        registerLog.setRegisterLogGenre(1);
-        //登录手机号码
-        registerLog.setRegisterLogPhone(staffEntity.getStaffPhone());
-        //登录用户名
-        registerLog.setRegisterLogPeople(staffEntity.getStaffName());
-        //登录成功
-        registerLog.setRegisterLogState(0);
-        //创建时间
-        registerLog.setCreatedTime(new Date());
-        //修改时间
-        registerLog.setUpdatedTime(new Date());
-        //浏览器名称
-        registerLog.setRegisterLogBrowser(map.get("browserName").toString());
-        //IP地址
-        registerLog.setRegisterLogIp(map.get("ip").toString());
-        //设备类型
-        registerLog.setRegisterLogType(map.get("deviceType").toString());
-        //ip所在地
-        registerLog.setRegisterLogIpName(map.get("ipName").toString());
-        //逻辑删除
-        registerLog.setIsDeleted(0);
-        //乐观锁
-        registerLog.setRevision(1);
-        registerLogDao.save(registerLog);
+        if (staffEntity != null) {
+            RegisterLogEntity registerLog = new RegisterLogEntity();
+            //登录类型
+            registerLog.setRegisterLogGenre(1);
+            //登录手机号码
+            registerLog.setRegisterLogPhone(staffEntity.getStaffPhone());
+            //登录用户名
+            registerLog.setRegisterLogPeople(staffEntity.getStaffName());
+            //登录成功
+            registerLog.setRegisterLogState(0);
+            //创建时间
+            registerLog.setCreatedTime(new Date());
+            //修改时间
+            registerLog.setUpdatedTime(new Date());
+            //浏览器名称
+            registerLog.setRegisterLogBrowser(map.get("browserName").toString());
+            //IP地址
+            registerLog.setRegisterLogIp(map.get("ip").toString());
+            //设备类型
+            registerLog.setRegisterLogType(map.get("deviceType").toString());
+            //ip所在地
+            registerLog.setRegisterLogIpName(map.get("ipName").toString());
+            //逻辑删除
+            registerLog.setIsDeleted(0);
+            //乐观锁
+            registerLog.setRevision(1);
+            registerLogDao.save(registerLog);
+        }
         return staffEntity;
     }
 
@@ -78,13 +80,15 @@ public class StaffServiceImpl implements StaffService {
      */
     @Override
     @Transactional
-    public Object findStaffByPhoneAndPass(Map<String, Object> map) {
+    public StaffEntity findStaffByPhoneAndPass(Map<String, Object> map) {
+        StaffEntity entity = new StaffEntity();
         //系统当前时间
         Date date = new Date();
         List<RegisterLogEntity> registerLogEntities = registerLogDao.selectRegisterNumber(Long.decode(map.get("phone").toString()));
         if (registerLogEntities.size() >= 3) {
             //返回需要等待的时间
-            return 30 - (date.getTime() - registerLogEntities.get(0).getCreatedTime().getTime()) / (1000 * 60);
+            entity.setError(30 - (date.getTime() - registerLogEntities.get(0).getCreatedTime().getTime()) / (1000 * 60));
+            return entity;
         } else {
             StaffEntity staffEntity = staffDao.findStaffByPhoneAndPass(Long.decode(map.get("phone").toString()), map.get("pass").toString());
             RegisterLogEntity registerLog = new RegisterLogEntity();
@@ -122,7 +126,6 @@ public class StaffServiceImpl implements StaffService {
             return staffEntity;
         }
     }
-
     /***
      *  查询用户角色下菜单列表
      * @return
@@ -133,23 +136,21 @@ public class StaffServiceImpl implements StaffService {
         List<RoleStaffEntity> roleStaffEntities = roleStaffDao.selectRoleStaff(id);
         //储藏所有角色下的菜单列表 没有去重
         List<MenuPowerEntity> menuPowerEntities = new ArrayList<>();
-        //如果角色列表有数据
-        if (roleStaffEntities.size() >= 1) {
-            //迭代角色列表
-            for (RoleStaffEntity roleStaffEntity : roleStaffEntities) {
-                //获取所有角色下的菜单编号列表
-                List<RoleMenuPowerEntity> roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
-                //迭代菜单编号列表
-                for (RoleMenuPowerEntity roleMenuPowerEntity : roleMenuPowerEntities) {
-                    //通过菜单编号查询菜单
-                    MenuPowerEntity menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
-                    //将查询的菜单列表添加到集合中
-                    if (menuPower!=null){
-                        menuPowerEntities.add(menuPower);
-                    }
+        //迭代角色列表
+        for (RoleStaffEntity roleStaffEntity : roleStaffEntities) {
+            //获取所有角色下的菜单编号列表
+            List<RoleMenuPowerEntity> roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
+            //迭代菜单编号列表
+            for (RoleMenuPowerEntity roleMenuPowerEntity : roleMenuPowerEntities) {
+                //通过菜单编号查询菜单
+                MenuPowerEntity menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
+                //将查询的菜单列表添加到集合中
+                if (menuPower != null) {
+                    menuPowerEntities.add(menuPower);
                 }
             }
         }
+
         //储藏所有角色下的菜单列表 去重
         List<MenuPowerEntity> menuPowerEntities1 = menuPowerEntities.stream().distinct().collect(Collectors.toList());
         //菜单根节点
@@ -163,10 +164,8 @@ public class StaffServiceImpl implements StaffService {
         }
         //为根菜单设置子菜单，getClild是递归调用的
         for (MenuPowerEntity nav : menuPowerEntities2) {
-            System.out.println(nav.getMenuPowerId());
             /* 获取根节点下的所有子节点 使用getChild方法*/
             List<MenuPowerEntity> childList = getChild.getChild(nav.getMenuPowerId(), menuPowerEntities1);
-            System.out.println(childList);
             //给根节点设置子节点
             nav.setList(childList);
         }
