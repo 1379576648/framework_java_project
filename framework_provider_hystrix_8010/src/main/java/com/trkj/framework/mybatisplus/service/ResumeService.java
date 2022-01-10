@@ -11,7 +11,7 @@ import com.trkj.framework.vo.ResumeVo;
  * 简历表 服务类
  * </p>
  *
- * @author 劉祁
+ * @author 牛蛙
  * @since 2021-12-23
  */
 public interface ResumeService extends IService<ResumeVo> {
@@ -19,4 +19,8 @@ public interface ResumeService extends IService<ResumeVo> {
         IPage<ResumeVo> selectPageVo(ResumeVo resumeVo);
         //全部简历
         IPage<ResumeVo> selectAll(ResumeVo resumeVo);
+        //候选人
+        IPage<ResumeVo> selectCandidate(ResumeVo resumeVo);
+        //淘汰库
+        IPage<ResumeVo> selectEliminate(ResumeVo resumeVo);
 }
