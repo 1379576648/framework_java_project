@@ -93,5 +93,29 @@ public interface HireClientService {
      */
     @PostMapping("/selectQuit")
     Object selectQuit(@RequestBody StaffQuitVo staffQuitVo);
+
+    /**
+     * 查询调动
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/selectTransfer")
+    Object selectTransfer(@RequestBody TransferVo transferVo);
+
+    /**
+     * 修改员工信息
+     * @param staff
+     * @return
+     */
+    @PostMapping("/updateStaff")
+    Object updateStaff(@RequestBody Staff staff);
+
+    /**
+     * 修改员工信息2
+     * @param staff
+     * @return
+     */
+    @PostMapping("/updateStaffTwo")
+    Object updateStaffTwo(@RequestBody Staff staff);
 }
 

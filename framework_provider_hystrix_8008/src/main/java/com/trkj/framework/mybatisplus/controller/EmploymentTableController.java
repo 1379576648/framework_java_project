@@ -151,7 +151,7 @@ public class EmploymentTableController {
     }
 
     /**
-     * 修改录用状态
+     * 修改录用状态为已入职
      * @param
      * @return
      */
@@ -166,6 +166,11 @@ public class EmploymentTableController {
         }
     }
 
+    /**
+     * 修改录用状态为已放弃以及放弃原因
+     * @param employmentId
+     * @return
+     */
     @PostMapping("/updateEmploymentStateAndWaiveReasonInt")
     public int updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentId){
         employmentId.setEmploymentState(2L);

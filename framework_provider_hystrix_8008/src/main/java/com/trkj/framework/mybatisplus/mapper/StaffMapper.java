@@ -8,6 +8,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
+import com.trkj.framework.vo.TransferVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
@@ -40,6 +41,17 @@ public interface StaffMapper extends BaseMapper<Staff> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT s.STAFF_NAME,d.DEPT_NAME,p.POST_NAME,s.STAFF_PHONE,s.STAFF_EMAIL,s.WORK_AGE,s.STAFF_HIREDATE,q.FORMAL_QUIT_DATE,q.QUIT_TYPE FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID=s.DEPT_POST_ID LEFT JOIN QUIT q on q.DEPT_ID=s.DEPT_ID ${ew.customSqlSegment}")
+    @Select("SELECT s.STAFF_NAME,s.STAFF_STATE,d.DEPT_NAME,p.POST_NAME,s.STAFF_PHONE,s.STAFF_EMAIL,s.WORK_AGE,s.STAFF_HIREDATE,q.FORMAL_QUIT_DATE,q.QUIT_TYPE FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID=s.DEPT_POST_ID LEFT JOIN QUIT q on q.STAFF_NAME=s.STAFF_NAME ${ew.customSqlSegment}")
     IPage<StaffQuitVo> selectQuit(Page<StaffQuitVo> page, @Param(Constants.WRAPPER) QueryWrapper<StaffQuitVo> queryWrapper);
+
+    /**
+     * 查询调动管理
+     * @param page
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT s.STAFF_NAME,t.TRANSFER_TYPE,t.CREATED_DEPT_NAME,t.UPDATED_DEPT_NAME,t.transfer_rawpost_NAME,t.transfer_afterpost_NAME,TAKE_EFFECT_DATE FROM TRANSFER t LEFT JOIN STAFF s on s.STAFF_NAME=t.STAFF_NAME ${ew.customSqlSegment}")
+    IPage<TransferVo> selectTransfer(Page<TransferVo> page,@Param(Constants.WRAPPER) QueryWrapper<TransferVo> queryWrapper);
+
+
 }
