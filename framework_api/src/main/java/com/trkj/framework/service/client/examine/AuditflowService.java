@@ -297,7 +297,7 @@ public interface AuditflowService {
     Object selectpresident();
 
     /**
-     * 添加转正
+     * 添加转正 3个审批人
      * @param workerVo
      * @return
      */
@@ -305,7 +305,7 @@ public interface AuditflowService {
     Object SubmitPositive3(WorkerVo workerVo);
 
     /**
-     * 添加转正
+     * 添加转正 2个审批人
      * @param workerVo
      * @return
      */
@@ -319,4 +319,21 @@ public interface AuditflowService {
      */
     @PostMapping("/selectexaminerecord")
     Object selectexaminerecord(WorkerVo workerVo);
+
+    /**
+     * 根据员工名称是否有异动记录
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/selectTransferRecord")
+    Object selectTransferRecord(Transfer8003Vo transferVo);
+
+    /**
+     * 添加调动 3个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer3")
+    Object SubmitTransfer3(Transfer8003Vo transferVo);
+
 }

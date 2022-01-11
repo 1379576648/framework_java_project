@@ -166,7 +166,6 @@ public class WorkerController {
         return  workerService.SubmitPositive2(workerVo);
     }
 
-
     /**
      * 根据员工名称是否有转正记录
      * @param workerVo
