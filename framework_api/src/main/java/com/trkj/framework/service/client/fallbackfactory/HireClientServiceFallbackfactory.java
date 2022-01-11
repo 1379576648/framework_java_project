@@ -236,6 +236,19 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 根据id查询工作经历
+             * @param workVo
+             * @return
+             */
+            @Override
+            public Object selectWorkAll(WorkVo workVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }

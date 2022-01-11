@@ -143,5 +143,13 @@ public interface HireClientService {
      */
     @PostMapping("/selectTransferByName")
     Object selectTransferByName(@RequestBody TransferTwoVo transferTwoVo);
+
+    /**
+     * 根据id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectWorkAll")
+    Object selectWorkAll(@RequestBody WorkVo workVo);
 }
 

@@ -45,6 +45,13 @@ public interface EmploymentTableService {
     IPage<WorkVo> selectwork(WorkVo workVo);
 
     /**
+     * 根据id查询工作经历
+     * @param workVo
+     * @return
+     */
+    List<WorkVo> selectWorkAll(WorkVo workVo);
+
+    /**
      * 查询转正
      * @param fullVo
      * @return
