@@ -24,7 +24,7 @@ public class MenuChild {
         for (MenuPower nav : allMenu) {
             // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
             //相等说明：为该根节点的子节点。
-            if (nav.getMenuPowerPid() == id) {
+            if (nav.getMenuPowerPid() == id && nav.getMenuPowerState()==0) {
                 childList.add(nav);
             }
         }

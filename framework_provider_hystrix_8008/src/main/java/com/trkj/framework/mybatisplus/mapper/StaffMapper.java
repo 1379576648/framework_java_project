@@ -28,7 +28,7 @@ public interface StaffMapper extends BaseMapper<Staff> {
     IPage<StaffVo> selectStaff(Page<StaffVo> page, @Param(Constants.WRAPPER) QueryWrapper<StaffVo> queryWrapper);
 
     /**
-     * 根据id查询所有员工信息
+     * 根据id查询所有员工信息是
      * @param queryWrapper
      * @return
      */
