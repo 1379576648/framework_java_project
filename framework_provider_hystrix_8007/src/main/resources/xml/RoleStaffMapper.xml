@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.RoleStaffMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.RoleStaff">
+        <id column="a_ROLE_STAFF_ID" property="roleStaffId"/>
+        <result column="a_ROLE_ID" property="roleId"/>
+        <result column="a_STAFF_ID" property="staffId"/>
+        <result column="a_CREATED_TIME" property="createdTime"/>
+        <result column="a_UPDATED_TIME" property="updatedTime"/>
+        <result column="a_REVISION" property="revision"/>
+        <result column="a_IS_DELETED" property="isDeleted"/>
+        <association property="staff" javaType="com.trkj.framework.entity.mybatisplus.Staff">
+            <id column="b_STAFF_ID" property="staffId"/>
+            <result column="b_STAFF_NAME" property="staffName"/>
+            <result column="b_STAFF_SEX" property="staffSex"/>
+            <result column="b_STAFF_PHONE" property="staffPhone"/>
+            <result column="b_STAFF_EMAIL" property="staffEmail"/>
+            <result column="b_STAFF_PICTURE" property="staffPicture"/>
+            <result column="b_STAFF_BIRTHDAY" property="staffBirthday"/>
+            <result column="b_STAFF_OUTLOOK" property="staffOutlook"/>
+            <result column="b_STAFF_EDUCATION" property="staffEducation"/>
+            <result column="b_DEPT_POST_ID" property="deptPostId"/>
+            <result column="b_STAFF_PASS" property="staffPass"/>
+            <result column="b_STAFF_HIREDATE" property="staffHiredate"/>
+            <result column="b_WORKER_ID" property="workerId"/>
+            <result column="b_STAFF_IDENTITY" property="staffIdentity"/>
+            <result column="b_DEPT_ID" property="deptId"/>
+            <result column="b_STAFF_MAJOR" property="staffMajor"/>
+            <result column="b_STAFF_EMERGENCY" property="staffEmergency"/>
+            <result column="b_STAFF_WECHAT" property="staffWechat"/>
+            <result column="b_STAFF_QQ" property="staffQq"/>
+            <result column="b_STAFF_CREDIT" property="staffCredit"/>
+            <result column="b_STAFF_BLOOD" property="staffBlood"/>
+            <result column="b_STAFF_SIGN" property="staffSign"/>
+            <result column="b_STAFF_MARITAL" property="staffMarital"/>
+            <result column="b_STAFF_REGISTERED" property="staffRegistered"/>
+            <result column="b_STAFF_SCHOOL" property="staffSchool"/>
+            <result column="b_STAFF_ADDRESS" property="staffAddress"/>
+            <result column="b_STAFF_STATE" property="staffState"/>
+            <result column="b_WORK_AGE" property="workAge"/>
+            <result column="b_CREATED_TIME" property="createdTime"/>
+            <result column="b_UPDATED_TIME" property="updatedTime"/>
+            <result column="b_REVISION" property="revision"/>
+            <result column="b_IS_DELETED" property="isDeleted"/>
+        </association>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.ROLE_STAFF_ID as a_ROLE_STAFF_ID ,
+        a.ROLE_ID as a_ROLE_ID,
+        a.STAFF_ID as a_STAFF_ID,
+        a.CREATED_TIME as a_CREATED_TIME,
+        a.UPDATED_TIME as a_UPDATED_TIME,
+        a.REVISION as a_REVISION,
+        a.IS_DELETED as a_IS_DELETED,
+        b.STAFF_ID as b_STAFF_ID,
+        b.STAFF_NAME as  b_STAFF_NAME,
+        b.STAFF_SEX as  b_STAFF_SEX,
+        b.STAFF_PHONE as   b_STAFF_PHONE,
+        b.STAFF_EMAIL as b_STAFF_EMAIL,
+        b.STAFF_PICTURE as    b_STAFF_PICTURE,
+        b.STAFF_BIRTHDAY as   b_STAFF_BIRTHDAY,
+        b.STAFF_OUTLOOK as   b_STAFF_OUTLOOK,
+        b.STAFF_EDUCATION as b_STAFF_EDUCATION,
+        b.DEPT_POST_ID as   b_DEPT_POST_ID,
+        b.STAFF_HIREDATE as   b_STAFF_HIREDATE,
+        b.WORKER_ID as   b_WORKER_ID,
+        b.STAFF_IDENTITY as  b_STAFF_IDENTITY,
+        b.DEPT_ID as  b_DEPT_ID,
+        b.STAFF_MAJOR as b_STAFF_MAJOR,
+        b.STAFF_EMERGENCY as b_STAFF_EMERGENCY,
+        b.STAFF_WECHAT as   b_STAFF_WECHAT,
+        b.STAFF_QQ as  b_STAFF_QQ,
+        b.STAFF_CREDIT as  b_STAFF_CREDIT,
+        b.STAFF_BLOOD as     b_STAFF_BLOOD,
+        b.STAFF_SIGN as b_STAFF_SIGN,
+        b.STAFF_MARITAL as b_STAFF_MARITAL,
+        b.STAFF_REGISTERED as   b_STAFF_REGISTERED,
+        b.STAFF_SCHOOL as    b_STAFF_SCHOOL,
+        b.STAFF_ADDRESS as  b_STAFF_ADDRESS,
+        b.STAFF_STATE as b_STAFF_STATE,
+        b.WORK_AGE as  b_WORK_AGE,
+        b.CREATED_TIME as  b_CREATED_TIME,
+        b.UPDATED_TIME as   b_UPDATED_TIME,
+        b.REVISION as   b_REVISION,
+        b.IS_DELETED as b_IS_DELETED
+    </sql>
+
+    <select id="pageRoleStaff" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from ROLE_STAFF a Inner Join STAFF b on a.STAFF_ID = b.STAFF_ID ${ew.customSqlSegment}
+    </select>
+
+
+    <select id="pageStaffInRole" resultMap="BaseResultMap">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM ROLE_STAFF a   INNER   JOIN Staff b on a.STAFF_ID!=b.STAFF_ID where a.ROLE_ID=1
+    </select>
+</mapper>

@@ -1,15 +1,12 @@
 package com.trkj.framework.service.client.hire;
 
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
-import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "REGISTER-8008/provider", fallbackFactory = HireClientServiceFallbackfactory.class)
 public interface HireClientService {
@@ -117,5 +114,42 @@ public interface HireClientService {
      */
     @PostMapping("/updateStaffTwo")
     Object updateStaffTwo(@RequestBody Staff staff);
+
+    /**
+     * 查询所有的员工名称
+     * @return
+     */
+     @PostMapping("/selectStaffName")
+    Object selectStaffName();
+
+    /**
+     * 查询所有的部门名称
+     * @return
+     */
+    @PostMapping("/selectSect")
+    Object selectSect();
+
+    /**
+     * 查询所有的职位名称
+     * @return
+     */
+    @PostMapping("/selectJob")
+    Object selectJob();
+
+    /**
+     * 根据名称查询部门名称和职位名称
+     * @param transferTwoVo
+     * @return
+     */
+    @PostMapping("/selectTransferByName")
+    Object selectTransferByName(@RequestBody TransferTwoVo transferTwoVo);
+
+    /**
+     * 根据id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectWorkAll")
+    Object selectWorkAll(@RequestBody WorkVo workVo);
 }
 

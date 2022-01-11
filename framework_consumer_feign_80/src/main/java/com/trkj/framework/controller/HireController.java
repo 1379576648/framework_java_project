@@ -44,6 +44,16 @@ public class HireController {
     }
 
     /**
+     * 根据id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectWorkAll")
+    public AjaxResponse selectWorkAll(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectWorkAll(workVo));
+    }
+
+    /**
      * 查询转正
      * @param fullVo
      * @return

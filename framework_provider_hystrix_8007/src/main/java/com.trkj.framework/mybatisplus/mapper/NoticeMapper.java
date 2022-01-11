@@ -21,12 +21,5 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface NoticeMapper extends BaseMapper<Notice> {
 
-    /***
-     *分页查询所有公告数据
-     * @param page
-     * @param queryWrapper
-     * @return
-     */
-    @Select("select * from NOTICE ${ew.customSqlSegment}")
-    IPage<Notice> selectNoticeAll(Page<Notice> page,@Param(Constants.WRAPPER)  QueryWrapper<Notice> queryWrapper);
+
 }

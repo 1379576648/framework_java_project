@@ -79,12 +79,10 @@ public class NoticeServiceImpl implements NoticeService {
             queryWrapper.between("CREATED_TIME", notice.getStartTime(), notice.getEndTime());
         }
 
-        //逻辑删除查询
-        queryWrapper.eq("IS_DELETED", 0);
 
         //按照ID降序
         queryWrapper.orderByDesc("NOTICE_ID");
-        return noticeMapper.selectNoticeAll(page, queryWrapper);
+        return noticeMapper.selectPage(page, queryWrapper);
     }
 
     /**
@@ -100,18 +98,18 @@ public class NoticeServiceImpl implements NoticeService {
         //循环传过来的集合
         for (int i = 0; i < list.size(); i++) {
             //通过公告编号删除公告部门表数据
-            if (noticeDeptMapper.deleteNoticeDept(new QueryWrapper<NoticeDept>().eq("NOTICE_ID", list.get(i))) <= 0) {
-                return "删除公告部门表数据失败";
+            if (noticeDeptMapper.delete(new QueryWrapper<NoticeDept>().eq("NOTICE_ID", list.get(i))) <= 0) {
+                return "删除公告部门数据失败";
             }
             //通过公告编号删除公告员工表数据
-            if (noticeStaffMapper.deleteNoticeStaff(new QueryWrapper<NoticeStaff>().eq("NOTICE_ID", list.get(i))) <= 0) {
-                return "删除公告员工表数据失败";
+            if (noticeStaffMapper.delete(new QueryWrapper<NoticeStaff>().eq("NOTICE_ID", list.get(i))) <= 0) {
+                return "删除公告员工数据失败";
             }
             //通过id进行删除公告数据
             if (noticeMapper.delete(new QueryWrapper<Notice>().eq("NOTICE_ID", list.get(i))) >=1) {
                 s = "成功";
             } else {
-                return "删除公告表数据失败";
+                return "删除公告数据失败";
             }
 
         }
@@ -126,8 +124,6 @@ public class NoticeServiceImpl implements NoticeService {
     public List<Dept> selectDeptList() {
         //条件构造器
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
-        //逻辑删除 未删除
-        queryWrapper.eq("IS_DELETED", 0);
         //是否禁用 启用
         queryWrapper.eq("DEPT_STATE", 0);
         return deptMapper.selectList(queryWrapper);
@@ -143,7 +139,7 @@ public class NoticeServiceImpl implements NoticeService {
     public String insertNotice(Notice notice) {
         String s = "成功";
         //通过id查询部门职位数据
-        DeptPost deptPost = deptPostMapper.selectOne(new QueryWrapper<DeptPost>().eq("DEPT_POST_ID", notice.getDeptPostId()).eq("IS_DELETED", 0));
+        DeptPost deptPost = deptPostMapper.selectOne(new QueryWrapper<DeptPost>().eq("DEPT_POST_ID", notice.getDeptPostId()));
         //如果部门职位实体类不为空
         if (deptPost == null) {
             return "查无[" + notice.getDeptPostId() + "]部门职位编号";
@@ -159,7 +155,7 @@ public class NoticeServiceImpl implements NoticeService {
         //迭代前台传过来的部门列表数据
         for (String name : notice.getDeptNameList()) {
             //通过部门名称查询部门信息
-            Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_NAME", name).eq("IS_DELETED", 0));
+            Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_NAME", name));
             //如果部门信息不为空
             if (dept == null) {
                 return "查无[" + name + "]部门名称";
@@ -173,7 +169,7 @@ public class NoticeServiceImpl implements NoticeService {
                 return "添加公告部门数据失败";
             }
             //查询这个部门下的所有的员工
-            List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>().eq("DEPT_ID", dept.getDeptId()).eq("IS_DELETED", 0));
+            List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>().eq("DEPT_ID", dept.getDeptId()));
             //如果该部门下有员工
             for (Staff staff : staffList) {
                 //除去发布人
@@ -208,12 +204,10 @@ public class NoticeServiceImpl implements NoticeService {
         List<Dept> deptList = new ArrayList<>();
         //公告编号
         queryWrapper.eq("NOTICE_ID", integer);
-        //逻辑删除 未删
-        queryWrapper.eq("IS_DELETED", 0);
         List<NoticeDept> deptPosts = noticeDeptMapper.selectList(queryWrapper);
         //如果公告部门表有绑定的部门
         for (NoticeDept noticeDept : deptPosts) {
-            Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_ID", noticeDept.getDeptId()).eq("IS_DELETED", 0));
+            Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_ID", noticeDept.getDeptId()));
             deptList.add(dept);
         }
         return deptList;
@@ -229,18 +223,18 @@ public class NoticeServiceImpl implements NoticeService {
     public String updateNotice(Notice notice) {
         String s = "成功";
         //修改公告表
-        int row = noticeMapper.update(notice, new QueryWrapper<Notice>().eq("NOTICE_ID", notice.getNoticeId()).eq("IS_DELETED", 0));
+        int row = noticeMapper.update(notice, new QueryWrapper<Notice>().eq("NOTICE_ID", notice.getNoticeId()));
         if (row <= 0) {
             return "修改公告失败";
         }
         //先删除公告部门表数据
-        if (noticeDeptMapper.deleteNoticeDept(new QueryWrapper<NoticeDept>().eq("NOTICE_ID", notice.getNoticeId())) <= 0) {
+        if (noticeDeptMapper.delete(new QueryWrapper<NoticeDept>().eq("NOTICE_ID", notice.getNoticeId())) <= 0) {
             return "删除公告部门数据失败";
         }
         //先删除公告员工表数据
-        noticeStaffMapper.deleteNoticeStaff(new QueryWrapper<NoticeStaff>().eq("NOTICE_ID", notice.getNoticeId()));
+        noticeStaffMapper.delete(new QueryWrapper<NoticeStaff>().eq("NOTICE_ID", notice.getNoticeId()));
         for (String name : notice.getDeptNameList()) {
-            Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_NAME", name).eq("IS_DELETED", 0));
+            Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_NAME", name));
             if (dept == null) {
                 return "查无[" + name + "]部门名称";
             }
@@ -253,11 +247,11 @@ public class NoticeServiceImpl implements NoticeService {
                 return "添加公告部门数据失败";
             }
             //查询这个部门下的所有的员工
-            List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>().eq("DEPT_ID", dept.getDeptId()).eq("IS_DELETED", 0));
+            List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>().eq("DEPT_ID", dept.getDeptId()));
             //如果该部门下有员工
             for (Staff staff : staffList) {
                 //除去发布人
-                if (!notice.getStaffId().equals(staff.getStaffId())) {
+                if (!(notice.getStaffId().equals(staff.getStaffId()))) {
                     NoticeStaff noticeStaff = new NoticeStaff();
                     //公告编号
                     noticeStaff.setNoticeId(Long.valueOf(notice.getNoticeId()));
@@ -291,12 +285,10 @@ public class NoticeServiceImpl implements NoticeService {
         queryWrapper.eq("NOTICE_ID", integer);
         //公告员工表数据状态 未看
         queryWrapper.eq("NOTICE_STATE", 1);
-        //逻辑删除 未删除
-        queryWrapper.eq("IS_DELETED", 0);
         List<NoticeStaff> noticeStaffList = noticeStaffMapper.selectList(queryWrapper);
         for (NoticeStaff noticeStaff : noticeStaffList) {
             //通过员工编号查询数据
-            Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>().eq("STAFF_ID", noticeStaff.getStaffId()).eq("IS_DELETED", 0));
+            Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>().eq("STAFF_ID", noticeStaff.getStaffId()));
             //如果查到员工数据
             if (staff != null) {
                 staffList.add(staff);
@@ -320,12 +312,10 @@ public class NoticeServiceImpl implements NoticeService {
         queryWrapper.eq("NOTICE_ID", integer);
         //公告员工表数据状态 未看
         queryWrapper.eq("NOTICE_STATE", 0);
-        //逻辑删除 未删除
-        queryWrapper.eq("IS_DELETED", 0);
         List<NoticeStaff> noticeStaffList = noticeStaffMapper.selectList(queryWrapper);
         for (NoticeStaff noticeStaff : noticeStaffList) {
             //通过员工编号查询数据
-            Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>().eq("STAFF_ID", noticeStaff.getStaffId()).eq("IS_DELETED", 0));
+            Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>().eq("STAFF_ID", noticeStaff.getStaffId()));
             //如果查到员工数据
             if (staff != null) {
                 staffList.add(staff);

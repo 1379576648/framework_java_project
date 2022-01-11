@@ -44,7 +44,7 @@ public class StaffServiceImpl implements StaffService {
         if(staffVo.getStaffName()!=null){
             queryWrapper.like("s.STAFF_NAME",staffVo.getStaffName());
         }
-        queryWrapper.ne("s.STAFF_STATE",1);
+        queryWrapper.ne("s.STAFF_STATE",2);
         return staffMapper.selectStaff(page,queryWrapper);
     }
 
@@ -73,25 +73,11 @@ public class StaffServiceImpl implements StaffService {
         if(staffQuitVo.getStaffName()!=null){
             queryWrapper.like("s.STAFF_NAME",staffQuitVo.getStaffName());
         }
-        queryWrapper.eq("s.STAFF_STATE",1);
+        queryWrapper.eq("s.STAFF_STATE",2);
         return staffMapper.selectQuit(page,queryWrapper);
     }
 
-    /**
-     * 查询调动管理
-     * @param transferVo
-     * @return
-     */
-    @Override
-    public IPage<TransferVo> selectTransfer(TransferVo transferVo) {
-        Page<TransferVo> page = new Page<>(transferVo.getCurrentPage(),transferVo.getPagesize());
-        QueryWrapper<TransferVo> queryWrapper = new QueryWrapper<>();
-        //根据名称查询
-        if(transferVo.getStaffName()!=null){
-            queryWrapper.like("s.STAFF_NAME",transferVo.getStaffName());
-        }
-        return staffMapper.selectTransfer(page,queryWrapper);
-    }
+
 
     /**
      * 修改员工信息

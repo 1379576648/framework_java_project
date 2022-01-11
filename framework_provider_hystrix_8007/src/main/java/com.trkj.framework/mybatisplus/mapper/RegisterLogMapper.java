@@ -20,12 +20,5 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface RegisterLogMapper extends BaseMapper<RegisterLog> {
-    /****
-     * 分页查询所有的登录记录
-     * @param page
-     * @param queryWrapper
-     * @return
-     */
-    @Select("select * from REGISTER_LOG ${ew.customSqlSegment}")
-    IPage<RegisterLog> selectRegisterLogAll(Page<RegisterLog> page,@Param(Constants.WRAPPER) QueryWrapper<RegisterLog> queryWrapper);
+
 }

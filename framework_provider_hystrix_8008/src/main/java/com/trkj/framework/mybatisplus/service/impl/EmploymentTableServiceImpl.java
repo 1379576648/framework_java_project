@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <p>
  * 录用表 服务实现类
@@ -107,6 +109,18 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     }
 
     /**
+     * 根据id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @Override
+    public List<WorkVo> selectWorkAll(WorkVo workVo) {
+        QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("s.STAFF_ID",workVo.getStaffId());
+        return employmentTableMapper.selectWorkAll(queryWrapper);
+    }
+
+    /**
      * 查询转正
      * @param fullVo
      * @return
@@ -119,7 +133,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         if(fullVo.getStaffName()!=null){
             queryWrapper.like("s.STAFF_NAME",fullVo.getStaffName());
         }
-        queryWrapper.eq("s.STAFF_STATE",2);
+        queryWrapper.eq("s.STAFF_STATE",0);
         return employmentTableMapper.selectpost(page,queryWrapper);
     }
 

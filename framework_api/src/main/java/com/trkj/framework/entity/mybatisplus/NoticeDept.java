@@ -54,13 +54,13 @@ public class NoticeDept implements Serializable {
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
-    @TableField("REVISION")
     @Version
+    @TableField("REVISION")
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")
-    @TableField("IS_DELETED")
     @TableLogic
+    @TableField("IS_DELETED")
     private Long isDeleted;
 
 

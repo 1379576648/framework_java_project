@@ -1,35 +1,18 @@
-package com.trkj.framework.entity.mybatisplus;
+package com.trkj.framework.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-/**
- * <p>
- * 员工表
- * </p>
- *
- * @author suki
- * @since 2022-01-04
- */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("STAFF")
-@ApiModel(value="Staff对象", description="员工表")
-@KeySequence(value = "STAFF_ID",clazz = Integer.class)
-public class Staff implements Serializable {
-
-    private static final long serialVersionUID = 1L;
-
+@NoArgsConstructor
+@AllArgsConstructor
+public class TransferTwoVo {
     @ApiModelProperty(value = "获奖人编号")
     @TableId("STAFF_ID")
     private Integer staffId;
@@ -147,37 +130,16 @@ public class Staff implements Serializable {
     @TableField("STAFF_AGE")
     private Long staffAge;
 
-    @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
-    private Date createdTime;
+    @ApiModelProperty(value = "状态;0：启用  1：禁用")
+    @TableField("DEPT_STATE")
+    private Long deptState;
 
-    @ApiModelProperty(value = "修改时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
-    private Date updatedTime;
+    @ApiModelProperty(value = "部门名称")
+    @TableField("DEPT_NAME")
+    private String deptName;
 
-    @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")
-    @TableField("IS_DELETED")
-    @TableLogic
-    private Long isDeleted;
-
-    @ApiModelProperty(value = "乐观锁")
-    @TableField("REVISION")
-    private Long revision;
-
-
-    @ApiModelProperty(value = "当前页")
-    @TableField(exist = false)
-    private Integer currenPage;
-
-    @ApiModelProperty(value = "页大小")
-    @TableField(exist = false)
-    private Integer pageSize;
-
-    @ApiModelProperty(value = "角色编号")
-    @TableField(exist = false)
-    private Integer roleId;
-
+    @ApiModelProperty(value = "职位名称")
+    @TableField("POST_NAME")
+    private String postName;
 
 }
