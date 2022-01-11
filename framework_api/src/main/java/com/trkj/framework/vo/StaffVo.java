@@ -207,6 +207,10 @@ public class StaffVo {
     @TableField(exist = false)
     private Integer pagesize;
 
+    @ApiModelProperty(value = "年龄")
+    @TableField("STAFF_AGE")
+    private Long staffAge;
+
 //    @ApiModelProperty(value = "工龄")
 //    @TableField(exist = false)
 //    private Long gl;

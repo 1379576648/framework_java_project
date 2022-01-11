@@ -2,10 +2,7 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.hire.HireClientService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.StaffQuitVo;
-import com.trkj.framework.vo.StaffVo;
-import com.trkj.framework.vo.TransferVo;
+import com.trkj.framework.vo.*;
 import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -76,5 +73,43 @@ public class StaffController {
     public AjaxResponse updateStaffTwo(@RequestBody Staff staff){
         return AjaxResponse.success(hireClientService.updateStaffTwo(staff));
     }
+
+    /**
+     * 查询所有的员工名称
+     * @return
+     */
+     @PostMapping("/selectStaffName")
+    public AjaxResponse selectStaffName(){
+        return AjaxResponse.success(hireClientService.selectStaffName());
+     }
+
+    /**
+     * 查询所有的部门名称
+     * @return
+     */
+     @PostMapping("/selectSect")
+    public AjaxResponse selectSect(){
+         return AjaxResponse.success(hireClientService.selectSect());
+     }
+
+    /**
+     * 查询所有的职位名称
+     * @return
+     */
+    @PostMapping("/selectJob")
+    public AjaxResponse selectJob(){
+         return AjaxResponse.success(hireClientService.selectJob());
+     }
+
+    /**
+     * 根据名称查询部门名称和职位名称
+     * @param transferTwoVo
+     * @return
+     */
+     @PostMapping("/selectTransferByName")
+    public AjaxResponse selectTransferByName(@RequestBody TransferTwoVo transferTwoVo){
+        return AjaxResponse.success(hireClientService.selectTransferByName(transferTwoVo));
+
+     }
 
 }

@@ -187,6 +187,55 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 查询所有员工名称
+             * @return
+             */
+            @Override
+            public Object selectStaffName() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 查询所有的部门名称
+             * @return
+             */
+            @Override
+            public Object selectSect() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 查询所有的职位名称
+             * @return
+             */
+            @Override
+            public Object selectJob() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 根据名称查询部门名称和职位名称
+             * @param transferTwoVo
+             * @return
+             */
+            @Override
+            public Object selectTransferByName(TransferTwoVo transferTwoVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }

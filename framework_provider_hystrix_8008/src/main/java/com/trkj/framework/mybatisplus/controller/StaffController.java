@@ -96,27 +96,6 @@ public class StaffController {
         return map1;
     }
 
-    /**
-     * 查询调动
-     * @param transferVo
-     * @return
-     */
-     @PostMapping("/selectTransfer")
-     @HystrixCommand(fallbackMethod = "HystixGet4")
-    public Object selectTransfer(@RequestBody TransferVo transferVo){
-        Map<String, Object> map1 = new HashMap<>(2);
-        //状态码
-         map1.put("state",200);
-         map1.put("info",staffService.selectTransfer(transferVo));
-         return map1;
-     }
-    // 备选方案
-    public Object HystixGet4(@RequestBody TransferVo transferVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
-    }
 
     /**
      * 修改员工信息
@@ -147,6 +126,8 @@ public class StaffController {
         staffId.setStaffBlood(staffId.getStaffBlood());
         //星座
         staffId.setStaffSign(staffId.getStaffSign());
+        //年龄
+        staffId.setStaffAge(staffId.getStaffAge());
         final var i = staffService.updateStaff(staffId);
         if (i==999){
             return 666;

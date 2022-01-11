@@ -39,12 +39,7 @@ public interface StaffService {
      */
     IPage<StaffQuitVo> selectQuit(StaffQuitVo staffQuitVo);
 
-    /**
-     * 查询调动管理
-     * @param transferVo
-     * @return
-     */
-    IPage<TransferVo> selectTransfer(TransferVo transferVo);
+
 
     /**
      * 修改员工信息

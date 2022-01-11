@@ -119,7 +119,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         if(fullVo.getStaffName()!=null){
             queryWrapper.like("s.STAFF_NAME",fullVo.getStaffName());
         }
-        queryWrapper.eq("s.STAFF_STATE",2);
+        queryWrapper.eq("s.STAFF_STATE",0);
         return employmentTableMapper.selectpost(page,queryWrapper);
     }
 
