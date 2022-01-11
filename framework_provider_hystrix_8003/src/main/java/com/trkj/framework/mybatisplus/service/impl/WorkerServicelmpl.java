@@ -177,6 +177,8 @@ public class WorkerServicelmpl implements WorkerService {
                 worker.setStaffName(workerVo.getStaffName());
                 // 转正表-部门编号
                 worker.setDeptId(workerVo.getDeptId());
+                // 转正表-转正备注
+                worker.setWorkerRemarks(workerVo.getAuditflowdetaiRemarks());
                 // 转正表-转正类型
                 worker.setWorkerType(workerVo.getAuditflowType());
                 // 转正表-转正日期
@@ -246,6 +248,8 @@ public class WorkerServicelmpl implements WorkerService {
                 worker.setStaffName(workerVo.getStaffName());
                 // 转正表-部门编号
                 worker.setDeptId(workerVo.getDeptId());
+                // 转正表-转正备注
+                worker.setWorkerRemarks(workerVo.getAuditflowdetaiRemarks());
                 // 转正表-转正类型
                 worker.setWorkerType(workerVo.getAuditflowType());
                 // 转正表-转正日期
@@ -273,13 +277,10 @@ public class WorkerServicelmpl implements WorkerService {
         queryWrapper.eq("b.IS_DELETED",0);
         queryWrapper.eq("c.IS_DELETED",0);
         final var i = workerMapper.selectexaminerecord(queryWrapper);
-        System.out.println("1111111111111111111111111111111111111111111");
-        System.out.println(i);
         if (i == null){
             return 5;
         }else {
             return i;
         }
-
     }
 }
