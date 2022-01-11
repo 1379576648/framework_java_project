@@ -50,11 +50,9 @@ public class RegisterLogServiceImpl implements RegisterLogService {
             //登录时间范围查询
             queryWrapper.between("CREATED_TIME",registerLog.getStartTime(),registerLog.getEndTime());
         }
-        //逻辑删除查询
-        queryWrapper.eq("IS_DELETED",0);
         //按照ID降序
         queryWrapper.orderByDesc("REGISTER_LOG_ID");
-        return registerLogMapper.selectRegisterLogAll(page,queryWrapper);
+        return registerLogMapper.selectPage(page,queryWrapper);
     }
 
     /***
@@ -63,11 +61,12 @@ public class RegisterLogServiceImpl implements RegisterLogService {
      * @return
      */
     @Override
+    @Transactional
     public String checkDelete(ArrayList<Integer> list) {
         for (int i = 0; i <list.size() ; i++) {
             //通过ID删除表数据
             if (registerLogMapper.deleteById(list.get(i))<=0){
-                return "删除登录日志表数据失败";
+                return "删除登录日志数据失败";
             }
         }
         return "成功";
@@ -83,7 +82,7 @@ public class RegisterLogServiceImpl implements RegisterLogService {
         QueryWrapper<RegisterLog> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("IS_DELETED",0);
         if (registerLogMapper.delete(queryWrapper)<=0){
-            return "清空登录日志表数据失败";
+            return "清空登录日志数据失败";
         }
         return "成功";
     }

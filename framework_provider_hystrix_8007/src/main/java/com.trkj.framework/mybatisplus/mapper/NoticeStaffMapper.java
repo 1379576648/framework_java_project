@@ -8,6 +8,7 @@ import com.trkj.framework.entity.mybatisplus.NoticeStaff;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * <p>
@@ -19,11 +20,5 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface NoticeStaffMapper extends BaseMapper<NoticeStaff> {
-    /***
-     * 逻辑删除公告员工表数据
-     * @param queryWrapper
-     * @return
-     */
-    @Delete("delete from NOTICE_STAFF ${ew.customSqlSegment}")
-    int deleteNoticeStaff(@Param(Constants.WRAPPER) QueryWrapper<NoticeStaff> queryWrapper);
+
 }

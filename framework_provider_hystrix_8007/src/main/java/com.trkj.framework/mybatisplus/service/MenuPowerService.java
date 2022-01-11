@@ -17,4 +17,11 @@ public interface MenuPowerService  {
      * @return
      */
     Object menuPowerList();
+
+    /***
+     * 通过角色编号查询对应的菜单列表
+     * @param integer
+     * @return
+     */
+    Object menuPowerListInRoleId(Integer integer);
 }

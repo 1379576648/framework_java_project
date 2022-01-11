@@ -1,9 +1,7 @@
 package com.trkj.framework.service.client.system;
 
-import com.trkj.framework.entity.mybatisplus.Notice;
-import com.trkj.framework.entity.mybatisplus.RegisterLog;
+import com.trkj.framework.entity.mybatisplus.*;
 
-import com.trkj.framework.entity.mybatisplus.Role;
 import com.trkj.framework.service.client.fallbackfactory.SystemClinetServiceFallbackfactory;
 import com.trkj.framework.vo.AjaxResponse;
 import org.aspectj.apache.bcel.generic.IINC;
@@ -129,4 +127,78 @@ public interface SystemClinetService {
      */
     @GetMapping("/menuPowerList")
     public Object menuPowerList();
+
+    /***
+     * 添加角色
+     * @param role
+     * @return
+     */
+    @PostMapping("/addRole")
+    public Object addRole(@RequestBody Role role);
+
+    /***
+     * 通过前台的角色名称查询角色是否被使用
+     * @param name
+     * @return
+     */
+    @GetMapping("/selectRoleRoleName/{name}/{value}")
+    public Object selectRoleRoleName(@PathVariable(name = "name") String name,@PathVariable(name = "value") String value);
+
+
+    /****
+     * 通过角色编号查询对应的菜单列表
+     * @param integer
+     * @return
+     */
+    @GetMapping("/menuPowerListInRoleId/{id}")
+    public Object menuPowerListInRoleId(@PathVariable(name = "id") Integer integer);
+
+    /**
+     * 修改角色
+     * @param role
+     * @return
+     */
+    @PutMapping("/updateRole")
+    public Object updateRole(@RequestBody Role role);
+
+    /**
+     *分配权限
+     * @param role
+     * @return
+     */
+    @PutMapping("/allotMenu")
+    public Object allotMenu(@RequestBody Role role);
+
+    /****
+     * 分页查询所有的角色员工表数据
+     * @param roleStaff
+     * @return
+     */
+    @PostMapping("/selectRoleStaff")
+    public Object selectRoleStaff(@RequestBody RoleStaff roleStaff);
+
+
+    /***
+     * 用户取消授权
+     * @param list
+     * @return
+     */
+    @PostMapping("/cancelImpower")
+    public Object cancelImpower(@RequestBody ArrayList<Integer> list);
+
+    /***
+     * 查询所有在职的员工
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectStaffInState")
+    public Object selectStaffInState(@RequestBody Staff staff);
+
+    /***
+     * 角色给用户
+     * @param roleStaff
+     * @return
+     */
+    @PostMapping("/allotStaff")
+    public Object allotStaff(@RequestBody RoleStaff roleStaff);
 }

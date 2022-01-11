@@ -2,12 +2,13 @@ package com.trkj.framework.mybatisplus.mapper;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.NoticeStaff;
 import com.trkj.framework.entity.mybatisplus.RoleStaff;
-import org.apache.ibatis.annotations.Delete;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import com.trkj.framework.vo.StaffVo;
+import org.apache.ibatis.annotations.*;
 
 /**
  * <p>
@@ -19,11 +20,13 @@ import org.apache.ibatis.annotations.Param;
  */
 @Mapper
 public interface RoleStaffMapper extends BaseMapper<RoleStaff> {
-    /***
-     * 逻辑删除角色员工表数据
+
+    /**
+     * 通过角色编号多表查询角色员工表
+     * @param page
      * @param queryWrapper
      * @return
      */
-    @Delete("delete from ROLE_STAFF ${ew.customSqlSegment}")
-    int deleteRoleStaff(@Param(Constants.WRAPPER) QueryWrapper<RoleStaff> queryWrapper);
+    public IPage<RoleStaff> pageRoleStaff(Page<RoleStaff> page, @Param(Constants.WRAPPER) QueryWrapper<RoleStaff> queryWrapper);
+
 }

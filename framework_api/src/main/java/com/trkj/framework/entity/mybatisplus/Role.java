@@ -2,6 +2,7 @@ package com.trkj.framework.entity.mybatisplus;
 
 import com.baomidou.mybatisplus.annotation.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.io.Serializable;
 
@@ -17,6 +18,8 @@ import lombok.experimental.Accessors;
  * 角色表
  * </p>
  *
+ * @author 13795
+ * @author 13795
  * @author 劉祁
  * @since 2022-01-04
  */
@@ -24,14 +27,18 @@ import lombok.experimental.Accessors;
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
 @TableName("ROLE")
-@ApiModel(value="Role对象", description="角色表")
+/***
+ * value=自增序列名 clazz=实体类的数据类型
+ */
+@KeySequence(value = "ROLE_ID",clazz = Integer.class)
+@ApiModel(value = "Role对象", description = "角色表")
 public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "角色编号")
     @TableId("ROLE_ID")
-    private Long roleId;
+    private Integer roleId;
 
     @ApiModelProperty(value = "角色名称")
     @TableField("ROLE_NAME")
@@ -46,23 +53,23 @@ public class Role implements Serializable {
     private String roleDescribe;
 
     @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "CREATED_TIME", fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "UPDATED_TIME", fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
-    @TableField("REVISION")
     @Version
+    @TableField("REVISION")
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")
-    @TableField("IS_DELETED")
     @TableLogic
+    @TableField("IS_DELETED")
     private Long isDeleted;
 
 
@@ -82,4 +89,7 @@ public class Role implements Serializable {
     @TableField(exist = false)
     private Integer pageSize;
 
+    @ApiModelProperty(value = "菜单列表")
+    @TableField(exist = false)
+    private ArrayList<Integer> menuList;
 }

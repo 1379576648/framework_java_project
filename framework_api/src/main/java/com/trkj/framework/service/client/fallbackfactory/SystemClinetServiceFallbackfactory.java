@@ -1,8 +1,6 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
-import com.trkj.framework.entity.mybatisplus.Notice;
-import com.trkj.framework.entity.mybatisplus.RegisterLog;
-import com.trkj.framework.entity.mybatisplus.Role;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.system.SystemClinetService;
 import com.trkj.framework.vo.AjaxResponse;
 import feign.hystrix.FallbackFactory;
@@ -24,7 +22,7 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
     public Object create(Throwable throwable) {
         return new SystemClinetService() {
             @Override
-            public AjaxResponse selectRegisterLogAll( @RequestBody  RegisterLog registerLog) {
+            public AjaxResponse selectRegisterLogAll(@RequestBody RegisterLog registerLog) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
@@ -32,7 +30,7 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object checkDelete(@RequestBody  ArrayList<Integer> list) {
+            public Object checkDelete(@RequestBody ArrayList<Integer> list) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
@@ -129,7 +127,82 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object menuPowerList() {
-                return null;
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object addRole(Role role) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object selectRoleRoleName(String name, String value) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object menuPowerListInRoleId(Integer integer) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object updateRole(Role role) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object allotMenu(Role role) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object selectRoleStaff(RoleStaff roleStaff) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object cancelImpower(ArrayList<Integer> list) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object selectStaffInState(Staff staff) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object allotStaff(RoleStaff roleStaff) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
         };
     }
