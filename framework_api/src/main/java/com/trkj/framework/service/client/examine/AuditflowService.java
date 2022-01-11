@@ -301,8 +301,16 @@ public interface AuditflowService {
      * @param workerVo
      * @return
      */
-    @PostMapping("/SubmitPositive")
-    Object SubmitPositive(WorkerVo workerVo);
+    @PostMapping("/SubmitPositive3")
+    Object SubmitPositive3(WorkerVo workerVo);
+
+    /**
+     * 添加转正
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive2")
+    Object SubmitPositive2(WorkerVo workerVo);
 
     /**
      * 根据员工名称是否有转正记录

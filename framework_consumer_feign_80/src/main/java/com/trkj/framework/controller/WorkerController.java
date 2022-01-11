@@ -86,13 +86,23 @@ public class WorkerController {
     }
 
     /**
-     * 添加转正
+     * 添加转正 三个审批人
      * @param workerVo
      * @return
      */
-    @PostMapping("/SubmitPositive")
-    public AjaxResponse SubmitPositive(@RequestBody WorkerVo workerVo){
-        return AjaxResponse.success(auditflowService.SubmitPositive(workerVo));
+    @PostMapping("/SubmitPositive3")
+    public AjaxResponse SubmitPositive3(@RequestBody WorkerVo workerVo){
+        return AjaxResponse.success(auditflowService.SubmitPositive3(workerVo));
+    }
+
+    /**
+     * 添加转正 两个审批人
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive2")
+    public AjaxResponse SubmitPositive2(@RequestBody WorkerVo workerVo){
+        return AjaxResponse.success(auditflowService.SubmitPositive2(workerVo));
     }
 
     /**

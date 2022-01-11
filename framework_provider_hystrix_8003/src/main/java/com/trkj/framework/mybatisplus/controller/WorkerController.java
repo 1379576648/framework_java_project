@@ -147,14 +147,25 @@ public class WorkerController {
     }
 
     /**
-     * 添加转正
+     * 添加转正 添加三个审批人
      * @param workerVo
      * @return
      */
-    @PostMapping("/SubmitPositive")
-    public int SubmitPositive(@RequestBody WorkerVo workerVo){
-        return  workerService.SubmitPositive(workerVo);
+    @PostMapping("/SubmitPositive3")
+    public int SubmitPositive3(@RequestBody WorkerVo workerVo){
+        return  workerService.SubmitPositive3(workerVo);
     }
+
+    /**
+     * 添加转正 添加两个审批人
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive2")
+    public int SubmitPositive2(@RequestBody WorkerVo workerVo){
+        return  workerService.SubmitPositive2(workerVo);
+    }
+
 
     /**
      * 根据员工名称是否有转正记录
@@ -162,7 +173,7 @@ public class WorkerController {
      * @return
      */
     @PostMapping("/selectexaminerecord")
-    public Object selectexaminerecord(@RequestBody WorkerVo workerVo){
+    public Integer selectexaminerecord(@RequestBody WorkerVo workerVo){
         return workerService.selectexaminerecord(workerVo);
     }
 }

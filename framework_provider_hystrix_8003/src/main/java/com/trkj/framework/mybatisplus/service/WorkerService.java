@@ -64,11 +64,18 @@ public interface WorkerService {
     List<DeptPostVo>selectpresident();
 
     /**
-     * 添加转正
+     * 添加转正 添加三个审批人
      * @param workerVo
      * @return
      */
-    int SubmitPositive(WorkerVo workerVo);
+    int SubmitPositive3(WorkerVo workerVo);
+
+    /**
+     * 添加转正 添加两个审批人
+     * @param workerVo
+     * @return
+     */
+    int SubmitPositive2(WorkerVo workerVo);
 
     /**
      * 根据员工名称是否有转正记录
@@ -76,5 +83,5 @@ public interface WorkerService {
      * @return
      */
     @PostMapping("/selectexaminerecord")
-    List<WorkerVo>selectexaminerecord(WorkerVo workerVo);
+    Integer selectexaminerecord(WorkerVo workerVo);
 }
