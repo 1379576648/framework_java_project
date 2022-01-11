@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.TransferMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.Transfer">
+        <id column="TRANSFER_ID" property="transferId" />
+        <result column="AUDITFLOW_ID" property="auditflowId" />
+        <result column="STAFF_NAME" property="staffName" />
+        <result column="TRANSFER_TYPE" property="transferType" />
+        <result column="CREATED_DEPT_NAME" property="createdDeptName" />
+        <result column="TRANSFER_STATE" property="transferState" />
+        <result column="UPDATED_DEPT_NAME" property="updatedDeptName" />
+        <result column="TRANSFER_RAWPOST_NAME" property="transferRawpostName" />
+        <result column="TRANSFER_AFTERPOST_NAME" property="transferAfterpostName" />
+        <result column="TAKE_EFFECT_DATE" property="takeEffectDate" />
+        <result column="TRANSFER_REMARK" property="transferRemark" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="REVISION" property="revision" />
+        <result column="IS_DELETED" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        TRANSFER_ID, AUDITFLOW_ID, STAFF_NAME, TRANSFER_TYPE, CREATED_DEPT_NAME, TRANSFER_STATE, UPDATED_DEPT_NAME, TRANSFER_RAWPOST_NAME, TRANSFER_AFTERPOST_NAME, TAKE_EFFECT_DATE, TRANSFER_REMARK, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
+    </sql>
+
+</mapper>

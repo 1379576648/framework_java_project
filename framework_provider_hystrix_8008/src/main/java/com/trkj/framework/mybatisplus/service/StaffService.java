@@ -3,7 +3,9 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
+import com.trkj.framework.vo.TransferVo;
 
 import java.util.List;
 
@@ -29,5 +31,29 @@ public interface StaffService {
      * @return
      */
     List<StaffVo> selectStaffAll(StaffVo staffVo);
+
+    /**
+     * 查询历史花名册
+     * @param staffQuitVo
+     * @return
+     */
+    IPage<StaffQuitVo> selectQuit(StaffQuitVo staffQuitVo);
+
+
+
+    /**
+     * 修改员工信息
+     * @param staff
+     * @return
+     */
+    int updateStaff(Staff staff);
+
+    /**
+     * 修改员工信息2
+     * @param staff
+     * @return
+     */
+    int updateStaffTwo(Staff staff);
+
 
 }

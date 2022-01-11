@@ -1,15 +1,12 @@
 package com.trkj.framework.service.client.hire;
 
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
-import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(value = "REGISTER-8008/provider", fallbackFactory = HireClientServiceFallbackfactory.class)
 public interface HireClientService {
@@ -85,5 +82,66 @@ public interface HireClientService {
      */
     @PostMapping("/selectStaffAll")
     Object selectStaffAll(@RequestBody StaffVo staffVo);
+
+    /**
+     * 查询历史花名册
+     * @param staffQuitVo
+     * @return
+     */
+    @PostMapping("/selectQuit")
+    Object selectQuit(@RequestBody StaffQuitVo staffQuitVo);
+
+    /**
+     * 查询调动
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/selectTransfer")
+    Object selectTransfer(@RequestBody TransferVo transferVo);
+
+    /**
+     * 修改员工信息
+     * @param staff
+     * @return
+     */
+    @PostMapping("/updateStaff")
+    Object updateStaff(@RequestBody Staff staff);
+
+    /**
+     * 修改员工信息2
+     * @param staff
+     * @return
+     */
+    @PostMapping("/updateStaffTwo")
+    Object updateStaffTwo(@RequestBody Staff staff);
+
+    /**
+     * 查询所有的员工名称
+     * @return
+     */
+     @PostMapping("/selectStaffName")
+    Object selectStaffName();
+
+    /**
+     * 查询所有的部门名称
+     * @return
+     */
+    @PostMapping("/selectSect")
+    Object selectSect();
+
+    /**
+     * 查询所有的职位名称
+     * @return
+     */
+    @PostMapping("/selectJob")
+    Object selectJob();
+
+    /**
+     * 根据名称查询部门名称和职位名称
+     * @param transferTwoVo
+     * @return
+     */
+    @PostMapping("/selectTransferByName")
+    Object selectTransferByName(@RequestBody TransferTwoVo transferTwoVo);
 }
 

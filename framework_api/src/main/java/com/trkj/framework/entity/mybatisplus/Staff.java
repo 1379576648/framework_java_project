@@ -54,6 +54,7 @@ public class Staff implements Serializable {
     @TableField("STAFF_PICTURE")
     private String staffPicture;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("STAFF_BIRTHDAY")
     private Date staffBirthday;
@@ -74,6 +75,7 @@ public class Staff implements Serializable {
     @TableField("STAFF_PASS")
     private String staffPass;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "入职日期")
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;
@@ -140,6 +142,10 @@ public class Staff implements Serializable {
     @ApiModelProperty(value = "员工工龄")
     @TableField("WORK_AGE")
     private String workAge;
+
+    @ApiModelProperty(value = "年龄")
+    @TableField("STAFF_AGE")
+    private Long staffAge;
 
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")

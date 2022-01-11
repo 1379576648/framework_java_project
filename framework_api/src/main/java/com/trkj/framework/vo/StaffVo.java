@@ -37,7 +37,7 @@ public class StaffVo {
     @TableField("STAFF_PICTURE")
     private String staffPicture;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("STAFF_BIRTHDAY")
     private Date staffBirthday;
@@ -159,6 +159,30 @@ public class StaffVo {
     @TableField("WORKER_DATE")
     private Date workerDate;
 
+    @ApiModelProperty(value = "离职编号")
+    @TableId("QUIT_ID")
+    private Long quitId;
+
+    @ApiModelProperty(value = "离职类型")
+    @TableField("QUIT_TYPE")
+    private String quitType;
+
+    @ApiModelProperty(value = "离职说明")
+    @TableField("QUIT_EXPLAIN")
+    private String quitExplain;
+
+    @ApiModelProperty(value = "状态 0:不同意 1:同意")
+    @TableField("QUIT_STATE")
+    private Long quitState;
+
+    @ApiModelProperty(value = "申请离职日期")
+    @TableField("APPLY_QUIT_DATE")
+    private Date applyQuitDate;
+
+    @ApiModelProperty(value = "正式离职日期")
+    @TableField("FORMAL_QUIT_DATE")
+    private Date formalQuitDate;
+
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")
     private Date createdTime;
@@ -182,4 +206,12 @@ public class StaffVo {
     @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
     private Integer pagesize;
+
+    @ApiModelProperty(value = "年龄")
+    @TableField("STAFF_AGE")
+    private Long staffAge;
+
+//    @ApiModelProperty(value = "工龄")
+//    @TableField(exist = false)
+//    private Long gl;
 }

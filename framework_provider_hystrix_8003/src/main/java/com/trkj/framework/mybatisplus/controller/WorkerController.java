@@ -3,11 +3,9 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.service.WorkerService;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.DeptPostVo;
-import com.trkj.framework.vo.TravelDetailsVo;
-import com.trkj.framework.vo.WorkerDetaIsVo;
+import com.trkj.framework.vo.*;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -97,25 +95,85 @@ public class WorkerController {
     }
 
     /**
-     * 根据员工名册查询其员工状态
+     * 根据员工名册查询其员工状态 返回1为实习员工
      * @param staff
      * @return
      */
     @PostMapping("/selectStaffState")
-    public int selectStaffState(@RequestBody Staff staff){
-        final var i = workerService.selectById(staff);
-        return i;
+    public Long selectStaffState(@RequestBody Staff staff){
+        final var i = workerService.selectStaffState(staff);
+        if (i ==1L){
+            return 1L;
+        }else {
+            return 0L;
+        }
     }
 
     /**
-     * 根据部门名称查询其部门经理
+     * 根据部门编号查询其部门经理
      * @return
      */
-    @PostMapping("/根据其部门名称查询其部门经理")
+    @PostMapping("/selectDeptPostName")
     public Object selectDeptPostName(@RequestBody DeptPostVo deptPostVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectDeptPostName(deptPostVo));
         return map1;
+    }
+
+    /**
+     * 根据部门编号查询部门名称
+     * @param dept
+     * @return
+     */
+    @PostMapping("/selectDeptName")
+    public Object selectDeptName(@RequestBody Dept dept){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectDeptName(dept));
+        return map1;
+    }
+
+    /**
+     * 查询人事经理及总裁（总经理）
+     * @return
+     */
+    @PostMapping("/selectpresident")
+    public Object selectpresident(){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectpresident());
+        return map1;
+    }
+
+    /**
+     * 添加转正 添加三个审批人
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive3")
+    public int SubmitPositive3(@RequestBody WorkerVo workerVo){
+        return  workerService.SubmitPositive3(workerVo);
+    }
+
+    /**
+     * 添加转正 添加两个审批人
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive2")
+    public int SubmitPositive2(@RequestBody WorkerVo workerVo){
+        return  workerService.SubmitPositive2(workerVo);
+    }
+
+
+    /**
+     * 根据员工名称是否有转正记录
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/selectexaminerecord")
+    public Integer selectexaminerecord(@RequestBody WorkerVo workerVo){
+        return workerService.selectexaminerecord(workerVo);
     }
 }

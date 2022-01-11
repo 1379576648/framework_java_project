@@ -1,9 +1,8 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,17 +23,18 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("WORKER")
 @ApiModel(value="Worker对象", description="转正")
+@KeySequence(value = "WORKER_ID",clazz = Integer.class)
 public class Worker implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "转正编号")
     @TableId("WORKER_ID")
-    private Long workerId;
+    private Integer workerId;
 
     @ApiModelProperty(value = "审批编号")
     @TableField("AUDITFLOW_ID")
-    private Long auditflowId;
+    private Integer auditflowId;
 
     @ApiModelProperty(value = "员工名称")
     @TableField("STAFF_NAME")
@@ -61,11 +61,11 @@ public class Worker implements Serializable {
     private Date workerDate;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")

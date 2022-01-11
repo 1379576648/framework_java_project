@@ -16,7 +16,7 @@ import org.springframework.stereotype.Service;
  * 简历表 服务实现类
  * </p>
  *
- * @author 劉祁
+ * @author 牛蛙
  * @since 2021-12-23
  */
 @Service
@@ -50,4 +50,29 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         queryWrapper.isNotNull("RESUME_ZT");
         return resumeMapper.selectAll(page,queryWrapper);
     }
+    /**
+     * 候选人简历查询
+     * @param
+     * @return
+     */
+    @Override
+    public IPage<ResumeVo> selectCandidate(ResumeVo resumeVo) {
+        Page<ResumeVo> page=new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
+        QueryWrapper<ResumeVo> queryWrapper=new QueryWrapper<>();
+        queryWrapper.eq("RESUME_ZT",1);
+        return resumeMapper.selectCandidate(page,queryWrapper);
+    }
+    /**
+     * 淘汰库查询
+     * @param
+     * @return
+     */
+    @Override
+    public IPage<ResumeVo> selectEliminate(ResumeVo resumeVo) {
+        Page<ResumeVo> page = new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
+        QueryWrapper<ResumeVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("RESUME_ZT",2);
+        return resumeMapper.selectEliminate(page,queryWrapper);
+    }
+
 }
