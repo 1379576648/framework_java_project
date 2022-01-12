@@ -1,9 +1,12 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Quit;
 import com.trkj.framework.mybatisplus.service.QuitService;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.QuitDetailsVo;
+import com.trkj.framework.vo.QuitVo;
+import com.trkj.framework.vo.SalaryVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -88,5 +91,35 @@ public class QuitController {
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
         return map1;
+    }
+
+    /**
+     * 根据员工名称是否有离职记录
+     * @param quit
+     * @return
+     */
+    @PostMapping("/selectDimissionRecord")
+    public Integer selectDimissionRecord(@RequestBody Quit quit){
+        return quitService.selectDimissionRecord(quit);
+    }
+
+    /**
+     * 添加离职 添加三个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave3")
+    public int submitToLeave3(@RequestBody QuitVo quitVo){
+        return  quitService.submitToLeave3(quitVo);
+    }
+
+    /**
+     * 添加离职 添加两个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave2")
+    public int submitToLeave2(@RequestBody QuitVo quitVo){
+        return  quitService.submitToLeave2(quitVo);
     }
 }
