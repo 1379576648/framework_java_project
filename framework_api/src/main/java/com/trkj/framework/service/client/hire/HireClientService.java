@@ -2,10 +2,12 @@ package com.trkj.framework.service.client.hire;
 
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 @FeignClient(value = "REGISTER-8008/provider", fallbackFactory = HireClientServiceFallbackfactory.class)
@@ -56,7 +58,7 @@ public interface HireClientService {
      * @param employmentTable
      * @return
      */
-    @PostMapping("/updateEmploymentState")
+    @PutMapping("/updateEmploymentState")
     Object updateEmploymentState(@RequestBody EmploymentTable employmentTable);
 
     /**
@@ -64,7 +66,7 @@ public interface HireClientService {
      * @param employmentTable
      * @return
      */
-    @PostMapping("/updateEmploymentStateAndWaiveReasonInt")
+    @PutMapping("/updateEmploymentStateAndWaiveReasonInt")
     Object updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentTable);
 
     /**
@@ -104,7 +106,7 @@ public interface HireClientService {
      * @param staff
      * @return
      */
-    @PostMapping("/updateStaff")
+    @PutMapping("/updateStaff")
     Object updateStaff(@RequestBody Staff staff);
 
     /**
@@ -112,7 +114,7 @@ public interface HireClientService {
      * @param staff
      * @return
      */
-    @PostMapping("/updateStaffTwo")
+    @PutMapping("/updateStaffTwo")
     Object updateStaffTwo(@RequestBody Staff staff);
 
     /**
@@ -151,5 +153,53 @@ public interface HireClientService {
      */
     @PostMapping("/selectWorkAll")
     Object selectWorkAll(@RequestBody WorkVo workVo);
+
+    /**
+     * 根据id查询奖励
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectGloryAll")
+    Object selectGloryAll(@RequestBody WorkVo workVo);
+
+    /**
+     * 根据id查询惩罚
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectPunishAll")
+    Object selectPunishAll(@RequestBody WorkVo workVo);
+
+    /**
+     * 根据id查询教育经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectEducationAll")
+    Object selectEducationAll(@RequestBody WorkVo workVo);
+
+    /**
+     * 添加工作经历
+     * @param workExperience
+     * @return
+     */
+    @PostMapping("/insertWorkExperience")
+    Object insertWorkExperience(@RequestBody WorkExperience workExperience);
+
+    /**
+     * 根据工作经历id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectWorkOne")
+    Object selectWorkOne(@RequestBody WorkVo workVo);
+
+    /**
+     * 修改工作经历
+     * @param workExperience
+     * @return
+     */
+    @PutMapping("/updateWork")
+    Object updateWork(@RequestBody WorkExperience workExperience);
 }
 
