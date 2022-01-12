@@ -6,9 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Role;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.trkj.framework.entity.mybatisplus.RoleStaff;
+import org.apache.ibatis.annotations.*;
 
 /**
  * <p>
@@ -20,12 +19,4 @@ import org.apache.ibatis.annotations.Select;
  */
 @Mapper
 public interface RoleMapper extends BaseMapper<Role> {
-    /****
-     * 分页查询所有的角色记录
-     * @param page
-     * @param queryWrapper
-     * @return
-     */
-    @Select("select * from ROLE ${ew.customSqlSegment}")
-    IPage<Role> selectRoleAll(Page<Role> page, @Param(Constants.WRAPPER) QueryWrapper<Role> queryWrapper);
 }

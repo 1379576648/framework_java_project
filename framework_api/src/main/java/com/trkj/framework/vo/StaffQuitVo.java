@@ -2,6 +2,7 @@ package com.trkj.framework.vo;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -58,6 +59,7 @@ public class StaffQuitVo {
     @TableField("STAFF_PASS")
     private String staffPass;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "入职日期")
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;
@@ -145,10 +147,12 @@ public class StaffQuitVo {
     @TableField("QUIT_STATE")
     private Long quitState;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "申请离职日期")
     @TableField("APPLY_QUIT_DATE")
     private Date applyQuitDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "正式离职日期")
     @TableField("FORMAL_QUIT_DATE")
     private Date formalQuitDate;

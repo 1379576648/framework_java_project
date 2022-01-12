@@ -1,10 +1,8 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -27,17 +25,18 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("AUDITFLOWDETAIL")
 @ApiModel(value="Auditflowdetail对象", description="审批流明细表")
+@KeySequence(value = "AUDITFLOWDETAIL_ID",clazz = Integer.class)
 public class Auditflowdetail implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "审批流明细编号")
     @TableId("AUDITFLOWDETAIL_ID")
-    private Long auditflowdetailId;
+    private Integer auditflowdetailId;
 
     @ApiModelProperty(value = "审批编号")
     @TableField("AUDITFLOW_ID")
-    private Long auditflowId;
+    private Integer auditflowId;
 
     @ApiModelProperty(value = "审核人编号")
     @TableField("STAFF_ID")
@@ -57,7 +56,7 @@ public class Auditflowdetail implements Serializable {
 
     @ApiModelProperty(value = "审核状态")
     @TableField("AUDITFLOWDETAI_STATE")
-    private Long auditflowdetaiState;
+    private Integer auditflowdetaiState;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")

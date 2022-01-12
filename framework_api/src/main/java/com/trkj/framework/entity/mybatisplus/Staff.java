@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -52,6 +54,7 @@ public class Staff implements Serializable {
     @TableField("STAFF_PICTURE")
     private String staffPicture;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("STAFF_BIRTHDAY")
     private Date staffBirthday;
@@ -72,6 +75,7 @@ public class Staff implements Serializable {
     @TableField("STAFF_PASS")
     private String staffPass;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "入职日期")
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;
@@ -139,11 +143,17 @@ public class Staff implements Serializable {
     @TableField("WORK_AGE")
     private String workAge;
 
+    @ApiModelProperty(value = "年龄")
+    @TableField("STAFF_AGE")
+    private Long staffAge;
+
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
@@ -155,6 +165,19 @@ public class Staff implements Serializable {
     @ApiModelProperty(value = "乐观锁")
     @TableField("REVISION")
     private Long revision;
+
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currenPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pageSize;
+
+    @ApiModelProperty(value = "角色编号")
+    @TableField(exist = false)
+    private Integer roleId;
 
 
 }

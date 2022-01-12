@@ -3,10 +3,9 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.DeptPostVo;
-import com.trkj.framework.vo.TravelDetailsVo;
-import com.trkj.framework.vo.WorkerDetaIsVo;
+import com.trkj.framework.entity.mybatisplus.Worker;
+import com.trkj.framework.vo.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -58,10 +57,31 @@ public interface WorkerService {
      */
     List<Dept>selectDeptName(Dept dept);
 
-
     /**
      * 查询人事经理及总裁（总经理）
      * @return
      */
     List<DeptPostVo>selectpresident();
+
+    /**
+     * 添加转正 添加三个审批人
+     * @param workerVo
+     * @return
+     */
+    int SubmitPositive3(WorkerVo workerVo);
+
+    /**
+     * 添加转正 添加两个审批人
+     * @param workerVo
+     * @return
+     */
+    int SubmitPositive2(WorkerVo workerVo);
+
+    /**
+     * 根据员工名称是否有转正记录
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/selectexaminerecord")
+    Integer selectexaminerecord(WorkerVo workerVo);
 }

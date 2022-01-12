@@ -40,7 +40,7 @@ public class Notice implements Serializable {
 
     @ApiModelProperty(value = "员工编号")
     @TableField("STAFF_ID")
-    private Long staffId;
+    private Integer staffId;
 
     @ApiModelProperty(value = "公告类型 0:要事性 1:政策性 2:任免性")
     @TableField("NOTICE_TYPE")
