@@ -74,5 +74,4 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         queryWrapper.eq("RESUME_ZT",2);
         return resumeMapper.selectEliminate(page,queryWrapper);
     }
-
 }
