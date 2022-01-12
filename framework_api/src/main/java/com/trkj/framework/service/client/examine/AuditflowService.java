@@ -342,7 +342,7 @@ public interface AuditflowService {
     Object SubmitTransfer2(Transfer8003Vo transferVo);
 
     /**
-     * 根据员工名称是否有转正记录
+     * 根据员工名称是否有调薪记录
      * @param salaryVo
      * @return
      */
@@ -358,7 +358,7 @@ public interface AuditflowService {
     Object selectPay(Fixedwagf fixedwagf);
 
     /**
-     * 添加转正 3个审批人
+     * 添加调薪 3个审批人
      * @param salaryVo
      * @return
      */
@@ -366,17 +366,36 @@ public interface AuditflowService {
     Object SubmitSalary3(SalaryVo salaryVo);
 
     /**
-     * 添加转正 2个审批人
+     * 添加调薪 2个审批人
      * @param salaryVo
      * @return
      */
     @PostMapping("/SubmitSalary2")
     Object SubmitSalary2(SalaryVo salaryVo);
 
+    /**
+     * 根据员工名称是否有离职记录
+     * @param quit
+     * @return
+     */
+    @PostMapping("/selectDimissionRecord")
+    Object selectDimissionRecord(Quit quit);
 
+    /**
+     * 添加调薪 3个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave3")
+    Object submitToLeave3(QuitVo quitVo);
 
-
-
+    /**
+     * 添加调薪 2个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave2")
+    Object submitToLeave2(QuitVo quitVo);
 
 
 

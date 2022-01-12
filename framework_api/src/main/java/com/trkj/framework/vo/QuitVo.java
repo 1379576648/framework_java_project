@@ -3,21 +3,21 @@ package com.trkj.framework.vo;
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
 import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 转正审批VO
+ * 离职审批VO
  */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkerVo implements Serializable {
+public class QuitVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "审批编号")
@@ -68,46 +68,43 @@ public class WorkerVo implements Serializable {
     @TableId("AUDITFLOWDETAI_STATE")
     private Long auditflowdeatistate;
 
-    @ApiModelProperty(value = "转正编号")
-    @TableId("WORKER_ID")
-    private Long workerId;
+    @ApiModelProperty(value = "离职编号")
+    @TableId("QUIT_ID")
+    private Long quitId;
 
     @ApiModelProperty(value = "部门名称")
-    @TableId("DEPT_NAME")
-    private String deptname;
+    @TableField("DEPT_NAME")
+    private String deptName;
 
-    @ApiModelProperty(value = "转正类型")
-    @TableId("WORKER_TYPE")
-    private String workertype;
+    @ApiModelProperty(value = "离职类型")
+    @TableField("QUIT_TYPE")
+    private String quitType;
 
-    @ApiModelProperty(value = "备注")
-    @TableId("WORKER_REMARKS")
-    private String workerremarks;
+    @ApiModelProperty(value = "离职说明")
+    @TableField("QUIT_EXPLAIN")
+    private String quitExplain;
 
-    @ApiModelProperty(value = "状态")
-    @TableId("WORKER_STATE")
-    private Long workerstate;
+    @ApiModelProperty(value = "申请离职日期")
+    @TableField("APPLY_QUIT_DATE")
+    private Date applyQuitDate;
 
-    @ApiModelProperty(value = "转正日期")
-    @TableId("WORKER_DATE")
-    private Date workerdate;
+    @ApiModelProperty(value = "正式离职日期")
+    @TableField("FORMAL_QUIT_DATE")
+    private Date formalQuitDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
-    @TableId("REVISION")
+    @TableField("REVISION")
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除")
-    @TableId("IS_DELETED")
-    private Long isdeleted;
-
+    @TableField("IS_DELETED")
+    private Long isDeleted;
 }
