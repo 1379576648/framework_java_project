@@ -48,6 +48,13 @@ public interface Transfer8003Service {
      * @param transferVo
      * @return
      */
-    int submitPositive3(Transfer8003Vo transferVo);
+    int SubmitTransfer3(Transfer8003Vo transferVo);
+
+    /**
+     * 添加调动 添加两个审批人
+     * @param transferVo
+     * @return
+     */
+    int SubmitTransfer2(Transfer8003Vo transferVo);
 
 }

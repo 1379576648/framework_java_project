@@ -9,7 +9,7 @@ import org.apache.ibatis.annotations.Select;
 
 /**
  * <p>
- * 简历表 Mapper 接口
+ * 招聘 Mapper 接口
  * </p>
  *
  * @author 牛蛙
