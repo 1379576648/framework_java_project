@@ -72,9 +72,9 @@ public class WorkerVo implements Serializable {
     @TableId("WORKER_ID")
     private Long workerId;
 
-    @ApiModelProperty(value = "部门编号")
-    @TableId("DEPT_ID")
-    private Long deptId;
+    @ApiModelProperty(value = "部门名称")
+    @TableId("DEPT_NAME")
+    private String deptname;
 
     @ApiModelProperty(value = "转正类型")
     @TableId("WORKER_TYPE")

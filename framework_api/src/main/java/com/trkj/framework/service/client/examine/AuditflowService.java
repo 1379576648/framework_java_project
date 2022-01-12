@@ -336,4 +336,11 @@ public interface AuditflowService {
     @PostMapping("/SubmitTransfer3")
     Object SubmitTransfer3(Transfer8003Vo transferVo);
 
+    /**
+     * 添加调动 2个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer2")
+    Object SubmitTransfer2(Transfer8003Vo transferVo);
 }

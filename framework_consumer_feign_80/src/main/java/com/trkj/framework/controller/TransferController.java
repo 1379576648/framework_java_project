@@ -75,4 +75,14 @@ public class TransferController {
     public AjaxResponse SubmitTransfer3(@RequestBody Transfer8003Vo transferVo){
         return AjaxResponse.success(auditflowService.SubmitTransfer3(transferVo));
     }
+
+    /**
+     * 添加调动 添加两个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer2")
+    public AjaxResponse SubmitTransfer2(@RequestBody Transfer8003Vo transferVo){
+        return AjaxResponse.success(auditflowService.SubmitTransfer2(transferVo));
+    }
 }

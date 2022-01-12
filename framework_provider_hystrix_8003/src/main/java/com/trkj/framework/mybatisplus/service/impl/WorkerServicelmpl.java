@@ -82,7 +82,7 @@ public class WorkerServicelmpl implements WorkerService {
     }
 
     /**
-     * 根据员工名称去查询其员工状态为2实习的员工 条件为逻辑删除为0/员工状态为2实习的
+     * 根据员工名称去查询其员工状态为0实习的员工 条件为逻辑删除为0/员工状态为0实习的
      *
      * @param staff
      * @return
@@ -91,7 +91,7 @@ public class WorkerServicelmpl implements WorkerService {
     public Long selectStaffState(Staff staff) {
         QueryWrapper<Staff> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("IS_DELETED", 0);
-        queryWrapper.eq("STAFF_STATE", 2);
+        queryWrapper.eq("STAFF_STATE", 0);
         queryWrapper.eq("STAFF_NAME", staff.getStaffName());
         return staffMapper.selectStaffState(queryWrapper);
     }
@@ -175,8 +175,8 @@ public class WorkerServicelmpl implements WorkerService {
                 worker.setAuditflowId(auditflow1.getAuditflowId());
                 // 转正表-员工名称
                 worker.setStaffName(workerVo.getStaffName());
-                // 转正表-部门编号
-                worker.setDeptId(workerVo.getDeptId());
+                // 转正表-部门名称
+                worker.setDeptname(workerVo.getDeptname());
                 // 转正表-转正备注
                 worker.setWorkerRemarks(workerVo.getAuditflowdetaiRemarks());
                 // 转正表-转正类型
@@ -246,8 +246,8 @@ public class WorkerServicelmpl implements WorkerService {
                 worker.setAuditflowId(auditflow1.getAuditflowId());
                 // 转正表-员工名称
                 worker.setStaffName(workerVo.getStaffName());
-                // 转正表-部门编号
-                worker.setDeptId(workerVo.getDeptId());
+                // 转正表-部门名称
+                worker.setDeptname(workerVo.getDeptname());
                 // 转正表-转正备注
                 worker.setWorkerRemarks(workerVo.getAuditflowdetaiRemarks());
                 // 转正表-转正类型

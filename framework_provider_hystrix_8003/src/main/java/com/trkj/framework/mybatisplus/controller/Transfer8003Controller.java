@@ -130,8 +130,16 @@ public class Transfer8003Controller {
      */
     @PostMapping("/SubmitTransfer3")
     public int SubmitTransfer3(@RequestBody Transfer8003Vo transferVo){
-        return  transferService.submitPositive3(transferVo);
+        return  transferService.SubmitTransfer3(transferVo);
     }
 
-
+    /**
+     * 添加调动 添加两个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer2")
+    public int SubmitTransfer2(@RequestBody Transfer8003Vo transferVo){
+        return  transferService.SubmitTransfer2(transferVo);
+    }
 }
