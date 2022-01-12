@@ -1,9 +1,8 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.QuitDetailsVo;
-import com.trkj.framework.vo.SalaryDetailsVo;
+import com.trkj.framework.entity.mybatisplus.Fixedwagf;
+import com.trkj.framework.vo.*;
 
 import java.util.List;
 
@@ -28,4 +27,33 @@ public interface SalaryService {
      * @return
      */
     List<SalaryDetailsVo> selectDetailsSalary(SalaryDetailsVo salaryDetailsVo);
+
+    /**
+     * 根据员工名称是否有调薪记录
+     * @param
+     * @return
+     */
+    Integer selectSalaryRecord(SalaryVo salaryVo);
+
+    /**
+     * 根据员工ID查询其基本工资
+     * @param fixedwagf
+     * @return
+     */
+    Integer selectPay(Fixedwagf fixedwagf);
+
+    /**
+     * 添加调薪 添加三个审批人
+     * @param salaryVo
+     * @return
+     */
+    int SubmitSalary3(SalaryVo salaryVo);
+
+    /**
+     * 添加调薪 添加三个审批人
+     * @param salaryVo
+     * @return
+     */
+    int SubmitSalary2(SalaryVo salaryVo);
+
 }

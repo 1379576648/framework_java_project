@@ -1,10 +1,9 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.mybatisplus.service.SalaryService;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.QuitDetailsVo;
-import com.trkj.framework.vo.SalaryDetailsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -90,4 +89,45 @@ public class SalaryController {
         map1.put("info", "服务发生雪崩");
         return map1;
     }
+
+    /**
+     * 根据员工名称是否有调薪记录
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/selectSalaryRecord")
+    public Integer selectTransferRecord(@RequestBody SalaryVo salaryVo){
+        return salaryService.selectSalaryRecord(salaryVo);
+    }
+
+    /**
+     * 根据员工ID查询其基本工资
+     * @param fixedwagf
+     * @return
+     */
+    @PostMapping("/selectPay")
+    public Integer selectPay(@RequestBody Fixedwagf fixedwagf){
+        return salaryService.selectPay(fixedwagf);
+    }
+
+    /**
+     * 添加调薪 添加三个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary3")
+    public int SubmitSalary3(@RequestBody SalaryVo salaryVo){
+        return  salaryService.SubmitSalary3(salaryVo);
+    }
+
+    /**
+     * 添加调薪 添加两个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary2")
+    public int SubmitSalary2(@RequestBody SalaryVo salaryVo){
+        return  salaryService.SubmitSalary2(salaryVo);
+    }
+
 }

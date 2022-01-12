@@ -1,9 +1,6 @@
 package com.trkj.framework.service.client.examine;
 
-import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
-import com.trkj.framework.entity.mybatisplus.Dept;
-import com.trkj.framework.entity.mybatisplus.RegisterLog;
-import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.AuditflowClinetServiceFallbackfactory;
 import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFallbackfactory;
 import com.trkj.framework.vo.*;
@@ -343,4 +340,48 @@ public interface AuditflowService {
      */
     @PostMapping("/SubmitTransfer2")
     Object SubmitTransfer2(Transfer8003Vo transferVo);
+
+    /**
+     * 根据员工名称是否有转正记录
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/selectSalaryRecord")
+    Object selectSalaryRecord(SalaryVo salaryVo);
+
+    /**
+     * 查询基本工资
+     * @param fixedwagf
+     * @return
+     */
+    @PostMapping("/selectPay")
+    Object selectPay(Fixedwagf fixedwagf);
+
+    /**
+     * 添加转正 3个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary3")
+    Object SubmitSalary3(SalaryVo salaryVo);
+
+    /**
+     * 添加转正 2个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary2")
+    Object SubmitSalary2(SalaryVo salaryVo);
+
+
+
+
+
+
+
+
+
+
+
+
 }
