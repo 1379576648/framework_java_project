@@ -4,6 +4,8 @@ server:
 feign:
   hystrix:
     enabled: true
+  httpclient:
+    connection-timeout: 5000
 ##配置spring security 账号密码
 #spring:
 #  security:

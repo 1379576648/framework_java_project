@@ -3,7 +3,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.system.SystemClinetService;
 import com.trkj.framework.vo.AjaxResponse;
-import org.springframework.cloud.openfeign.FallbackFactory;
+import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;

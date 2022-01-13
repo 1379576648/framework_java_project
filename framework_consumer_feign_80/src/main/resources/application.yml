@@ -4,6 +4,8 @@ server:
 feign:
   hystrix:
     enabled: true
+  httpclient:
+    connection-timeout: 5000
 ##配置spring security 账号密码
 #spring:
 #  security:
@@ -21,17 +23,19 @@ jwt:
   expire: 100000
 
 #hystrix熔断超时配置
-hystrix:
-  command:
-    default:
-      execution:
-        #开启超时配置(默认为开启)
-        timeout:
-          enabled: true
-        #设置超时时间
-        isolation:
-          thread:
-            timeoutInMilliseconds: 5000
+#hystrix:
+#  command:
+#    default:
+#      execution:
+#        #开启超时配置(默认为开启)
+#        timeout:
+#          enabled: true
+#        #设置超时时间
+#        isolation:
+#          thread:
+#            timeoutInMilliseconds: 5000
+
+
 #Redis配置
 #spring:
 #  redis:

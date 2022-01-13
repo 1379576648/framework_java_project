@@ -2,7 +2,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.service.client.register.RegisterClinetService;
 import com.trkj.framework.vo.AjaxResponse;
-import org.springframework.cloud.openfeign.FallbackFactory;
+import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import javax.jws.soap.SOAPBinding;

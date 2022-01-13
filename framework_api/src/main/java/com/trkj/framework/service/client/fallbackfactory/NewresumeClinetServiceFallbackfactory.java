@@ -5,7 +5,8 @@ import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.InterviewVo;
 import com.trkj.framework.vo.RecruitmentVo;
 import com.trkj.framework.vo.ResumeVo;
-import org.springframework.cloud.openfeign.FallbackFactory;
+
+import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

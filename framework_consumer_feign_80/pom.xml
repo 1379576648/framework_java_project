@@ -80,6 +80,11 @@
             <version>2.8.9</version>
             <scope>compile</scope>
         </dependency>
+        <!--加入Hystrix依赖-->
+        <dependency>
+            <groupId>org.springframework.cloud</groupId>
+            <artifactId>spring-cloud-starter-hystrix</artifactId>
+            <version>1.4.7.RELEASE</version>
+        </dependency>
     </dependencies>
-
 </project>

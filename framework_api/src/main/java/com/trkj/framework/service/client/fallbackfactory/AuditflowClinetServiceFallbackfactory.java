@@ -3,7 +3,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.*;
-import org.springframework.cloud.openfeign.FallbackFactory;
+import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

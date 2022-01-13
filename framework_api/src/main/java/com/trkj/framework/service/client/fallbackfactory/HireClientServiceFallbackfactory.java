@@ -5,7 +5,7 @@ import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.*;
-import org.springframework.cloud.openfeign.FallbackFactory;
+import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
