@@ -21,6 +21,10 @@ public class InterviewVo implements Serializable {
     @TableId("RECRUITMENT_PLAN_ID")
     private Long recruitmentPlanId;
 
+    @ApiModelProperty(value = "简历编号")
+    @TableId("RESUME_ID")
+    private Long resumeId;
+
     @ApiModelProperty(value = "部门编号")
     @TableId("DEPT_ID")
     private Long deptId;

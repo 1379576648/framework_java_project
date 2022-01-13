@@ -11,14 +11,21 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-//降级~
+/**
+ * 降级~
+ * @author TanWei
+ */
 @Component
 public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
 
     @Override
     public Object create(Throwable throwable) {
         return new NewresumeClinetService() {
-            // 新简历
+            /**
+             * 新简历
+             * @param resumeVo
+             * @return
+             */
             @Override
             public Object queryResume(ResumeVo resumeVo) {
                 Map<String, Object> objectMap = new HashMap<>(2);
@@ -26,7 +33,12 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
-            // 全部简历
+
+            /**
+             * 全部简历
+             * @param resumeVo
+             * @return
+             */
             @Override
             public Object queryAll(ResumeVo resumeVo) {
                 Map<String, Object> objectMap = new HashMap<>(2);
@@ -34,7 +46,12 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
-            // 候选人
+
+            /**
+             * 候选人
+             * @param resumeVo
+             * @return
+             */
             @Override
             public Object queryCandidate(ResumeVo resumeVo) {
                 Map<String, Object> objectMap = new HashMap<>(2);
@@ -42,7 +59,12 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
-            // 淘汰库
+
+            /**
+             * 淘汰库
+             * @param resumeVo
+             * @return
+             */
             @Override
             public Object queryEliminate(ResumeVo resumeVo) {
                 Map<String, Object> objectMap = new HashMap<>();
@@ -50,7 +72,12 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
-            // 招聘计划查询
+
+            /**
+             * 招聘计划
+             * @param recruitmentVo
+             * @return
+             */
             @Override
             public Object queryRecruitment(RecruitmentVo recruitmentVo) {
                 Map<String, Object> objectMap = new HashMap<>();
@@ -58,7 +85,12 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
-            // 面试通过查询
+
+            /**
+             * 面试通过
+             * @param interviewVo
+             * @return
+             */
             @Override
             public Object queryInterviewPass(InterviewVo interviewVo) {
                 Map<String, Object> objectMap = new HashMap<>();
@@ -67,6 +99,30 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(objectMap);
             }
 
+            /**
+             * 面试候选人
+             * @param resumeVo
+             * @return
+             */
+            @Override
+            public Object queryInterviewCandidate(ResumeVo resumeVo) {
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+            /**
+             * 已邀约
+             * @param resumeVo
+             * @return
+             */
+            @Override
+            public Object queryInvite(ResumeVo resumeVo) {
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
 
         };
     }

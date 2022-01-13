@@ -74,4 +74,28 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         queryWrapper.eq("RESUME_ZT",2);
         return resumeMapper.selectEliminate(page,queryWrapper);
     }
+    /**
+     * 面试候选人
+     * @param
+     * @return
+     */
+    @Override
+    public IPage<ResumeVo> selectInterviewCandidate(ResumeVo resumeVo) {
+        Page<ResumeVo> page = new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
+        QueryWrapper<ResumeVo> queryWrapper= new QueryWrapper<>();
+        queryWrapper.eq("RESUME_ZT",3);
+        return resumeMapper.selectInterviewCandidate(page,queryWrapper);
+    }
+    /**
+     * 已邀约
+     * @param
+     * @return
+     */
+    @Override
+    public IPage<ResumeVo> selectInvite(ResumeVo resumeVo) {
+        Page<ResumeVo> page = new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
+        QueryWrapper<ResumeVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("RESUME_ZT",4);
+        return resumeMapper.selectInvite(page,queryWrapper);
+    }
 }

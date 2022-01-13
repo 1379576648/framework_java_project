@@ -6,7 +6,11 @@ import com.trkj.framework.vo.InterviewVo;
 
 public interface InterviewService extends IService<InterviewVo> {
 
-    //面试通过
+    /**
+     * 面试通过
+     * @param interviewVo
+     * @return
+     */
     IPage<InterviewVo> selectInterviewPass(InterviewVo interviewVo);
 
 

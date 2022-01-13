@@ -8,12 +8,19 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * @author TanWei
+ */
 @RestController
 public class InterviewController {
     @Autowired
     private NewresumeClinetService newresumeClinetService=null;
 
-    //面试通过查询
+    /**
+     * 面试通过查询
+     * @param interviewVo
+     * @return
+     */
     @PostMapping("/selectInterviewPass")
     public Object queryInterviewPass(@RequestBody InterviewVo interviewVo){
         return AjaxResponse.success(newresumeClinetService.queryInterviewPass(interviewVo));

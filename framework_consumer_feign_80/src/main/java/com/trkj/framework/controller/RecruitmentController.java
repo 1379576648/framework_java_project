@@ -13,7 +13,12 @@ public class RecruitmentController {
     @Autowired
     private NewresumeClinetService newresumeClinetService=null;
 
-    // 招聘计划查询
+
+    /**
+     * 招聘计划查询
+     * @param recruitmentVo
+     * @return
+     */
     @PostMapping("/selectRecruitment")
     private Object queryRecruitment(@RequestBody RecruitmentVo recruitmentVo){
         return AjaxResponse.success(newresumeClinetService.queryRecruitment(recruitmentVo));
