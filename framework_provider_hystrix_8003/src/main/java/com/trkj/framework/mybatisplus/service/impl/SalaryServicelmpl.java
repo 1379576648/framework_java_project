@@ -47,7 +47,7 @@ public class SalaryServicelmpl implements SalaryService {
             //根据开始日期结束日期范围查询
             queryWrapper.between("a.CREATED_TIME", auditflowone.getStartTime(), auditflowone.getEndTime());
         }
-        queryWrapper.eq("b.STAFF_NAME", "部门经理");
+        queryWrapper.eq("b.STAFF_NAME", auditflowone.getStaffName2());
         queryWrapper.eq("b.AUDITFLOWDETAI_STATE", 1);
         queryWrapper.eq("a.AUDITFLOW_TYPE", "调薪");
         return auditflowoneMapper.selectAuditflowoneAll(page, queryWrapper);
@@ -75,7 +75,7 @@ public class SalaryServicelmpl implements SalaryService {
         queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 1);
         queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 0);
         queryWrapper.eq("a.AUDITFLOW_TYPE", "调薪");
-        queryWrapper.eq("b.STAFF_NAME", "部门经理");
+        queryWrapper.eq("b.STAFF_NAME", auditflowone.getStaffName2());
         return auditflowoneMapper.selectEnddAuditflow(page, queryWrapper);
     }
 
