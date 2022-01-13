@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * 审批出差明细详情
+ * 审批转正明细详情
  */
 @Data
 @NoArgsConstructor
