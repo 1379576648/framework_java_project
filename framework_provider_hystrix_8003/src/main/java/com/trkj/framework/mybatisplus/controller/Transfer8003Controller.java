@@ -1,11 +1,8 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.Dept;
-import com.trkj.framework.mybatisplus.service.TransferService;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.SalaryDetailsVo;
-import com.trkj.framework.vo.TransferDetailsVo;
+import com.trkj.framework.mybatisplus.service.Transfer8003Service;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,9 +18,9 @@ import java.util.Map;
  * @since 2022-1-2
  */
 @RestController
-public class TransferController {
+public class Transfer8003Controller {
     @Autowired
-    private TransferService transferService;
+    private Transfer8003Service transferService;
 
     /**
      * 根据审批类型的调动/审批人查询待处理的审批
@@ -93,7 +90,6 @@ public class TransferController {
         return map1;
     }
 
-
     /**
      *  点击异动查询所有部门
      * @param
@@ -117,7 +113,33 @@ public class TransferController {
         return map1;
     }
 
+    /**
+     * 根据员工名称是否有异动记录
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/selectTransferRecord")
+    public Integer selectTransferRecord(@RequestBody Transfer8003Vo transferVo){
+        return transferService.selectTransferRecord(transferVo);
+    }
 
-    // @PostMapping("/")
+    /**
+     * 添加调动 添加三个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer3")
+    public int SubmitTransfer3(@RequestBody Transfer8003Vo transferVo){
+        return  transferService.SubmitTransfer3(transferVo);
+    }
 
+    /**
+     * 添加调动 添加两个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer2")
+    public int SubmitTransfer2(@RequestBody Transfer8003Vo transferVo){
+        return  transferService.SubmitTransfer2(transferVo);
+    }
 }

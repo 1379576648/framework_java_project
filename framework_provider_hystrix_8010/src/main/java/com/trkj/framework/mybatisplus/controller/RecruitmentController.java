@@ -20,6 +20,7 @@ public class RecruitmentController {
     @Autowired
     private RecruitmentService recruitmentService;
 
+    // 招聘计划查询
     @PostMapping("/selectRecruitment")
     @HystrixCommand(fallbackMethod = "HystixRecruitment")
     public Object queryRecruitment(@RequestBody RecruitmentVo recruitmentVo){

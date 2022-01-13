@@ -1,9 +1,7 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.service.client.examine.AuditflowService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.TransferDetailsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -56,5 +54,35 @@ public class TransferController {
     @GetMapping("/selectDeptList")
     public AjaxResponse selectDeptAll(){
         return AjaxResponse.success(auditflowService.selectDeptAll());
+    }
+
+    /**
+     * 根据员工名称是否有调动记录
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/selectTransferRecord")
+    public AjaxResponse selectTransferRecord(@RequestBody Transfer8003Vo transferVo){
+        return AjaxResponse.success(auditflowService.selectTransferRecord(transferVo));
+    }
+
+    /**
+     * 添加调动 添加三个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer3")
+    public AjaxResponse SubmitTransfer3(@RequestBody Transfer8003Vo transferVo){
+        return AjaxResponse.success(auditflowService.SubmitTransfer3(transferVo));
+    }
+
+    /**
+     * 添加调动 添加两个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer2")
+    public AjaxResponse SubmitTransfer2(@RequestBody Transfer8003Vo transferVo){
+        return AjaxResponse.success(auditflowService.SubmitTransfer2(transferVo));
     }
 }

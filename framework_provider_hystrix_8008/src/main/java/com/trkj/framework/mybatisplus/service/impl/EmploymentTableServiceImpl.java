@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * <p>
  * 录用表 服务实现类
@@ -104,6 +106,54 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             queryWrapper.like("s.STAFF_NAME",workVo.getStaffName());
         }
         return employmentTableMapper.selectwork(page,queryWrapper);
+    }
+
+    /**
+     * 根据id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @Override
+    public List<WorkVo> selectWorkAll(WorkVo workVo) {
+        QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("s.STAFF_ID",workVo.getStaffId());
+        return employmentTableMapper.selectWorkAll(queryWrapper);
+    }
+
+    /**
+     * 根据id查询奖励
+     * @param workVo
+     * @return
+     */
+    @Override
+    public List<WorkVo> selectGloryAll(WorkVo workVo) {
+        QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("s.STAFF_ID",workVo.getStaffId());
+        return employmentTableMapper.selectGloryAll(queryWrapper);
+    }
+
+    /**
+     * 根据id查询惩罚
+     * @param workVo
+     * @return
+     */
+    @Override
+    public List<WorkVo> selectPunishAll(WorkVo workVo) {
+        QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("s.STAFF_ID",workVo.getStaffId());
+        return employmentTableMapper.selectPunishAll(queryWrapper);
+    }
+
+    /**
+     * 根据id查询教育经历
+     * @param workVo
+     * @return
+     */
+    @Override
+    public List<WorkVo> selectEducationAll(WorkVo workVo) {
+        QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("s.STAFF_ID",workVo.getStaffId());
+        return employmentTableMapper.selectEducationAll(queryWrapper);
     }
 
     /**
@@ -428,6 +478,18 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         }else {
             return 100;
         }
+    }
+
+    /**
+     * 根据工作经历id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @Override
+    public List<WorkVo> selectWorkOne(WorkVo workVo) {
+        QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("WORK_EXPERIENCE_ID",workVo.getWorkExperienceId());
+        return employmentTableMapper.selectWorkOne(queryWrapper);
     }
 
 }

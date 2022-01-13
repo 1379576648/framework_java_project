@@ -1,10 +1,8 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.service.client.examine.AuditflowService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.SalaryDetailsVo;
-import com.trkj.framework.vo.TravelDetailsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,5 +44,45 @@ public class SalaryController {
     @PostMapping("/selectDetailsSalary")
     public AjaxResponse selectDetailsSalary(@RequestBody SalaryDetailsVo salaryDetailsVo) {
         return AjaxResponse.success(auditflowService.selectDetailsSalary(salaryDetailsVo));
+    }
+
+    /**
+     * 根据员工名称是否有调薪记录
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/selectSalaryRecord")
+    public AjaxResponse selectSalaryRecord(@RequestBody SalaryVo salaryVo){
+        return AjaxResponse.success(auditflowService.selectSalaryRecord(salaryVo));
+    }
+
+    /**
+     * 根据员工ID查询其基本工资
+     * @param fixedwagf
+     * @return
+     */
+    @PostMapping("/selectPay")
+    public AjaxResponse selectPay(@RequestBody Fixedwagf fixedwagf){
+        return AjaxResponse.success(auditflowService.selectPay(fixedwagf));
+    }
+
+    /**
+     * 添加调薪 添加三个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary3")
+    public AjaxResponse SubmitSalary3(@RequestBody SalaryVo salaryVo){
+        return AjaxResponse.success(auditflowService.SubmitSalary3(salaryVo));
+    }
+
+    /**
+     * 添加调薪 添加三个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary2")
+    public AjaxResponse SubmitSalary2(@RequestBody SalaryVo salaryVo){
+        return AjaxResponse.success(auditflowService.SubmitSalary2(salaryVo));
     }
 }

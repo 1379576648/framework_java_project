@@ -17,6 +17,8 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.List;
+
 
 /**
  * <p>
@@ -53,8 +55,40 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("select s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.STAFF_ID,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY from  WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
+    @Select("select s.STAFF_ID,s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY FROM WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
     IPage<WorkVo> selectwork(Page<WorkVo> page,@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
+
+    /**
+     * 根据id查询工作经历
+     * @param queryWrapper
+     * @return
+     */
+    @Select("select s.STAFF_ID,s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY FROM WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
+    List<WorkVo> selectWorkAll(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
+
+    /**
+     * 根据id查询奖励
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT s.STAFF_ID,g.GLORY_ID,g.GLORY_NAME,g.GLORY_UNITNAME,g.GLORY_REMARK,g.CREATED_TIME FROM GLORY g LEFT JOIN STAFF s on s.STAFF_ID=g.STAFF_ID ${ew.customSqlSegment}")
+    List<WorkVo> selectGloryAll(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
+
+    /**
+     * 根据id查询惩罚
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT s.STAFF_ID,p.PUNISH_ID,p.PUNISH_TYPE,p.PUNISH_CAUSE,p.PUNISH_UNIT,p.IS_REVOCATION,p.PUNISH_REMARK FROM PUNISH p LEFT JOIN STAFF s on s.STAFF_ID=p.STAFF_ID ${ew.customSqlSegment}")
+    List<WorkVo> selectPunishAll(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
+
+    /**
+     * 根据id查询教育经历
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT s.STAFF_ID,e.EDUCATION_ID,e.EDUCATION_START_TIME,e.EDUCATION_END_TIME,e.EDUCATION_STUDENTNAME,e.EDUCATION_MAJOR,e.EDUCATION_FULL_TIME FROM EDUCATION e LEFT JOIN STAFF s on s.STAFF_ID=e.STAFF_ID  ${ew.customSqlSegment}")
+    List<WorkVo> selectEducationAll(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
     /**
      * 查询转正
@@ -64,6 +98,14 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      */
     @Select("SELECT s.STAFF_NAME , s.STAFF_STATE , s.STAFF_IDENTITY , d.DEPT_NAME , p.POST_NAME , s.STAFF_HIREDATE FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID = s.DEPT_POST_ID ${ew.customSqlSegment} ")
     IPage<FullVo> selectpost(Page<FullVo> page,@Param(Constants.WRAPPER) QueryWrapper<FullVo> queryWrapper);
+
+    /**
+     * 根据工作经历id查询工作经历
+     * @param queryWrapper
+     * @return
+     */
+    @Select("select * FROM WORK_EXPERIENCE ${ew.customSqlSegment}")
+    List<WorkVo> selectWorkOne(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
 
 }

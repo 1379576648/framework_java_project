@@ -3,6 +3,7 @@ package com.trkj.framework.controller;
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.*;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -44,6 +45,46 @@ public class HireController {
     }
 
     /**
+     * 根据id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectWorkAll")
+    public AjaxResponse selectWorkAll(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectWorkAll(workVo));
+    }
+
+    /**
+     * 根据id查询奖励
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectGloryAll")
+    public AjaxResponse selectGloryAll(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectGloryAll(workVo));
+    }
+
+    /**
+     * 根据id查询惩罚
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectPunishAll")
+    public AjaxResponse selectPunishAll(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectPunishAll(workVo));
+    }
+
+    /**
+     * 根据id查询教育经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectEducationAll")
+    public AjaxResponse selectEducationAll(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectEducationAll(workVo));
+    }
+
+    /**
      * 查询转正
      * @param fullVo
      * @return
@@ -70,7 +111,7 @@ public class HireController {
      * @param employmentTable
      * @return
      */
-    @PostMapping("/updateEmploymentState")
+    @PutMapping("/updateEmploymentState")
     public AjaxResponse updateEmploymentState(@RequestBody EmploymentTable employmentTable){
         return AjaxResponse.success(hireClientService.updateEmploymentState(employmentTable));
     }
@@ -80,10 +121,20 @@ public class HireController {
      * @param employmentTable
      * @return
      */
-    @PostMapping("/updateEmploymentStateAndWaiveReasonInt")
+    @PutMapping("/updateEmploymentStateAndWaiveReasonInt")
     public AjaxResponse updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentTable){
         return AjaxResponse.success(hireClientService.updateEmploymentStateAndWaiveReasonInt(employmentTable));
 
+    }
+
+    /**
+     * 根据工作经历id查询工作经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectWorkOne")
+    public AjaxResponse selectWorkOne(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectWorkOne(workVo));
     }
 
 

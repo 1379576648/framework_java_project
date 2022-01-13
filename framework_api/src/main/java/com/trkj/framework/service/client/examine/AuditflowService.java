@@ -1,9 +1,6 @@
 package com.trkj.framework.service.client.examine;
 
-import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
-import com.trkj.framework.entity.mybatisplus.Dept;
-import com.trkj.framework.entity.mybatisplus.RegisterLog;
-import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.AuditflowClinetServiceFallbackfactory;
 import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFallbackfactory;
 import com.trkj.framework.vo.*;
@@ -297,7 +294,7 @@ public interface AuditflowService {
     Object selectpresident();
 
     /**
-     * 添加转正
+     * 添加转正 3个审批人
      * @param workerVo
      * @return
      */
@@ -305,7 +302,7 @@ public interface AuditflowService {
     Object SubmitPositive3(WorkerVo workerVo);
 
     /**
-     * 添加转正
+     * 添加转正 2个审批人
      * @param workerVo
      * @return
      */
@@ -319,4 +316,91 @@ public interface AuditflowService {
      */
     @PostMapping("/selectexaminerecord")
     Object selectexaminerecord(WorkerVo workerVo);
+
+    /**
+     * 根据员工名称是否有异动记录
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/selectTransferRecord")
+    Object selectTransferRecord(Transfer8003Vo transferVo);
+
+    /**
+     * 添加调动 3个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer3")
+    Object SubmitTransfer3(Transfer8003Vo transferVo);
+
+    /**
+     * 添加调动 2个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer2")
+    Object SubmitTransfer2(Transfer8003Vo transferVo);
+
+    /**
+     * 根据员工名称是否有调薪记录
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/selectSalaryRecord")
+    Object selectSalaryRecord(SalaryVo salaryVo);
+
+    /**
+     * 查询基本工资
+     * @param fixedwagf
+     * @return
+     */
+    @PostMapping("/selectPay")
+    Object selectPay(Fixedwagf fixedwagf);
+
+    /**
+     * 添加调薪 3个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary3")
+    Object SubmitSalary3(SalaryVo salaryVo);
+
+    /**
+     * 添加调薪 2个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary2")
+    Object SubmitSalary2(SalaryVo salaryVo);
+
+    /**
+     * 根据员工名称是否有离职记录
+     * @param quit
+     * @return
+     */
+    @PostMapping("/selectDimissionRecord")
+    Object selectDimissionRecord(Quit quit);
+
+    /**
+     * 添加调薪 3个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave3")
+    Object submitToLeave3(QuitVo quitVo);
+
+    /**
+     * 添加调薪 2个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave2")
+    Object submitToLeave2(QuitVo quitVo);
+
+
+
+
+
+
+
 }

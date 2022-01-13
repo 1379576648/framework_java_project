@@ -2,6 +2,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FallbackFactory;
@@ -230,6 +231,97 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object selectTransferByName(TransferTwoVo transferTwoVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 根据id查询工作经历
+             * @param workVo
+             * @return
+             */
+            @Override
+            public Object selectWorkAll(WorkVo workVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 根据id查询奖励
+             * @param workVo
+             * @return
+             */
+            @Override
+            public Object selectGloryAll(WorkVo workVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 根据id查询惩罚
+             * @param workVo
+             * @return
+             */
+            @Override
+            public Object selectPunishAll(WorkVo workVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 根据id查询教育经历
+             * @param workVo
+             * @return
+             */
+            @Override
+            public Object selectEducationAll(WorkVo workVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 添加工作经历
+             * @param workExperience
+             * @return
+             */
+            @Override
+            public Object insertWorkExperience(WorkExperience workExperience) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 根据工作经历id查询工作经历
+             * @param workVo
+             * @return
+             */
+            @Override
+            public Object selectWorkOne(WorkVo workVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改工作经历
+             * @param workExperience
+             * @return
+             */
+            @Override
+            public Object updateWork(WorkExperience workExperience) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

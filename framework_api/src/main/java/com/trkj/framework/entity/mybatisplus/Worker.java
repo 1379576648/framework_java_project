@@ -40,9 +40,9 @@ public class Worker implements Serializable {
     @TableField("STAFF_NAME")
     private String staffName;
 
-    @ApiModelProperty(value = "部门编号")
-    @TableField("DEPT_ID")
-    private Long deptId;
+    @ApiModelProperty(value = "部门名称")
+    @TableField("DEPT_NAME")
+    private String deptname;
 
     @ApiModelProperty(value = "转正类型")
     @TableField("WORKER_TYPE")

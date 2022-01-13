@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,10 +34,12 @@ public class WorkExperience implements Serializable {
     @TableId("WORK_EXPERIENCE_ID")
     private Integer workExperienceId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("WORK_STARE_TIME")
     private Date workStareTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("WORK_END_TIME")
     private Date workEndTime;

@@ -1,10 +1,11 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -12,7 +13,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * <p>
  * 调动记录表
  * </p>
  *
@@ -24,17 +24,18 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("TRANSFER")
 @ApiModel(value="Transfer对象", description="调动记录表")
+@KeySequence(value = "TRANSFER_ID",clazz = Integer.class)
 public class Transfer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "调动记录编号")
     @TableId("TRANSFER_ID")
-    private Long transferId;
+    private Integer transferId;
 
     @ApiModelProperty(value = "审批编号")
     @TableField("AUDITFLOW_ID")
-    private Long auditflowId;
+    private Integer auditflowId;
 
     @ApiModelProperty(value = "员工名称")
     @TableField("STAFF_NAME")
@@ -50,7 +51,7 @@ public class Transfer implements Serializable {
 
     @ApiModelProperty(value = "状态 0:不同意 1:同意")
     @TableField("TRANSFER_STATE")
-    private Long transferState;
+    private Integer transferState;
 
     @ApiModelProperty(value = "变动后部门名称")
     @TableField("UPDATED_DEPT_NAME")
@@ -72,12 +73,14 @@ public class Transfer implements Serializable {
     @TableField("TRANSFER_REMARK")
     private String transferRemark;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
