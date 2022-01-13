@@ -56,7 +56,7 @@ public class MenuPowerEntity {
     private Integer isDeleted;
 
     @Transient
-    private List<MenuPowerEntity> list;
+    private List<MenuPowerEntity> children;
 
     @Override
     public boolean equals(Object o) {

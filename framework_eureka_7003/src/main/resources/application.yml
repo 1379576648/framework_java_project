@@ -4,6 +4,13 @@ server:
 eureka:
   instance:
     hostname: eureka7003.com #Eureka服务端的实例名称
+    lease-renewal-interval-in-seconds: 30 #instance的心跳间隔秒数
+    lease-expiration-duration-in-seconds: 90 #服务失效时间
+  server:
+    renewal-percent-threshold: 0.85 #自我保护系数
+    eviction-interval-timer-in-ms: 30000 # 清理无效节点时间间隔（单位毫秒，默认是60*1000）
+    peer-eureka-status-refresh-time-interval-ms: 0 #eureka 服务状态更新的时间间隔w
+    renewal-threshold-update-interval-ms: 1 #多长时间更新续费阈值
   client:
     register-with-eureka: false #表示是否向Eureka注册中心注册自己
     fetch-registry: false #fetch-registry如果为false，则表示自己为注册中心

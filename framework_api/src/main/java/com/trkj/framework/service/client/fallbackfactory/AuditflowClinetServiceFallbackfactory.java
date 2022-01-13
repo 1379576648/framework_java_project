@@ -5,7 +5,7 @@ import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.*;
-import feign.hystrix.FallbackFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import java.util.HashMap;

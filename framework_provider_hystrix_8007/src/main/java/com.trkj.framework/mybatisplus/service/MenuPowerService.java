@@ -24,4 +24,18 @@ public interface MenuPowerService  {
      * @return
      */
     Object menuPowerListInRoleId(Integer integer);
+
+    /***
+     * 按照条件查询菜单
+     * @param menuPower
+     * @return
+     */
+    Object menuPowerInCondition(MenuPower menuPower);
+
+    /***
+     * 新增一级菜单
+     * @param menuPower
+     * @return
+     */
+    Object menuPowerAddSingle(MenuPower menuPower);
 }

@@ -3,7 +3,7 @@ package com.trkj.framework.service.client.fallbackfactory;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.system.SystemClinetService;
 import com.trkj.framework.vo.AjaxResponse;
-import feign.hystrix.FallbackFactory;
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -199,6 +199,22 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object allotStaff(RoleStaff roleStaff) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object menuPowerInCondition(MenuPower menuPower) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object menuPowerAddSingle(MenuPower menuPower) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");

@@ -31,7 +31,7 @@ hystrix:
         #设置超时时间
         isolation:
           thread:
-            timeoutInMilliseconds: 4000
+            timeoutInMilliseconds: 5000
 #Redis配置
 #spring:
 #  redis:

@@ -9,26 +9,28 @@ import java.util.Objects;
 public class RoleStaffEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
-    @Column(name = "ROLE_STAFF_ID", nullable = false, precision = 0)
+    @Column(name = "ROLE_STAFF_ID")
     private int roleStaffId;
     @Basic
-    @Column(name = "ROLE_ID", nullable = false, precision = 0)
+    @Column(name = "ROLE_ID")
     private int roleId;
     @Basic
-    @Column(name = "STAFF_ID", nullable = false, precision = 0)
+    @Column(name = "STAFF_ID")
     private int staffId;
     @Basic
-    @Column(name = "CREATED_TIME", nullable = false)
+    @Column(name = "CREATED_TIME")
     private Date createdTime;
     @Basic
-    @Column(name = "UPDATED_TIME", nullable = false)
+    @Column(name = "UPDATED_TIME")
     private Date updatedTime;
     @Basic
-    @Column(name = "REVISION", nullable = false, precision = 0)
+    @Column(name = "REVISION")
     private int revision;
     @Basic
-    @Column(name = "IS_DELETED", nullable = true, precision = 0)
+    @Column(name = "IS_DELETED")
     private Integer isDeleted;
+    @ManyToOne
+    private RoleEntity role;
 
     public int getRoleStaffId() {
         return roleStaffId;
@@ -97,5 +99,13 @@ public class RoleStaffEntity {
     @Override
     public int hashCode() {
         return Objects.hash(roleStaffId, roleId, staffId, createdTime, updatedTime, revision, isDeleted);
+    }
+
+    public RoleEntity getRole() {
+        return role;
+    }
+
+    public void setRole(RoleEntity role) {
+        this.role = role;
     }
 }

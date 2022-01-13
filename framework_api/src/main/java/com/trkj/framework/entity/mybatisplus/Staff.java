@@ -139,11 +139,8 @@ public class Staff implements Serializable {
     @TableField("STAFF_STATE")
     private Long staffState;
 
-    @ApiModelProperty(value = "员工工龄")
-    @TableField("WORK_AGE")
-    private String workAge;
 
-    @ApiModelProperty(value = "年龄")
+    @ApiModelProperty(value = "员工工龄")
     @TableField("STAFF_AGE")
     private Long staffAge;
 
