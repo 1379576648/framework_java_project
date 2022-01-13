@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.MenuPower;
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.mybatisplus.service.MenuPowerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,57 @@ public class MenuPowerController {
         map1.put("info","服务发生雪崩");
         return map1;
     }
+
+
+    /***
+     * 通过条件查询菜单
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerInCondition")
+    @HystrixCommand(fallbackMethod = "menuPowerInConditionHystrix")
+    public Object menuPowerInCondition(@RequestBody MenuPower menuPower){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",menuPowerService.menuPowerInCondition(menuPower));
+        return  map1;
+    }
+
+    //备选方案
+    public Object menuPowerInConditionHystrix(@RequestBody MenuPower menuPower){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /***
+     * 新增一级菜单
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerAddSingle")
+    @HystrixCommand(fallbackMethod = "menuPowerAddSingleHystrix")
+    public Object menuPowerAddSingle(@RequestBody MenuPower menuPower){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",menuPowerService.menuPowerAddSingle(menuPower));
+        return  map1;
+    }
+
+
+
+    //备选方案
+    public Object menuPowerAddSingleHystrix(@RequestBody MenuPower menuPower){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
 }
 

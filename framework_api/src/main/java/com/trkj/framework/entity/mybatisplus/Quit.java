@@ -1,10 +1,11 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,25 +25,26 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("QUIT")
 @ApiModel(value="Quit对象", description="离职表")
+@KeySequence(value = "QUIT_ID",clazz = Integer.class)
 public class Quit implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "离职编号")
     @TableId("QUIT_ID")
-    private Long quitId;
+    private Integer quitId;
 
     @ApiModelProperty(value = "审批编号")
     @TableField("AUDITFLOW_ID")
-    private Long auditflowId;
+    private Integer auditflowId;
 
     @ApiModelProperty(value = "员工名称")
     @TableField("STAFF_NAME")
     private String staffName;
 
-    @ApiModelProperty(value = "部门编号")
-    @TableField("DEPT_ID")
-    private Long deptId;
+    @ApiModelProperty(value = "部门名称")
+    @TableField("DEPT_NAME")
+    private String deptName;
 
     @ApiModelProperty(value = "离职类型")
     @TableField("QUIT_TYPE")
@@ -64,12 +66,14 @@ public class Quit implements Serializable {
     @TableField("FORMAL_QUIT_DATE")
     private Date formalQuitDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")

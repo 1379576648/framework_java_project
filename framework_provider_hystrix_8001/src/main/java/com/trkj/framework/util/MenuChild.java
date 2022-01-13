@@ -24,13 +24,14 @@ public class MenuChild {
         for (MenuPowerEntity nav : allMenu) {
             // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
             //相等说明：为该根节点的子节点。
-            if (nav.getMenuPowerPid() == id && nav.getMenuPowerType()==0) {
+            //如果父级菜单为0 菜单类型为菜单 状态为启用
+            if (nav.getMenuPowerPid() == id && nav.getMenuPowerType()==0 && nav.getMenuPowerState()==0) {
                 childList.add(nav);
             }
         }
         //递归
         for (MenuPowerEntity nav : childList) {
-            nav.setList(getChild(nav.getMenuPowerId(), allMenu));
+            nav.setChildren(getChild(nav.getMenuPowerId(), allMenu));
         }
         //如果节点下没有子节点，返回一个空List（递归退出）
         if (childList.size() == 0) {

@@ -17,6 +17,6 @@ public interface RoleMenuPowerDao extends CrudRepository<RoleMenuPowerEntity,Int
      * @param integer
      * @return
      */
-    @Query("select  e from RoleMenuPowerEntity  e where  e.roleId=?1 and e.isDeleted=0")
+    @Query("select  e from RoleMenuPowerEntity  e where  e.roleId=?1 ")
     public List<RoleMenuPowerEntity> selectRoleMenuPower(Integer integer);
 }

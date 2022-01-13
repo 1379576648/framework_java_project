@@ -1,7 +1,7 @@
 package com.trkj.framework.mybatisplus.service;
 
-import com.trkj.framework.entity.mybatisplus.Quit;
-import com.baomidou.mybatisplus.extension.service.IService;
+
+import com.trkj.framework.entity.mybatisplus.WorkExperience;
 
 /**
  * <p>
@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author suki
  * @since 2022-01-08
  */
-public interface QuitService extends IService<Quit> {
+public interface QuitService {
+
 
 }

@@ -13,7 +13,6 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 /**
- * <p>
  * 调动记录表
  * </p>
  *

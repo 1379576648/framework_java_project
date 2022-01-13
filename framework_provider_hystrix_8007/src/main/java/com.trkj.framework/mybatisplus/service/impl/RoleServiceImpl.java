@@ -144,6 +144,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Transactional
     public String updateRole(Role role) {
         String s = "成功";
         if (roleMapper.updateById(role) <= 0) {
@@ -154,6 +155,8 @@ public class RoleServiceImpl implements RoleService {
         //循环菜单列表
         for (Integer id : role.getMenuList()) {
             RoleMenuPower roleMenuPower = new RoleMenuPower();
+            //是否半选择
+            roleMenuPower.setIsChoice(util(role.getMoietyList(),id));
             //角色编号
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
@@ -174,6 +177,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Transactional
     public String allotMenu(Role role) {
         String s = "成功";
         //先删除角色菜单数据
@@ -181,6 +185,8 @@ public class RoleServiceImpl implements RoleService {
         //循环菜单列表
         for (Integer id : role.getMenuList()) {
             RoleMenuPower roleMenuPower = new RoleMenuPower();
+            //是否半选择
+            roleMenuPower.setIsChoice(util(role.getMoietyList(),id));
             //角色编号
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
@@ -223,7 +229,6 @@ public class RoleServiceImpl implements RoleService {
         //角色编号
         roleStaffQueryWrapper.eq("a.ROLE_ID", roleStaff.getRoleId());
         //逻辑删除
-        roleStaffQueryWrapper.eq("a.IS_DELETED", 0);
         roleStaffQueryWrapper.eq("b.IS_DELETED", 0);
 
 
@@ -271,15 +276,15 @@ public class RoleServiceImpl implements RoleService {
             queryWrapper.like("STAFF_PHONE", staff.getStaffPhone());
         }
         //通过角色编号查询角色员工表数据
-        List<RoleStaff> staffList = roleStaffMapper.selectList(new QueryWrapper<RoleStaff>().eq("ROLE_ID",staff.getRoleId()));
-        if (staffList.size()>=1){
-            for (RoleStaff roleStaff:staffList) {
+        List<RoleStaff> staffList = roleStaffMapper.selectList(new QueryWrapper<RoleStaff>().eq("ROLE_ID", staff.getRoleId()));
+        if (staffList.size() >= 1) {
+            for (RoleStaff roleStaff : staffList) {
                 //角色编号
-                queryWrapper.ne("STAFF_ID",roleStaff.getStaffId());
+                queryWrapper.ne("STAFF_ID", roleStaff.getStaffId());
             }
         }
         //状态不等于离职 2
-        queryWrapper.ne("STAFF_STATE", 2);
+        queryWrapper.ne("STAFF_STATE", 2).select(Staff.class, i -> !"STAFF_PASS".equals(i.getColumn()));
         return staffMapper.selectPage(iPage, queryWrapper);
     }
 
@@ -289,6 +294,7 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
+    @Transactional
     public String allotStaff(RoleStaff roleStaff) {
         String s = "成功";
         for (Integer integer : roleStaff.getList()) {
@@ -322,6 +328,8 @@ public class RoleServiceImpl implements RoleService {
         //循环菜单列表
         for (Integer id : role.getMenuList()) {
             RoleMenuPower roleMenuPower = new RoleMenuPower();
+            //是否半选择
+            roleMenuPower.setIsChoice(util(role.getMoietyList(),id));
             //角色编号
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
@@ -333,6 +341,17 @@ public class RoleServiceImpl implements RoleService {
             }
         }
         return s;
+    }
+
+    public Long util(ArrayList<Integer> list, Integer index) {
+        Long id = 0L;
+        for (Integer integer : list) {
+            System.out.println(integer+":"+index);
+            if (integer.equals(index)) {
+                return 1L;
+            }
+        }
+        return id;
     }
 
 

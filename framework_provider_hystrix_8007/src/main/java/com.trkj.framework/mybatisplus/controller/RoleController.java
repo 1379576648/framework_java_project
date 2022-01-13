@@ -200,7 +200,7 @@ public class RoleController {
      * @param list
      * @return
      */
-    @PostMapping("/cancelImpower")
+    @DeleteMapping("/cancelImpower")
     @HystrixCommand(fallbackMethod = "cancelImpowerHystrix")
     public Object cancelImpower(@RequestBody ArrayList<Integer> list) {
         Map<String, Object> map1 = new HashMap<>(2);

@@ -1,13 +1,11 @@
 package com.trkj.framework.controller;
 
 
+import com.trkj.framework.entity.mybatisplus.MenuPower;
 import com.trkj.framework.service.client.system.SystemClinetService;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,5 +42,24 @@ public class MenuPowerController {
         return AjaxResponse.success(systemClinetService.menuPowerListInRoleId(id));
     }
 
+    /***
+     * 通过条件查询菜单
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerInCondition")
+    public AjaxResponse menuPowerInCondition(@RequestBody MenuPower menuPower){
+        return AjaxResponse.success(systemClinetService.menuPowerInCondition(menuPower));
+    }
+
+    /***
+     * 新增一级菜单
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerAddSingle")
+    public AjaxResponse menuPowerAddSingle(@RequestBody MenuPower menuPower){
+        return AjaxResponse.success(systemClinetService.menuPowerAddSingle(menuPower));
+    }
 }
 

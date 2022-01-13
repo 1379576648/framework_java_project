@@ -52,6 +52,27 @@ public interface EmploymentTableService {
     List<WorkVo> selectWorkAll(WorkVo workVo);
 
     /**
+     * 根据id查询奖励
+     * @param workVo
+     * @return
+     */
+    List<WorkVo> selectGloryAll(WorkVo workVo);
+
+    /**
+     * 根据id查询惩罚
+     * @param workVo
+     * @return
+     */
+    List<WorkVo> selectPunishAll(WorkVo workVo);
+
+    /**
+     * 根据id查询教育经历
+     * @param workVo
+     * @return
+     */
+    List<WorkVo> selectEducationAll(WorkVo workVo);
+
+    /**
      * 查询转正
      * @param fullVo
      * @return
@@ -78,5 +99,12 @@ public interface EmploymentTableService {
      * @return
      */
     int updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable);
+
+    /**
+     * 根据工作经历id查询工作经历
+     * @param workVo
+     * @return
+     */
+    List<WorkVo> selectWorkOne(WorkVo workVo);
 
 }
