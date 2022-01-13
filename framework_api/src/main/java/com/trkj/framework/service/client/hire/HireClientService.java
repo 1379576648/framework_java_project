@@ -6,9 +6,12 @@ import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.ArrayList;
 
 @FeignClient(value = "REGISTER-8008/provider", fallbackFactory = HireClientServiceFallbackfactory.class)
 public interface HireClientService {
@@ -201,5 +204,13 @@ public interface HireClientService {
      */
     @PutMapping("/updateWork")
     Object updateWork(@RequestBody WorkExperience workExperience);
+
+    /**
+     * 删除工作经历
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteWork")
+    Object deleteWork(@RequestBody ArrayList<Integer> list);
 }
 

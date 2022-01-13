@@ -5,10 +5,9 @@ import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class StaffController {
@@ -131,6 +130,16 @@ public class StaffController {
      @PutMapping("/updateWork")
     public AjaxResponse updateWork(@RequestBody WorkExperience workExperience){
          return AjaxResponse.success(hireClientService.updateWork(workExperience));
+     }
+
+    /**
+     * 删除工作经历
+     * @param list
+     * @return
+     */
+     @DeleteMapping("/deleteWork")
+    public AjaxResponse deleteWork(@RequestBody ArrayList<Integer> list){
+         return AjaxResponse.success(hireClientService.deleteWork(list));
      }
 
 }

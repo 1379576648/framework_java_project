@@ -8,6 +8,7 @@ import com.trkj.framework.vo.*;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -322,6 +323,19 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object updateWork(WorkExperience workExperience) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 删除工作经历
+             * @param list
+             * @return
+             */
+            @Override
+            public Object deleteWork(ArrayList<Integer> list) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

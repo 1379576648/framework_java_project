@@ -3,6 +3,8 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.trkj.framework.entity.mybatisplus.WorkExperience;
 
+import java.util.ArrayList;
+
 public interface WorkExperienceService {
     /**
      * 添加工作经历
@@ -17,4 +19,11 @@ public interface WorkExperienceService {
      * @return
      */
     int updateWork(WorkExperience workExperience);
+
+    /**
+     * 删除工作经历
+     * @param list
+     * @return
+     */
+    String deleteWork(ArrayList<Integer> list);
 }

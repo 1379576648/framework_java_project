@@ -80,9 +80,9 @@ public class WorkExperience implements Serializable {
     @TableField("REVISION")
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除;1表示删除，0 表示未删除")
-    @TableField("IS_DELETED")
+    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")
     @TableLogic
+    @TableField("IS_DELETED")
     private Long isDeleted;
 
 
