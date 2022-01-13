@@ -9,6 +9,7 @@ import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -101,6 +102,7 @@ public class AuditflowController {
     @PostMapping("/update_Approval_State")
     public int updateApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
         auditflowdetail1.setAuditflowdetaiState(2);
+        auditflowdetail1.setAuditflowdetaiDate(new Date());
         auditflowdetail1.setAuditflowdetaiRemarks(auditflowdetail1.getAuditflowdetaiRemarks());
         final var i = auditflowService.updateApprovalState(auditflowdetail1);
         if (i==1){
@@ -118,6 +120,7 @@ public class AuditflowController {
     @PostMapping("/reject_Approval_State")
     public int rejectApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
         auditflowdetail1.setAuditflowdetaiState(3);
+        auditflowdetail1.setAuditflowdetaiDate(new Date());
         auditflowdetail1.setAuditflowdetaiRemarks(auditflowdetail1.getAuditflowdetaiRemarks());
         final var i = auditflowService.rejectApprovalState(auditflowdetail1);
         if (i==1){

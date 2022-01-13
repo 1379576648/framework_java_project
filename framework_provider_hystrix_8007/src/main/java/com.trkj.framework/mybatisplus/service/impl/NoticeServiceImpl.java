@@ -106,7 +106,7 @@ public class NoticeServiceImpl implements NoticeService {
                 return "删除公告员工数据失败";
             }
             //通过id进行删除公告数据
-            if (noticeMapper.delete(new QueryWrapper<Notice>().eq("NOTICE_ID", list.get(i))) >=1) {
+            if (noticeMapper.delete(new QueryWrapper<Notice>().eq("NOTICE_ID", list.get(i))) >= 1) {
                 s = "成功";
             } else {
                 return "删除公告数据失败";
@@ -169,7 +169,9 @@ public class NoticeServiceImpl implements NoticeService {
                 return "添加公告部门数据失败";
             }
             //查询这个部门下的所有的员工
-            List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>().eq("DEPT_ID", dept.getDeptId()));
+            List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>()
+                    .eq("DEPT_ID", dept.getDeptId())
+                    .select(Staff.class, i -> !"STAFF_PASS".equals(i.getColumn())));
             //如果该部门下有员工
             for (Staff staff : staffList) {
                 //除去发布人
@@ -247,7 +249,9 @@ public class NoticeServiceImpl implements NoticeService {
                 return "添加公告部门数据失败";
             }
             //查询这个部门下的所有的员工
-            List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>().eq("DEPT_ID", dept.getDeptId()));
+            List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>()
+                    .eq("DEPT_ID", dept.getDeptId())
+                    .select(Staff.class,i->!"STAFF_PASS".equals(i.getColumn())));
             //如果该部门下有员工
             for (Staff staff : staffList) {
                 //除去发布人
@@ -288,7 +292,9 @@ public class NoticeServiceImpl implements NoticeService {
         List<NoticeStaff> noticeStaffList = noticeStaffMapper.selectList(queryWrapper);
         for (NoticeStaff noticeStaff : noticeStaffList) {
             //通过员工编号查询数据
-            Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>().eq("STAFF_ID", noticeStaff.getStaffId()));
+            Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>()
+                    .eq("STAFF_ID", noticeStaff.getStaffId())
+                    .select(Staff.class,i->!"STAFF_PASS".equals(i.getColumn())));
             //如果查到员工数据
             if (staff != null) {
                 staffList.add(staff);
@@ -315,7 +321,9 @@ public class NoticeServiceImpl implements NoticeService {
         List<NoticeStaff> noticeStaffList = noticeStaffMapper.selectList(queryWrapper);
         for (NoticeStaff noticeStaff : noticeStaffList) {
             //通过员工编号查询数据
-            Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>().eq("STAFF_ID", noticeStaff.getStaffId()));
+            Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>()
+                    .eq("STAFF_ID", noticeStaff.getStaffId())
+                    .select(Staff.class,i->!"STAFF_PASS".equals(i.getColumn())));
             //如果查到员工数据
             if (staff != null) {
                 staffList.add(staff);

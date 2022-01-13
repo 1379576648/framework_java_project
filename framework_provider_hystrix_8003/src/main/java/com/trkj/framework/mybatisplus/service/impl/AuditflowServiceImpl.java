@@ -57,7 +57,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             //根据开始日期结束日期范围查询
             queryWrapper.between("a.CREATED_TIME", auditflowone.getStartTime(), auditflowone.getEndTime());
         }
-        queryWrapper.eq("b.STAFF_NAME", "部门经理");
+        queryWrapper.eq("b.STAFF_NAME", auditflowone.getStaffName2());
         queryWrapper.eq("b.AUDITFLOWDETAI_STATE", 1);
         queryWrapper.eq("a.AUDITFLOW_TYPE", "加班");
         return auditflowoneMapper.selectAuditflowoneAll(page, queryWrapper);
@@ -85,7 +85,7 @@ public class AuditflowServiceImpl implements AuditflowService {
         queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 1);
         queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 0);
         queryWrapper.eq("a.AUDITFLOW_TYPE", "加班");
-        queryWrapper.eq("b.STAFF_NAME", "部门经理");
+        queryWrapper.eq("b.STAFF_NAME", auditflowone.getStaffName2());
         return auditflowoneMapper.selectEnddAuditflow(page, queryWrapper);
     }
 
@@ -134,19 +134,47 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int rejectApprovalState(Auditflowdetail auditflowdetail) {
-        final var i = auditflowdetailMapper.updateById(auditflowdetail);
-        if (i >= 1) {
-            final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
-            QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
-            queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
-            final var i1 = auditflowdetailMapper.rejectApprovalState(queryWrapper);
-            if (i1 == 1) {
-                final var auditflowdetailId3 = auditflowdetail.getAuditflowdetailId3();
-                QueryWrapper<Auditflowdetail> queryWrapper1 = new QueryWrapper<>();
-                queryWrapper1.eq("auditflowdetail_Id", auditflowdetailId3);
-                final var i2 = auditflowdetailMapper.rejectApprovalState2(queryWrapper1);
-                if (i2 == 1) {
-                    final var auditflowId = auditflowdetail.getAuditflowId();
+        // 获取第二个审批人
+        final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
+        // 获取第三个审批人
+        final var auditflowdetailId3 = auditflowdetail.getAuditflowdetailId3();
+        // 获取审批主表编号
+        final var auditflowId = auditflowdetail.getAuditflowId();
+        // 如果第二个审批人不为空 并且 第三个审批人也不为空
+        if (auditflowdetailId2 != null && auditflowdetailId3 != null) {
+            // 驳回第一个审批明细记录
+            final var i = auditflowdetailMapper.updateById(auditflowdetail);
+            if (i == 1) {
+                QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
+                final var i1 = auditflowdetailMapper.rejectApprovalState(queryWrapper);
+                if (i1 == 1) {
+                    QueryWrapper<Auditflowdetail> queryWrapper1 = new QueryWrapper<>();
+                    queryWrapper1.eq("auditflowdetail_Id", auditflowdetailId3);
+                    final var i2 = auditflowdetailMapper.rejectApprovalState2(queryWrapper1);
+                    if (i2 == 1) {
+                        QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
+                        queryWrapper2.eq("auditflow_Id", auditflowId);
+                        final var i3 = auditflowMapper.rejectApprovalState(queryWrapper2);
+                        return i3;
+                    } else {
+                        return 999;
+                    }
+                } else {
+                    return 999;
+                }
+            } else {
+                return 999;
+            }
+            // 如果第二个审批人为空 或者 第三个审批人为空
+        } else if (auditflowdetailId2 == null || auditflowdetailId3 == null) {
+            // 驳回第一个审批明细记录
+            final var i = auditflowdetailMapper.updateById(auditflowdetail);
+            if (i == 1) {
+                QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
+                queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
+                final var i1 = auditflowdetailMapper.rejectApprovalState(queryWrapper);
+                if (i1 == 1) {
                     QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
                     queryWrapper2.eq("auditflow_Id", auditflowId);
                     final var i3 = auditflowMapper.rejectApprovalState(queryWrapper2);
@@ -157,9 +185,8 @@ public class AuditflowServiceImpl implements AuditflowService {
             } else {
                 return 999;
             }
-        } else {
-            return 999;
         }
+            return 666;
     }
 
     /**

@@ -95,7 +95,7 @@ public class RoleController {
      * @param list
      * @return
      */
-    @PostMapping("/cancelImpower")
+    @DeleteMapping("/cancelImpower")
     public AjaxResponse cancelImpower(@RequestBody ArrayList<Integer> list){
         return AjaxResponse.success(systemClinetService.cancelImpower(list));
     }

@@ -17,10 +17,10 @@ public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
     @Update("update AUDITFLOWDETAIL set AUDITFLOWDETAI_STATE=1 ${ew.customSqlSegment}")
     int updateApprovalState(@Param(Constants.WRAPPER) QueryWrapper<Auditflowdetail> queryWrapper1);
 
-    @Update("update AUDITFLOWDETAIL set AUDITFLOWDETAI_STATE=3 ${ew.customSqlSegment}")
+    @Update("update AUDITFLOWDETAIL set AUDITFLOWDETAI_STATE=3, AUDITFLOWDETAI_DATE=sysdate ${ew.customSqlSegment}")
     int rejectApprovalState(@Param(Constants.WRAPPER) QueryWrapper<Auditflowdetail> queryWrapper);
 
-    @Update("update AUDITFLOWDETAIL set AUDITFLOWDETAI_STATE=3 ${ew.customSqlSegment}")
+    @Update("update AUDITFLOWDETAIL set AUDITFLOWDETAI_STATE=3, AUDITFLOWDETAI_DATE=sysdate ${ew.customSqlSegment}")
     int rejectApprovalState2(@Param(Constants.WRAPPER) QueryWrapper<Auditflowdetail> queryWrapper);
 
 }

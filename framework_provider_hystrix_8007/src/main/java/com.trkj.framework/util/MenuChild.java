@@ -24,13 +24,13 @@ public class MenuChild {
         for (MenuPower nav : allMenu) {
             // 遍历所有节点，将所有菜单的父id与传过来的根节点的id比较
             //相等说明：为该根节点的子节点。
-            if (nav.getMenuPowerPid() == id && nav.getMenuPowerState()==0) {
+            if (nav.getMenuPowerPid() == id ) {
                 childList.add(nav);
             }
         }
         //递归
         for (MenuPower nav : childList) {
-            nav.setList(getChild(nav.getMenuPowerId(), allMenu));
+            nav.setChildren(getChild(nav.getMenuPowerId(), allMenu));
         }
         //如果节点下没有子节点，返回一个空List（递归退出）
         if (childList.size() == 0) {

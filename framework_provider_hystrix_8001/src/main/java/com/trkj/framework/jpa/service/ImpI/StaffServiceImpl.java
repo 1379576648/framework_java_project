@@ -15,6 +15,8 @@ import javax.jws.soap.SOAPBinding;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static java.util.Comparator.comparing;
+
 /**
  * @author 13795
  */
@@ -153,12 +155,15 @@ public class StaffServiceImpl implements StaffService {
 
         //储藏所有角色下的菜单列表 去重
         List<MenuPowerEntity> menuPowerEntities1 = menuPowerEntities.stream().distinct().collect(Collectors.toList());
+        //排序
+        menuPowerEntities1.sort(comparing(MenuPowerEntity::getMenuPowerOrder));
         //菜单根节点
         List<MenuPowerEntity> menuPowerEntities2 = new ArrayList<>();
         //循环菜单列表找出根节点
         for (MenuPowerEntity menuPower : menuPowerEntities1) {
             System.out.println(menuPower.toString());
-            if (menuPower.getMenuPowerPid() == 0 && menuPower.getMenuPowerType() == 0) {
+            //如果父级菜单为0 菜单类型为菜单 状态为启用
+            if (menuPower.getMenuPowerPid() == 0 && menuPower.getMenuPowerType() == 0 && menuPower.getMenuPowerState()==0) {
                 menuPowerEntities2.add(menuPower);
             }
         }
@@ -167,7 +172,7 @@ public class StaffServiceImpl implements StaffService {
             /* 获取根节点下的所有子节点 使用getChild方法*/
             List<MenuPowerEntity> childList = getChild.getChild(nav.getMenuPowerId(), menuPowerEntities1);
             //给根节点设置子节点
-            nav.setList(childList);
+            nav.setChildren(childList);
         }
         return menuPowerEntities2;
     }

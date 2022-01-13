@@ -10,7 +10,6 @@
         <result column="a_CREATED_TIME" property="createdTime"/>
         <result column="a_UPDATED_TIME" property="updatedTime"/>
         <result column="a_REVISION" property="revision"/>
-        <result column="a_IS_DELETED" property="isDeleted"/>
         <association property="staff" javaType="com.trkj.framework.entity.mybatisplus.Staff">
             <id column="b_STAFF_ID" property="staffId"/>
             <result column="b_STAFF_NAME" property="staffName"/>
@@ -39,7 +38,7 @@
             <result column="b_STAFF_SCHOOL" property="staffSchool"/>
             <result column="b_STAFF_ADDRESS" property="staffAddress"/>
             <result column="b_STAFF_STATE" property="staffState"/>
-            <result column="b_WORK_AGE" property="workAge"/>
+            <result column="b_STAFF_AGE" property="staffAge"/>
             <result column="b_CREATED_TIME" property="createdTime"/>
             <result column="b_UPDATED_TIME" property="updatedTime"/>
             <result column="b_REVISION" property="revision"/>
@@ -55,7 +54,6 @@
         a.CREATED_TIME as a_CREATED_TIME,
         a.UPDATED_TIME as a_UPDATED_TIME,
         a.REVISION as a_REVISION,
-        a.IS_DELETED as a_IS_DELETED,
         b.STAFF_ID as b_STAFF_ID,
         b.STAFF_NAME as  b_STAFF_NAME,
         b.STAFF_SEX as  b_STAFF_SEX,
@@ -82,7 +80,7 @@
         b.STAFF_SCHOOL as    b_STAFF_SCHOOL,
         b.STAFF_ADDRESS as  b_STAFF_ADDRESS,
         b.STAFF_STATE as b_STAFF_STATE,
-        b.WORK_AGE as  b_WORK_AGE,
+        b.STAFF_AGE as  b_STAFF_AGE,
         b.CREATED_TIME as  b_CREATED_TIME,
         b.UPDATED_TIME as   b_UPDATED_TIME,
         b.REVISION as   b_REVISION,
@@ -95,10 +93,4 @@
         from ROLE_STAFF a Inner Join STAFF b on a.STAFF_ID = b.STAFF_ID ${ew.customSqlSegment}
     </select>
 
-
-    <select id="pageStaffInRole" resultMap="BaseResultMap">
-        SELECT
-        <include refid="Base_Column_List"/>
-        FROM ROLE_STAFF a   INNER   JOIN Staff b on a.STAFF_ID!=b.STAFF_ID where a.ROLE_ID=1
-    </select>
 </mapper>
