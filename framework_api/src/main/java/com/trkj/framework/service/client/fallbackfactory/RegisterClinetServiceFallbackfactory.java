@@ -23,6 +23,7 @@ public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
+                throwable.printStackTrace();
                 return AjaxResponse.success(objectMap);
             }
 
@@ -31,6 +32,7 @@ public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
+                throwable.printStackTrace();
                 return AjaxResponse.success(objectMap);
             }
         };

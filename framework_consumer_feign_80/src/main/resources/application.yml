@@ -5,7 +5,8 @@ feign:
   hystrix:
     enabled: true
   httpclient:
-    connection-timeout: 5000
+    connection-timeout: 10000
+
 ##配置spring security 账号密码
 #spring:
 #  security:
@@ -23,18 +24,25 @@ jwt:
   expire: 100000
 
 #hystrix熔断超时配置
-#hystrix:
-#  command:
-#    default:
-#      execution:
-#        #开启超时配置(默认为开启)
-#        timeout:
-#          enabled: true
-#        #设置超时时间
-#        isolation:
-#          thread:
-#            timeoutInMilliseconds: 5000
+hystrix:
+  command:
+    default:  #default全局有效，service id指定应用有效
+      execution:
+        timeout:
+          #如果enabled设置为false，则请求超时交给ribbon控制,为true,则超时作为熔断根据
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 80000 #断路器超时时间，默认1000ms
 
+
+# 远程调用超时时间
+ribbon:
+  OkToRetryOnAllOperations: false #对所有操作请求都进行重试,默认false
+  ReadTimeout: 80000   #负载均衡超时时间，默认值5000
+  ConnectTimeout: 80000 #ribbon请求连接的超时时间，默认值2000
+  MaxAutoRetries: 0     #对当前实例的重试次数，默认0
+  MaxAutoRetriesNextServer: 1 #对切换实例的重试次数，默认1
 
 #Redis配置
 #spring:

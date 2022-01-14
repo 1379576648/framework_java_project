@@ -7,7 +7,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "ROLE_STAFF", schema = "POWER", catalog = "")
 public class RoleStaffEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ROLE_STAFF_ID")
     private int roleStaffId;
@@ -26,9 +25,6 @@ public class RoleStaffEntity {
     @Basic
     @Column(name = "REVISION")
     private int revision;
-    @Basic
-    @Column(name = "IS_DELETED")
-    private Integer isDeleted;
     @ManyToOne
     private RoleEntity role;
 
@@ -80,25 +76,18 @@ public class RoleStaffEntity {
         this.revision = revision;
     }
 
-    public Integer getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(Integer isDeleted) {
-        this.isDeleted = isDeleted;
-    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RoleStaffEntity that = (RoleStaffEntity) o;
-        return roleStaffId == that.roleStaffId && roleId == that.roleId && staffId == that.staffId && revision == that.revision && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime) && Objects.equals(isDeleted, that.isDeleted);
+        return roleStaffId == that.roleStaffId && roleId == that.roleId && staffId == that.staffId && revision == that.revision && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(roleStaffId, roleId, staffId, createdTime, updatedTime, revision, isDeleted);
+        return Objects.hash(roleStaffId, roleId, staffId, createdTime, updatedTime, revision);
     }
 
     public RoleEntity getRole() {

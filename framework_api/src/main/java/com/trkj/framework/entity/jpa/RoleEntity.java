@@ -8,7 +8,6 @@ import java.util.Objects;
 @Entity
 @Table(name = "ROLE", schema = "POWER", catalog = "")
 public class RoleEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "ROLE_ID")
     private int roleId;
