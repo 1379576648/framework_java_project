@@ -28,7 +28,7 @@ import javax.persistence.Table;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName(value = "ROLE_STAFF",autoResultMap = true)
+//@TableName(value = "ROLE_STAFF",autoResultMap = true)
 /***
  * value=自增序列名 clazz=实体类的数据类型
  */
