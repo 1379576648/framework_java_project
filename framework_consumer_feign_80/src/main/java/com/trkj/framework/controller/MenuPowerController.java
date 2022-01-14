@@ -27,7 +27,7 @@ public class MenuPowerController {
      * 获取所有的菜单列表
      * @return
      */
-    @GetMapping("/menuPowerList")
+    @RequestMapping(value ="/menuPowerList",method = RequestMethod.GET)
     public AjaxResponse menuPowerList() {
         return AjaxResponse.success(systemClinetService.menuPowerList());
     }
@@ -37,7 +37,7 @@ public class MenuPowerController {
      * @param id
      * @return
      */
-    @GetMapping("/menuPowerListInRoleId/{id}")
+    @RequestMapping(value ="/menuPowerListInRoleId/{id}",method = RequestMethod.GET)
     public AjaxResponse menuPowerListInRoleId(@PathVariable(name = "id") Integer id ){
         return AjaxResponse.success(systemClinetService.menuPowerListInRoleId(id));
     }
@@ -47,7 +47,7 @@ public class MenuPowerController {
      * @param menuPower
      * @return
      */
-    @PostMapping("/menuPowerInCondition")
+    @RequestMapping(value ="/menuPowerInCondition",method = RequestMethod.POST)
     public AjaxResponse menuPowerInCondition(@RequestBody MenuPower menuPower){
         return AjaxResponse.success(systemClinetService.menuPowerInCondition(menuPower));
     }
@@ -57,7 +57,7 @@ public class MenuPowerController {
      * @param menuPower
      * @return
      */
-    @PostMapping("/menuPowerAddSingle")
+    @RequestMapping(value ="/menuPowerAddSingle",method = RequestMethod.POST)
     public AjaxResponse menuPowerAddSingle(@RequestBody MenuPower menuPower){
         return AjaxResponse.success(systemClinetService.menuPowerAddSingle(menuPower));
     }
