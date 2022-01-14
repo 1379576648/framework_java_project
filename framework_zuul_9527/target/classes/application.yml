@@ -18,6 +18,27 @@ info:
 #路由配置
 zuul:
   routes:
-    mydept.serviceId: register-8001 #原来的地址
-    mydept.path: /** #现在的地址
+    one.serviceId: register-8001 #原来的地址
+    one.path: /8001/** #现在的地址
+    two.serviceId: register-8002 #原来的地址
+    two.path: /8002/** #现在的地址
+    three.serviceId: register-8003 #原来的地址
+    three.path: /8003/** #现在的地址
+    four.serviceId: register-8004 #原来的地址
+    four.path: /8004/** #现在的地址
+    five.serviceId: register-8005 #原来的地址
+    five.path: /8005/** #现在的地址
+    six.serviceId: register-8006 #原来的地址
+    six.path: /8006/** #现在的地址
+    seven.serviceId: register-8007 #原来的地址
+    seven.path: /8007/** #现在的地址
+    eight.serviceId: register-8008 #原来的地址
+    eight.path: /8008/** #现在的地址
+    nine.serviceId: register-8009 #原来的地址
+    nine.path: /8009/** #现在的地址
+    ten.serviceId: register-8010 #原来的地址
+    ten.path: /8010/** #现在的地址
+    eleven.serviceId: register-8011 #原来的地址
+    eleven.path: /8011/** #现在的地址
   ignored-services: "*" #不能再使用这个路径访问，ignored：忽略 ,隐藏全部的~
+

@@ -72,5 +72,4 @@ public class AuditflowController {
     public AjaxResponse queryDetail(@RequestBody Auditflowdetail auditflowdetail){
         return  AjaxResponse.success(auditflowService.queryDetail(auditflowdetail));
     }
-
 }
