@@ -51,20 +51,17 @@ public class RegisterLogEntity {
     @Basic
     @Column(name = "REVISION", nullable = false, precision = 0)
     private int revision;
-    @Basic
-    @Column(name = "IS_DELETED", nullable = true, precision = 0)
-    private Integer isDeleted;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RegisterLogEntity that = (RegisterLogEntity) o;
-        return registerLogId == that.registerLogId && revision == that.revision && Objects.equals(registerLogPeople, that.registerLogPeople) && Objects.equals(registerLogPhone, that.registerLogPhone) && Objects.equals(registerLogIp, that.registerLogIp)&& Objects.equals(registerLogIpName, that.registerLogIpName) && Objects.equals(registerLogType, that.registerLogType) && Objects.equals(registerLogState, that.registerLogState) && Objects.equals(registerLogBrowser, that.registerLogBrowser) && Objects.equals(registerLogGenre, that.registerLogGenre) && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime) && Objects.equals(isDeleted, that.isDeleted);
+        return registerLogId == that.registerLogId && revision == that.revision && Objects.equals(registerLogPeople, that.registerLogPeople) && Objects.equals(registerLogPhone, that.registerLogPhone) && Objects.equals(registerLogIp, that.registerLogIp)&& Objects.equals(registerLogIpName, that.registerLogIpName) && Objects.equals(registerLogType, that.registerLogType) && Objects.equals(registerLogState, that.registerLogState) && Objects.equals(registerLogBrowser, that.registerLogBrowser) && Objects.equals(registerLogGenre, that.registerLogGenre) && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime) ;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(registerLogId, registerLogPeople, registerLogPhone, registerLogIp,registerLogIpName, registerLogType, registerLogState, registerLogBrowser, registerLogGenre, createdTime, updatedTime, revision, isDeleted);
+        return Objects.hash(registerLogId, registerLogPeople, registerLogPhone, registerLogIp,registerLogIpName, registerLogType, registerLogState, registerLogBrowser, registerLogGenre, createdTime, updatedTime, revision);
     }
 }

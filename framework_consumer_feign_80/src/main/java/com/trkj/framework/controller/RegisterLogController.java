@@ -38,11 +38,11 @@ public class RegisterLogController {
     }
 
     /**
-     * 清空数据
+     * 清除数据
      * @return
      */
     @DeleteMapping("/emptyRegisterLogList")
-    public AjaxResponse emptyList(){
-        return AjaxResponse.success(systemClinetService.emptyList());
+    public AjaxResponse emptyList(@RequestBody RegisterLog registerLog){
+        return AjaxResponse.success(systemClinetService.emptyList(registerLog));
     }
  }

@@ -62,5 +62,12 @@ public class Dept implements Serializable {
     @TableField("IS_DELETED")
     private Long isDeleted;
 
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 
 }

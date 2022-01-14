@@ -18,6 +18,7 @@ public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
     @Override
     public Object create(Throwable throwable) {
         return new RegisterClinetService() {
+
             @Override
              public Object register(Map<String, Object> map) {
                 Map<String, Object> objectMap = new HashMap<>(2);
