@@ -92,4 +92,8 @@ public class Role implements Serializable {
     @ApiModelProperty(value = "菜单列表")
     @TableField(exist = false)
     private ArrayList<Integer> menuList;
+
+    @ApiModelProperty(value = "半选择状态菜单列表")
+    @TableField(exist = false)
+    private ArrayList<Integer> moietyList;
 }

@@ -58,10 +58,7 @@ public class NoticeDept implements Serializable {
     @TableField("REVISION")
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")
-    @TableLogic
-    @TableField("IS_DELETED")
-    private Long isDeleted;
+
 
 
 }

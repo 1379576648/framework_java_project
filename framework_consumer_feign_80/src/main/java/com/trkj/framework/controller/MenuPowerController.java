@@ -1,13 +1,11 @@
 package com.trkj.framework.controller;
 
 
+import com.trkj.framework.entity.mybatisplus.MenuPower;
 import com.trkj.framework.service.client.system.SystemClinetService;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -29,7 +27,7 @@ public class MenuPowerController {
      * 获取所有的菜单列表
      * @return
      */
-    @GetMapping("/menuPowerList")
+    @RequestMapping(value ="/menuPowerList",method = RequestMethod.GET)
     public AjaxResponse menuPowerList() {
         return AjaxResponse.success(systemClinetService.menuPowerList());
     }
@@ -39,10 +37,29 @@ public class MenuPowerController {
      * @param id
      * @return
      */
-    @GetMapping("/menuPowerListInRoleId/{id}")
+    @RequestMapping(value ="/menuPowerListInRoleId/{id}",method = RequestMethod.GET)
     public AjaxResponse menuPowerListInRoleId(@PathVariable(name = "id") Integer id ){
         return AjaxResponse.success(systemClinetService.menuPowerListInRoleId(id));
     }
 
+    /***
+     * 通过条件查询菜单
+     * @param menuPower
+     * @return
+     */
+    @RequestMapping(value ="/menuPowerInCondition",method = RequestMethod.POST)
+    public AjaxResponse menuPowerInCondition(@RequestBody MenuPower menuPower){
+        return AjaxResponse.success(systemClinetService.menuPowerInCondition(menuPower));
+    }
+
+    /***
+     * 新增一级菜单
+     * @param menuPower
+     * @return
+     */
+    @RequestMapping(value ="/menuPowerAddSingle",method = RequestMethod.POST)
+    public AjaxResponse menuPowerAddSingle(@RequestBody MenuPower menuPower){
+        return AjaxResponse.success(systemClinetService.menuPowerAddSingle(menuPower));
+    }
 }
 

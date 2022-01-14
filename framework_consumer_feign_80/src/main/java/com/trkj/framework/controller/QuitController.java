@@ -1,9 +1,8 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Quit;
 import com.trkj.framework.service.client.examine.AuditflowService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.QuitDetailsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,4 +45,35 @@ public class QuitController {
     public AjaxResponse selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo) {
         return AjaxResponse.success(auditflowService.selectDetailsQuit(quitDetailsVo));
     }
+
+    /**
+     * 根据员工名称是否有离职记录
+     * @param quit
+     * @return
+     */
+    @PostMapping("/selectDimissionRecord")
+    public AjaxResponse selectDimissionRecord(@RequestBody Quit quit){
+        return AjaxResponse.success(auditflowService.selectDimissionRecord(quit));
+    }
+
+    /**
+     * 添加离职 三个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave3")
+    public AjaxResponse submitToLeave3(@RequestBody QuitVo quitVo){
+        return AjaxResponse.success(auditflowService.submitToLeave3(quitVo));
+    }
+
+    /**
+     * 添加离职 两个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave2")
+    public AjaxResponse submitToLeave2(@RequestBody QuitVo quitVo){
+        return AjaxResponse.success(auditflowService.submitToLeave2(quitVo));
+    }
+
 }

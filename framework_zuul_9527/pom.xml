@@ -17,25 +17,25 @@
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-zuul</artifactId>
-            <version>1.4.6.RELEASE</version>
+            <version>1.4.7.RELEASE</version>
         </dependency>
         <!--eureka服务-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-eureka-server</artifactId>
-            <version>1.4.5.RELEASE</version>
+            <version>1.4.7.RELEASE</version>
         </dependency>
         <!--Hystrix-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix</artifactId>
-            <version>1.4.5.RELEASE</version>
+            <version>1.4.7.RELEASE</version>
         </dependency>
         <!--dashboard-->
         <dependency>
             <groupId>org.springframework.cloud</groupId>
             <artifactId>spring-cloud-starter-hystrix-dashboard</artifactId>
-            <version>1.4.5.RELEASE</version>
+            <version>1.4.7.RELEASE</version>
         </dependency>
         <!--Web-->
         <dependency>

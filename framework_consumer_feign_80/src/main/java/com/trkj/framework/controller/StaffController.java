@@ -1,13 +1,13 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.*;
-import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class StaffController {
@@ -59,7 +59,7 @@ public class StaffController {
      * @param staff
      * @return
      */
-    @PostMapping("/updateStaff")
+    @PutMapping("/updateStaff")
     public AjaxResponse updateStaff(@RequestBody Staff staff){
         return AjaxResponse.success(hireClientService.updateStaff(staff));
     }
@@ -69,7 +69,7 @@ public class StaffController {
      * @param staff
      * @return
      */
-    @PostMapping("/updateStaffTwo")
+    @PutMapping("/updateStaffTwo")
     public AjaxResponse updateStaffTwo(@RequestBody Staff staff){
         return AjaxResponse.success(hireClientService.updateStaffTwo(staff));
     }
@@ -110,6 +110,36 @@ public class StaffController {
     public AjaxResponse selectTransferByName(@RequestBody TransferTwoVo transferTwoVo){
         return AjaxResponse.success(hireClientService.selectTransferByName(transferTwoVo));
 
+     }
+
+    /**
+     * 添加工作经历
+     * @param workExperience
+     * @return
+     */
+     @PostMapping("/insertWorkExperience")
+    public AjaxResponse insertWorkExperience(@RequestBody WorkExperience workExperience){
+         return AjaxResponse.success(hireClientService.insertWorkExperience(workExperience));
+     }
+
+    /**
+     * 修改工作经历
+     * @param workExperience
+     * @return
+     */
+     @PutMapping("/updateWork")
+    public AjaxResponse updateWork(@RequestBody WorkExperience workExperience){
+         return AjaxResponse.success(hireClientService.updateWork(workExperience));
+     }
+
+    /**
+     * 删除工作经历
+     * @param list
+     * @return
+     */
+     @DeleteMapping("/deleteWork")
+    public AjaxResponse deleteWork(@RequestBody ArrayList<Integer> list){
+         return AjaxResponse.success(hireClientService.deleteWork(list));
      }
 
 }

@@ -102,7 +102,7 @@ public class StaffController {
      * @param staffId
      * @return
      */
-    @PostMapping("/updateStaff")
+    @PutMapping("/updateStaff")
     public Object updateStaff(@RequestBody Staff staffId){
          //出生日期
          staffId.setStaffBirthday(staffId.getStaffBirthday());
@@ -142,7 +142,7 @@ public class StaffController {
      * @param staffId
      * @return
      */
-    @PostMapping("/updateStaffTwo")
+    @PutMapping("/updateStaffTwo")
     public Object updateStaffTwo(@RequestBody Staff staffId){
         //手机号
         staffId.setStaffPhone(staffId.getStaffPhone());

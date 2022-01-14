@@ -26,6 +26,7 @@ import org.springframework.context.annotation.Bean;
  */
 @EnableCircuitBreaker
 public class ProviderHystrix8007 {
+
     public static void main(String[] args) {
         SpringApplication.run(ProviderHystrix8007.class, args);
     }

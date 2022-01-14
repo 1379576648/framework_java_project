@@ -1,5 +1,6 @@
 package com.trkj.framework.vo;
 
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -17,12 +18,12 @@ public class WorkVo {
     @TableId("WORK_EXPERIENCE_ID")
     private Integer workExperienceId;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("WORK_STARE_TIME")
     private Date workStareTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("WORK_END_TIME")
     private Date workEndTime;
@@ -229,6 +230,24 @@ public class WorkVo {
     @ApiModelProperty(value = "年龄")
     @TableField("STAFF_AGE")
     private Long staffAge;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @ApiModelProperty(value = "创建时间")
+    @TableField(fill = FieldFill.INSERT)
+    private Date createdTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @ApiModelProperty(value = "修改时间")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
+    private Date updatedTime;
+
+    @ApiModelProperty(value = "乐观锁")
+    @TableField("REVISION")
+    private Long revision;
+
+    @ApiModelProperty(value = "逻辑删除")
+    @TableField("IS_DELETED")
+    private Long isDeleted;
 
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)

@@ -183,7 +183,7 @@ public interface SystemClinetService {
      * @param list
      * @return
      */
-    @PostMapping("/cancelImpower")
+    @DeleteMapping("/cancelImpower")
     public Object cancelImpower(@RequestBody ArrayList<Integer> list);
 
     /***
@@ -201,4 +201,21 @@ public interface SystemClinetService {
      */
     @PostMapping("/allotStaff")
     public Object allotStaff(@RequestBody RoleStaff roleStaff);
+
+    /***
+     * 通过条件查询菜单
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerInCondition")
+    public Object menuPowerInCondition(@RequestBody MenuPower menuPower);
+
+
+    /***
+     * 新增一级菜单
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerAddSingle")
+    public  Object menuPowerAddSingle(@RequestBody MenuPower menuPower);
 }

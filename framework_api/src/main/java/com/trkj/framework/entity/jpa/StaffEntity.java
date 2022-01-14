@@ -105,6 +105,10 @@ public class StaffEntity {
     @Basic
     @Column(name = "POST_ID", nullable = true, precision = 0)
     private Integer postId;
+    @Basic
+    @Column(name = "STAFF_STATE", nullable = false, precision = 0)
+    private Integer staffState;
+
     @Transient
     private Object error;
 

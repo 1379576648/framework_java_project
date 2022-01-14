@@ -6,10 +6,10 @@
 -->
 <application generated-by="intellij" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.zeroturnaround.com" xsi:schemaLocation="http://www.zeroturnaround.com http://update.zeroturnaround.com/jrebel/rebel-2_3.xsd">
 
-	<id>framework_provider_hystrix_8002</id>
+	<id>framework_consumer_hystrix_dashboard_9001</id>
 
 	<classpath>
-		<dir name="C:/Users/112729/Desktop/project/framework_java_project/framework_provider_hystrix_8002/target/classes">
+		<dir name="D:/project/framework_java_project/out/production/framework_consumer_hystrix_dashboard_9001">
 		</dir>
 	</classpath>
 

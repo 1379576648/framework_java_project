@@ -60,7 +60,7 @@ public class WorkerVo implements Serializable {
     @TableId("AUDITFLOWDETAI_REMARKS")
     private String auditflowdetaiRemarks;
 
-    @ApiModelProperty(value = "审核备注")
+    @ApiModelProperty(value = "审核日期")
     @TableId("AUDITFLOWDETAI_DATE")
     private String auditflowdetaiDate;
 

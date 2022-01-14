@@ -36,7 +36,7 @@
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-        <spring-boot.version>2.1.4.RELEASE</spring-boot.version>
+        <spring-boot.version>2.3.12.RELEASE</spring-boot.version>
         <lombok.version>1.18.16</lombok.version>
         <junit.verison>4.11</junit.verison>
         <orai18n.veriosn>19.8.0.0</orai18n.veriosn>
@@ -44,7 +44,7 @@
         <logback-core.version>1.2.3</logback-core.version>
         <log4j.version>1.2.12</log4j.version>
         <orcle.verison>19.3.0.0</orcle.verison>
-        <spring-cloud-version>Greenwich.SR1</spring-cloud-version>
+        <spring-cloud-version>Hoxton.SR12</spring-cloud-version>
         <logback-core.version>1.2.3</logback-core.version>
         <mybatis-plus-boot-starter.version>3.1.2</mybatis-plus-boot-starter.version>
         <springfox-swagger.verison>2.7.0</springfox-swagger.verison>

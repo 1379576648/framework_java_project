@@ -36,7 +36,7 @@ public class TraveServicelmpl implements TraveService {
             //根据开始日期结束日期范围查询
             queryWrapper.between("a.CREATED_TIME", auditflowone.getStartTime(), auditflowone.getEndTime());
         }
-        queryWrapper.eq("b.STAFF_NAME", "部门经理");
+        queryWrapper.eq("b.STAFF_NAME", auditflowone.getStaffName2());
         queryWrapper.eq("b.AUDITFLOWDETAI_STATE", 1);
         queryWrapper.eq("a.AUDITFLOW_TYPE", "出差");
         return auditflowoneMapper.selectAuditflowoneAll(page, queryWrapper);
@@ -64,7 +64,7 @@ public class TraveServicelmpl implements TraveService {
         queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 1);
         queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 0);
         queryWrapper.eq("a.AUDITFLOW_TYPE", "出差");
-        queryWrapper.eq("b.STAFF_NAME", "部门经理");
+        queryWrapper.eq("b.STAFF_NAME", auditflowone.getStaffName2());
         return auditflowoneMapper.selectEnddAuditflow(page, queryWrapper);
     }
 

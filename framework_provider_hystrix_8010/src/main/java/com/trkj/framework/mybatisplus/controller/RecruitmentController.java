@@ -20,17 +20,26 @@ public class RecruitmentController {
     @Autowired
     private RecruitmentService recruitmentService;
 
+    /**
+     * 招聘计划查询
+     * @param
+     * @return
+     */
     @PostMapping("/selectRecruitment")
-    @HystrixCommand(fallbackMethod = "HystixRecruitment")
+    @HystrixCommand(fallbackMethod = "HystrixRecruitment")
     public Object queryRecruitment(@RequestBody RecruitmentVo recruitmentVo){
         Map<Object, Object> map = new HashMap<>();
         map.put("state",200);
-        map.put("succed",recruitmentService.selectRecruitment(recruitmentVo));
+        map.put("succeed",recruitmentService.selectRecruitment(recruitmentVo));
         return map;
     }
 
-    //备选方案
-    public Object HystixRecruitment(@RequestBody RecruitmentVo recruitmentVo){
+    /**
+     * 备选方案
+     * @param
+     * @return
+     */
+    public Object HystrixRecruitment(@RequestBody RecruitmentVo recruitmentVo){
         Map<String,Object> map = new HashMap<>();
         map.put("state",300);
         map.put("info","服务发生雪崩");

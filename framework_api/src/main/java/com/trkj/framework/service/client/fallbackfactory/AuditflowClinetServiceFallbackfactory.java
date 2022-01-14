@@ -1,8 +1,6 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
-import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
-import com.trkj.framework.entity.mybatisplus.Dept;
-import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.*;
 import feign.hystrix.FallbackFactory;
@@ -315,6 +313,62 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object SubmitTransfer2(Transfer8003Vo transferVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectSalaryRecord(SalaryVo salaryVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectPay(Fixedwagf fixedwagf) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object SubmitSalary3(SalaryVo salaryVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object SubmitSalary2(SalaryVo salaryVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectDimissionRecord(Quit quit) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToLeave3(QuitVo quitVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToLeave2(QuitVo quitVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

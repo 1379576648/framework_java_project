@@ -44,6 +44,10 @@ public class RoleMenuPower implements Serializable {
     @TableField("MENU_POWER_ID")
     private Long menuPowerId;
 
+    @ApiModelProperty(value = "是否半选择")
+    @TableField("IS_CHOICE")
+    private Long isChoice;
+
     @ApiModelProperty(value = "创建时间 精确到秒")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField(value = "CREATED_TIME", fill = FieldFill.INSERT)
@@ -59,10 +63,6 @@ public class RoleMenuPower implements Serializable {
     @TableField("REVISION")
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")
-    @TableLogic
-    @TableField("IS_DELETED")
-    private Long isDeleted;
 
 
 }

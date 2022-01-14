@@ -4,6 +4,20 @@ server:
 eureka:
   instance:
     hostname: eureka7001.com #Eureka服务端的实例名称
+    lease-renewal-interval-in-seconds: 30 #instance的心跳间隔秒数
+    lease-expiration-duration-in-seconds: 90 #服务失效时间
+  server:
+    renewal-percent-threshold: 0.85 #自我保护系数
+    eviction-interval-timer-in-ms: 60000 # 清理无效节点时间间隔（单位毫秒，默认是60*1000）
+    peer-eureka-status-refresh-time-interval-ms: 1 #eureka 服务状态更新的时间间隔w
+    renewal-threshold-update-interval-ms: 1 #多长时间更新续费阈值
+    enable-self-preservation: true #服务端开启自我保护模式。无论什么情况，服务端都会保持一定数量的服务。避免client与server的网络问题，而出现大量的服务被清除
+    disable-delta: false #过期数据，是否也提供给client
+    log-identity-headers: true #eureka服务端是否记录client的身份header
+    rate-limiter-burst-size: 10 #请求频率限制器
+    rate-limiter-enabled: false  #是否开启请求频率限制器
+
+
   client:
     register-with-eureka: false #表示是否向Eureka注册中心注册自己
     fetch-registry: false #fetch-registry如果为false，则表示自己为注册中心
@@ -11,3 +25,5 @@ eureka:
       #单机：defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
       #集群（关联）：
       defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+    eureka-server-read-timeout-seconds: 8 #client对服务端的读超时时长
+    eureka-server-connect-timeout-seconds: 5 #client连接eureka服务端的连接超时时间，默认为5秒
