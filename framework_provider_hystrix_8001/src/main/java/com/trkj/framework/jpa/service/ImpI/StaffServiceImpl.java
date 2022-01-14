@@ -144,8 +144,10 @@ public class StaffServiceImpl implements StaffService {
             List<RoleMenuPowerEntity> roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
             //迭代菜单编号列表
             for (RoleMenuPowerEntity roleMenuPowerEntity : roleMenuPowerEntities) {
+                System.out.println(roleMenuPowerEntity);
                 //通过菜单编号查询菜单
                 MenuPowerEntity menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
+                System.out.println(menuPower);
                 //将查询的菜单列表添加到集合中
                 if (menuPower != null) {
                     menuPowerEntities.add(menuPower);
