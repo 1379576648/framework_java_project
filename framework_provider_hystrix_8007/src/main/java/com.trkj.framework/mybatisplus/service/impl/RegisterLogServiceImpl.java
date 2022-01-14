@@ -9,8 +9,10 @@ import com.trkj.framework.mybatisplus.service.RegisterLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>
@@ -73,17 +75,31 @@ public class RegisterLogServiceImpl implements RegisterLogService {
     }
 
     /***
-     * 清空登录日志
+     * 清出登录日志
+     * @param registerLog
      * @return
      */
     @Override
     @Transactional
-    public String emptyList() {
+    public String emptyList(@RequestBody RegisterLog registerLog) {
+        String s="成功";
+        //创建条件构造器
         QueryWrapper<RegisterLog> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("IS_DELETED",0);
-        if (registerLogMapper.delete(queryWrapper)<=0){
-            return "清空登录日志数据失败";
+        if (registerLog.getStartTime()!=null||registerLog.getEndTime()!=null){
+            //登录时间范围查询
+            queryWrapper.between("CREATED_TIME",registerLog.getStartTime(),registerLog.getEndTime());
         }
-        return "成功";
+        //通过时间查询范围的登录日志
+        List<RegisterLog> list = registerLogMapper.selectList(queryWrapper);
+        //遍历数据
+        for (RegisterLog registerLog1: list) {
+            //通过编号删除
+            if (registerLogMapper.deleteById(registerLog1.getRegisterLogId())>=1){
+                s="成功";
+            }else{
+                return "清除登录日志数据失败";
+            }
+        }
+        return s;
     }
 }

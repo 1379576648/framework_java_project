@@ -34,7 +34,6 @@ public class StaffServiceImpl implements StaffService {
     private MenuPowerDao menuPowerDao;
     @Autowired
     private MenuChild getChild;
-
     /***
      * 通过id查询用户信息
      * @param map
@@ -66,8 +65,6 @@ public class StaffServiceImpl implements StaffService {
             registerLog.setRegisterLogType(map.get("deviceType").toString());
             //ip所在地
             registerLog.setRegisterLogIpName(map.get("ipName").toString());
-            //逻辑删除
-            registerLog.setIsDeleted(0);
             //乐观锁
             registerLog.setRevision(1);
             registerLogDao.save(registerLog);
@@ -120,8 +117,6 @@ public class StaffServiceImpl implements StaffService {
             registerLog.setRegisterLogType(map.get("deviceType").toString());
             //ip所在地
             registerLog.setRegisterLogIpName(map.get("ipName").toString());
-            //逻辑删除
-            registerLog.setIsDeleted(0);
             //乐观锁
             registerLog.setRevision(1);
             registerLogDao.save(registerLog);

@@ -33,10 +33,11 @@ public interface SystemClinetService {
 
     /***
      * 登录日志清空数据
+     * @param registerLog
      * @return
      */
     @DeleteMapping("/emptyRegisterLogList")
-    public Object emptyList();
+    public Object emptyList(@RequestBody RegisterLog registerLog);
 
     /***
      *分页查询所有公告数据
