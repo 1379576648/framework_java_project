@@ -81,12 +81,12 @@ public class RegisterLogController {
      */
     @DeleteMapping("/emptyRegisterLogList")
     @HystrixCommand(fallbackMethod = "emptyRegisterLogListHystrix")
-    public Object emptyList(){
+    public Object emptyList(@RequestBody RegisterLog registerLog){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
         //返回结果
-        map1.put("info",registerLogService.emptyList());
+        map1.put("info",registerLogService.emptyList(registerLog));
         return map1;
     }
 
@@ -94,7 +94,7 @@ public class RegisterLogController {
      * 备选方案
      * @return
      */
-    public Object emptyRegisterLogListHystrix(){
+    public Object emptyRegisterLogListHystrix(@RequestBody RegisterLog registerLog){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");

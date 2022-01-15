@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 /**
  * @author 13795
  */
-@FeignClient(value = "REGISTER-8003/provider", fallbackFactory = AuditflowClinetServiceFallbackfactory.class)
+@FeignClient(value = "FRAMEWORK-ZUUL/8003/provider", fallbackFactory = AuditflowClinetServiceFallbackfactory.class)
 public interface AuditflowService {
 
     /**

@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 
-@FeignClient(value = "REGISTER-8008/provider", fallbackFactory = HireClientServiceFallbackfactory.class)
+@FeignClient(value = "FRAMEWORK-ZUUL/8008/provider", fallbackFactory = HireClientServiceFallbackfactory.class)
 public interface HireClientService {
 
     /**
