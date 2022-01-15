@@ -400,8 +400,13 @@ public interface AuditflowService {
     @PostMapping("/submitToLeave2")
     Object submitToLeave2(QuitVo quitVo);
 
-
-
+    /**
+     * 根据员工名称是否有离职记录
+     * @param overtimeaskV
+     * @return
+     */
+    @PostMapping("/selectOvertimeExamine")
+    Object selectOvertimeExamine(OvertimeaskVo overtimeaskV);
 
 
 
