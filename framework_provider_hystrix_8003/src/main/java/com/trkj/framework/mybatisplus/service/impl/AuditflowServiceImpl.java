@@ -10,9 +10,12 @@ import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.mybatisplus.mapper.AuditflowMapper;
 import com.trkj.framework.mybatisplus.mapper.AuditflowdetailMapper;
 import com.trkj.framework.mybatisplus.mapper.AuditflowoneMapper;
+import com.trkj.framework.mybatisplus.mapper.OvertimeaskMapper;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.OvertimeaskVo;
+import com.trkj.framework.vo.WorkerVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +40,8 @@ public class AuditflowServiceImpl implements AuditflowService {
     private AuditflowdetailMapper auditflowdetailMapper;
     @Autowired
     private AuditflowoneMapper auditflowoneMapper;
+    @Autowired
+    private OvertimeaskMapper ovimeaskMapper;
 
 
     /**
@@ -202,5 +207,20 @@ public class AuditflowServiceImpl implements AuditflowService {
         queryWrapper.ne("AUDITFLOWDETAI_STATE", 2);
         queryWrapper.ne("AUDITFLOWDETAI_STATE", 3);
         return auditflowdetailMapper.selectListAuditflow(queryWrapper);
+    }
+
+    @Override
+    public Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo) {
+        QueryWrapper<OvertimeaskVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("c.STAFF_NAME",overtimeaskVo.getStaffName());
+        queryWrapper.eq("a.IS_DELETED",0);
+        queryWrapper.eq("b.IS_DELETED",0);
+        queryWrapper.eq("c.IS_DELETED",0);
+        final var i = ovimeaskMapper.selectOvertimeExamine(queryWrapper);
+        if (i == null){
+            return 5;
+        }else {
+            return i;
+        }
     }
 }

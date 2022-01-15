@@ -2,9 +2,7 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.service.client.examine.AuditflowService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -72,4 +70,15 @@ public class AuditflowController {
     public AjaxResponse queryDetail(@RequestBody Auditflowdetail auditflowdetail){
         return  AjaxResponse.success(auditflowService.queryDetail(auditflowdetail));
     }
+
+    /**
+     * 根据员工名称是否有加班记录
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/selectOvertimeExamine")
+    public AjaxResponse selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
+        return AjaxResponse.success(auditflowService.selectOvertimeExamine(overtimeaskVo));
+    }
+
 }
