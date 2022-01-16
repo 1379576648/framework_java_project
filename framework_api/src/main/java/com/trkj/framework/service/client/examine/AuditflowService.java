@@ -2,13 +2,11 @@ package com.trkj.framework.service.client.examine;
 
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.AuditflowClinetServiceFallbackfactory;
-import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author 13795
@@ -400,10 +398,29 @@ public interface AuditflowService {
     @PostMapping("/submitToLeave2")
     Object submitToLeave2(QuitVo quitVo);
 
+    /**
+     * 根据员工名称是否有离职记录
+     * @param overtimeaskV
+     * @return
+     */
+    @PostMapping("/selectOvertimeExamine")
+    Object selectOvertimeExamine(OvertimeaskVo overtimeaskV);
 
 
+    /**
+     * 添加加班 3个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime3")
+    Object submitToOvertime3(OvertimeaskVo overtimeaskVo);
 
-
-
+    /**
+     * 添加加班 2个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime2")
+    Object submitToOvertime2(OvertimeaskVo overtimeaskVo);
 
 }

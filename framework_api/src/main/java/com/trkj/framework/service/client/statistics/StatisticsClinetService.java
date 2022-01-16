@@ -11,7 +11,8 @@ import java.util.Map;
 /**
  * @author TanWei
  */
-@FeignClient(value = "REGISTER-8011/provider",fallbackFactory = StatisticsClinetServiceFallbackfactory.class)
+
+@FeignClient(value = "FRAMEWORK-ZUUL/8011/provider" , fallbackFactory = StatisticsClinetServiceFallbackfactory.class)
 public interface StatisticsClinetService {
     /**
      * 员工性别查询

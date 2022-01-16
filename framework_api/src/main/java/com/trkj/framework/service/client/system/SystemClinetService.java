@@ -15,6 +15,7 @@ import java.util.ArrayList;
  */
 @FeignClient(value = "FRAMEWORK-ZUUL/8007/provider", fallbackFactory = SystemClinetServiceFallbackfactory.class)
 public interface SystemClinetService {
+
     /***
      *  登录日志分页查询
      * @param registerLog

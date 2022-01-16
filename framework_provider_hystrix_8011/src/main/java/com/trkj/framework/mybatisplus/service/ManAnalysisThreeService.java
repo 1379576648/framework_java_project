@@ -9,7 +9,7 @@ import java.util.Map;
 /**
  * @author TanWei
  */
-public interface ManAnalysisThreeService extends IService<StaffVo> {
+public interface ManAnalysisThreeService  {
 
     /**
      * 员工性别查询

@@ -2,12 +2,13 @@ package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.service.client.statistics.StatisticsClinetService;
 import com.trkj.framework.vo.AjaxResponse;
-import org.springframework.cloud.openfeign.FallbackFactory;
+import feign.hystrix.FallbackFactory;
+import org.springframework.stereotype.Component;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
+@Component
 public class StatisticsClinetServiceFallbackfactory implements FallbackFactory {
 
     @Override

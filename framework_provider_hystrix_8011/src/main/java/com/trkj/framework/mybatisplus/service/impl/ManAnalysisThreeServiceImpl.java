@@ -14,7 +14,7 @@ import java.util.Map;
  * @author TanWei
  */
 @Service
-public class ManAnalysisThreeServiceImpl extends ServiceImpl<ManAnalysisThreeMapper, StaffVo> implements ManAnalysisThreeService {
+public class ManAnalysisThreeServiceImpl  implements ManAnalysisThreeService {
     @Autowired
     private ManAnalysisThreeMapper mapper;
 

@@ -1,9 +1,8 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -24,29 +23,30 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("OVERTIMEASK")
 @ApiModel(value="Overtimeask对象", description="加班表")
+@KeySequence(value = "OVERTIMEASK_ID",clazz = Integer.class)
 public class Overtimeask implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "加班表编号")
     @TableId("OVERTIMEASK_ID")
-    private Long overtimeaskId;
+    private Integer overtimeaskId;
 
     @ApiModelProperty(value = "审批编号")
     @TableField("AUDITFLOW_ID")
-    private Long auditflowId;
+    private Integer auditflowId;
 
     @ApiModelProperty(value = "员工编号")
     @TableField("STAFF_ID")
-    private Long staffId;
+    private Integer staffId;
 
     @ApiModelProperty(value = "员工名称")
     @TableField("STAFF_NAME")
     private String staffName;
 
-    @ApiModelProperty(value = "发起人部门编号")
-    @TableField("DEPT_ID")
-    private Long deptId;
+    @ApiModelProperty(value = "发起人部门名称")
+    @TableField("DEPT_NAME")
+    private String deptName;
 
     @ApiModelProperty(value = "加班类型")
     @TableField("OVERTIMEASK_TYPE")
@@ -77,11 +77,11 @@ public class Overtimeask implements Serializable {
     private Long overtimeaskState;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")

@@ -172,6 +172,8 @@ public class MenuPowerServiceImpl implements MenuPowerService {
         menuPower.setMenuPowerLeaf(1L);
         //父级菜单
         menuPower.setMenuPowerPid(0L);
+        //逻辑删除
+        menuPower.setIsDeleted(0L);
         if (menuPowerMapper.insert(menuPower)<=0){
             return "新增菜单失败";
         }
