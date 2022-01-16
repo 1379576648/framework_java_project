@@ -1,11 +1,10 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Card;
 import com.trkj.framework.mybatisplus.service.CardService;
 import com.trkj.framework.mybatisplus.service.LeaveService;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.CardDetailsVo;
-import com.trkj.framework.vo.LeaveDetailsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -91,5 +90,36 @@ public class CardController {
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
         return map1;
+    }
+
+
+    /**
+     * 根据员工名称是否有补打卡记录
+     * @param
+     * @return
+     */
+    @PostMapping("/selectCardExamine")
+    public Integer selectCardExamine(@RequestBody Card card){
+        return cardService.selectCardExamine(card);
+    }
+
+    /**
+     * 添加补打卡 添加三个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard3")
+    public int submitToCard3(@RequestBody CardVo cardVo){
+        return  cardService.submitToCard3(cardVo);
+    }
+
+    /**
+     * 添加补打卡 添加两个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard2")
+    public int submitToCard2(@RequestBody CardVo cardVo){
+        return  cardService.submitToCard2(cardVo);
     }
 }

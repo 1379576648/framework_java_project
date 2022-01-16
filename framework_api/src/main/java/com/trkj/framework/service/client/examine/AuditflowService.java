@@ -401,13 +401,12 @@ public interface AuditflowService {
     Object submitToLeave2(QuitVo quitVo);
 
     /**
-     * 根据员工名称是否有离职记录
-     * @param overtimeaskV
+     * 根据员工名称是否有加班记录
+     * @param overtimeaskVo
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    Object selectOvertimeExamine(OvertimeaskVo overtimeaskV);
-
+    Object selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
 
     /**
      * 添加加班 3个审批人
@@ -424,5 +423,29 @@ public interface AuditflowService {
      */
     @PostMapping("/submitToOvertime2")
     Object submitToOvertime2(OvertimeaskVo overtimeaskVo);
+
+    /**
+     * 根据员工名称是否有补打卡记录
+     * @param card
+     * @return
+     */
+    @PostMapping("/selectCardExamine")
+    Object selectCardExamine(Card card);
+
+    /**
+     * 添加补打卡 3个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard3")
+    Object submitToCard3(CardVo cardVo);
+
+    /**
+     * 添加补打卡 2个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard2")
+    Object submitToCard2(CardVo cardVo);
 
 }
