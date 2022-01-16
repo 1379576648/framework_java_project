@@ -383,6 +383,22 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            @Override
+            public Object submitToOvertime3(OvertimeaskVo overtimeaskVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToOvertime2(OvertimeaskVo overtimeaskVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }

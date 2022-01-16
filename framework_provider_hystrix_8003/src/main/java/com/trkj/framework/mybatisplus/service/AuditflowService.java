@@ -73,4 +73,18 @@ public interface AuditflowService {
     @PostMapping("/selectOvertimeExamine")
     Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
 
+    /**
+     * 添加加班 添加三个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    int submitToOvertime3(OvertimeaskVo overtimeaskVo);
+
+    /**
+     * 添加加班 添加两个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    int submitToOvertime2(OvertimeaskVo overtimeaskVo);
+
 }

@@ -81,4 +81,23 @@ public class AuditflowController {
         return AjaxResponse.success(auditflowService.selectOvertimeExamine(overtimeaskVo));
     }
 
+    /**
+     * 添加加班 三个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime3")
+    public AjaxResponse submitToOvertime3(@RequestBody OvertimeaskVo overtimeaskVo){
+        return AjaxResponse.success(auditflowService.submitToOvertime3(overtimeaskVo));
+    }
+
+    /**
+     * 添加加班 两个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime2")
+    public AjaxResponse submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo){
+        return AjaxResponse.success(auditflowService.submitToOvertime2(overtimeaskVo));
+    }
 }

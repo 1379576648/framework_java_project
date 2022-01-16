@@ -409,6 +409,20 @@ public interface AuditflowService {
     Object selectOvertimeExamine(OvertimeaskVo overtimeaskV);
 
 
+    /**
+     * 添加加班 3个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime3")
+    Object submitToOvertime3(OvertimeaskVo overtimeaskVo);
 
+    /**
+     * 添加加班 2个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime2")
+    Object submitToOvertime2(OvertimeaskVo overtimeaskVo);
 
 }

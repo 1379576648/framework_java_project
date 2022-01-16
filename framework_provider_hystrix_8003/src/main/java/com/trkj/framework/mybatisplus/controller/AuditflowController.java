@@ -163,5 +163,25 @@ public class AuditflowController {
     public Integer selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
         return auditflowService.selectOvertimeExamine(overtimeaskVo);
     }
+
+    /**
+     * 添加加班 添加三个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime3")
+    public int submitToOvertime3(@RequestBody OvertimeaskVo overtimeaskVo){
+        return  auditflowService.submitToOvertime3(overtimeaskVo);
+    }
+
+    /**
+     * 添加加班 添加两个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime2")
+    public int submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo){
+        return  auditflowService.submitToOvertime2(overtimeaskVo);
+    }
 }
 

@@ -71,9 +71,9 @@ public class OvertimeaskVo implements Serializable {
     @TableId("OVERTIMEASK_ID")
     private Long overtimeaskId;
 
-    @ApiModelProperty(value = "发起人部门编号")
+    @ApiModelProperty(value = "发起人部门")
     @TableField("DEPT_NAME")
-    private Long deptName;
+    private String deptName;
 
     @ApiModelProperty(value = "加班类型")
     @TableField("OVERTIMEASK_TYPE")
