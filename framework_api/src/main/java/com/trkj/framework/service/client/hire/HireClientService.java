@@ -13,6 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 
+/**
+ * @author 13795
+ */
 @FeignClient(value = "FRAMEWORK-ZUUL/8008/provider", fallbackFactory = HireClientServiceFallbackfactory.class)
 public interface HireClientService {
 

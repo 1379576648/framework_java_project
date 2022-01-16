@@ -2,13 +2,11 @@ package com.trkj.framework.service.client.examine;
 
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.AuditflowClinetServiceFallbackfactory;
-import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author 13795
