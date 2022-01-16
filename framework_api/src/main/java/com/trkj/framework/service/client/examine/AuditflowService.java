@@ -446,4 +446,27 @@ public interface AuditflowService {
     @PostMapping("/submitToCard2")
     Object submitToCard2(CardVo cardVo);
 
+    /**
+     * 根据员工名称是否有出差记录
+     * @param travel
+     * @return
+     */
+    @PostMapping("/selectEvectionExamine")
+    Object selectEvectionExamine(Travel travel);
+
+    /**
+     * 添加补打卡 3个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel3")
+    Object submitToTravel3(TravelVo travelVo);
+
+    /**
+     * 添加补打卡 2个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel2")
+    Object submitToTravel2(TravelVo travelVo);
 }

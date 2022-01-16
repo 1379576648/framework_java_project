@@ -422,6 +422,30 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
             }
+
+            @Override
+            public Object selectEvectionExamine(Travel travel) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToTravel3(TravelVo travelVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToTravel2(TravelVo travelVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
         };
     }
 }
