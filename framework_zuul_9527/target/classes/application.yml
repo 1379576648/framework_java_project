@@ -42,3 +42,5 @@ zuul:
     eleven.path: /8011/** #现在的地址
   ignored-services: "*" #不能再使用这个路径访问，ignored：忽略 ,隐藏全部的~
 
+
+
