@@ -444,6 +444,71 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 根据教育经历id查询教育经历
+             * @param workVo
+             * @return
+             */
+            @Override
+            public Object selectEducationOne(WorkVo workVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 添加教育经历
+             * @param education
+             * @return
+             */
+            @Override
+            public Object insertEducation(Education education) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改教育经历
+             * @param education
+             * @return
+             */
+            @Override
+            public Object updateEducation(Education education) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 删除教育经历
+             * @param list
+             * @return
+             */
+            @Override
+            public Object deleteEducation(ArrayList<Integer> list) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 根据员工姓名查询调动记录
+             * @param transfer
+             * @return
+             */
+            @Override
+            public Object selectTransferAlls(Transfer transfer) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }

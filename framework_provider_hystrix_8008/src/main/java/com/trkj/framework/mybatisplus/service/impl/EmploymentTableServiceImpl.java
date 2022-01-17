@@ -156,6 +156,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     public List<WorkVo> selectEducationAll(WorkVo workVo) {
         QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("s.STAFF_ID",workVo.getStaffId());
+        queryWrapper.eq("e.IS_DELETED",0);
         return employmentTableMapper.selectEducationAll(queryWrapper);
     }
 

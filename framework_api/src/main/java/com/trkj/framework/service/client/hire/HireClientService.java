@@ -278,6 +278,45 @@ public interface HireClientService {
     @DeleteMapping("/deletePunish")
     Object deletePunish(@RequestBody ArrayList<Integer> list);
 
+    /**
+     * 根据教育经历id查询教育经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectEducationOne")
+    Object selectEducationOne(@RequestBody WorkVo workVo);
+
+    /**
+     * 添加教育经历
+     * @param education
+     * @return
+     */
+    @PostMapping("/insertEducation")
+    Object insertEducation(@RequestBody Education education);
+
+    /**
+     * 修改教育经历
+     * @param education
+     * @return
+     */
+    @PutMapping("/updateEducation")
+    Object updateEducation(@RequestBody Education education);
+
+    /**
+     * 删除教育经历
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteEducation")
+    Object deleteEducation(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据员工姓名查询调动记录
+     * @param transfer
+     * @return
+     */
+    @PostMapping("/selectTransferAlls")
+    Object selectTransferAlls(@RequestBody Transfer transfer);
 
 }
 

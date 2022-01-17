@@ -87,7 +87,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT s.STAFF_ID,e.EDUCATION_ID,e.EDUCATION_START_TIME,e.EDUCATION_END_TIME,e.EDUCATION_STUDENTNAME,e.EDUCATION_MAJOR,e.EDUCATION_FULL_TIME FROM EDUCATION e LEFT JOIN STAFF s on s.STAFF_ID=e.STAFF_ID  ${ew.customSqlSegment}")
+    @Select("SELECT s.STAFF_ID,e.EDUCATION_ID,e.EDUCATION_START_TIME,e.EDUCATION_END_TIME,e.EDUCATION_STUDENTNAME,e.EDUCATION_MAJOR,e.EDUCATION_FULL_TIME,e.IS_DELETED FROM EDUCATION e LEFT JOIN STAFF s on s.STAFF_ID=e.STAFF_ID  ${ew.customSqlSegment}")
     List<WorkVo> selectEducationAll(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
     /**

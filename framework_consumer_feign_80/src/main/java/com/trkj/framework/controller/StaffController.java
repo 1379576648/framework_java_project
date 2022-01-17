@@ -1,9 +1,6 @@
 package com.trkj.framework.controller;
 
-import com.trkj.framework.entity.mybatisplus.Glory;
-import com.trkj.framework.entity.mybatisplus.Punish;
-import com.trkj.framework.entity.mybatisplus.Staff;
-import com.trkj.framework.entity.mybatisplus.WorkExperience;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,6 +199,46 @@ public class StaffController {
         @DeleteMapping("/deletePunish")
     public AjaxResponse deletePunish(@RequestBody ArrayList<Integer> list){
         return AjaxResponse.success(hireClientService.deletePunish(list));
+    }
+
+    /**
+     * 添加教育经历
+     * @param education
+     * @return
+     */
+    @PostMapping("/insertEducation")
+    public AjaxResponse insertEducation(@RequestBody Education education){
+        return AjaxResponse.success(hireClientService.insertEducation(education));
+    }
+
+    /**
+     * 修改惩罚
+     * @param education
+     * @return
+     */
+    @PutMapping("/updateEducation")
+    public AjaxResponse updateEducation(@RequestBody Education education){
+        return AjaxResponse.success(hireClientService.updateEducation(education));
+    }
+
+    /**
+     * 删除教育经历
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteEducation")
+    public AjaxResponse deleteEducation(@RequestBody ArrayList<Integer> list){
+        return AjaxResponse.success(hireClientService.deleteEducation(list));
+    }
+
+    /**
+     * 根据员工姓名查询调动记录
+     * @param transfer
+     * @return
+     */
+    @PostMapping("/selectTransferAlls")
+    public AjaxResponse selectTransferAlls(@RequestBody Transfer transfer){
+        return AjaxResponse.success(hireClientService.selectTransferAlls(transfer));
     }
 
 }

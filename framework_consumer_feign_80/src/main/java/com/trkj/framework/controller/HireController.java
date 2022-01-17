@@ -159,5 +159,15 @@ public class HireController {
         return AjaxResponse.success(hireClientService.selectPunishOne(workVo));
     }
 
+    /**
+     * 根据教育经历id查询教育经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectEducationOne")
+    public AjaxResponse selectEducationOne(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectEducationOne(workVo));
+    }
+
 
 }
