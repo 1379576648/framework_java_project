@@ -38,4 +38,11 @@ public interface MenuPowerService  {
      * @return
      */
     Object menuPowerAddSingle(MenuPower menuPower);
+
+    /***
+     * 通过父类编号查询菜单名称
+     * @param integer
+     * @return
+     */
+    Object menuPowerInPid(Integer integer);
 }

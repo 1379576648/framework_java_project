@@ -180,4 +180,18 @@ public class MenuPowerServiceImpl implements MenuPowerService {
         return s;
     }
 
+    /***
+     * 通过父菜单编号查询父菜单名称
+     * @param integer
+     * @return
+     */
+    @Override
+    public Object menuPowerInPid(Integer integer) {
+        if (integer==0){
+            return null;
+        }else{
+            return menuPowerMapper.selectOne(new QueryWrapper<MenuPower>().eq("MENU_POWER_ID",integer));
+        }
+    }
+
 }
