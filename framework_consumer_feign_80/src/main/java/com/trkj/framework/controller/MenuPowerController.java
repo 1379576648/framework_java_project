@@ -7,6 +7,8 @@ import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,7 +29,7 @@ public class MenuPowerController {
      * 获取所有的菜单列表
      * @return
      */
-    @RequestMapping(value ="/menuPowerList",method = RequestMethod.GET)
+    @GetMapping(value ="/menuPowerList")
     public AjaxResponse menuPowerList() {
         return AjaxResponse.success(systemClinetService.menuPowerList());
     }
@@ -37,7 +39,7 @@ public class MenuPowerController {
      * @param id
      * @return
      */
-    @RequestMapping(value ="/menuPowerListInRoleId/{id}",method = RequestMethod.GET)
+    @GetMapping(value ="/menuPowerListInRoleId/{id}")
     public AjaxResponse menuPowerListInRoleId(@PathVariable(name = "id") Integer id ){
         return AjaxResponse.success(systemClinetService.menuPowerListInRoleId(id));
     }
@@ -47,7 +49,7 @@ public class MenuPowerController {
      * @param menuPower
      * @return
      */
-    @RequestMapping(value ="/menuPowerInCondition",method = RequestMethod.POST)
+    @PostMapping(value ="/menuPowerInCondition")
     public AjaxResponse menuPowerInCondition(@RequestBody MenuPower menuPower){
         return AjaxResponse.success(systemClinetService.menuPowerInCondition(menuPower));
     }
@@ -57,9 +59,19 @@ public class MenuPowerController {
      * @param menuPower
      * @return
      */
-    @RequestMapping(value ="/menuPowerAddSingle",method = RequestMethod.POST)
+    @PostMapping(value ="/menuPowerAddSingle")
     public AjaxResponse menuPowerAddSingle(@RequestBody MenuPower menuPower){
         return AjaxResponse.success(systemClinetService.menuPowerAddSingle(menuPower));
+    }
+
+    /***
+     * 通过父菜单编号获取菜单名称
+     * @param integer
+     * @return
+     */
+    @GetMapping("/menuPowerInPid/{id}")
+    public  AjaxResponse menuPowerInPid(@PathVariable("id") Integer integer){
+        return AjaxResponse.success(systemClinetService.menuPowerInPid(integer));
     }
 }
 

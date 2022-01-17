@@ -220,4 +220,12 @@ public interface SystemClinetService {
      */
     @PostMapping("/menuPowerAddSingle")
     public  Object menuPowerAddSingle(@RequestBody MenuPower menuPower);
+
+    /***
+     * 通过父菜单获取菜单名称
+     * @param integer
+     * @return
+     */
+    @GetMapping("/menuPowerInPid/{id}")
+    public  Object menuPowerInPid(@PathVariable("id") Integer  integer);
 }
