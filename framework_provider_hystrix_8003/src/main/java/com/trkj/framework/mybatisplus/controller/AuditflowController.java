@@ -5,6 +5,8 @@ import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.OvertimeaskVo;
+import com.trkj.framework.vo.WorkerVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -150,6 +152,36 @@ public class AuditflowController {
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
         return map1;
+    }
+
+    /**
+     * 根据员工名称是否有加班记录
+     * @param
+     * @return
+     */
+    @PostMapping("/selectOvertimeExamine")
+    public Integer selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
+        return auditflowService.selectOvertimeExamine(overtimeaskVo);
+    }
+
+    /**
+     * 添加加班 添加三个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime3")
+    public int submitToOvertime3(@RequestBody OvertimeaskVo overtimeaskVo){
+        return  auditflowService.submitToOvertime3(overtimeaskVo);
+    }
+
+    /**
+     * 添加加班 添加两个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime2")
+    public int submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo){
+        return  auditflowService.submitToOvertime2(overtimeaskVo);
     }
 }
 

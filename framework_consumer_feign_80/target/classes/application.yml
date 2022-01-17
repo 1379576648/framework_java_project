@@ -33,14 +33,14 @@ hystrix:
           enabled: true
         isolation:
           thread:
-            timeoutInMilliseconds: 80000 #断路器超时时间，默认1000ms
+            timeoutInMilliseconds: 10000 #断路器超时时间，默认1000ms
 
 
 # 远程调用超时时间
 ribbon:
   OkToRetryOnAllOperations: false #对所有操作请求都进行重试,默认false
-  ReadTimeout: 80000   #负载均衡超时时间，默认值5000
-  ConnectTimeout: 80000 #ribbon请求连接的超时时间，默认值2000
+  ReadTimeout: 5000   #负载均衡超时时间，默认值5000
+  ConnectTimeout: 2000 #ribbon请求连接的超时时间，默认值2000
   MaxAutoRetries: 0     #对当前实例的重试次数，默认0
   MaxAutoRetriesNextServer: 1 #对切换实例的重试次数，默认1
 

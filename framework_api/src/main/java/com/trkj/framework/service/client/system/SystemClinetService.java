@@ -13,8 +13,9 @@ import java.util.ArrayList;
 /**
  * @author 13795
  */
-@FeignClient(value = "REGISTER-8007/provider", fallbackFactory = SystemClinetServiceFallbackfactory.class)
+@FeignClient(value = "FRAMEWORK-ZUUL/8007/provider", fallbackFactory = SystemClinetServiceFallbackfactory.class)
 public interface SystemClinetService {
+
     /***
      *  登录日志分页查询
      * @param registerLog
@@ -33,10 +34,11 @@ public interface SystemClinetService {
 
     /***
      * 登录日志清空数据
+     * @param registerLog
      * @return
      */
     @DeleteMapping("/emptyRegisterLogList")
-    public Object emptyList();
+    public Object emptyList(@RequestBody RegisterLog registerLog);
 
     /***
      *分页查询所有公告数据

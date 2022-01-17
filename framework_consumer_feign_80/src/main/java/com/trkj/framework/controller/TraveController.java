@@ -1,9 +1,8 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Travel;
 import com.trkj.framework.service.client.examine.AuditflowService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.TravelDetailsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -45,5 +44,35 @@ public class TraveController {
     @PostMapping("/selectDetailsTrave")
     public AjaxResponse selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo) {
         return AjaxResponse.success(auditflowService.selectDetailsTrave(travelDetailsVo));
+    }
+
+    /**
+     * 根据员工名称是否有出差记录
+     * @param travel
+     * @return
+     */
+    @PostMapping("/selectEvectionExamine")
+    public AjaxResponse selectEvectionExamine(@RequestBody Travel travel){
+        return AjaxResponse.success(auditflowService.selectEvectionExamine(travel));
+    }
+
+    /**
+     * 添加出差 三个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel3")
+    public AjaxResponse submitToTravel3(@RequestBody TravelVo travelVo){
+        return AjaxResponse.success(auditflowService.submitToTravel3(travelVo));
+    }
+
+    /**
+     * 添加出差 两个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel2")
+    public AjaxResponse submitToTravel2(@RequestBody TravelVo travelVo){
+        return AjaxResponse.success(auditflowService.submitToTravel2(travelVo));
     }
 }

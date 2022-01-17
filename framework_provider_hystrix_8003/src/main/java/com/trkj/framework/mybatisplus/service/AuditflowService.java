@@ -6,6 +6,9 @@ import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
+import com.trkj.framework.vo.OvertimeaskVo;
+import com.trkj.framework.vo.WorkerVo;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashMap;
 import java.util.List;
@@ -61,4 +64,27 @@ public interface AuditflowService {
      * @return
      */
     List<Auditflowdetail> queryDetail(Auditflowdetail auditflowdetail);
+
+    /**
+     * 根据员工名称是否有加班记录
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/selectOvertimeExamine")
+    Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
+
+    /**
+     * 添加加班 添加三个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    int submitToOvertime3(OvertimeaskVo overtimeaskVo);
+
+    /**
+     * 添加加班 添加两个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    int submitToOvertime2(OvertimeaskVo overtimeaskVo);
+
 }
