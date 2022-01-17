@@ -44,14 +44,14 @@ public interface CardService {
     Integer selectCardExamine(Card card);
 
     /**
-     * 添加加班 添加三个审批人
+     * 添加补打卡 添加三个审批人
      * @param cardVo
      * @return
      */
     int submitToCard3(CardVo cardVo);
 
     /**
-     * 添加加班 添加两个审批人
+     * 添加补打卡 添加两个审批人
      * @param cardVo
      * @return
      */
