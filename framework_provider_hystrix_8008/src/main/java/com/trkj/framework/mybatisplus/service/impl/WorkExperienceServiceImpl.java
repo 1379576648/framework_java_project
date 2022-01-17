@@ -55,7 +55,7 @@ public class WorkExperienceServiceImpl implements WorkExperienceService {
        String s = "成功";
        for(int i =0;i<list.size();i++){
            //通过工作经历编号删除工作经历
-           if(workExperienceMapper.delete(new QueryWrapper<WorkExperience>().eq("WORK_EXPERIENCE_ID",list.get(i)))<=1){
+           if(workExperienceMapper.delete(new QueryWrapper<WorkExperience>().eq("WORK_EXPERIENCE_ID",list.get(i)))<=0){
                return "删除工作经历失败";
            }else if(workExperienceMapper.delete(new QueryWrapper<WorkExperience>().eq("WORK_EXPERIENCE_ID",list.get(i)))>=1){
                return "删除工作经历成功";
