@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 
 import com.trkj.framework.entity.mybatisplus.Glory;
+import com.trkj.framework.entity.mybatisplus.Punish;
 import com.trkj.framework.vo.WorkVo;
 
 import java.util.ArrayList;
@@ -9,41 +10,41 @@ import java.util.List;
 
 /**
  * <p>
- * 奖励表 服务类
+ * 惩罚表 服务类
  * </p>
  *
  * @author suki
  * @since 2022-01-08
  */
-public interface GloryService {
+public interface PunishService {
 
     /**
-     * 根据奖励id查询奖励
+     * 根据惩罚id查询惩罚
      * @param workVo
      * @return
      */
-    List<WorkVo> selectGloryOne(WorkVo workVo);
+    List<WorkVo> selectPunishOne(WorkVo workVo);
 
     /**
-     * 添加奖励
-     * @param glory
+     * 添加惩罚
+     * @param punish
      * @return
      */
-    int insertGlory(Glory glory);
+    int insertPunish(Punish punish);
 
     /**
-     * 修改奖励
-     * @param glory
+     * 修改惩罚
+     * @param punish
      * @return
      */
-    int updateGlory(Glory glory);
+    int updatePunish(Punish punish);
 
     /**
-     * 删除奖励
+     * 删除惩罚
      * @param list
      * @return
      */
-    String deleteGlory(ArrayList<Integer> list);
+    String deletePunish(ArrayList<Integer> list);
 
 
 }

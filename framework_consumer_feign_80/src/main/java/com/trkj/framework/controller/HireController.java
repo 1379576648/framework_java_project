@@ -4,6 +4,8 @@ import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.service.client.hire.HireClientService;
 import com.trkj.framework.vo.*;
 import org.apache.ibatis.annotations.Param;
+import org.aspectj.weaver.loadtime.Aj;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -135,6 +137,26 @@ public class HireController {
     @PostMapping("/selectWorkOne")
     public AjaxResponse selectWorkOne(@RequestBody WorkVo workVo){
         return AjaxResponse.success(hireClientService.selectWorkOne(workVo));
+    }
+
+    /**
+     * 根据奖励id查询奖励
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectGloryOne")
+    public AjaxResponse selectGloryOne(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectGloryOne(workVo));
+    }
+
+    /**
+     * 根据惩罚id查询惩罚
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectPunishOne")
+    public AjaxResponse selectPunishOne(@RequestBody WorkVo workVo){
+        return AjaxResponse.success(hireClientService.selectPunishOne(workVo));
     }
 
 

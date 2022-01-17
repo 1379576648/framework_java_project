@@ -80,7 +80,7 @@ public class WorkVo {
 
     @ApiModelProperty(value = "荣誉/奖励编号")
     @TableId("GLORY_ID")
-    private Long gloryId;
+    private Integer gloryId;
 
     @ApiModelProperty(value = "荣誉/奖励名称")
     @TableField("GLORY_NAME")
@@ -96,7 +96,7 @@ public class WorkVo {
 
     @ApiModelProperty(value = "惩罚编号")
     @TableId("PUNISH_ID")
-    private Long punishId;
+    private Integer punishId;
 
     @ApiModelProperty(value = "惩罚类型")
     @TableField("PUNISH_TYPE")

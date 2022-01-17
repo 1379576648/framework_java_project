@@ -1,8 +1,6 @@
 package com.trkj.framework.service.client.hire;
 
-import com.trkj.framework.entity.mybatisplus.EmploymentTable;
-import com.trkj.framework.entity.mybatisplus.Staff;
-import com.trkj.framework.entity.mybatisplus.WorkExperience;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -215,5 +213,71 @@ public interface HireClientService {
      */
     @DeleteMapping("/deleteWork")
     Object deleteWork(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据奖励id查询奖励
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectGloryOne")
+    Object selectGloryOne(@RequestBody WorkVo workVo);
+
+    /**
+     * 添加奖励
+     * @param glory
+     * @return
+     */
+    @PostMapping("/insertGlory")
+    Object insertGlory(@RequestBody Glory glory);
+
+    /**
+     * 修改奖励
+     * @param glory
+     * @return
+     */
+    @PutMapping("/updateGlory")
+    Object updateGlory(@RequestBody Glory glory);
+
+    /**
+     * 删除奖励
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteGlory")
+    Object deleteGlory(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据惩罚id查询惩罚
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectPunishOne")
+    Object selectPunishOne(@RequestBody WorkVo workVo);
+
+    /**
+     * 添加惩罚
+     * @param punish
+     * @return
+     */
+    @PostMapping("/insertPunish")
+    Object insertPunish(@RequestBody Punish punish);
+
+    /**
+     * 修改惩罚
+     * @param punish
+     * @return
+     */
+    @PutMapping("/updatePunish")
+    Object updatePunish(@RequestBody Punish punish);
+
+    /**
+     * 删除惩罚
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deletePunish")
+    Object deletePunish(@RequestBody ArrayList<Integer> list);
+
+
 }
 

@@ -55,7 +55,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("select s.STAFF_ID,s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY,w.IS_DELETED FROM WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
+    @Select("select s.STAFF_ID,s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY FROM WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
     IPage<WorkVo> selectwork(Page<WorkVo> page,@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
     /**
@@ -63,7 +63,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("select s.STAFF_ID,s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY FROM WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
+    @Select("select s.STAFF_ID,s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY,w.IS_DELETED FROM WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
     List<WorkVo> selectWorkAll(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
     /**
@@ -71,7 +71,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT s.STAFF_ID,g.GLORY_ID,g.GLORY_NAME,g.GLORY_UNITNAME,g.GLORY_REMARK,g.CREATED_TIME FROM GLORY g LEFT JOIN STAFF s on s.STAFF_ID=g.STAFF_ID ${ew.customSqlSegment}")
+    @Select("SELECT s.STAFF_ID,g.GLORY_ID,g.GLORY_NAME,g.GLORY_UNITNAME,g.GLORY_REMARK,g.CREATED_TIME,g.IS_DELETED FROM GLORY g LEFT JOIN STAFF s on s.STAFF_ID=g.STAFF_ID ${ew.customSqlSegment}")
     List<WorkVo> selectGloryAll(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
     /**
@@ -79,7 +79,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT s.STAFF_ID,p.PUNISH_ID,p.PUNISH_TYPE,p.PUNISH_CAUSE,p.PUNISH_UNIT,p.IS_REVOCATION,p.PUNISH_REMARK FROM PUNISH p LEFT JOIN STAFF s on s.STAFF_ID=p.STAFF_ID ${ew.customSqlSegment}")
+    @Select("SELECT s.STAFF_ID,p.PUNISH_ID,p.PUNISH_TYPE,p.PUNISH_CAUSE,p.PUNISH_UNIT,p.IS_REVOCATION,p.PUNISH_REMARK,p.IS_DELETED FROM PUNISH p LEFT JOIN STAFF s on s.STAFF_ID=p.STAFF_ID ${ew.customSqlSegment}")
     List<WorkVo> selectPunishAll(@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
     /**

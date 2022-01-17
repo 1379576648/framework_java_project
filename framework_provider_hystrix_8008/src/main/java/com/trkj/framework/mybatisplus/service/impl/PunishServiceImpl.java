@@ -2,8 +2,11 @@ package com.trkj.framework.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.trkj.framework.entity.mybatisplus.Glory;
+import com.trkj.framework.entity.mybatisplus.Punish;
 import com.trkj.framework.mybatisplus.mapper.GloryMapper;
+import com.trkj.framework.mybatisplus.mapper.PunishMapper;
 import com.trkj.framework.mybatisplus.service.GloryService;
+import com.trkj.framework.mybatisplus.service.PunishService;
 import com.trkj.framework.vo.WorkVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,51 +18,51 @@ import java.util.List;
 
 /**
  * <p>
- * 奖励表 服务实现类
+ * 惩罚表 服务实现类
  * </p>
  *
  * @author suki
  * @since 2022-01-08
  */
 @Service
-public class GloryServiceImpl implements GloryService {
+public class PunishServiceImpl implements PunishService {
 
     @Autowired
-    private GloryMapper gloryMapper;
+    private PunishMapper punishMapper;
 
 
     /**
-     * 根据奖励id查询奖励
+     * 根据惩罚id查询惩罚
      * @param workVo
      * @return
      */
     @Override
-    public List<WorkVo> selectGloryOne(WorkVo workVo) {
+    public List<WorkVo> selectPunishOne(WorkVo workVo) {
         QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("GLORY_ID",workVo.getGloryId());
-        return gloryMapper.selectGloryOne(queryWrapper);
+        queryWrapper.eq("PUNISH_ID",workVo.getPunishId());
+        return punishMapper.selectPunishOne(queryWrapper);
     }
 
     /**
-     * 添加奖励
-     * @param glory
+     * 添加惩罚
+     * @param punish
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int insertGlory(Glory glory) {
-        return gloryMapper.insert(glory);
+    public int insertPunish(Punish punish) {
+        return punishMapper.insert(punish);
     }
 
     /**
-     * 修改奖励
-     * @param glory
+     * 修改惩罚
+     * @param punish
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int updateGlory(Glory glory) {
-        final var i = gloryMapper.updateById(glory);
+    public int updatePunish(Punish punish) {
+        final var i = punishMapper.updateById(punish);
         if (i>=1){
             return 999;
         }else {
@@ -68,20 +71,20 @@ public class GloryServiceImpl implements GloryService {
     }
 
     /**
-     * 删除奖励
+     * 删除惩罚
      * @param list
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String deleteGlory(ArrayList<Integer> list) {
+    public String deletePunish(ArrayList<Integer> list) {
         String s = "成功";
         for(int i =0;i<list.size();i++){
-            //通过奖励编号删除奖励
-            if(gloryMapper.delete(new QueryWrapper<Glory>().eq("GLORY_ID",list.get(i)))<=0){
-                return "删除奖励失败";
-            }else if(gloryMapper.delete(new QueryWrapper<Glory>().eq("GLORY_ID",list.get(i)))>=1){
-                return "删除奖励成功";
+            //通过惩罚编号删除惩罚
+            if(punishMapper.delete(new QueryWrapper<Punish>().eq("PUNISH_ID",list.get(i)))<=0){
+                return "删除惩罚失败";
+            }else if(punishMapper.delete(new QueryWrapper<Punish>().eq("PUNISH_ID",list.get(i)))>=1){
+                return "删除惩罚成功";
             }
         }
         return s;

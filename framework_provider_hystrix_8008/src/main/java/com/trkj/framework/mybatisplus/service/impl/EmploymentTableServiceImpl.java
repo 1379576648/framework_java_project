@@ -130,6 +130,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     public List<WorkVo> selectGloryAll(WorkVo workVo) {
         QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("s.STAFF_ID",workVo.getStaffId());
+        queryWrapper.eq("g.IS_DELETED",0);
         return employmentTableMapper.selectGloryAll(queryWrapper);
     }
 
@@ -142,6 +143,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     public List<WorkVo> selectPunishAll(WorkVo workVo) {
         QueryWrapper<WorkVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("s.STAFF_ID",workVo.getStaffId());
+        queryWrapper.eq("p.IS_DELETED",0);
         return employmentTableMapper.selectPunishAll(queryWrapper);
     }
 

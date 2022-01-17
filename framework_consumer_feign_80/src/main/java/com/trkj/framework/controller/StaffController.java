@@ -1,5 +1,7 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Glory;
+import com.trkj.framework.entity.mybatisplus.Punish;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.trkj.framework.service.client.hire.HireClientService;
@@ -141,5 +143,65 @@ public class StaffController {
     public AjaxResponse deleteWork(@RequestBody ArrayList<Integer> list){
          return AjaxResponse.success(hireClientService.deleteWork(list));
      }
+
+    /**
+     * 添加奖励
+     * @param glory
+     * @return
+     */
+     @PostMapping("/insertGlory")
+    public AjaxResponse insertGlory(@RequestBody Glory glory){
+         return AjaxResponse.success(hireClientService.insertGlory(glory));
+     }
+
+    /**
+     * 修改奖励
+     * @param glory
+     * @return
+     */
+     @PutMapping("/updateGlory")
+    public AjaxResponse updateGlory(@RequestBody Glory glory){
+         return AjaxResponse.success(hireClientService.updateGlory(glory));
+     }
+
+    /**
+     * 删除奖励
+     * @param list
+     * @return
+     */
+     @DeleteMapping("/deleteGlory")
+    public AjaxResponse deleteGlory(@RequestBody ArrayList<Integer> list){
+         return AjaxResponse.success(hireClientService.deleteGlory(list));
+     }
+
+    /**
+     * 添加惩罚
+     * @param punish
+     * @return
+     */
+    @PostMapping("/insertPunish")
+    public AjaxResponse insertPunish(@RequestBody Punish punish){
+        return AjaxResponse.success(hireClientService.insertPunish(punish));
+    }
+
+    /**
+     * 修改惩罚
+     * @param punish
+     * @return
+     */
+    @PutMapping("/updatePunish")
+    public AjaxResponse updatePunish(@RequestBody Punish punish){
+        return AjaxResponse.success(hireClientService.updatePunish(punish));
+    }
+
+    /**
+     * 删除惩罚
+     * @param list
+     * @return
+     */
+        @DeleteMapping("/deletePunish")
+    public AjaxResponse deletePunish(@RequestBody ArrayList<Integer> list){
+        return AjaxResponse.success(hireClientService.deletePunish(list));
+    }
 
 }
