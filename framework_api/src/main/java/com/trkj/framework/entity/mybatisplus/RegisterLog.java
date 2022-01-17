@@ -77,10 +77,6 @@ public class RegisterLog implements Serializable {
     @TableField(value = "REVISION")
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删")
-    @TableLogic
-    @TableField(value = "IS_DELETED")
-    private Long isDeleted;
 
     @ApiModelProperty(value = "IP所在地")
     @TableField(value = "REGISTER_LOG_IPNAME")

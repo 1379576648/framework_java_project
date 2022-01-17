@@ -1,9 +1,9 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.CardDetailsVo;
-import com.trkj.framework.vo.LeaveDetailsVo;
+import com.trkj.framework.entity.mybatisplus.Card;
+import com.trkj.framework.vo.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -34,4 +34,26 @@ public interface CardService {
      * @return
      */
     List<CardDetailsVo> selectDetailsCards(CardDetailsVo cardDetailsVo);
+
+    /**
+     * 根据员工名称是否有补打卡记录
+     * @param card
+     * @return
+     */
+    @PostMapping("/selectCardExamine")
+    Integer selectCardExamine(Card card);
+
+    /**
+     * 添加补打卡 添加三个审批人
+     * @param cardVo
+     * @return
+     */
+    int submitToCard3(CardVo cardVo);
+
+    /**
+     * 添加补打卡 添加两个审批人
+     * @param cardVo
+     * @return
+     */
+    int submitToCard2(CardVo cardVo);
 }

@@ -17,7 +17,6 @@ public class RegisterController {
     private RegisterClinetService registerClinetService = null;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
     /***
      * 人脸识别登录
      * @param map

@@ -1,9 +1,12 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Travel;
 import com.trkj.framework.mybatisplus.service.TraveService;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.TravelDetailsVo;
+import com.trkj.framework.vo.TravelVo;
+import com.trkj.framework.vo.WorkerVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -89,5 +92,35 @@ public class TravelController {
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
         return map1;
+    }
+
+    /**
+     * 根据员工名称是否有出差记录
+     * @param travel
+     * @return
+     */
+    @PostMapping("/selectEvectionExamine")
+    public Integer selectEvectionExamine(@RequestBody Travel travel){
+        return traveService.selectEvectionExamine(travel);
+    }
+
+    /**
+     * 添加出差 添加三个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel3")
+    public int submitToTravel3(@RequestBody TravelVo travelVo){
+        return  traveService.submitToTravel3(travelVo);
+    }
+
+    /**
+     * 添加出差 添加两个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel2")
+    public int submitToTravel2(@RequestBody TravelVo travelVo){
+        return  traveService.submitToTravel2(travelVo);
     }
 }

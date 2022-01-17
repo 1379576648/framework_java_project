@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 
@@ -28,10 +29,11 @@ public interface RegisterLogService {
      */
     String checkDelete(ArrayList<Integer> list);
 
-    /**
-     * 清空数据
+    /***
+     *  清出数据
+     * @param registerLog
      * @return
      */
-    String emptyList();
+    String emptyList(@RequestBody RegisterLog registerLog);
 
 }

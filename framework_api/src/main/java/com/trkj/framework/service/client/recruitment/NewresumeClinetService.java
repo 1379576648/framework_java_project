@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 /**
  * @author TanWei
  */
-@FeignClient(value = "REGISTER-8010/provider", fallbackFactory = NewresumeClinetServiceFallbackfactory.class)
+@FeignClient(value = "FRAMEWORK-ZUUL/8010/provider", fallbackFactory = NewresumeClinetServiceFallbackfactory.class)
 public interface NewresumeClinetService {
     /**
      * 新简历

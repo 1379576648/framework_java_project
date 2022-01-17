@@ -2,18 +2,16 @@ package com.trkj.framework.service.client.examine;
 
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.AuditflowClinetServiceFallbackfactory;
-import com.trkj.framework.service.client.fallbackfactory.RegisterClinetServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  * @author 13795
  */
-@FeignClient(value = "REGISTER-8003/provider", fallbackFactory = AuditflowClinetServiceFallbackfactory.class)
+@FeignClient(value = "FRAMEWORK-ZUUL/8003/provider", fallbackFactory = AuditflowClinetServiceFallbackfactory.class)
 public interface AuditflowService {
 
     /**
@@ -400,10 +398,99 @@ public interface AuditflowService {
     @PostMapping("/submitToLeave2")
     Object submitToLeave2(QuitVo quitVo);
 
+    /**
+     * 根据员工名称是否有加班记录
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/selectOvertimeExamine")
+    Object selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
 
+    /**
+     * 添加加班 3个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime3")
+    Object submitToOvertime3(OvertimeaskVo overtimeaskVo);
 
+    /**
+     * 添加加班 2个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime2")
+    Object submitToOvertime2(OvertimeaskVo overtimeaskVo);
 
+    /**
+     * 根据员工名称是否有补打卡记录
+     * @param card
+     * @return
+     */
+    @PostMapping("/selectCardExamine")
+    Object selectCardExamine(Card card);
 
+    /**
+     * 添加补打卡 3个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard3")
+    Object submitToCard3(CardVo cardVo);
 
+    /**
+     * 添加补打卡 2个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard2")
+    Object submitToCard2(CardVo cardVo);
 
+    /**
+     * 根据员工名称是否有出差记录
+     * @param travel
+     * @return
+     */
+    @PostMapping("/selectEvectionExamine")
+    Object selectEvectionExamine(Travel travel);
+
+    /**
+     * 添加补打卡 3个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel3")
+    Object submitToTravel3(TravelVo travelVo);
+
+    /**
+     * 添加补打卡 2个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel2")
+    Object submitToTravel2(TravelVo travelVo);
+
+    /**
+     * 根据员工名称是否有出差记录
+     * @param leave
+     * @return
+     */
+    @PostMapping("/selectLeaveExamine")
+    Object selectLeaveExamine(Leave leave);
+
+    /**
+     * 添加补打卡 3个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave3")
+    Object submitToAskForLeave3(LeaveVo leaveVo);
+
+    /**
+     * 添加补打卡 2个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave2")
+    Object submitToAskForLeave2(LeaveVo leaveVo);
 }

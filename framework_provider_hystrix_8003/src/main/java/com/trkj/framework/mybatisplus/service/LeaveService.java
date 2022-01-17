@@ -1,9 +1,10 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.LeaveDetailsVo;
+import com.trkj.framework.entity.mybatisplus.Card;
+import com.trkj.framework.entity.mybatisplus.Leave;
+import com.trkj.framework.vo.*;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.List;
 
@@ -36,4 +37,26 @@ public interface LeaveService {
      * @return
      */
     List<LeaveDetailsVo> selectDetailsLeaves(LeaveDetailsVo leaveDetailsVo);
+
+    /**
+     * 根据员工名称是否有补打卡记录
+     * @param leave
+     * @return
+     */
+    @PostMapping("/selectLeaveExamine")
+    Integer selectLeaveExamine(Leave leave);
+
+    /**
+     * 添加请假 添加三个审批人
+     * @param leaveVo
+     * @return
+     */
+    int submitToAskForLeave3(LeaveVo leaveVo);
+
+    /**
+     * 添加请假 添加两个审批人
+     * @param leaveVo
+     * @return
+     */
+    int submitToAskForLeave2(LeaveVo leaveVo);
 }

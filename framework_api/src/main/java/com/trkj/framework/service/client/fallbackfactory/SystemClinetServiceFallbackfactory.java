@@ -40,7 +40,7 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object emptyList() {
+            public Object emptyList(RegisterLog registerLog) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");
@@ -239,6 +239,15 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object menuPowerAddSingle(MenuPower menuPower) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                throwable.printStackTrace();
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object menuPowerInPid(Integer integer) {
                 Map<String, Object> objectMap = new HashMap<>(2);
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");

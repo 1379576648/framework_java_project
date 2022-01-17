@@ -172,10 +172,26 @@ public class MenuPowerServiceImpl implements MenuPowerService {
         menuPower.setMenuPowerLeaf(1L);
         //父级菜单
         menuPower.setMenuPowerPid(0L);
+        //逻辑删除
+        menuPower.setIsDeleted(0L);
         if (menuPowerMapper.insert(menuPower)<=0){
             return "新增菜单失败";
         }
         return s;
+    }
+
+    /***
+     * 通过父菜单编号查询父菜单名称
+     * @param integer
+     * @return
+     */
+    @Override
+    public Object menuPowerInPid(Integer integer) {
+        if (integer==0){
+            return null;
+        }else{
+            return menuPowerMapper.selectOne(new QueryWrapper<MenuPower>().eq("MENU_POWER_ID",integer));
+        }
     }
 
 }
