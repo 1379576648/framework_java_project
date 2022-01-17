@@ -122,6 +122,30 @@ public class MenuPowerController {
     }
 
 
+    /***
+     * 通过父菜单编号获取菜单名称
+     * @param integer
+     * @return
+     */
+    @GetMapping("/menuPowerInPid/{id}")
+    @HystrixCommand(fallbackMethod = "menuPowerInPidHystrix")
+    public  Object menuPowerInPid(@PathVariable("id") Integer integer){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",menuPowerService.menuPowerInPid(integer));
+        return  map1;
+    }
+
+
+    //备选方案
+    public Object menuPowerInPidHystrix(@PathVariable("id") Integer integer){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
 
 }
 
