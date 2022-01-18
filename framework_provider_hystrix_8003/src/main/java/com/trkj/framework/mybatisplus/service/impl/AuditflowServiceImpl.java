@@ -119,9 +119,12 @@ public class AuditflowServiceImpl implements AuditflowService {
     public int updateApprovalState(Auditflowdetail auditflowdetail) {
         // 获取下一个审批人
         final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
-        System.out.println(auditflowdetailId2);
+        // 获取审批类型
+        final var auditflowType = auditflowdetail.getAuditflowType();
         // 获取审批主表编号
         final var auditflowId = auditflowdetail.getAuditflowId();
+        // 获取审批申请人
+        final var staffName1 = auditflowdetail.getStaffName1();
         // 如果下一个审批人不为空
         if (auditflowdetailId2 != null) {
             final var i = auditflowdetailMapper.updateById(auditflowdetail);
@@ -135,7 +138,29 @@ public class AuditflowServiceImpl implements AuditflowService {
             QueryWrapper<Auditflow> queryWrapper = new QueryWrapper<>();
             queryWrapper.eq("auditflow_Id", auditflowId);
             final var i2 = auditflowMapper.rejectApprovalState2(queryWrapper);
-            return i2;
+            // 修改完审批主表状态，再根据审批类型去完成对应的操作
+            if (i2 == 1) {
+                // 如果等于转正，则根据审批申请人去修改员工表的员工状态
+                if ("转正".equals(auditflowType)){
+                    QueryWrapper<Staff>queryWrapper2 = new QueryWrapper<>();
+                    queryWrapper2.eq("STAFF_NAME",staffName1);
+                    final var i1 = auditflowdetailMapper.updateStaffState(queryWrapper2);
+                    // 如果修改成功，则将转正表中的状态修改为同意,根据审批主表编号及审批申请人名称
+                    if (i1==1){
+                        QueryWrapper<Worker>queryWrapper3=new QueryWrapper<>();
+                        queryWrapper3.eq("STAFF_NAME",staffName1);
+                        queryWrapper3.eq("AUDITFLOW_ID",auditflowId);
+                        final var i3 = auditflowdetailMapper.updateWorker(queryWrapper3);
+                        return i3;
+                    }else {
+                        return 999;
+                    }
+                }else {
+                    return 999;
+                }
+            }else {
+                return 999;
+            }
         } else {
             return 999;
         }
@@ -208,7 +233,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             } else {
                 return 999;
             }
-        }else {
+        } else {
             return 999;
         }
     }
