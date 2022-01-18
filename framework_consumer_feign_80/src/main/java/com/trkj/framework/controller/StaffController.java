@@ -241,4 +241,24 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.selectTransferAlls(transfer));
     }
 
+    /**
+     * 添加调动记录
+     * @param transfer
+     * @return
+     */
+    @PostMapping("/insertTransfer")
+    public AjaxResponse insertTransfer(@RequestBody Transfer transfer){
+        return AjaxResponse.success(hireClientService.insertTransfer(transfer));
+    }
+
+    /**
+     * 修改调动后的部门
+     * @param dept
+     * @return
+     */
+    @PutMapping("/updateDeptName")
+    public AjaxResponse updateDeptName(@RequestBody Dept dept){
+        return AjaxResponse.success(hireClientService.updateDeptName(dept));
+    }
+
 }

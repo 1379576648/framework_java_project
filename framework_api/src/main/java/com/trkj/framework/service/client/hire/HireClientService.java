@@ -318,5 +318,21 @@ public interface HireClientService {
     @PostMapping("/selectTransferAlls")
     Object selectTransferAlls(@RequestBody Transfer transfer);
 
+    /**
+     * 添加调动记录
+     * @param transfer
+     * @return
+     */
+    @PostMapping("/insertTransfer")
+    Object insertTransfer(@RequestBody Transfer transfer);
+
+    /**
+     * 修改调动后的部门
+     * @param dept
+     * @return
+     */
+    @PutMapping("/updateDeptName")
+    Object updateDeptName(@RequestBody Dept dept);
+
 }
 

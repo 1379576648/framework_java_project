@@ -12,8 +12,10 @@ import com.trkj.framework.mybatisplus.service.TransferService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trkj.framework.vo.TransferTwoVo;
 import com.trkj.framework.vo.TransferVo;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.ws.Action;
 import java.util.List;
@@ -96,6 +98,17 @@ public class TransferServiceImpl implements TransferService {
         QueryWrapper<Transfer> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("STAFF_NAME",transfer.getStaffName());
         return transferMapper.selectTransferAlls(queryWrapper);
+    }
+
+    /**
+     * 添加调动记录
+     * @param transfer
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int insertTransfer(Transfer transfer) {
+        return transferMapper.insert(transfer);
     }
 
 }
