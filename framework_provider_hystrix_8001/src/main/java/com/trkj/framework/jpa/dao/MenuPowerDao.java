@@ -16,6 +16,6 @@ public interface MenuPowerDao extends CrudRepository<MenuPowerEntity,Integer> {
      * @param id
      * @return
      */
-    @Query("select  e from MenuPowerEntity  e where e.menuPowerId=?1 and e.isDeleted=0 and e.menuPowerState=0")
+    @Query("select  e from MenuPowerEntity  e where e.menuPowerId=?1  and e.menuPowerState=0")
     public MenuPowerEntity selectMenuPower(Integer id);
 }
