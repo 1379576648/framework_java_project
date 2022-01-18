@@ -11,7 +11,7 @@ import java.util.List;
 @Mapper
 public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
 
-    @Select("select AUDITFLOWDETAIL_ID from auditflowdetail ${ew.customSqlSegment}")
+    @Select("select AUDITFLOWDETAIL_ID from auditflowdetail ${ew.customSqlSegment} ORDER BY AUDITFLOWDETAIL_ID")
     List<Auditflowdetail> selectListAuditflow(@Param(Constants.WRAPPER) QueryWrapper<Auditflowdetail> queryWrapper);
 
     @Update("update AUDITFLOWDETAIL set AUDITFLOWDETAI_STATE=1 ${ew.customSqlSegment}")
