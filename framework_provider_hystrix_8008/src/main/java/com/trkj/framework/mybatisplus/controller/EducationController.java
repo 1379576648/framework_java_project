@@ -1,8 +1,10 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.Glory;
-import com.trkj.framework.mybatisplus.service.GloryService;
+import com.trkj.framework.entity.mybatisplus.Education;
+import com.trkj.framework.entity.mybatisplus.Punish;
+import com.trkj.framework.mybatisplus.service.EducationService;
+import com.trkj.framework.mybatisplus.service.PunishService;
 import com.trkj.framework.vo.WorkVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,29 +16,29 @@ import java.util.Map;
 
 /**
  * <p>
- * 奖励表 前端控制器
+ * 受教育经历表 前端控制器
  * </p>
  *
  * @author suki
  * @since 2022-01-08
  */
 @RestController
-public class GloryController {
+public class EducationController {
 
     @Autowired
-    private GloryService gloryService;
+    private EducationService educationService;
 
     /**
-     * 根据奖励id查询奖励
+     * 根据教育经历id查询教育经历
      * @param workVo
      * @return
      */
-    @PostMapping("/selectGloryOne")
+    @PostMapping("/selectEducationOne")
     @HystrixCommand(fallbackMethod = "HystixGet")
-    public Object selectGloryOne(@RequestBody WorkVo workVo){
+    public Object selectEducationOne(@RequestBody WorkVo workVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", gloryService.selectGloryOne(workVo));
+        map1.put("info", educationService.selectEducationOne(workVo));
         System.out.println(workVo);
         return map1;
     }
@@ -50,18 +52,18 @@ public class GloryController {
     }
 
     /**
-     * 添加奖励
-     * @param glory
+     * 添加教育经历
+     * @param education
      * @return
      */
-    @PostMapping("/insertGlory")
+    @PostMapping("/insertEducation")
     @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object insertGlory(@RequestBody Glory glory){
-        return gloryService.insertGlory(glory);
+    public Object insertEducation(@RequestBody Education education){
+        return educationService.insertEducation(education);
     }
 
     //备选方案
-    public Object HystixGet2(@RequestBody Glory glory){
+    public Object HystixGet2(@RequestBody Education education){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -69,21 +71,21 @@ public class GloryController {
     }
 
     /**
-     * 修改奖励
-     * @param gloryId
+     * 修改教育经历
+     * @param educationId
      * @return
      */
-    @PutMapping("/updateGlory")
-    public Object updateGlory(@RequestBody Glory gloryId){
-        //奖励名称
-        gloryId.setGloryName(gloryId.getGloryName());
-        //颁发单位
-        gloryId.setGloryUnitname(gloryId.getGloryUnitname());
-        //奖励日期
-        gloryId.setCreatedTime(gloryId.getCreatedTime());
-        //备注
-        gloryId.setGloryRemark(gloryId.getGloryRemark());
-        final var i = gloryService.updateGlory(gloryId);
+    @PutMapping("/updateEducation")
+    public Object updateEducation(@RequestBody Education educationId){
+        //开始时间
+        educationId.setEducationStartTime(educationId.getEducationStartTime());
+        //结束时间
+        educationId.setEducationEndTime(educationId.getEducationEndTime());
+        //学校名称
+        educationId.setEducationStudentname(educationId.getEducationStudentname());
+        //所属专业
+        educationId.setEducationMajor(educationId.getEducationMajor());
+        final var i = educationService.updateEducation(educationId);
         if (i==999){
             return 666;
         }else {
@@ -93,18 +95,18 @@ public class GloryController {
     }
 
     /**
-     * 删除奖励
+     * 删除教育经历
      * @param list
      * @return
      */
-    @DeleteMapping("/deleteGlory")
+    @DeleteMapping("/deleteEducation")
     @HystrixCommand(fallbackMethod = "HystixGet3")
-    public Object deleteGlory(@RequestBody ArrayList<Integer> list){
+    public Object deleteEducation(@RequestBody ArrayList<Integer> list){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
         //返回结果
-        map1.put("info",gloryService.deleteGlory(list));
+        map1.put("info",educationService.deleteEducation(list));
         return map1;
     }
 

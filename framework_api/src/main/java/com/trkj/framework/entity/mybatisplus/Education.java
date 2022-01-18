@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -32,10 +34,12 @@ public class Education implements Serializable {
     @TableId("EDUCATION_ID")
     private Integer educationId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("EDUCATION_START_TIME")
     private Date educationStartTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("EDUCATION_END_TIME")
     private Date educationEndTime;
@@ -56,17 +60,22 @@ public class Education implements Serializable {
     @TableField("EDUCATION_FULL_TIME")
     private Long educationFullTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @ApiModelProperty(value = "创建时间")
     @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
     private Date createdTime;
 
+    @ApiModelProperty(value = "修改时间")
     @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
+    @ApiModelProperty(value = "乐观锁")
     @TableField("REVISION")
     private Long revision;
 
-    @TableField("IS_DELETED")
+    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")
     @TableLogic
+    @TableField("IS_DELETED")
     private Long isDeleted;
 
 

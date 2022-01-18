@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trkj.framework.entity.mybatisplus.MenuPower;
+import io.swagger.models.auth.In;
 
 /**
  * <p>
@@ -45,4 +46,28 @@ public interface MenuPowerService  {
      * @return
      */
     Object menuPowerInPid(Integer integer);
+
+
+    /***
+     * 通过实体类修改菜单数据
+     * @param menuPower
+     * @return
+     */
+    String menuPowerUpdate(MenuPower menuPower);
+
+
+    /***
+     * 通过菜单编号进行删除菜单数据
+     * @param integer
+     * @return
+     */
+    String menuPowerDelete(Integer integer);
+
+
+    /***
+     * 通过实体类进行添加
+     * @param menuPower
+     * @return
+     */
+    String menuPowerAdd(MenuPower menuPower);
 }

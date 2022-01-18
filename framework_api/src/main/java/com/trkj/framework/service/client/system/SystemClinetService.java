@@ -228,4 +228,30 @@ public interface SystemClinetService {
      */
     @GetMapping("/menuPowerInPid/{id}")
     public  Object menuPowerInPid(@PathVariable("id") Integer  integer);
+
+
+    /***
+     * 通过实体类修改菜单数据
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerUpdate")
+    public Object menuPowerUpdate(@RequestBody MenuPower menuPower);
+
+    /***
+     * 通过菜单编号进行删除数据
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/menuPowerDelete/{id}")
+    public Object menuPowerDelete(@PathVariable("id") Integer id);
+
+
+    /***
+     * 通过实体类数据新增菜单
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerAdd")
+    public Object menuPowerAdd(@RequestBody MenuPower menuPower);
 }

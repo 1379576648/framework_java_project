@@ -299,9 +299,5 @@ public class EmploymentTableController {
         map1.put("info","服务发生雪崩");
         return map1;
     }
-    @GetMapping("/two")
-    public Object two(){
-        return "two";
-    }
 }
 
