@@ -469,4 +469,28 @@ public interface AuditflowService {
      */
     @PostMapping("/submitToTravel2")
     Object submitToTravel2(TravelVo travelVo);
+
+    /**
+     * 根据员工名称是否有出差记录
+     * @param leave
+     * @return
+     */
+    @PostMapping("/selectLeaveExamine")
+    Object selectLeaveExamine(Leave leave);
+
+    /**
+     * 添加补打卡 3个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave3")
+    Object submitToAskForLeave3(LeaveVo leaveVo);
+
+    /**
+     * 添加补打卡 2个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave2")
+    Object submitToAskForLeave2(LeaveVo leaveVo);
 }

@@ -86,4 +86,16 @@ public class TransferServiceImpl implements TransferService {
         return transferMapper.selectTransferByName(queryWrapper);
     }
 
+    /**
+     * 根据员工姓名查询调动记录
+     * @param transfer
+     * @return
+     */
+    @Override
+    public List<Transfer> selectTransferAlls(Transfer transfer) {
+        QueryWrapper<Transfer> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_NAME",transfer.getStaffName());
+        return transferMapper.selectTransferAlls(queryWrapper);
+    }
+
 }

@@ -1,10 +1,10 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Card;
+import com.trkj.framework.entity.mybatisplus.Leave;
 import com.trkj.framework.mybatisplus.service.LeaveService;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.LeaveDetailsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -46,8 +46,6 @@ public class LeaveController {
         map1.put("info", "服务发生雪崩");
         return map1;
     }
-
-
 
     /**
      * 根据审批类型的请假/审批人查询已处理的审批
@@ -93,4 +91,35 @@ public class LeaveController {
         map1.put("info", "服务发生雪崩");
         return map1;
     }
+
+    /**
+     * 根据员工名称及请假类型是否有请假记录
+     * @param
+     * @return
+     */
+    @PostMapping("/selectLeaveExamine")
+    public Integer selectLeaveExamine(@RequestBody Leave leave){
+        return leaveService.selectLeaveExamine(leave);
+    }
+
+    /**
+     * 添加请假 添加三个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave3")
+    public int submitToAskForLeave3(@RequestBody LeaveVo leaveVo){
+        return  leaveService.submitToAskForLeave3(leaveVo);
+    }
+
+    /**
+     * 添加请假 添加两个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave2")
+    public int submitToAskForLeave2(@RequestBody LeaveVo leaveVo){
+        return  leaveService.submitToAskForLeave2(leaveVo);
+    }
+
 }

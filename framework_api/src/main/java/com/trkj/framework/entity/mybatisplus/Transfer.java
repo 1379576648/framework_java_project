@@ -65,6 +65,7 @@ public class Transfer implements Serializable {
     @TableField("TRANSFER_AFTERPOST_NAME")
     private String transferAfterpostName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "生效日期")
     @TableField("TAKE_EFFECT_DATE")
     private Date takeEffectDate;

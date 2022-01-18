@@ -53,11 +53,11 @@ public interface TransferService {
      */
     List<TransferTwoVo> selectTransferByName(TransferTwoVo transferTwoVo);
 
-//    /**
-//     * 添加调动记录
-//     * @param transfer
-//     * @return
-//     */
-//    int insertTransfer(Transfer transfer);
+    /**
+     * 根据员工姓名查询调动记录
+     * @param transfer
+     * @return
+     */
+    List<Transfer> selectTransferAlls(Transfer transfer);
 
 }
