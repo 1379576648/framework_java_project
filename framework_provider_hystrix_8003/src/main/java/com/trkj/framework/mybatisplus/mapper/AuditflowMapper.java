@@ -23,6 +23,9 @@ public interface AuditflowMapper extends BaseMapper<Auditflow> {
     @Update("update Auditflow set AUDITFLOW_STATE=2 ${ew.customSqlSegment}")
     int rejectApprovalState(@Param(Constants.WRAPPER) QueryWrapper<Auditflow> queryWrapper2);
 
+    @Update("update Auditflow set AUDITFLOW_STATE=1 ${ew.customSqlSegment}")
+    int rejectApprovalState2(@Param(Constants.WRAPPER) QueryWrapper<Auditflow> queryWrapper2);
+
     @Select("select AUDITFLOW_ID from AUDITFLOW ${ew.customSqlSegment}" )
     int selectID(QueryWrapper<Object> staff_name);
 }
