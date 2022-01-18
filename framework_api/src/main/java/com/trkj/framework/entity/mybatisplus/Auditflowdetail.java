@@ -84,4 +84,12 @@ public class Auditflowdetail implements Serializable {
     @TableField(exist = false)
     private Long auditflowdetailId3;
 
+    @ApiModelProperty(value = "审批类型")
+    @TableField(exist = false)
+    private String auditflowType;
+
+    @ApiModelProperty(value = "申请人")
+    @TableField(exist = false)
+    private String staffName1;
+
 }
