@@ -509,6 +509,45 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 添加调动记录
+             * @param transfer
+             * @return
+             */
+            @Override
+            public Object insertTransfer(Transfer transfer) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改调动后的部门
+             * @param dept
+             * @return
+             */
+            @Override
+            public Object updateDeptName(Dept dept) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改调动后的职位
+             * @param deptPost
+             * @return
+             */
+            @Override
+            public Object updateDeptPostName(DeptPost deptPost) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }

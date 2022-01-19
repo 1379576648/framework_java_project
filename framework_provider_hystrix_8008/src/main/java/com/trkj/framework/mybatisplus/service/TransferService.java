@@ -60,4 +60,13 @@ public interface TransferService {
      */
     List<Transfer> selectTransferAlls(Transfer transfer);
 
+    /**
+     * 添加调动记录
+     * @param transfer
+     * @return
+     */
+    int insertTransfer(Transfer transfer);
+
+
+
 }
