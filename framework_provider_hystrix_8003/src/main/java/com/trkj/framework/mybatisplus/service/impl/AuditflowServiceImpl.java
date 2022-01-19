@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.*;
-import com.trkj.framework.mybatisplus.mapper.AuditflowMapper;
-import com.trkj.framework.mybatisplus.mapper.AuditflowdetailMapper;
-import com.trkj.framework.mybatisplus.mapper.AuditflowoneMapper;
-import com.trkj.framework.mybatisplus.mapper.OvertimeaskMapper;
+import com.trkj.framework.mybatisplus.mapper.*;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
@@ -41,6 +38,8 @@ public class AuditflowServiceImpl implements AuditflowService {
     private AuditflowoneMapper auditflowoneMapper;
     @Autowired
     private OvertimeaskMapper ovimeaskMapper;
+    @Autowired
+    private StaffMapper staffMapper;
 
 
     /**
@@ -125,6 +124,10 @@ public class AuditflowServiceImpl implements AuditflowService {
         final var auditflowId = auditflowdetail.getAuditflowId();
         // 获取审批申请人
         final var staffName1 = auditflowdetail.getStaffName1();
+        // 根据申请人名称去获取其员工信息
+        QueryWrapper<Staff> queryWrapper6 = new QueryWrapper<>();
+        queryWrapper6.eq("STAFF_NAME", staffName1);
+        final var satffNO = auditflowdetailMapper.selectStaffID(queryWrapper6);
         // 如果下一个审批人不为空
         if (auditflowdetailId2 != null) {
             final var i = auditflowdetailMapper.updateById(auditflowdetail);
@@ -141,24 +144,70 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 修改完审批主表状态，再根据审批类型去完成对应的操作
             if (i2 == 1) {
                 // 如果等于转正，则根据审批申请人去修改员工表的员工状态
-                if ("转正".equals(auditflowType)){
-                    QueryWrapper<Staff>queryWrapper2 = new QueryWrapper<>();
-                    queryWrapper2.eq("STAFF_NAME",staffName1);
+                if ("转正".equals(auditflowType)) {
+                    QueryWrapper<Staff> queryWrapper2 = new QueryWrapper<>();
+                    queryWrapper2.eq("STAFF_NAME", staffName1);
                     final var i1 = auditflowdetailMapper.updateStaffState(queryWrapper2);
                     // 如果修改成功，则将转正表中的状态修改为同意,根据审批主表编号及审批申请人名称
-                    if (i1==1){
-                        QueryWrapper<Worker>queryWrapper3=new QueryWrapper<>();
-                        queryWrapper3.eq("STAFF_NAME",staffName1);
-                        queryWrapper3.eq("AUDITFLOW_ID",auditflowId);
+                    if (i1 == 1) {
+                        QueryWrapper<Worker> queryWrapper3 = new QueryWrapper<>();
+                        queryWrapper3.eq("STAFF_NAME", staffName1);
+                        queryWrapper3.eq("AUDITFLOW_ID", auditflowId);
                         final var i3 = auditflowdetailMapper.updateWorker(queryWrapper3);
                         return i3;
-                    }else {
+                    } else {
                         return 999;
                     }
-                }else {
+                    // 如果等于调岗,则先根据审批主表编号去查询调动表中的记录（调岗后部门名称）
+                } else if ("调动".equals(auditflowType)) {
+                    QueryWrapper<Transfer> queryWrapper4 = new QueryWrapper<>();
+                    queryWrapper4.eq("AUDITFLOW_ID", auditflowId);
+                    final var updatedDeptName = auditflowdetailMapper.selectTransfer(queryWrapper4);
+                    // 如果不等于空,则根据它去部门表中拿编号
+                    if (updatedDeptName != null) {
+                        QueryWrapper<Dept> queryWrapper5 = new QueryWrapper<>();
+                        queryWrapper5.eq("DEPT_NAME", updatedDeptName.get(0).getUpdatedDeptName());
+                        final var deptID = auditflowdetailMapper.selectDeptID(queryWrapper5);
+                        // 如果不等于空，则拿编号调岗后部门编号及员工编号去修改员工表的部门编号
+                        if (deptID != null) {
+                            Staff staff = new Staff();
+                            staff.setStaffId(satffNO.get(0).getStaffId());
+                            staff.setDeptId(deptID);
+                            final var i1 = staffMapper.updateById(staff);
+                            // 如果成功，则根据部门编号及部门职位编号查询部门职位名称
+                            if (i1 == 1) {
+                                QueryWrapper<DeptPost>queryWrapper7 = new QueryWrapper<>();
+                                queryWrapper7.eq("a.DEPT_ID",satffNO.get(0).getDeptId());
+                                queryWrapper7.eq("a.DEPT_POST_ID",satffNO.get(0).getDeptPostId());
+                                final var deptPosts = auditflowdetailMapper.selectPostName(queryWrapper7);
+                                // 如果成功，在这里拿到员工调岗前原部门职位名称，则根据原部门职位名称去及变动后部门编号查询变动后部门职位编号
+                                QueryWrapper<DeptPost>queryWrapper8 = new QueryWrapper<>();
+                                queryWrapper8.eq("a.DEPT_ID",deptID);
+                                queryWrapper8.eq("a.POST_NAME",deptPosts.get(0).getPostName());
+                                final var postID = auditflowdetailMapper.selectPostID(queryWrapper8);
+                                // 拿这个部门职位编号去修改员工的原部门职位编号
+                                Staff staff1 = new Staff();
+                                staff1.setStaffId(satffNO.get(0).getStaffId());
+                                staff1.setDeptPostId(postID);
+                                final var i3 = staffMapper.updateById(staff1);
+                                if (i3 == 1){
+                                    return 1;
+                                }else {
+                                    return 999;
+                                }
+                            }else {
+                                return 999;
+                            }
+                        } else {
+                            return 999;
+                        }
+                    } else {
+                        return 999;
+                    }
+                } else {
                     return 999;
                 }
-            }else {
+            } else {
                 return 999;
             }
         } else {
