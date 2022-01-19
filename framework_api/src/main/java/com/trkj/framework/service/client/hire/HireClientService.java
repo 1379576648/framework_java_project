@@ -334,5 +334,13 @@ public interface HireClientService {
     @PutMapping("/updateDeptName")
     Object updateDeptName(@RequestBody Dept dept);
 
+    /**
+     * 修改调动后的职位
+     * @param deptPost
+     * @return
+     */
+    @PutMapping("/updateDeptPostName")
+    Object updateDeptPostName(@RequestBody DeptPost deptPost);
+
 }
 

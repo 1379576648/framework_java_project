@@ -261,4 +261,14 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.updateDeptName(dept));
     }
 
+    /**
+     * 修改调动后的职位
+     * @param deptPost
+     * @return
+     */
+    @PutMapping("/updateDeptPostName")
+    public AjaxResponse updateDeptPostName(@RequestBody DeptPost deptPost){
+        return AjaxResponse.success(hireClientService.updateDeptPostName(deptPost));
+    }
+
 }
