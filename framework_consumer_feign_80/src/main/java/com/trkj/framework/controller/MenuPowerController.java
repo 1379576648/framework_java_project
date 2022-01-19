@@ -4,9 +4,11 @@ package com.trkj.framework.controller;
 import com.trkj.framework.entity.mybatisplus.MenuPower;
 import com.trkj.framework.service.client.system.SystemClinetService;
 import com.trkj.framework.vo.AjaxResponse;
+import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import java.util.HashMap;
@@ -72,6 +74,36 @@ public class MenuPowerController {
     @GetMapping("/menuPowerInPid/{id}")
     public  AjaxResponse menuPowerInPid(@PathVariable("id") Integer integer){
         return AjaxResponse.success(systemClinetService.menuPowerInPid(integer));
+    }
+
+    /***
+     * 通过实体类修改菜单数据
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerUpdate")
+    public AjaxResponse menuPowerUpdate(@RequestBody MenuPower menuPower){
+        return AjaxResponse.success(systemClinetService.menuPowerUpdate(menuPower));
+    }
+
+    /***
+     * 通过编号删除菜单数据
+     * @param integer
+     * @return
+     */
+    @DeleteMapping("/menuPowerDelete/{id}")
+    public AjaxResponse menuPowerDelete(@PathVariable("id") Integer integer){
+        return AjaxResponse.success(systemClinetService.menuPowerDelete(integer));
+    }
+
+    /**
+     * 通过实体类的数据添加菜单
+     * @param menuPower
+     * @return
+     */
+    @PostMapping("/menuPowerAdd")
+    public AjaxResponse menuPowerAdd(@RequestBody MenuPower menuPower){
+        return AjaxResponse.success(systemClinetService.menuPowerAdd(menuPower));
     }
 }
 

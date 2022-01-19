@@ -117,13 +117,50 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateApprovalState(Auditflowdetail auditflowdetail) {
-        final var i = auditflowdetailMapper.updateById(auditflowdetail);
-        if (i >= 1) {
-            final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
+        // 获取下一个审批人
+        final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
+        // 获取审批类型
+        final var auditflowType = auditflowdetail.getAuditflowType();
+        // 获取审批主表编号
+        final var auditflowId = auditflowdetail.getAuditflowId();
+        // 获取审批申请人
+        final var staffName1 = auditflowdetail.getStaffName1();
+        // 如果下一个审批人不为空
+        if (auditflowdetailId2 != null) {
+            final var i = auditflowdetailMapper.updateById(auditflowdetail);
             QueryWrapper<Auditflowdetail> queryWrapper1 = new QueryWrapper<>();
             queryWrapper1.eq("auditflowdetail_Id", auditflowdetailId2);
             final var i1 = auditflowdetailMapper.updateApprovalState(queryWrapper1);
             return i1;
+            // 如果为空，则代表是最后一个审批人
+        } else if (auditflowdetailId2 == null) {
+            final var i = auditflowdetailMapper.updateById(auditflowdetail);
+            QueryWrapper<Auditflow> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("auditflow_Id", auditflowId);
+            final var i2 = auditflowMapper.rejectApprovalState2(queryWrapper);
+            // 修改完审批主表状态，再根据审批类型去完成对应的操作
+            if (i2 == 1) {
+                // 如果等于转正，则根据审批申请人去修改员工表的员工状态
+                if ("转正".equals(auditflowType)){
+                    QueryWrapper<Staff>queryWrapper2 = new QueryWrapper<>();
+                    queryWrapper2.eq("STAFF_NAME",staffName1);
+                    final var i1 = auditflowdetailMapper.updateStaffState(queryWrapper2);
+                    // 如果修改成功，则将转正表中的状态修改为同意,根据审批主表编号及审批申请人名称
+                    if (i1==1){
+                        QueryWrapper<Worker>queryWrapper3=new QueryWrapper<>();
+                        queryWrapper3.eq("STAFF_NAME",staffName1);
+                        queryWrapper3.eq("AUDITFLOW_ID",auditflowId);
+                        final var i3 = auditflowdetailMapper.updateWorker(queryWrapper3);
+                        return i3;
+                    }else {
+                        return 999;
+                    }
+                }else {
+                    return 999;
+                }
+            }else {
+                return 999;
+            }
         } else {
             return 999;
         }
@@ -170,7 +207,14 @@ public class AuditflowServiceImpl implements AuditflowService {
             } else {
                 return 999;
             }
-            // 如果第二个审批人为空 或者 第三个审批人为空
+            // 如果第二个审批人和第三个审批人都为空
+        } else if (auditflowdetailId2 == null && auditflowdetailId3 == null) {
+            // 驳回第一个审批明细记录
+            final var i = auditflowdetailMapper.updateById(auditflowdetail);
+            QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
+            queryWrapper2.eq("auditflow_Id", auditflowId);
+            final var i1 = auditflowMapper.rejectApprovalState(queryWrapper2);
+            return i1;
         } else if (auditflowdetailId2 == null || auditflowdetailId3 == null) {
             // 驳回第一个审批明细记录
             final var i = auditflowdetailMapper.updateById(auditflowdetail);
@@ -189,8 +233,9 @@ public class AuditflowServiceImpl implements AuditflowService {
             } else {
                 return 999;
             }
+        } else {
+            return 999;
         }
-            return 666;
     }
 
     /**
@@ -211,20 +256,21 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Override
     public Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo) {
         QueryWrapper<OvertimeaskVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("c.STAFF_NAME",overtimeaskVo.getStaffName());
-        queryWrapper.eq("a.IS_DELETED",0);
-        queryWrapper.eq("b.IS_DELETED",0);
-        queryWrapper.eq("c.IS_DELETED",0);
+        queryWrapper.eq("c.STAFF_NAME", overtimeaskVo.getStaffName());
+        queryWrapper.eq("a.IS_DELETED", 0);
+        queryWrapper.eq("b.IS_DELETED", 0);
+        queryWrapper.eq("c.IS_DELETED", 0);
         final var i = ovimeaskMapper.selectOvertimeExamine(queryWrapper);
-        if (i == null){
+        if (i == null) {
             return 5;
-        }else {
+        } else {
             return i;
         }
     }
 
     /**
      * 添加加班 添加三个审批人
+     *
      * @param overtimeaskVo
      * @return
      */
@@ -241,14 +287,14 @@ public class AuditflowServiceImpl implements AuditflowService {
         auditflow.setStaffName(overtimeaskVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", overtimeaskVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",overtimeaskVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", overtimeaskVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
             auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表1-审批人
@@ -258,7 +304,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
             auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表2-审批人
@@ -266,15 +312,15 @@ public class AuditflowServiceImpl implements AuditflowService {
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 添加审批明细表3
-            Auditflowdetail auditflowdetail3=new Auditflowdetail();
+            Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
             auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(overtimeaskVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
             // 如果三个审批明细表添加成功，则添加加班表
-            if (i1==1 && i2== 1 && i3==1) {
-                Overtimeask overtimeask=new Overtimeask();
+            if (i1 == 1 && i2 == 1 && i3 == 1) {
+                Overtimeask overtimeask = new Overtimeask();
                 // 加班表-审批编号
                 overtimeask.setAuditflowId(auditflow1.getAuditflowId());
                 // 加班表-员工名称
@@ -292,21 +338,22 @@ public class AuditflowServiceImpl implements AuditflowService {
                 // 加班表-加班总时长
                 overtimeask.setOvertimeaskTotalDate(overtimeask.getOvertimeaskTotalDate());
                 final val i4 = ovimeaskMapper.insert(overtimeask);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
     }
 
     /**
      * 添加加班 添加两个审批人
+     *
      * @param overtimeaskVo
      * @return
      */
@@ -323,14 +370,14 @@ public class AuditflowServiceImpl implements AuditflowService {
         auditflow.setStaffName(overtimeaskVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", overtimeaskVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",overtimeaskVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", overtimeaskVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
             auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表1-审批人
@@ -340,7 +387,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
             auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表2-审批人
@@ -348,8 +395,8 @@ public class AuditflowServiceImpl implements AuditflowService {
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 如果三个审批明细表添加成功，则添加加班表
-            if (i1==1 && i2== 1) {
-                Overtimeask overtimeask=new Overtimeask();
+            if (i1 == 1 && i2 == 1) {
+                Overtimeask overtimeask = new Overtimeask();
                 // 加班表-审批编号
                 overtimeask.setAuditflowId(auditflow1.getAuditflowId());
                 // 加班表-员工名称
@@ -367,15 +414,15 @@ public class AuditflowServiceImpl implements AuditflowService {
                 // 加班表-加班总时长
                 overtimeask.setOvertimeaskTotalDate(overtimeask.getOvertimeaskTotalDate());
                 final val i4 = ovimeaskMapper.insert(overtimeask);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
     }

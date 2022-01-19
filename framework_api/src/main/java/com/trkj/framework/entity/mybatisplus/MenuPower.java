@@ -96,10 +96,6 @@ public class MenuPower implements Serializable {
     @TableField("REVISION")
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除")
-    @TableLogic
-    @TableField("IS_DELETED")
-    private Long isDeleted;
 
     @ApiModelProperty(value = "子菜单")
     @TableField(exist = false)
@@ -113,6 +109,4 @@ public class MenuPower implements Serializable {
     @ApiModelProperty(value = "结束时间")
     @TableField(exist = false)
     private Date endTime;
-
-
 }

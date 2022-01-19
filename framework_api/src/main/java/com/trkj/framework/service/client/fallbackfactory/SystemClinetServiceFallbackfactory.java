@@ -254,6 +254,33 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
                 throwable.printStackTrace();
                 return AjaxResponse.success(objectMap);
             }
+
+            @Override
+            public Object menuPowerUpdate(MenuPower menuPower) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                throwable.printStackTrace();
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object menuPowerDelete(Integer id) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                throwable.printStackTrace();
+                return AjaxResponse.success(objectMap);
+            }
+
+            @Override
+            public Object menuPowerAdd(MenuPower menuPower) {
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                throwable.printStackTrace();
+                return AjaxResponse.success(objectMap);
+            }
         };
     }
 }

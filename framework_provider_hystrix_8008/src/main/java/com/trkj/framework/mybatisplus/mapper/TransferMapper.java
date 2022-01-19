@@ -63,6 +63,14 @@ public interface TransferMapper extends BaseMapper<Transfer> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT d.DEPT_NAME,p.POST_NAME FROM DEPT d LEFT JOIN DEPT_POST p on p.DEPT_ID=d.DEPT_ID LEFT JOIN STAFF s on s.DEPT_ID=d.DEPT_ID ${ew.customSqlSegment}")
+    @Select("SELECT d.DEPT_ID,d.DEPT_NAME,p.DEPT_POST_ID,p.POST_NAME FROM DEPT d LEFT JOIN DEPT_POST p on p.DEPT_ID=d.DEPT_ID LEFT JOIN STAFF s on s.DEPT_ID=d.DEPT_ID ${ew.customSqlSegment}")
     List<TransferTwoVo> selectTransferByName(@Param(Constants.WRAPPER) QueryWrapper<TransferTwoVo> queryWrapper);
+
+    /**
+     * 根据员工姓名查询调动记录
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT * FROM TRANSFER ${ew.customSqlSegment}")
+    List<Transfer> selectTransferAlls(@Param(Constants.WRAPPER) QueryWrapper<Transfer> queryWrapper);
 }
