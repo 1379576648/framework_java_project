@@ -1,9 +1,12 @@
 package com.trkj.framework.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Glory;
 import com.trkj.framework.mybatisplus.mapper.GloryMapper;
 import com.trkj.framework.mybatisplus.service.GloryService;
+import com.trkj.framework.vo.PunishGloryVo;
 import com.trkj.framework.vo.WorkVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -85,5 +88,25 @@ public class GloryServiceImpl implements GloryService {
             }
         }
         return s;
+    }
+
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    @Override
+    public IPage<PunishGloryVo> selectPunishGlory(PunishGloryVo punishGloryVo) {
+        Page<PunishGloryVo> page = new Page<>(punishGloryVo.getCurrentPage(),punishGloryVo.getPagesize());
+        QueryWrapper<PunishGloryVo> queryWrapper = new QueryWrapper<>();
+        //根据奖励名称查询
+        if(punishGloryVo.getGloryName()!=null){
+            queryWrapper.like("g.GLORY_NAME",punishGloryVo.getGloryName());
+        }
+        //根据惩罚类型
+        if(punishGloryVo.getPunishType()!=null){
+            queryWrapper.like("p.PUNISH_TYPE",punishGloryVo.getPunishType());
+        }
+        return gloryMapper.selectPunishGlory(page,queryWrapper);
     }
 }

@@ -342,5 +342,13 @@ public interface HireClientService {
     @PutMapping("/updateDeptPostName")
     Object updateDeptPostName(@RequestBody DeptPost deptPost);
 
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    @PostMapping("/selectPunishGlory")
+    Object selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo);
+
 }
 

@@ -1,34 +1,47 @@
-package com.trkj.framework.entity.mybatisplus;
+package com.trkj.framework.vo;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.FieldFill;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import io.swagger.annotations.ApiModelProperty;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.io.Serializable;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.experimental.Accessors;
-
-/**
- * <p>
- * 荣誉/奖励表
- * </p>
- *
- * @author 劉祁
- * @since 2021-12-22
- */
 @Data
-@EqualsAndHashCode(callSuper = false)
-@Accessors(chain = true)
-@TableName("GLORY")
-@ApiModel(value="Glory对象", description="荣誉/奖励表")
-@KeySequence(value = "GLORY_ID",clazz = Integer.class)
-public class Glory implements Serializable {
+@NoArgsConstructor
+@AllArgsConstructor
+public class PunishGloryVo {
+    @ApiModelProperty(value = "惩罚编号")
+    @TableId("PUNISH_ID")
+    private Integer punishId;
 
-    private static final long serialVersionUID = 1L;
+    @ApiModelProperty(value = "惩罚类型")
+    @TableField("PUNISH_TYPE")
+    private String punishType;
+
+    @ApiModelProperty(value = "被惩罚人编号")
+    @TableField("STAFF_ID")
+    private Long staffId;
+
+    @ApiModelProperty(value = "惩罚原因")
+    @TableField("PUNISH_CAUSE")
+    private String punishCause;
+
+    @ApiModelProperty(value = "惩罚单位")
+    @TableField("PUNISH_UNIT")
+    private String punishUnit;
+
+    @ApiModelProperty(value = "是否撤销")
+    @TableField("IS_REVOCATION")
+    private Long isRevocation;
+
+    @ApiModelProperty(value = "备注")
+    @TableField("PUNISH_REMARK")
+    private String punishRemark;
 
     @ApiModelProperty(value = "荣誉/奖励编号")
     @TableId("GLORY_ID")
@@ -37,9 +50,6 @@ public class Glory implements Serializable {
     @ApiModelProperty(value = "荣誉/奖励名称")
     @TableField("GLORY_NAME")
     private String gloryName;
-
-    @TableField("STAFF_ID")
-    private Integer staffId;
 
     @ApiModelProperty(value = "颁发单位名称")
     @TableField("GLORY_UNITNAME")
@@ -74,6 +84,4 @@ public class Glory implements Serializable {
     @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
     private Integer pagesize;
-
-
 }

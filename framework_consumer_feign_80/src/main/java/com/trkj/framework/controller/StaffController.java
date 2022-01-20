@@ -271,4 +271,14 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.updateDeptPostName(deptPost));
     }
 
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    @PostMapping("/selectPunishGlory")
+    public AjaxResponse selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo){
+        return AjaxResponse.success(hireClientService.selectPunishGlory(punishGloryVo));
+    }
+
 }
