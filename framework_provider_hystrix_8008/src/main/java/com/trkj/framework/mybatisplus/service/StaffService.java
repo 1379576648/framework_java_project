@@ -55,5 +55,11 @@ public interface StaffService {
      */
     int updateStaffTwo(Staff staff);
 
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    int updateStaffState(Staff staff);
 
 }

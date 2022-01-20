@@ -82,7 +82,7 @@ public class Staff implements Serializable {
 
     @ApiModelProperty(value = "转正编号")
     @TableField("WORKER_ID")
-    private Long workerId;
+    private Integer workerId;
 
     @ApiModelProperty(value = "身份证")
     @TableField("STAFF_IDENTITY")

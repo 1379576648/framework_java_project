@@ -548,6 +548,45 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 查询奖励和惩罚
+             * @param punishGloryVo
+             * @return
+             */
+            @Override
+            public Object selectPunishGlory(PunishGloryVo punishGloryVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 添加转正
+             * @param fullVo
+             * @return
+             */
+            @Override
+            public Object insertWorker(FullVo fullVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改员工状态为正式
+             * @param staff
+             * @return
+             */
+            @Override
+            public Object updateStaffState(Staff staff) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }

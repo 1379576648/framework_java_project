@@ -271,4 +271,34 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.updateDeptPostName(deptPost));
     }
 
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    @PostMapping("/selectPunishGlory")
+    public AjaxResponse selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo){
+        return AjaxResponse.success(hireClientService.selectPunishGlory(punishGloryVo));
+    }
+
+    /**
+     * 添加转正
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/insertWorker")
+    public AjaxResponse insertWorker(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.insertWorker(fullVo));
+    }
+
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffState")
+    public AjaxResponse updateStaffState(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateStaffState(staff));
+    }
+
 }

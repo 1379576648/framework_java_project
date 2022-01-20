@@ -111,6 +111,21 @@ public class StaffServiceImpl implements StaffService {
         }
     }
 
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateStaffState(Staff staff) {
+        final var i = staffMapper.updateById(staff);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
+    }
 
 
 }

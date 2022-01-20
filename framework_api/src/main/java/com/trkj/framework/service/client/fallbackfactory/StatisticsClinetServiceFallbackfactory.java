@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+/**
+ * @author TanWei
+ */
 @Component
 public class StatisticsClinetServiceFallbackfactory implements FallbackFactory {
 

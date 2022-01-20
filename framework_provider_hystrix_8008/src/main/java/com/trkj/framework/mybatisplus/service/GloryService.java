@@ -1,7 +1,9 @@
 package com.trkj.framework.mybatisplus.service;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Glory;
+import com.trkj.framework.vo.PunishGloryVo;
 import com.trkj.framework.vo.WorkVo;
 
 import java.util.ArrayList;
@@ -44,6 +46,13 @@ public interface GloryService {
      * @return
      */
     String deleteGlory(ArrayList<Integer> list);
+
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    IPage<PunishGloryVo> selectPunishGlory(PunishGloryVo punishGloryVo);
 
 
 }
