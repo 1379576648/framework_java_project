@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 
@@ -42,6 +43,8 @@ public class AuditflowServiceImpl implements AuditflowService {
     private StaffMapper staffMapper;
     @Autowired
     private FixedwagfMapper fixedwagfMapper;
+    @Autowired
+    private NewsMapper newsMapper;
 
 
     /**
@@ -147,6 +150,10 @@ public class AuditflowServiceImpl implements AuditflowService {
             if (i2 == 1) {
                 // 如果等于转正，则根据审批申请人去修改员工表的员工状态
                 if ("转正".equals(auditflowType)) {
+                    // 根据审批主表编号查询转正表数据
+                    QueryWrapper<Worker>worker = new QueryWrapper<>();
+                    worker.eq("AUDITFLOW_ID",auditflowId);
+                    final var workers = auditflowdetailMapper.selectWorker(worker);
                     QueryWrapper<Staff> queryWrapper2 = new QueryWrapper<>();
                     queryWrapper2.eq("STAFF_NAME", staffName1);
                     final var i1 = auditflowdetailMapper.updateStaffState(queryWrapper2);
@@ -156,19 +163,32 @@ public class AuditflowServiceImpl implements AuditflowService {
                         queryWrapper3.eq("STAFF_NAME", staffName1);
                         queryWrapper3.eq("AUDITFLOW_ID", auditflowId);
                         final var i3 = auditflowdetailMapper.updateWorker(queryWrapper3);
-                        return i3;
+                        // 如果修改成功，则添加一条消息给申请人(员工编号、标题、内容、)
+                        if(i3 == 1){
+                            News news=new News();
+                            news.setStaffId(satffNO.get(0).getStaffId());
+                            news.setNewsTitle(auditflowType + "审批已通过:");
+                            // 转日期格式
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            String CreatedTime = sdf.format(workers.get(0).getCreatedTime());
+                            news.setNewsMatter("您于" + CreatedTime + "发起的" + auditflowType +"审批,现已通过，请核实，如有纰漏，请联系管理员" );
+                            final var insert = newsMapper.insert(news);
+                            return insert;
+                        }else {
+                            return 999;
+                        }
                     } else {
                         return 999;
                     }
-                    // 如果等于调岗,则先根据审批主表编号去查询调动表中的记录（调岗后部门名称）
+                    // 如果等于调岗,则先根据审批主表编号去查询调动表中的数据
                 } else if ("调动".equals(auditflowType)) {
                     QueryWrapper<Transfer> queryWrapper4 = new QueryWrapper<>();
                     queryWrapper4.eq("AUDITFLOW_ID", auditflowId);
-                    final var updatedDeptName = auditflowdetailMapper.selectTransfer(queryWrapper4);
+                    final var transfers = auditflowdetailMapper.selectTransfer(queryWrapper4);
                     // 如果不等于空,则根据它去部门表中拿编号
-                    if (updatedDeptName != null) {
+                    if (transfers != null) {
                         QueryWrapper<Dept> queryWrapper5 = new QueryWrapper<>();
-                        queryWrapper5.eq("DEPT_NAME", updatedDeptName.get(0).getUpdatedDeptName());
+                        queryWrapper5.eq("DEPT_NAME", transfers.get(0).getUpdatedDeptName());
                         final var deptID = auditflowdetailMapper.selectDeptID(queryWrapper5);
                         // 如果不等于空，则拿编号调岗后部门编号及员工编号去修改员工表的部门编号
                         if (deptID != null) {
@@ -197,9 +217,18 @@ public class AuditflowServiceImpl implements AuditflowService {
                                 queryWrapper14.eq("STAFF_NAME", staffName1);
                                 queryWrapper14.eq("AUDITFLOW_ID", auditflowId);
                                 final var i7 = auditflowdetailMapper.updateTransfer(queryWrapper14);
-                                if (i7 == 1) {
-                                    return i7;
-                                }else{
+                                // 如果修改成功，则添加一条消息给申请人(员工编号、标题、内容、)
+                                if(i7 == 1){
+                                    News news=new News();
+                                    news.setStaffId(satffNO.get(0).getStaffId());
+                                    news.setNewsTitle(auditflowType + "审批已通过:");
+                                    // 转日期格式
+                                    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                                    String CreatedTime = sdf.format(transfers.get(0).getCreatedTime());
+                                    news.setNewsMatter("您于" + CreatedTime + "发起的" + auditflowType +"审批,现已通过，请核实，如有纰漏，请联系管理员" );
+                                    final var insert = newsMapper.insert(news);
+                                    return insert;
+                                }else {
                                     return 999;
                                 }
                             }else {
@@ -215,7 +244,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                 } else if ("调薪".equals(auditflowType)){
                     QueryWrapper<Salary> queryWrapper9 = new QueryWrapper<>();
                     queryWrapper9.eq("AUDITFLOW_ID", auditflowId);
-                    final var afterSalary = auditflowdetailMapper.selectSalary(queryWrapper9);
+                    final var salarys = auditflowdetailMapper.selectSalary(queryWrapper9);
                 // 拿到调薪后基本工资，根据员工编号去查询固定工资表编号
                     QueryWrapper<Fixedwagf>queryWrapper10=new QueryWrapper<>();
                     queryWrapper10.eq("STAFF_ID",satffNO.get(0).getStaffId());
@@ -223,20 +252,34 @@ public class AuditflowServiceImpl implements AuditflowService {
                 // 拿到固定工资表编号，则根据其和调薪后基本工资去修改员工工资
                     Fixedwagf fixedwagf = new Fixedwagf();
                     fixedwagf.setFixedwangerId(fixedwafID);
-                    fixedwagf.setFixedwageOfficialmoney(afterSalary);
+                    fixedwagf.setFixedwageOfficialmoney(salarys.get(0).getAfterSalary());
                     final var i4 = fixedwagfMapper.updateById(fixedwagf);
                     // 修改调薪表中的状态为同意 根据审批主表编号及审批申请人名称
                     QueryWrapper<Fixedwagf> queryWrapper13 = new QueryWrapper<>();
                     queryWrapper13.eq("STAFF_NAME", staffName1);
                     queryWrapper13.eq("AUDITFLOW_ID", auditflowId);
                     final var i7 = auditflowdetailMapper.updateFixedwagf(queryWrapper13);
-                    if (i7 == 1) {
-                        return i7;
-                    }else{
+                    // 如果修改成功，则添加一条消息给申请人(员工编号、标题、内容、)
+                    if(i7 == 1){
+                        News news=new News();
+                        news.setStaffId(satffNO.get(0).getStaffId());
+                        news.setNewsTitle(auditflowType + "审批已通过:");
+                        // 转日期格式
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        String CreatedTime = sdf.format(salarys.get(0).getCreatedTime());
+                        news.setNewsMatter("您于" + CreatedTime + "发起的" + auditflowType +"审批,现已通过，请核实，如有纰漏，请联系管理员" );
+                        final var insert = newsMapper.insert(news);
+                        return insert;
+                    }else {
                         return 999;
                     }
-                 // 如果等于离职 则根据审批人名称去修改员工表的状态（离职）
+                 // 如果等于离职
                 }else if ("离职".equals(auditflowType)){
+                    // 根据审批主表编号去查询离职表数据
+                    QueryWrapper<Quit>quit=new QueryWrapper<>();
+                    quit.eq("AUDITFLOW_ID",auditflowId);
+                    final var quits = auditflowdetailMapper.selectQuit(quit);
+                    // 根据审批人名称去修改员工表的状态（离职）
                     QueryWrapper<Staff> queryWrapper11 = new QueryWrapper<>();
                     queryWrapper11.eq("STAFF_NAME", staffName1);
                     final var i5 = auditflowdetailMapper.updateStaffState1(queryWrapper11);
@@ -246,7 +289,20 @@ public class AuditflowServiceImpl implements AuditflowService {
                         queryWrapper12.eq("STAFF_NAME", staffName1);
                         queryWrapper12.eq("AUDITFLOW_ID", auditflowId);
                         final var i6 = auditflowdetailMapper.updateQuit(queryWrapper12);
-                        return i6;
+                        // 如果修改成功，则添加一条消息给申请人(员工编号、标题、内容、)
+                        if(i6 == 1){
+                            News news=new News();
+                            news.setStaffId(satffNO.get(0).getStaffId());
+                            news.setNewsTitle(auditflowType + "审批已通过:");
+                            // 转日期格式
+                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                            String CreatedTime = sdf.format(quits.get(0).getCreatedTime());
+                            news.setNewsMatter("您于" + CreatedTime + "发起的" + auditflowType +"审批,现已通过，请核实，如有纰漏，请联系管理员" );
+                            final var insert = newsMapper.insert(news);
+                            return insert;
+                        }else {
+                            return 999;
+                        }
                     } else {
                         return 999;
                     }
