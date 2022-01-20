@@ -376,7 +376,7 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object selectOvertimeExamine(OvertimeaskVo overtimeaskV) {
+            public Object selectOvertimeExamine(OvertimeaskVo overtimeaskVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -399,6 +399,77 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            @Override
+            public Object selectCardExamine(Card card) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToCard3(CardVo cardVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToCard2(CardVo cardVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectEvectionExamine(Travel travel) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToTravel3(TravelVo travelVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToTravel2(TravelVo travelVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectLeaveExamine(Leave leave) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToAskForLeave3(LeaveVo leaveVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToAskForLeave2(LeaveVo leaveVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
         };
     }
 }

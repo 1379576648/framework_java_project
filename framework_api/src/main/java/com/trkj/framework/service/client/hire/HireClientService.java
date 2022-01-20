@@ -1,8 +1,6 @@
 package com.trkj.framework.service.client.hire;
 
-import com.trkj.framework.entity.mybatisplus.EmploymentTable;
-import com.trkj.framework.entity.mybatisplus.Staff;
-import com.trkj.framework.entity.mybatisplus.WorkExperience;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.HireClientServiceFallbackfactory;
 import com.trkj.framework.vo.*;
 import org.springframework.cloud.openfeign.FeignClient;
@@ -215,5 +213,142 @@ public interface HireClientService {
      */
     @DeleteMapping("/deleteWork")
     Object deleteWork(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据奖励id查询奖励
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectGloryOne")
+    Object selectGloryOne(@RequestBody WorkVo workVo);
+
+    /**
+     * 添加奖励
+     * @param glory
+     * @return
+     */
+    @PostMapping("/insertGlory")
+    Object insertGlory(@RequestBody Glory glory);
+
+    /**
+     * 修改奖励
+     * @param glory
+     * @return
+     */
+    @PutMapping("/updateGlory")
+    Object updateGlory(@RequestBody Glory glory);
+
+    /**
+     * 删除奖励
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteGlory")
+    Object deleteGlory(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据惩罚id查询惩罚
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectPunishOne")
+    Object selectPunishOne(@RequestBody WorkVo workVo);
+
+    /**
+     * 添加惩罚
+     * @param punish
+     * @return
+     */
+    @PostMapping("/insertPunish")
+    Object insertPunish(@RequestBody Punish punish);
+
+    /**
+     * 修改惩罚
+     * @param punish
+     * @return
+     */
+    @PutMapping("/updatePunish")
+    Object updatePunish(@RequestBody Punish punish);
+
+    /**
+     * 删除惩罚
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deletePunish")
+    Object deletePunish(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据教育经历id查询教育经历
+     * @param workVo
+     * @return
+     */
+    @PostMapping("/selectEducationOne")
+    Object selectEducationOne(@RequestBody WorkVo workVo);
+
+    /**
+     * 添加教育经历
+     * @param education
+     * @return
+     */
+    @PostMapping("/insertEducation")
+    Object insertEducation(@RequestBody Education education);
+
+    /**
+     * 修改教育经历
+     * @param education
+     * @return
+     */
+    @PutMapping("/updateEducation")
+    Object updateEducation(@RequestBody Education education);
+
+    /**
+     * 删除教育经历
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteEducation")
+    Object deleteEducation(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据员工姓名查询调动记录
+     * @param transfer
+     * @return
+     */
+    @PostMapping("/selectTransferAlls")
+    Object selectTransferAlls(@RequestBody Transfer transfer);
+
+    /**
+     * 添加调动记录
+     * @param transfer
+     * @return
+     */
+    @PostMapping("/insertTransfer")
+    Object insertTransfer(@RequestBody Transfer transfer);
+
+    /**
+     * 修改调动后的部门
+     * @param dept
+     * @return
+     */
+    @PutMapping("/updateDeptName")
+    Object updateDeptName(@RequestBody Dept dept);
+
+    /**
+     * 修改调动后的职位
+     * @param deptPost
+     * @return
+     */
+    @PutMapping("/updateDeptPostName")
+    Object updateDeptPostName(@RequestBody DeptPost deptPost);
+
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    @PostMapping("/selectPunishGlory")
+    Object selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo);
+
 }
 

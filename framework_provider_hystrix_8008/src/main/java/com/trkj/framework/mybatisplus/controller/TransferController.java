@@ -2,6 +2,8 @@ package com.trkj.framework.mybatisplus.controller;
 
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Glory;
+import com.trkj.framework.entity.mybatisplus.Transfer;
 import com.trkj.framework.mybatisplus.service.TransferService;
 import com.trkj.framework.vo.TransferTwoVo;
 import com.trkj.framework.vo.TransferVo;
@@ -138,5 +140,41 @@ public class TransferController {
         return map1;
     }
 
+    @PostMapping("/selectTransferAlls")
+    @HystrixCommand(fallbackMethod = "HystixGet6")
+    public Object selectTransferAlls(@RequestBody Transfer transfer){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", transferService.selectTransferAlls(transfer));
+        System.out.println(transfer);
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet6(@RequestBody Transfer transfer) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 添加调动记录
+     * @param transfer
+     * @return
+     */
+    @PostMapping("/insertTransfer")
+    @HystrixCommand(fallbackMethod = "HystixGet7")
+    public Object inserTransfer(@RequestBody Transfer transfer){
+        return transferService.insertTransfer(transfer);
+    }
+
+    //备选方案
+    public Object HystixGet7(@RequestBody Transfer transfer){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
 }
 

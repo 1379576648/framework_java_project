@@ -82,6 +82,5 @@ public interface WorkerService {
      * @param workerVo
      * @return
      */
-    @PostMapping("/selectexaminerecord")
     Integer selectexaminerecord(WorkerVo workerVo);
 }

@@ -1,10 +1,8 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Card;
 import com.trkj.framework.service.client.examine.AuditflowService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.CardDetailsVo;
-import com.trkj.framework.vo.LeaveDetailsVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -50,4 +48,35 @@ public class CardController {
     public AjaxResponse selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo) {
         return AjaxResponse.success(auditflowService.selectDetailsCards(cardDetailsVo));
     }
+
+    /**
+     * 根据员工名称是否有补打卡记录
+     * @param card
+     * @return
+     */
+    @PostMapping("/selectCardExamine")
+    public AjaxResponse selectCardExamine(@RequestBody Card card){
+        return AjaxResponse.success(auditflowService.selectCardExamine(card));
+    }
+
+    /**
+     * 添加补打卡 三个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard3")
+    public AjaxResponse submitToCard3(@RequestBody CardVo cardVo){
+        return AjaxResponse.success(auditflowService.submitToCard3(cardVo));
+    }
+
+    /**
+     * 添加补打卡 两个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard2")
+    public AjaxResponse submitToCard2(@RequestBody CardVo cardVo){
+        return AjaxResponse.success(auditflowService.submitToCard2(cardVo));
+    }
+
 }

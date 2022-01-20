@@ -1,9 +1,8 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.LeaveDetailsVo;
-import com.trkj.framework.vo.TravelDetailsVo;
+import com.trkj.framework.entity.mybatisplus.Travel;
+import com.trkj.framework.vo.*;
 
 import java.util.List;
 
@@ -36,4 +35,26 @@ public interface TraveService {
      * @return
      */
     List<TravelDetailsVo> selectDetailsTrave(TravelDetailsVo traveService);
+
+
+    /**
+     * 根据员工名称是否有转正记录
+     * @param travel
+     * @return
+     */
+    Integer selectEvectionExamine(Travel travel);
+
+    /**
+     * 添加出差 添加三个审批人
+     * @param travelVo
+     * @return
+     */
+    int submitToTravel3(TravelVo travelVo);
+
+    /**
+     * 添加出差 添加两个审批人
+     * @param travelVo
+     * @return
+     */
+    int submitToTravel2(TravelVo travelVo);
 }

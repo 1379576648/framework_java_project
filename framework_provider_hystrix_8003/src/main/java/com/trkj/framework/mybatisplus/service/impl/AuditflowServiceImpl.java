@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.*;
-import com.trkj.framework.mybatisplus.mapper.AuditflowMapper;
-import com.trkj.framework.mybatisplus.mapper.AuditflowdetailMapper;
-import com.trkj.framework.mybatisplus.mapper.AuditflowoneMapper;
-import com.trkj.framework.mybatisplus.mapper.OvertimeaskMapper;
+import com.trkj.framework.mybatisplus.mapper.*;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
@@ -41,6 +38,10 @@ public class AuditflowServiceImpl implements AuditflowService {
     private AuditflowoneMapper auditflowoneMapper;
     @Autowired
     private OvertimeaskMapper ovimeaskMapper;
+    @Autowired
+    private StaffMapper staffMapper;
+    @Autowired
+    private FixedwagfMapper fixedwagfMapper;
 
 
     /**
@@ -117,13 +118,144 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateApprovalState(Auditflowdetail auditflowdetail) {
-        final var i = auditflowdetailMapper.updateById(auditflowdetail);
-        if (i >= 1) {
-            final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
+        // 获取下一个审批人
+        final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
+        // 获取审批类型
+        final var auditflowType = auditflowdetail.getAuditflowType();
+        // 获取审批主表编号
+        final var auditflowId = auditflowdetail.getAuditflowId();
+        // 获取审批申请人
+        final var staffName1 = auditflowdetail.getStaffName1();
+        // 根据申请人名称去获取其员工信息
+        QueryWrapper<Staff> queryWrapper6 = new QueryWrapper<>();
+        queryWrapper6.eq("STAFF_NAME", staffName1);
+        final var satffNO = auditflowdetailMapper.selectStaffID(queryWrapper6);
+        // 如果下一个审批人不为空
+        if (auditflowdetailId2 != null) {
+            final var i = auditflowdetailMapper.updateById(auditflowdetail);
             QueryWrapper<Auditflowdetail> queryWrapper1 = new QueryWrapper<>();
             queryWrapper1.eq("auditflowdetail_Id", auditflowdetailId2);
             final var i1 = auditflowdetailMapper.updateApprovalState(queryWrapper1);
             return i1;
+            // 如果为空，则代表是最后一个审批人
+        } else if (auditflowdetailId2 == null) {
+            final var i = auditflowdetailMapper.updateById(auditflowdetail);
+            QueryWrapper<Auditflow> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("auditflow_Id", auditflowId);
+            final var i2 = auditflowMapper.rejectApprovalState2(queryWrapper);
+            // 修改完审批主表状态，再根据审批类型去完成对应的操作
+            if (i2 == 1) {
+                // 如果等于转正，则根据审批申请人去修改员工表的员工状态
+                if ("转正".equals(auditflowType)) {
+                    QueryWrapper<Staff> queryWrapper2 = new QueryWrapper<>();
+                    queryWrapper2.eq("STAFF_NAME", staffName1);
+                    final var i1 = auditflowdetailMapper.updateStaffState(queryWrapper2);
+                    // 如果修改成功，则将转正表中的状态修改为同意,根据审批主表编号及审批申请人名称
+                    if (i1 == 1) {
+                        QueryWrapper<Worker> queryWrapper3 = new QueryWrapper<>();
+                        queryWrapper3.eq("STAFF_NAME", staffName1);
+                        queryWrapper3.eq("AUDITFLOW_ID", auditflowId);
+                        final var i3 = auditflowdetailMapper.updateWorker(queryWrapper3);
+                        return i3;
+                    } else {
+                        return 999;
+                    }
+                    // 如果等于调岗,则先根据审批主表编号去查询调动表中的记录（调岗后部门名称）
+                } else if ("调动".equals(auditflowType)) {
+                    QueryWrapper<Transfer> queryWrapper4 = new QueryWrapper<>();
+                    queryWrapper4.eq("AUDITFLOW_ID", auditflowId);
+                    final var updatedDeptName = auditflowdetailMapper.selectTransfer(queryWrapper4);
+                    // 如果不等于空,则根据它去部门表中拿编号
+                    if (updatedDeptName != null) {
+                        QueryWrapper<Dept> queryWrapper5 = new QueryWrapper<>();
+                        queryWrapper5.eq("DEPT_NAME", updatedDeptName.get(0).getUpdatedDeptName());
+                        final var deptID = auditflowdetailMapper.selectDeptID(queryWrapper5);
+                        // 如果不等于空，则拿编号调岗后部门编号及员工编号去修改员工表的部门编号
+                        if (deptID != null) {
+                            Staff staff = new Staff();
+                            staff.setStaffId(satffNO.get(0).getStaffId());
+                            staff.setDeptId(deptID);
+                            final var i1 = staffMapper.updateById(staff);
+                            // 如果成功，则根据部门编号及部门职位编号查询部门职位名称
+                            if (i1 == 1) {
+                                QueryWrapper<DeptPost>queryWrapper7 = new QueryWrapper<>();
+                                queryWrapper7.eq("a.DEPT_ID",satffNO.get(0).getDeptId());
+                                queryWrapper7.eq("a.DEPT_POST_ID",satffNO.get(0).getDeptPostId());
+                                final var deptPosts = auditflowdetailMapper.selectPostName(queryWrapper7);
+                                // 如果成功，在这里拿到员工调岗前原部门职位名称，则根据原部门职位名称去及变动后部门编号查询变动后部门职位编号
+                                QueryWrapper<DeptPost>queryWrapper8 = new QueryWrapper<>();
+                                queryWrapper8.eq("a.DEPT_ID",deptID);
+                                queryWrapper8.eq("a.POST_NAME",deptPosts.get(0).getPostName());
+                                final var postID = auditflowdetailMapper.selectPostID(queryWrapper8);
+                                // 拿这个部门职位编号去修改员工的原部门职位编号
+                                Staff staff1 = new Staff();
+                                staff1.setStaffId(satffNO.get(0).getStaffId());
+                                staff1.setDeptPostId(postID);
+                                final var i3 = staffMapper.updateById(staff1);
+                                // 修改调动表中的状态为同意 根据审批主表编号及审批申请人名称
+                                QueryWrapper<Transfer> queryWrapper14 = new QueryWrapper<>();
+                                queryWrapper14.eq("STAFF_NAME", staffName1);
+                                queryWrapper14.eq("AUDITFLOW_ID", auditflowId);
+                                final var i7 = auditflowdetailMapper.updateTransfer(queryWrapper14);
+                                if (i7 == 1) {
+                                    return i7;
+                                }else{
+                                    return 999;
+                                }
+                            }else {
+                                return 999;
+                            }
+                        } else {
+                            return 999;
+                        }
+                    } else {
+                        return 999;
+                    }
+                // 如果等于调薪,则先根据审批主表编号去查询调薪表中的记录（调薪后基本工资）
+                } else if ("调薪".equals(auditflowType)){
+                    QueryWrapper<Salary> queryWrapper9 = new QueryWrapper<>();
+                    queryWrapper9.eq("AUDITFLOW_ID", auditflowId);
+                    final var afterSalary = auditflowdetailMapper.selectSalary(queryWrapper9);
+                // 拿到调薪后基本工资，根据员工编号去查询固定工资表编号
+                    QueryWrapper<Fixedwagf>queryWrapper10=new QueryWrapper<>();
+                    queryWrapper10.eq("STAFF_ID",satffNO.get(0).getStaffId());
+                    final var fixedwafID = auditflowdetailMapper.selectFixedwagfID(queryWrapper10);
+                // 拿到固定工资表编号，则根据其和调薪后基本工资去修改员工工资
+                    Fixedwagf fixedwagf = new Fixedwagf();
+                    fixedwagf.setFixedwangerId(fixedwafID);
+                    fixedwagf.setFixedwageOfficialmoney(afterSalary);
+                    final var i4 = fixedwagfMapper.updateById(fixedwagf);
+                    // 修改调薪表中的状态为同意 根据审批主表编号及审批申请人名称
+                    QueryWrapper<Fixedwagf> queryWrapper13 = new QueryWrapper<>();
+                    queryWrapper13.eq("STAFF_NAME", staffName1);
+                    queryWrapper13.eq("AUDITFLOW_ID", auditflowId);
+                    final var i7 = auditflowdetailMapper.updateFixedwagf(queryWrapper13);
+                    if (i7 == 1) {
+                        return i7;
+                    }else{
+                        return 999;
+                    }
+                 // 如果等于离职 则根据审批人名称去修改员工表的状态（离职）
+                }else if ("离职".equals(auditflowType)){
+                    QueryWrapper<Staff> queryWrapper11 = new QueryWrapper<>();
+                    queryWrapper11.eq("STAFF_NAME", staffName1);
+                    final var i5 = auditflowdetailMapper.updateStaffState1(queryWrapper11);
+                    // 如果修改成功，则将离职表中的状态修改为同意,根据审批主表编号及审批申请人名称
+                    if (i5 == 1) {
+                        QueryWrapper<Quit> queryWrapper12 = new QueryWrapper<>();
+                        queryWrapper12.eq("STAFF_NAME", staffName1);
+                        queryWrapper12.eq("AUDITFLOW_ID", auditflowId);
+                        final var i6 = auditflowdetailMapper.updateQuit(queryWrapper12);
+                        return i6;
+                    } else {
+                        return 999;
+                    }
+                }else{
+                    return 999;
+                }
+            } else {
+                return 999;
+            }
         } else {
             return 999;
         }
@@ -170,7 +302,14 @@ public class AuditflowServiceImpl implements AuditflowService {
             } else {
                 return 999;
             }
-            // 如果第二个审批人为空 或者 第三个审批人为空
+            // 如果第二个审批人和第三个审批人都为空
+        } else if (auditflowdetailId2 == null && auditflowdetailId3 == null) {
+            // 驳回第一个审批明细记录
+            final var i = auditflowdetailMapper.updateById(auditflowdetail);
+            QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
+            queryWrapper2.eq("auditflow_Id", auditflowId);
+            final var i1 = auditflowMapper.rejectApprovalState(queryWrapper2);
+            return i1;
         } else if (auditflowdetailId2 == null || auditflowdetailId3 == null) {
             // 驳回第一个审批明细记录
             final var i = auditflowdetailMapper.updateById(auditflowdetail);
@@ -189,8 +328,9 @@ public class AuditflowServiceImpl implements AuditflowService {
             } else {
                 return 999;
             }
+        } else {
+            return 999;
         }
-            return 666;
     }
 
     /**
@@ -211,20 +351,21 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Override
     public Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo) {
         QueryWrapper<OvertimeaskVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("c.STAFF_NAME",overtimeaskVo.getStaffName());
-        queryWrapper.eq("a.IS_DELETED",0);
-        queryWrapper.eq("b.IS_DELETED",0);
-        queryWrapper.eq("c.IS_DELETED",0);
+        queryWrapper.eq("c.STAFF_NAME", overtimeaskVo.getStaffName());
+        queryWrapper.eq("a.IS_DELETED", 0);
+        queryWrapper.eq("b.IS_DELETED", 0);
+        queryWrapper.eq("c.IS_DELETED", 0);
         final var i = ovimeaskMapper.selectOvertimeExamine(queryWrapper);
-        if (i == null){
+        if (i == null) {
             return 5;
-        }else {
+        } else {
             return i;
         }
     }
 
     /**
      * 添加加班 添加三个审批人
+     *
      * @param overtimeaskVo
      * @return
      */
@@ -241,14 +382,14 @@ public class AuditflowServiceImpl implements AuditflowService {
         auditflow.setStaffName(overtimeaskVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", overtimeaskVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",overtimeaskVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", overtimeaskVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
             auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表1-审批人
@@ -258,7 +399,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
             auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表2-审批人
@@ -266,15 +407,15 @@ public class AuditflowServiceImpl implements AuditflowService {
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 添加审批明细表3
-            Auditflowdetail auditflowdetail3=new Auditflowdetail();
+            Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
             auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(overtimeaskVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
             // 如果三个审批明细表添加成功，则添加加班表
-            if (i1==1 && i2== 1 && i3==1) {
-                Overtimeask overtimeask=new Overtimeask();
+            if (i1 == 1 && i2 == 1 && i3 == 1) {
+                Overtimeask overtimeask = new Overtimeask();
                 // 加班表-审批编号
                 overtimeask.setAuditflowId(auditflow1.getAuditflowId());
                 // 加班表-员工名称
@@ -292,21 +433,22 @@ public class AuditflowServiceImpl implements AuditflowService {
                 // 加班表-加班总时长
                 overtimeask.setOvertimeaskTotalDate(overtimeask.getOvertimeaskTotalDate());
                 final val i4 = ovimeaskMapper.insert(overtimeask);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
     }
 
     /**
      * 添加加班 添加两个审批人
+     *
      * @param overtimeaskVo
      * @return
      */
@@ -323,14 +465,14 @@ public class AuditflowServiceImpl implements AuditflowService {
         auditflow.setStaffName(overtimeaskVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", overtimeaskVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",overtimeaskVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", overtimeaskVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
             auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表1-审批人
@@ -340,7 +482,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
             auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表2-审批人
@@ -348,8 +490,8 @@ public class AuditflowServiceImpl implements AuditflowService {
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 如果三个审批明细表添加成功，则添加加班表
-            if (i1==1 && i2== 1) {
-                Overtimeask overtimeask=new Overtimeask();
+            if (i1 == 1 && i2 == 1) {
+                Overtimeask overtimeask = new Overtimeask();
                 // 加班表-审批编号
                 overtimeask.setAuditflowId(auditflow1.getAuditflowId());
                 // 加班表-员工名称
@@ -367,15 +509,15 @@ public class AuditflowServiceImpl implements AuditflowService {
                 // 加班表-加班总时长
                 overtimeask.setOvertimeaskTotalDate(overtimeask.getOvertimeaskTotalDate());
                 final val i4 = ovimeaskMapper.insert(overtimeask);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
     }

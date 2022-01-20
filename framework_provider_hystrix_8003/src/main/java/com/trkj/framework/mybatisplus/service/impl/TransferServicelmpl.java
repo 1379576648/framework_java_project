@@ -14,6 +14,8 @@ import lombok.val;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Service
@@ -113,6 +115,7 @@ public class TransferServicelmpl implements Transfer8003Service {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int SubmitTransfer3(Transfer8003Vo transferVo) {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
@@ -192,6 +195,7 @@ public class TransferServicelmpl implements Transfer8003Service {
      * @return
      */
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int SubmitTransfer2(Transfer8003Vo transferVo) {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
