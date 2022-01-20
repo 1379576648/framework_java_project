@@ -192,9 +192,14 @@ public class AuditflowServiceImpl implements AuditflowService {
                                 staff1.setStaffId(satffNO.get(0).getStaffId());
                                 staff1.setDeptPostId(postID);
                                 final var i3 = staffMapper.updateById(staff1);
-                                if (i3 == 1){
-                                    return 1;
-                                }else {
+                                // 修改调动表中的状态为同意 根据审批主表编号及审批申请人名称
+                                QueryWrapper<Transfer> queryWrapper14 = new QueryWrapper<>();
+                                queryWrapper14.eq("STAFF_NAME", staffName1);
+                                queryWrapper14.eq("AUDITFLOW_ID", auditflowId);
+                                final var i7 = auditflowdetailMapper.updateTransfer(queryWrapper14);
+                                if (i7 == 1) {
+                                    return i7;
+                                }else{
                                     return 999;
                                 }
                             }else {
@@ -220,8 +225,32 @@ public class AuditflowServiceImpl implements AuditflowService {
                     fixedwagf.setFixedwangerId(fixedwafID);
                     fixedwagf.setFixedwageOfficialmoney(afterSalary);
                     final var i4 = fixedwagfMapper.updateById(fixedwagf);
-                    return i4;
-                }else {
+                    // 修改调薪表中的状态为同意 根据审批主表编号及审批申请人名称
+                    QueryWrapper<Fixedwagf> queryWrapper13 = new QueryWrapper<>();
+                    queryWrapper13.eq("STAFF_NAME", staffName1);
+                    queryWrapper13.eq("AUDITFLOW_ID", auditflowId);
+                    final var i7 = auditflowdetailMapper.updateFixedwagf(queryWrapper13);
+                    if (i7 == 1) {
+                        return i7;
+                    }else{
+                        return 999;
+                    }
+                 // 如果等于离职 则根据审批人名称去修改员工表的状态（离职）
+                }else if ("离职".equals(auditflowType)){
+                    QueryWrapper<Staff> queryWrapper11 = new QueryWrapper<>();
+                    queryWrapper11.eq("STAFF_NAME", staffName1);
+                    final var i5 = auditflowdetailMapper.updateStaffState1(queryWrapper11);
+                    // 如果修改成功，则将离职表中的状态修改为同意,根据审批主表编号及审批申请人名称
+                    if (i5 == 1) {
+                        QueryWrapper<Quit> queryWrapper12 = new QueryWrapper<>();
+                        queryWrapper12.eq("STAFF_NAME", staffName1);
+                        queryWrapper12.eq("AUDITFLOW_ID", auditflowId);
+                        final var i6 = auditflowdetailMapper.updateQuit(queryWrapper12);
+                        return i6;
+                    } else {
+                        return 999;
+                    }
+                }else{
                     return 999;
                 }
             } else {

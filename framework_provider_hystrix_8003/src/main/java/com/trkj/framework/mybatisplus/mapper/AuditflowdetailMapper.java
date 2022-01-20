@@ -50,4 +50,15 @@ public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
     @Select("select FIXEDWAGE_ID from FIXEDWAGE ${ew.customSqlSegment}")
     Integer selectFixedwagfID(@Param(Constants.WRAPPER) QueryWrapper<Fixedwagf> queryWrapper);
 
+    @Update("update STAFF set STAFF_STATE=2 ${ew.customSqlSegment}")
+    int updateStaffState1(@Param(Constants.WRAPPER) QueryWrapper<Staff> queryWrapper1);
+
+    @Update("update Quit set QUIT_STATE=1 ${ew.customSqlSegment}")
+    int updateQuit(@Param(Constants.WRAPPER) QueryWrapper<Quit> queryWrapper1);
+
+    @Update("update SALARY set SALARY_STATE=1 ${ew.customSqlSegment}")
+    int updateFixedwagf(@Param(Constants.WRAPPER) QueryWrapper<Fixedwagf> queryWrapper1);
+
+    @Update("update TRANSFER set TRANSFER_STATE=1 ${ew.customSqlSegment}")
+    int updateTransfer(@Param(Constants.WRAPPER) QueryWrapper<Transfer> queryWrapper1);
 }
