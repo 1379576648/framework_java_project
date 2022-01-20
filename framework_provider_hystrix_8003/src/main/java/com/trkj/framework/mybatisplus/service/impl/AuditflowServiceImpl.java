@@ -40,6 +40,8 @@ public class AuditflowServiceImpl implements AuditflowService {
     private OvertimeaskMapper ovimeaskMapper;
     @Autowired
     private StaffMapper staffMapper;
+    @Autowired
+    private FixedwagfMapper fixedwagfMapper;
 
 
     /**
@@ -204,7 +206,22 @@ public class AuditflowServiceImpl implements AuditflowService {
                     } else {
                         return 999;
                     }
-                } else {
+                // 如果等于调薪,则先根据审批主表编号去查询调薪表中的记录（调薪后基本工资）
+                } else if ("调薪".equals(auditflowType)){
+                    QueryWrapper<Salary> queryWrapper9 = new QueryWrapper<>();
+                    queryWrapper9.eq("AUDITFLOW_ID", auditflowId);
+                    final var afterSalary = auditflowdetailMapper.selectSalary(queryWrapper9);
+                // 拿到调薪后基本工资，根据员工编号去查询固定工资表编号
+                    QueryWrapper<Fixedwagf>queryWrapper10=new QueryWrapper<>();
+                    queryWrapper10.eq("STAFF_ID",satffNO.get(0).getStaffId());
+                    final var fixedwafID = auditflowdetailMapper.selectFixedwagfID(queryWrapper10);
+                // 拿到固定工资表编号，则根据其和调薪后基本工资去修改员工工资
+                    Fixedwagf fixedwagf = new Fixedwagf();
+                    fixedwagf.setFixedwangerId(fixedwafID);
+                    fixedwagf.setFixedwageOfficialmoney(afterSalary);
+                    final var i4 = fixedwagfMapper.updateById(fixedwagf);
+                    return i4;
+                }else {
                     return 999;
                 }
             } else {

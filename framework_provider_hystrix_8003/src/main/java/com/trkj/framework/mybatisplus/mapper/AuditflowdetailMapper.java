@@ -43,4 +43,11 @@ public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
 
     @Select("select a.DEPT_POST_ID from DEPT_POST a LEFT JOIN DEPT b on a.DEPT_ID = b.DEPT_ID ${ew.customSqlSegment}")
     Integer selectPostID(@Param(Constants.WRAPPER) QueryWrapper<DeptPost> queryWrapper);
+
+    @Select("select AFTER_SALARY from SALARY ${ew.customSqlSegment}")
+    Integer selectSalary(@Param(Constants.WRAPPER) QueryWrapper<Salary> queryWrapper);
+
+    @Select("select FIXEDWAGE_ID from FIXEDWAGE ${ew.customSqlSegment}")
+    Integer selectFixedwagfID(@Param(Constants.WRAPPER) QueryWrapper<Fixedwagf> queryWrapper);
+
 }
