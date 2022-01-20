@@ -18,7 +18,7 @@ public interface ManAnalysisThreeMapper extends BaseMapper<StaffVo> {
          * 员工性别查询
          * @return
          */
-        @Select("select STAFF_SEX,COUNT(STAFF_SEX) as FROM STAFF GROUP BY STAFF_SEX")
+        @Select("select STAFF_SEX,COUNT(STAFF_SEX) as rs FROM STAFF GROUP BY STAFF_SEX")
         List<Map<String, Object>> selectStaffSex();
 
 }
