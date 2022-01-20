@@ -164,6 +164,22 @@ public class StaffController {
         }
     }
 
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffState")
+    public int updateStaffState(@RequestBody Staff staff){
+        staff.setStaffState(1L);
+        final var i = staffService.updateStaffState(staff);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
 
 
 }

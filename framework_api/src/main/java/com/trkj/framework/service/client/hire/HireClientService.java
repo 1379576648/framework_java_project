@@ -350,5 +350,21 @@ public interface HireClientService {
     @PostMapping("/selectPunishGlory")
     Object selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo);
 
+    /**
+     * 添加转正
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/insertWorker")
+    Object insertWorker(@RequestBody FullVo fullVo);
+
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffState")
+    Object updateStaffState(@RequestBody Staff staff);
+
 }
 

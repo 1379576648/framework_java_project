@@ -29,6 +29,10 @@ public class FullVo {
     @TableField("DEPT_ID")
     private Long deptId;
 
+    @ApiModelProperty(value = "部门名称")
+    @TableId("DEPT_NAME")
+    private String deptname;
+
     @ApiModelProperty(value = "转正类型")
     @TableField("WORKER_TYPE")
     private String workerType;
@@ -41,7 +45,7 @@ public class FullVo {
     @TableField("WORKER_STATE")
     private Long workerState;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "转正日期")
     @TableField("WORKER_DATE")
     private Date workerDate;
