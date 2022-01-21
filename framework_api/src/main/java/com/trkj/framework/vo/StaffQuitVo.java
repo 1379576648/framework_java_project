@@ -39,6 +39,7 @@ public class StaffQuitVo {
     @TableField("STAFF_PICTURE")
     private String staffPicture;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("STAFF_BIRTHDAY")
     private Date staffBirthday;
@@ -59,7 +60,7 @@ public class StaffQuitVo {
     @TableField("STAFF_PASS")
     private String staffPass;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "入职日期")
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;
@@ -147,12 +148,12 @@ public class StaffQuitVo {
     @TableField("QUIT_STATE")
     private Long quitState;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "申请离职日期")
     @TableField("APPLY_QUIT_DATE")
     private Date applyQuitDate;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "正式离职日期")
     @TableField("FORMAL_QUIT_DATE")
     private Date formalQuitDate;

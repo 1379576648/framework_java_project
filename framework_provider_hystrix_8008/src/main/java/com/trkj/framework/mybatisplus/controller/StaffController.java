@@ -180,6 +180,22 @@ public class StaffController {
         }
     }
 
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffStateTwo")
+    public int updateStaffStateTwo(@RequestBody Staff staff){
+        staff.setStaffState(2L);
+        final var i = staffService.updateStaffState(staff);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
 
 
 }

@@ -32,7 +32,7 @@ public class HireVo {
     @TableField("REMARKS")
     private String remarks;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @TableField("HIREDATE")
     private Date hiredate;
 
@@ -67,7 +67,7 @@ public class HireVo {
     @TableField("RESUME_INTRODUCE")
     private String resumeIntroduce;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("RESUME_BIRTHDAY")
     private Date resumeBirthday;
@@ -89,7 +89,7 @@ public class HireVo {
     @TableField("INVITE_STATE")
     private String inviteState;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "投简时间")
     @TableField("TOUJ_TIME")
     private Date toujTime;
@@ -126,12 +126,12 @@ public class HireVo {
     @TableField("RECRUITMENT_PLAN_NUMBER")
     private Long recruitmentPlanNumber;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("RECRUITMENT_PLAN_START_TIME")
     private Date recruitmentPlanStartTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("RECRUITMENT_PLAN_END_TIME")
     private Date recruitmentPlanEndTime;
@@ -148,10 +148,12 @@ public class HireVo {
     @TableId("WORK_EXPERIENCESS_ID")
     private Long workExperiencessId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("WORK_STARE_TIME")
     private Date workStareTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("WORK_END_TIME")
     private Date workEndTime;
@@ -180,10 +182,12 @@ public class HireVo {
     @TableId("EDUCATIONSS_ID")
     private Integer educationssId;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("EDUCATION_START_TIME")
     private Date educationStartTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("EDUCATION_END_TIME")
     private Date educationEndTime;
@@ -201,12 +205,12 @@ public class HireVo {
     @TableField("EDUCATION_FULL_TIME")
     private Long educationFullTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")
     private Date createdTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
     @TableField("UPDATED_TIME")
     private Date updatedTime;
