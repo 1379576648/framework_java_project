@@ -118,8 +118,8 @@ public class AuditflowServiceImpl implements AuditflowService {
 
     @Override
     public Integer selectStaffState(Staff staff) {
-        QueryWrapper<Staff>queryWrapper =new QueryWrapper<>();
-        queryWrapper.eq("STAFF_NAME",staff.getStaffName());
+        QueryWrapper<Staff> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_NAME", staff.getStaffName());
         return auditflowoneMapper.selectStaffState(queryWrapper);
     }
 
@@ -397,7 +397,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                     } else {
                         return 999;
                     }
-                }else {
+                } else {
                     return 999;
                 }
             } else {
@@ -407,6 +407,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             return 999;
         }
     }
+
 
     /**
      * 根据审批明细表ID修改其状态 驳回
@@ -421,25 +422,139 @@ public class AuditflowServiceImpl implements AuditflowService {
         final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
         // 获取第三个审批人
         final var auditflowdetailId3 = auditflowdetail.getAuditflowdetailId3();
+        // 获取审批类型
+        final var auditflowType = auditflowdetail.getAuditflowType();
         // 获取审批主表编号
         final var auditflowId = auditflowdetail.getAuditflowId();
+        // 获取审批主表信息
+        final var auditflow = auditflowMapper.selectById(auditflowId);
+        // 获取审批申请人
+        final var staffName1 = auditflowdetail.getStaffName1();
+        // 根据申请人名称去获取其员工信息
+        QueryWrapper<Staff> queryWrapper6 = new QueryWrapper<>();
+        queryWrapper6.eq("STAFF_NAME", staffName1);
+        final var satffNO = auditflowdetailMapper.selectStaffID(queryWrapper6);
+        // 转日期格式 审批主表创建时间
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+        String CreatedTime = sdf.format(auditflow.getCreatedTime());
+        // 驳回转正后发消息给申请人
+        News workerNews = new News();
+        workerNews.setNewsTitle(auditflowType + "驳回:");
+        workerNews.setStaffId(satffNO.get(0).getStaffId());
+        workerNews.setNewsMatter("您与" + CreatedTime + "发起的" + auditflowType + "审批被驳回,请知悉。");
+
+        // 驳回调岗后发消息给申请人
+        News TransferNews = new News();
+        TransferNews.setNewsTitle(auditflowType + "驳回:");
+        TransferNews.setStaffId(satffNO.get(0).getStaffId());
+        TransferNews.setNewsMatter("您与" + CreatedTime + "发起的" + auditflowType + "审批被驳回,请知悉。");
+
+        // 驳回调薪后发消息给申请人
+        News SalaryNews = new News();
+        SalaryNews.setNewsTitle(auditflowType + "驳回:");
+        SalaryNews.setStaffId(satffNO.get(0).getStaffId());
+        SalaryNews.setNewsMatter("您与" + CreatedTime + "发起的" + auditflowType + "审批被驳回,请知悉。");
+
+        // 驳回离职后发消息给申请人
+        News QuitNews = new News();
+        QuitNews.setNewsTitle(auditflowType + "驳回:");
+        QuitNews.setStaffId(satffNO.get(0).getStaffId());
+        QuitNews.setNewsMatter("您与" + CreatedTime + "发起的" + auditflowType + "审批被驳回,请知悉。");
+
+        // 驳回加班后发消息给申请人
+        News overtimeNews = new News();
+        overtimeNews.setNewsTitle(auditflowType + "驳回:");
+        overtimeNews.setStaffId(satffNO.get(0).getStaffId());
+        overtimeNews.setNewsMatter("您与" + CreatedTime + "发起的" + auditflowType + "审批被驳回,请知悉。");
+
+        // 驳回补打卡后发消息给申请人
+        News CardNews = new News();
+        CardNews.setNewsTitle(auditflowType + "驳回:");
+        CardNews.setStaffId(satffNO.get(0).getStaffId());
+        CardNews.setNewsMatter("您与" + CreatedTime + "发起的" + auditflowType + "审批被驳回,请知悉。");
+
+        // 驳回出差后发消息给申请人
+        News TravelNews = new News();
+        TravelNews.setNewsTitle(auditflowType + "驳回:");
+        TravelNews.setStaffId(satffNO.get(0).getStaffId());
+        TravelNews.setNewsMatter("您与" + CreatedTime + "发起的" + auditflowType + "审批被驳回,请知悉。");
+
+        // 驳回请假后发消息给申请人
+        News LeaveNews = new News();
+        LeaveNews.setNewsTitle(auditflowType + "驳回:");
+        LeaveNews.setStaffId(satffNO.get(0).getStaffId());
+        LeaveNews.setNewsMatter("您与" + CreatedTime + "发起的" + auditflowType + "审批被驳回,请知悉。");
+        System.out.println(auditflowType);
         // 如果第二个审批人不为空 并且 第三个审批人也不为空
         if (auditflowdetailId2 != null && auditflowdetailId3 != null) {
             // 驳回第一个审批明细记录
             final var i = auditflowdetailMapper.updateById(auditflowdetail);
-            if (i == 1) {
-                QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
-                queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
-                final var i1 = auditflowdetailMapper.rejectApprovalState(queryWrapper);
-                if (i1 == 1) {
-                    QueryWrapper<Auditflowdetail> queryWrapper1 = new QueryWrapper<>();
-                    queryWrapper1.eq("auditflowdetail_Id", auditflowdetailId3);
-                    final var i2 = auditflowdetailMapper.rejectApprovalState2(queryWrapper1);
-                    if (i2 == 1) {
-                        QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
-                        queryWrapper2.eq("auditflow_Id", auditflowId);
-                        final var i3 = auditflowMapper.rejectApprovalState(queryWrapper2);
-                        return i3;
+            QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
+            // 驳回第二个审批明细记录
+            final var i1 = auditflowdetailMapper.rejectApprovalState(queryWrapper);
+            QueryWrapper<Auditflowdetail> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("auditflowdetail_Id", auditflowdetailId3);
+            // 驳回第三个审批明细记录
+            final var i2 = auditflowdetailMapper.rejectApprovalState2(queryWrapper1);
+            QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
+            queryWrapper2.eq("auditflow_Id", auditflowId);
+            final var i3 = auditflowMapper.rejectApprovalState(queryWrapper2);
+            // 如果以上操作都成功，则根据审批类型去添加消息表
+            if (i == 1 && i1 == 1 && i2 == 1 && i3 == 1) {
+                if ("转正".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(workerNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("调动".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(TransferNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("调薪".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(SalaryNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("离职".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(QuitNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("加班".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(overtimeNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("补打卡".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(CardNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("出差".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(TravelNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("请假".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(LeaveNews);
+                    if (insert == 1) {
+                        return 1;
                     } else {
                         return 999;
                     }
@@ -449,26 +564,145 @@ public class AuditflowServiceImpl implements AuditflowService {
             } else {
                 return 999;
             }
-            // 如果第二个审批人和第三个审批人都为空
+            // 如果第二个审批人和第三个审批人都为空 则代表目前是最后一个审批人
         } else if (auditflowdetailId2 == null && auditflowdetailId3 == null) {
             // 驳回第一个审批明细记录
             final var i = auditflowdetailMapper.updateById(auditflowdetail);
             QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
             queryWrapper2.eq("auditflow_Id", auditflowId);
             final var i1 = auditflowMapper.rejectApprovalState(queryWrapper2);
-            return i1;
+            // 如果以上操作都成功，则根据审批类型去添加消息表
+            if (i == 1 && i1 == 1) {
+                if ("转正".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(workerNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("调动".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(TransferNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("调薪".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(SalaryNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("离职".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(QuitNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("加班".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(overtimeNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("补打卡".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(CardNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("出差".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(TravelNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("请假".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(LeaveNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else {
+                    return 999;
+                }
+            } else {
+                return 999;
+            }
+            // 如果其中一个审批人为空，则代表是目前是第二个审批人
         } else if (auditflowdetailId2 == null || auditflowdetailId3 == null) {
             // 驳回第一个审批明细记录
             final var i = auditflowdetailMapper.updateById(auditflowdetail);
-            if (i == 1) {
-                QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
-                queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
-                final var i1 = auditflowdetailMapper.rejectApprovalState(queryWrapper);
-                if (i1 == 1) {
-                    QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
-                    queryWrapper2.eq("auditflow_Id", auditflowId);
-                    final var i3 = auditflowMapper.rejectApprovalState(queryWrapper2);
-                    return i3;
+            QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
+            queryWrapper.eq("auditflowdetail_Id", auditflowdetailId2);
+            final var i1 = auditflowdetailMapper.rejectApprovalState(queryWrapper);
+            QueryWrapper<Auditflow> queryWrapper2 = new QueryWrapper<>();
+            queryWrapper2.eq("auditflow_Id", auditflowId);
+            final var i2 = auditflowMapper.rejectApprovalState(queryWrapper2);
+            // 如果以上操作都成功，则根据审批类型去添加消息表
+            if (i == 1 && i1 == 1 && i2 == 1) {
+                if ("转正".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(workerNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("调动".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(TransferNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("调薪".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(SalaryNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("离职".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(QuitNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("加班".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(overtimeNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("补打卡".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(CardNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("出差".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(TravelNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
+                } else if ("请假".equals(auditflowType)) {
+                    final var insert = newsMapper.insert(LeaveNews);
+                    if (insert == 1) {
+                        return 1;
+                    } else {
+                        return 999;
+                    }
                 } else {
                     return 999;
                 }
@@ -495,19 +729,20 @@ public class AuditflowServiceImpl implements AuditflowService {
         return auditflowdetailMapper.selectListAuditflow(queryWrapper);
     }
 
+    /**
+     * 根据员工名称是否有加班记录
+     * @param overtimeaskVo
+     * @return
+     */
     @Override
-    public Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo) {
+    public List<OvertimeaskVo> selectOvertimeExamine(OvertimeaskVo overtimeaskVo) {
         QueryWrapper<OvertimeaskVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("c.STAFF_NAME", overtimeaskVo.getStaffName());
         queryWrapper.eq("a.IS_DELETED", 0);
         queryWrapper.eq("b.IS_DELETED", 0);
         queryWrapper.eq("c.IS_DELETED", 0);
         final var i = ovimeaskMapper.selectOvertimeExamine(queryWrapper);
-        if (i == null) {
-            return 5;
-        } else {
-            return i;
-        }
+        return i;
     }
 
     /**

@@ -79,7 +79,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
+    List<OvertimeaskVo> selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
 
     /**
      * 添加加班 添加三个审批人
