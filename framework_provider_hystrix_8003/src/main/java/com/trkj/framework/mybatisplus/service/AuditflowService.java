@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.OvertimeaskVo;
@@ -43,6 +44,13 @@ public interface AuditflowService {
      * @return
      */
     List<AuditflowDetailsVo> selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo);
+
+    /**
+     * 根据员工名称查询员工状态
+     * @param staff
+     * @return
+     */
+    Integer selectStaffState(Staff staff);
 
     /**
      * 根据审批明细表ID修改其状态 通过

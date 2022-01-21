@@ -116,6 +116,13 @@ public class AuditflowServiceImpl implements AuditflowService {
         return auditflowoneMapper.selectDetailsAuditflow(queryWrapper);
     }
 
+    @Override
+    public Integer selectStaffState(Staff staff) {
+        QueryWrapper<Staff>queryWrapper =new QueryWrapper<>();
+        queryWrapper.eq("STAFF_NAME",staff.getStaffName());
+        return auditflowoneMapper.selectStaffState(queryWrapper);
+    }
+
     /**
      * 根据审批明细表ID修改其状态 通过
      *

@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
@@ -92,6 +93,19 @@ public class AuditflowController {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 根据员工名称查询其状态
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectStaffState")
+    public Object selectStaffState(@RequestBody Staff staff){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.selectStaffState(staff));
         return map1;
     }
 

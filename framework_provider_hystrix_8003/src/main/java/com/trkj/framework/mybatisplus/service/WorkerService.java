@@ -37,12 +37,6 @@ public interface WorkerService {
      */
     List<WorkerDetaIsVo> selectDetailsWorker(WorkerDetaIsVo workerDetaIsVo);
 
-    /**
-     * 根据员工名册查询其员工状态
-     * @param staff
-     * @return
-     */
-    Long selectStaffState(Staff staff);
 
     /**
      * 根据部门编号查询其部门经理

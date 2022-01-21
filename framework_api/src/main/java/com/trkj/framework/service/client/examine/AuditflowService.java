@@ -42,6 +42,15 @@ public interface AuditflowService {
     Object selectDetailsAuditflow(@RequestBody AuditflowDetailsVo auditflowDetailsVo);
 
     /**
+     * 根据员工名称查询其状态
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectStaffState")
+    Object selectStaffState(@RequestBody Staff staff);
+
+    /**
      * 根据审批明细表修改其状态 通过
      * @param
      * @param
@@ -263,14 +272,6 @@ public interface AuditflowService {
      */
     @GetMapping("/selectDeptList")
     Object selectDeptAll();
-
-    /**
-     * 根据员工名册查询其员工状态
-     * @param
-     * @return
-     */
-    @PostMapping("/selectStaffState")
-    Object selectStaffState(@RequestBody Staff staff);
 
     /**
      * 根据部门编号查询其部门经理
