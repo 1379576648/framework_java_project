@@ -63,8 +63,8 @@ public class Leave {
     private Integer leaveTotalDate;
 
     @ApiModelProperty(value = "状态 0:不同意 1:同意")
-    @TableField("WORKER_STATE")
-    private Long workerState;
+    @TableField("LEAVE_STATE")
+    private Integer leaveState;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

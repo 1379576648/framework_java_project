@@ -67,4 +67,34 @@ public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
 
     @Select("select * from QUIT ${ew.customSqlSegment}")
     List<Quit> selectQuit(@Param(Constants.WRAPPER) QueryWrapper<Quit> queryWrapper);
+
+    @Select("select * from OVERTIMEASK ${ew.customSqlSegment}")
+    List<Overtimeask> selectOvertime(@Param(Constants.WRAPPER) QueryWrapper<Overtimeask> queryWrapper);
+
+    @Update("update OVERTIMEASK set OVERTIMEASK_STATE=1 ${ew.customSqlSegment}")
+    int updateOvertimeasks(@Param(Constants.WRAPPER) QueryWrapper<Overtimeask> queryWrapper1);
+
+    @Select("select * from Travel ${ew.customSqlSegment}")
+    List<Travel> selectTravel(@Param(Constants.WRAPPER) QueryWrapper<Travel> queryWrapper);
+
+    @Select("select * from Leave ${ew.customSqlSegment}")
+    List<Leave> selectLeave(@Param(Constants.WRAPPER) QueryWrapper<Leave> queryWrapper);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
