@@ -366,5 +366,21 @@ public interface HireClientService {
     @PutMapping("/updateStaffState")
     Object updateStaffState(@RequestBody Staff staff);
 
+    /**
+     * 添加离职
+     * @param quit
+     * @return
+     */
+    @PostMapping("/insertQuit")
+    Object insertQuit(@RequestBody Quit quit);
+
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffStateTwo")
+    Object updateStaffStateTwo(@RequestBody Staff staff);
+
 }
 

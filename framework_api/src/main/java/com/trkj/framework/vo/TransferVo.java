@@ -51,7 +51,7 @@ public class TransferVo {
     @TableField("TRANSFER_AFTERPOST_NAME")
     private String transferAfterpostName;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "生效日期")
     @TableField("TAKE_EFFECT_DATE")
     private Date takeEffectDate;
@@ -80,6 +80,7 @@ public class TransferVo {
     @TableField("STAFF_PICTURE")
     private String staffPicture;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")
     @TableField("STAFF_BIRTHDAY")
     private Date staffBirthday;
@@ -100,6 +101,7 @@ public class TransferVo {
     @TableField("STAFF_PASS")
     private String staffPass;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "入职日期")
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;

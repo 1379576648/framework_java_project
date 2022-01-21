@@ -301,4 +301,24 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.updateStaffState(staff));
     }
 
+    /**
+     * 添加离职
+     * @param quit
+     * @return
+     */
+    @PostMapping("/insertQuit")
+    public AjaxResponse insertQuit(@RequestBody Quit quit){
+        return AjaxResponse.success(hireClientService.insertQuit(quit));
+    }
+
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffStateTwo")
+    public AjaxResponse updateStaffStateTwo(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateStaffStateTwo(staff));
+    }
+
 }
