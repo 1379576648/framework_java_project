@@ -174,7 +174,7 @@ public class AuditflowController {
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    public Integer selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
+    public List<OvertimeaskVo> selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
         return auditflowService.selectOvertimeExamine(overtimeaskVo);
     }
 
