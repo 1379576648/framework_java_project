@@ -15,6 +15,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Queue;
 
@@ -38,6 +43,7 @@ public class StaffServiceImpl implements StaffService {
      */
     @Override
     public IPage<StaffVo> selectStaff(StaffVo staffVo) {
+        Staff staff = new Staff();
         Page<StaffVo> page = new Page<>(staffVo.getCurrentPage(),staffVo.getPagesize());
         QueryWrapper<StaffVo> queryWrapper = new QueryWrapper<>();
         //根据名称查询
@@ -45,7 +51,23 @@ public class StaffServiceImpl implements StaffService {
             queryWrapper.like("s.STAFF_NAME",staffVo.getStaffName());
         }
         queryWrapper.ne("s.STAFF_STATE",2);
-        return staffMapper.selectStaff(page,queryWrapper);
+        IPage<StaffVo> list = staffMapper.selectStaff(page,queryWrapper);
+        for(StaffVo staffvo : list.getRecords()){
+            //设置日期格式
+            SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+            //放入入职日期和当前日期
+            Period period = Period.between(LocalDate.parse(df.format(staffvo.getStaffHiredate())),
+                    LocalDate.parse(df.format(new Date())));
+            //将计算好的工龄放入vo视图中
+            staffvo.setWorkAge(period.getYears()+"年"+period.getMonths()+"月"+period.getDays()+"日");
+            //在数据库中修改
+            //取当前循环的员工id
+            staff.setStaffId(staffvo.getStaffId());
+            //取当前循环员工的工龄
+            staff.setWorkAge(staffvo.getWorkAge());
+            staffMapper.updateById(staff);
+        }
+        return list;
     }
 
     /**
