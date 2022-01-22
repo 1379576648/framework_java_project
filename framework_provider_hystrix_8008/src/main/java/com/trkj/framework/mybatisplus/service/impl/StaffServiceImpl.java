@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.mapper.StaffMapper;
 import com.trkj.framework.mybatisplus.service.StaffService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -157,6 +158,22 @@ public class StaffServiceImpl implements StaffService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateStaffStateTwo(Staff staff) {
+        final var i = staffMapper.updateById(staff);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateWorkerDate(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
             return 999;

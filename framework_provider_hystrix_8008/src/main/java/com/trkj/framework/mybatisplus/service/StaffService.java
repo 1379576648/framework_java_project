@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
 import com.trkj.framework.vo.TransferVo;
@@ -68,5 +69,12 @@ public interface StaffService {
      * @return
      */
     int updateStaffStateTwo(Staff staff);
+
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    int updateWorkerDate(Staff staff);
 
 }

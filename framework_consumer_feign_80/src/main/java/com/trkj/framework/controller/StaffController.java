@@ -321,4 +321,14 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.updateStaffStateTwo(staff));
     }
 
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateWorkerDate")
+    public AjaxResponse updateWorkerDate(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateWorkerDate(staff));
+    }
+
 }
