@@ -95,21 +95,6 @@ public class WorkerController {
     }
 
     /**
-     * 根据员工名册查询其员工状态 返回1为实习员工
-     * @param staff
-     * @return
-     */
-    @PostMapping("/selectStaffState")
-    public Long selectStaffState(@RequestBody Staff staff){
-        final var i = workerService.selectStaffState(staff);
-        if (i ==1L){
-            return 1L;
-        }else {
-            return 0L;
-        }
-    }
-
-    /**
      * 根据部门编号查询其部门经理
      * @return
      */

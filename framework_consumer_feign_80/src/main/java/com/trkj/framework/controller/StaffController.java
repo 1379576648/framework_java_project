@@ -281,4 +281,54 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.selectPunishGlory(punishGloryVo));
     }
 
+    /**
+     * 添加转正
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/insertWorker")
+    public AjaxResponse insertWorker(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.insertWorker(fullVo));
+    }
+
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffState")
+    public AjaxResponse updateStaffState(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateStaffState(staff));
+    }
+
+    /**
+     * 添加离职
+     * @param quit
+     * @return
+     */
+    @PostMapping("/insertQuit")
+    public AjaxResponse insertQuit(@RequestBody Quit quit){
+        return AjaxResponse.success(hireClientService.insertQuit(quit));
+    }
+
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffStateTwo")
+    public AjaxResponse updateStaffStateTwo(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateStaffStateTwo(staff));
+    }
+
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateWorkerDate")
+    public AjaxResponse updateWorkerDate(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateWorkerDate(staff));
+    }
+
 }

@@ -81,21 +81,6 @@ public class WorkerServicelmpl implements WorkerService {
         return auditflowoneMapper.selectDetailsWorker(queryWrapper);
     }
 
-    /**
-     * 根据员工名称去查询其员工状态为0实习的员工 条件为逻辑删除为0/员工状态为0实习的
-     *
-     * @param staff
-     * @return
-     */
-    @Override
-    public Long selectStaffState(Staff staff) {
-        QueryWrapper<Staff> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("IS_DELETED", 0);
-        queryWrapper.eq("STAFF_STATE", 0);
-        queryWrapper.eq("STAFF_NAME", staff.getStaffName());
-        return staffMapper.selectStaffState(queryWrapper);
-    }
-
     @Override
     public List<DeptPostVo> selectDeptPostName(DeptPostVo deptPostVo) {
         QueryWrapper<DeptPostVo> queryWrapper = new QueryWrapper<>();

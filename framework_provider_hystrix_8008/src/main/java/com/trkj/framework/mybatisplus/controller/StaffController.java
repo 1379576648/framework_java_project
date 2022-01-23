@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.service.StaffService;
 import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
@@ -164,7 +165,54 @@ public class StaffController {
         }
     }
 
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffState")
+    public int updateStaffState(@RequestBody Staff staff){
+        staff.setStaffState(1L);
+        final var i = staffService.updateStaffState(staff);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
 
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffStateTwo")
+    public int updateStaffStateTwo(@RequestBody Staff staff){
+        staff.setStaffState(2L);
+        final var i = staffService.updateStaffState(staff);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateWorkerDate")
+    public Object updateWorkerDate(@RequestBody Staff staff){
+        //转正日期
+        staff.setWorkerDate(staff.getWorkerDate());
+        final var i = staffService.updateWorkerDate(staff);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
 
 }
 

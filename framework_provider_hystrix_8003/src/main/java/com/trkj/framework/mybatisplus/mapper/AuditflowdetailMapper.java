@@ -29,7 +29,7 @@ public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
     @Update("update WORKER set WORKER_STATE=1 ${ew.customSqlSegment}")
     int updateWorker(@Param(Constants.WRAPPER) QueryWrapper<Worker> queryWrapper1);
 
-    @Select("select UPDATED_DEPT_NAME from TRANSFER ${ew.customSqlSegment}")
+    @Select("select * from TRANSFER ${ew.customSqlSegment}")
     List<Transfer> selectTransfer(@Param(Constants.WRAPPER) QueryWrapper<Transfer> queryWrapper);
 
     @Select("select DEPT_ID from DEPT ${ew.customSqlSegment}")
@@ -44,8 +44,8 @@ public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
     @Select("select a.DEPT_POST_ID from DEPT_POST a LEFT JOIN DEPT b on a.DEPT_ID = b.DEPT_ID ${ew.customSqlSegment}")
     Integer selectPostID(@Param(Constants.WRAPPER) QueryWrapper<DeptPost> queryWrapper);
 
-    @Select("select AFTER_SALARY from SALARY ${ew.customSqlSegment}")
-    Integer selectSalary(@Param(Constants.WRAPPER) QueryWrapper<Salary> queryWrapper);
+    @Select("select * from SALARY ${ew.customSqlSegment}")
+    List<Salary> selectSalary(@Param(Constants.WRAPPER) QueryWrapper<Salary> queryWrapper);
 
     @Select("select FIXEDWAGE_ID from FIXEDWAGE ${ew.customSqlSegment}")
     Integer selectFixedwagfID(@Param(Constants.WRAPPER) QueryWrapper<Fixedwagf> queryWrapper);
@@ -61,4 +61,40 @@ public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
 
     @Update("update TRANSFER set TRANSFER_STATE=1 ${ew.customSqlSegment}")
     int updateTransfer(@Param(Constants.WRAPPER) QueryWrapper<Transfer> queryWrapper1);
+
+    @Select("select * from WORKER ${ew.customSqlSegment}")
+    List<Worker> selectWorker(@Param(Constants.WRAPPER) QueryWrapper<Worker> queryWrapper);
+
+    @Select("select * from QUIT ${ew.customSqlSegment}")
+    List<Quit> selectQuit(@Param(Constants.WRAPPER) QueryWrapper<Quit> queryWrapper);
+
+    @Select("select * from OVERTIMEASK ${ew.customSqlSegment}")
+    List<Overtimeask> selectOvertime(@Param(Constants.WRAPPER) QueryWrapper<Overtimeask> queryWrapper);
+
+    @Update("update OVERTIMEASK set OVERTIMEASK_STATE=1 ${ew.customSqlSegment}")
+    int updateOvertimeasks(@Param(Constants.WRAPPER) QueryWrapper<Overtimeask> queryWrapper1);
+
+    @Select("select * from Travel ${ew.customSqlSegment}")
+    List<Travel> selectTravel(@Param(Constants.WRAPPER) QueryWrapper<Travel> queryWrapper);
+
+    @Select("select * from Leave ${ew.customSqlSegment}")
+    List<Leave> selectLeave(@Param(Constants.WRAPPER) QueryWrapper<Leave> queryWrapper);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

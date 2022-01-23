@@ -48,16 +48,6 @@ public class WorkerController {
     }
 
     /**
-     * 根据员工名册查询其员工状态
-     * @param staff
-     * @return
-     */
-    @PostMapping("/selectStaffState")
-    public AjaxResponse selectStaffState(@RequestBody Staff staff){
-        return AjaxResponse.success(auditflowService.selectStaffState(staff));
-    }
-
-    /**
      * 根据部门编号查询其部门经理
      * @return
      */

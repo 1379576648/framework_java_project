@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
@@ -96,6 +97,19 @@ public class AuditflowController {
     }
 
     /**
+     * 根据员工名称查询其状态
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectStaffState")
+    public Object selectStaffState(@RequestBody Staff staff){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.selectStaffState(staff));
+        return map1;
+    }
+
+    /**
      * 根据审批明细表ID修改其状态 通过
      *
      * @param
@@ -160,7 +174,7 @@ public class AuditflowController {
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    public Integer selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
+    public List<OvertimeaskVo> selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
         return auditflowService.selectOvertimeExamine(overtimeaskVo);
     }
 
