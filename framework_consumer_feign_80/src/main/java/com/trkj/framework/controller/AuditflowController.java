@@ -4,6 +4,7 @@ import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.*;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -111,5 +112,15 @@ public class AuditflowController {
     @PostMapping("/submitToOvertime2")
     public AjaxResponse submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo){
         return AjaxResponse.success(auditflowService.submitToOvertime2(overtimeaskVo));
+    }
+
+    /**
+     * 根据员工编号查询部门职位
+     * @param staff
+     * @return
+     */
+    @PostMapping("/inquirePosition")
+    public AjaxResponse inquirePosition(@RequestBody Staff staff){
+        return AjaxResponse.success(auditflowService.inquirePosition(staff));
     }
 }

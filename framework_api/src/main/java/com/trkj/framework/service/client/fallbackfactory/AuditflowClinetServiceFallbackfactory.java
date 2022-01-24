@@ -400,7 +400,7 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object selectCardExamine(Card card) {
+            public Object selectCardExamine(CardDetailsVo cardDetailsVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -417,6 +417,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object submitToCard2(CardVo cardVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToCard1(CardVo cardVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -465,6 +473,30 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object submitToAskForLeave2(LeaveVo leaveVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectMyWorker(Auditflowone auditflowone) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectMyEndWorker(Auditflowone auditflowone) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object inquirePosition(Staff staff) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

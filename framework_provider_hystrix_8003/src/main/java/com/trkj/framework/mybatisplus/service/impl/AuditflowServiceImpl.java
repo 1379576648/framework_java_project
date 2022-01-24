@@ -49,6 +49,8 @@ public class AuditflowServiceImpl implements AuditflowService {
     private TravelMapper travelMapper;
     @Autowired
     private LeaveMapper leaveMapper;
+    @Autowired
+    private DeptPostMapper deptPostMapper;
 
 
     /**
@@ -731,6 +733,7 @@ public class AuditflowServiceImpl implements AuditflowService {
 
     /**
      * 根据员工名称是否有加班记录
+     *
      * @param overtimeaskVo
      * @return
      */
@@ -902,5 +905,22 @@ public class AuditflowServiceImpl implements AuditflowService {
         } else {
             return 0;
         }
+    }
+
+    /**
+     * 查询部门职位
+     *
+     * @param staff
+     * @return
+     */
+    @Override
+    public String inquirePosition(Staff staff) {
+        // 先根据员工编号查询员工数据
+        final var staff1 = staffMapper.selectById(staff);
+        // 取到员工部门职位编号
+        final var deptPostId = staff1.getDeptPostId();
+        // 再根据部门职位编号查询部门职位数据
+        final var deptPost = deptPostMapper.selectById(deptPostId);
+        return deptPost.getPostName();
     }
 }

@@ -37,11 +37,10 @@ public interface CardService {
 
     /**
      * 根据员工名称是否有补打卡记录
-     * @param card
+     * @param cardDetailsVo
      * @return
      */
-    @PostMapping("/selectCardExamine")
-    Integer selectCardExamine(Card card);
+    List<CardDetailsVo> selectCardExamine(CardDetailsVo cardDetailsVo);
 
     /**
      * 添加补打卡 添加三个审批人
@@ -56,4 +55,11 @@ public interface CardService {
      * @return
      */
     int submitToCard2(CardVo cardVo);
+
+    /**
+     * 添加补打卡 添加一个审批人
+     * @param cardVo
+     * @return
+     */
+    Integer submitToCard1(CardVo cardVo);
 }

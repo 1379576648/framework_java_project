@@ -77,4 +77,18 @@ public interface WorkerService {
      * @return
      */
     Integer selectexaminerecord(WorkerVo workerVo);
+
+    /**
+     * 查询我的转正审批申请 待处理
+     * @param auditflowone
+     * @return
+     */
+    IPage<Auditflowone> selectMyWorker(Auditflowone auditflowone);
+
+    /**
+     * 查询我的转正审批申请 已处理
+     * @param auditflowone
+     * @return
+     */
+    IPage<Auditflowone> selectMyEndWorker(Auditflowone auditflowone);
 }

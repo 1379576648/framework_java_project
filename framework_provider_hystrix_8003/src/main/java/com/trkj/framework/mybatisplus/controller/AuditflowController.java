@@ -2,12 +2,10 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
+import com.trkj.framework.entity.mybatisplus.DeptPost;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.OvertimeaskVo;
-import com.trkj.framework.vo.WorkerVo;
+import com.trkj.framework.vo.*;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -196,6 +194,19 @@ public class AuditflowController {
     @PostMapping("/submitToOvertime2")
     public int submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo){
         return  auditflowService.submitToOvertime2(overtimeaskVo);
+    }
+
+    /**
+     * 根据员工编号查询部门职位
+     * @param staff
+     * @return
+     */
+    @PostMapping("/inquirePosition")
+    public Object inquirePosition(@RequestBody Staff staff){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.inquirePosition(staff));
+        return map1;
     }
 }
 

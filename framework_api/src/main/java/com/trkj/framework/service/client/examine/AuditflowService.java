@@ -425,11 +425,11 @@ public interface AuditflowService {
 
     /**
      * 根据员工名称是否有补打卡记录
-     * @param card
+     * @param cardDetailsVo
      * @return
      */
     @PostMapping("/selectCardExamine")
-    Object selectCardExamine(Card card);
+    Object selectCardExamine(CardDetailsVo cardDetailsVo);
 
     /**
      * 添加补打卡 3个审批人
@@ -446,6 +446,14 @@ public interface AuditflowService {
      */
     @PostMapping("/submitToCard2")
     Object submitToCard2(CardVo cardVo);
+
+    /**
+     * 添加补打卡 1个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard1")
+    Object submitToCard1(CardVo cardVo);
 
     /**
      * 根据员工名称是否有出差记录
@@ -494,4 +502,29 @@ public interface AuditflowService {
      */
     @PostMapping("/submitToAskForLeave2")
     Object submitToAskForLeave2(LeaveVo leaveVo);
+
+    /**
+     * 查询我的转正审批申请 待处理
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectMyWorker")
+    Object selectMyWorker(Auditflowone auditflowone);
+
+    /**
+     * 查询我的转正审批申请 已处理
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectMyEndWorker")
+    Object selectMyEndWorker(Auditflowone auditflowone);
+
+    /**
+     * 根据员工编号查询部门职位
+     * @param staff
+     * @return
+     */
+    @PostMapping("/inquirePosition")
+    Object inquirePosition(Staff staff);
+
 }

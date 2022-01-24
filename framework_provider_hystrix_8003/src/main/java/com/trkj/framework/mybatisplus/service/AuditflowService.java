@@ -95,4 +95,10 @@ public interface AuditflowService {
      */
     int submitToOvertime2(OvertimeaskVo overtimeaskVo);
 
+    /**
+     * 根据员工编号查询部门职位
+     * @param staff
+     * @return
+     */
+    String inquirePosition(Staff staff);
 }

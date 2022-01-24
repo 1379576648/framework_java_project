@@ -268,4 +268,34 @@ public class WorkerServicelmpl implements WorkerService {
             return i;
         }
     }
+
+    @Override
+    public IPage<Auditflowone> selectMyWorker(Auditflowone auditflowone){
+        Page<Auditflowone> page = new Page<>(auditflowone.getCurrentPage(), auditflowone.getPagesize());
+        QueryWrapper<Auditflowone> queryWrapper = new QueryWrapper<>();
+        if (auditflowone.getStartTime() != null || auditflowone.getEndTime() != null) {
+            //根据开始日期结束日期范围查询
+            queryWrapper.between("a.CREATED_TIME", auditflowone.getStartTime(), auditflowone.getEndTime());
+        }
+        queryWrapper.eq("a.STAFF_NAME", auditflowone.getStaffName1());
+        queryWrapper.eq("b.AUDITFLOWDETAI_STATE", 1);
+        queryWrapper.eq("a.AUDITFLOW_TYPE", "加班");
+        return auditflowoneMapper.selectMyWorker(page, queryWrapper);
+    }
+
+    @Override
+    public IPage<Auditflowone> selectMyEndWorker(Auditflowone auditflowone){
+        Page<Auditflowone> page = new Page<>(auditflowone.getCurrentPage(), auditflowone.getPagesize());
+        QueryWrapper<Auditflowone> queryWrapper = new QueryWrapper<>();
+        if (auditflowone.getStartTime() != null || auditflowone.getEndTime() != null) {
+            //根据开始日期结束日期范围查询
+            queryWrapper.between("a.CREATED_TIME", auditflowone.getStartTime(), auditflowone.getEndTime());
+        }
+        queryWrapper.eq("a.STAFF_NAME", auditflowone.getStaffName1());
+        queryWrapper.eq("b.STAFF_NAME", auditflowone.getStaffName2());
+        queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 0);
+        queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 1);
+        queryWrapper.eq("a.AUDITFLOW_TYPE", "加班");
+        return auditflowoneMapper.selectMyEndWorker(page, queryWrapper);
+    }
 }

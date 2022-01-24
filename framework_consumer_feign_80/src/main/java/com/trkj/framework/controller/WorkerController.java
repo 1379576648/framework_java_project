@@ -4,6 +4,7 @@ import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.*;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -103,6 +104,26 @@ public class WorkerController {
     @PostMapping("/selectexaminerecord")
     public AjaxResponse selectexaminerecord(@RequestBody WorkerVo workerVo){
         return AjaxResponse.success(auditflowService.selectexaminerecord(workerVo));
+    }
+
+    /**
+     * 查询我的转正审批申请 待处理
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectMyWorker")
+    public AjaxResponse selectMyWorker(@RequestBody Auditflowone auditflowone){
+        return AjaxResponse.success(auditflowService.selectMyWorker(auditflowone));
+    }
+
+    /**
+     * 查询我的转正审批申请 待处理
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectMyEndWorker")
+    public AjaxResponse selectMyEndWorker(@RequestBody Auditflowone auditflowone){
+        return AjaxResponse.success(auditflowService.selectMyEndWorker(auditflowone));
     }
 
 }

@@ -160,4 +160,31 @@ public class WorkerController {
     public Integer selectexaminerecord(@RequestBody WorkerVo workerVo){
         return workerService.selectexaminerecord(workerVo);
     }
+
+    /**
+     * 查询我的转正审批申请 待处理
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectMyWorker")
+    public Object selectMyWorker(@RequestBody Auditflowone auditflowone){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectMyWorker(auditflowone));
+        return map1;
+    }
+
+    /**
+     * 查询我的转正审批申请 已处理
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectMyEndWorker")
+    public Object selectMyEndWorker(@RequestBody Auditflowone auditflowone){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectMyEndWorker(auditflowone));
+        return map1;
+    }
+
 }
