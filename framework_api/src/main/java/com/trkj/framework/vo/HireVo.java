@@ -215,6 +215,11 @@ public class HireVo {
     @TableField("UPDATED_TIME")
     private Date updatedTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @ApiModelProperty(value = "转正日期")
+    @TableField("WORKER_DATE")
+    private Date workerDate;
+
     @ApiModelProperty(value = "乐观锁")
     @TableField("REVISION")
     private Long revision;

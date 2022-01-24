@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.vo.FullVo;
 
 public interface WorkerService {

@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.service.StaffService;
 import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
@@ -196,7 +197,22 @@ public class StaffController {
         }
     }
 
-
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateWorkerDate")
+    public Object updateWorkerDate(@RequestBody Staff staff){
+        //转正日期
+        staff.setWorkerDate(staff.getWorkerDate());
+        final var i = staffService.updateWorkerDate(staff);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
 
 }
 

@@ -382,5 +382,12 @@ public interface HireClientService {
     @PutMapping("/updateStaffStateTwo")
     Object updateStaffStateTwo(@RequestBody Staff staff);
 
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateWorkerDate")
+    Object updateWorkerDate(@RequestBody Staff staff);
 }
 

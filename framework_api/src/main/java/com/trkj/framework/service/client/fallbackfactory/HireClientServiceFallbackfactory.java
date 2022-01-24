@@ -613,6 +613,19 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 修改转正日期
+             * @param staff
+             * @return
+             */
+            @Override
+            public Object updateWorkerDate(Staff staff) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }
