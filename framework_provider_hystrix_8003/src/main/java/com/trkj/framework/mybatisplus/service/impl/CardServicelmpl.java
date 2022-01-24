@@ -82,8 +82,6 @@ public class CardServicelmpl implements CardService {
     @Override
     public List<CardDetailsVo> selectCardExamine(CardDetailsVo cardDetailsVo) {
         QueryWrapper<CardDetailsVo> queryWrapper = new QueryWrapper<>();
-        System.out.println("11111111111111111111111111111111111111111111111111111111");
-        System.out.println(cardDetailsVo.getStaffName1());
         queryWrapper.eq("c.STAFF_NAME", cardDetailsVo.getStaffName1());
         queryWrapper.eq("a.IS_DELETED", 0);
         queryWrapper.eq("b.IS_DELETED", 0);

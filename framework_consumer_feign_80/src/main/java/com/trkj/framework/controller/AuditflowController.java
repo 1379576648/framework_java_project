@@ -115,6 +115,16 @@ public class AuditflowController {
     }
 
     /**
+     * 添加加班 一个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime1")
+    public AjaxResponse submitToOvertime1(@RequestBody OvertimeaskVo overtimeaskVo){
+        return AjaxResponse.success(auditflowService.submitToOvertime1(overtimeaskVo));
+    }
+
+    /**
      * 根据员工编号查询部门职位
      * @param staff
      * @return

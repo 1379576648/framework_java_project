@@ -2,10 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Quit;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.QuitDetailsVo;
-import com.trkj.framework.vo.QuitVo;
-import com.trkj.framework.vo.SalaryVo;
+import com.trkj.framework.vo.*;
 
 import java.util.List;
 
@@ -32,11 +29,11 @@ public interface QuitService {
     List<QuitDetailsVo> selectDetailsQuit(QuitDetailsVo quitDetailsVo);
 
     /**
-     * 根据员工名称是否有调薪记录
+     * 根据员工名称是否有离职记录
      * @param
      * @return
      */
-    Integer selectDimissionRecord(Quit quit);
+    List<QuitDetailsVo>  selectDimissionRecord(QuitDetailsVo quitDetailsVo);
 
     /**
      * 添加离职 添加三个审批人
@@ -46,9 +43,16 @@ public interface QuitService {
     int submitToLeave3(QuitVo quitVo);
 
     /**
-     * 添加调薪 添加三个审批人
+     * 添加调薪 添加两个审批人
      * @param quitVo
      * @return
      */
     int submitToLeave2(QuitVo quitVo);
+
+    /**
+     * 添加调薪 添加一个审批人
+     * @param quitVo
+     * @return
+     */
+    Integer submitToLeave1(QuitVo quitVo);
 }

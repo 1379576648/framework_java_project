@@ -96,9 +96,17 @@ public interface AuditflowService {
     int submitToOvertime2(OvertimeaskVo overtimeaskVo);
 
     /**
+     * 添加加班 添加两个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    Integer submitToOvertime1(OvertimeaskVo overtimeaskVo);
+
+    /**
      * 根据员工编号查询部门职位
      * @param staff
      * @return
      */
     String inquirePosition(Staff staff);
+
 }

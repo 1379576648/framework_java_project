@@ -52,12 +52,12 @@ public class LeaveController {
 
     /**
      * 根据员工名称是否有请假记录
-     * @param leave
+     * @param leaveDetailsVo
      * @return
      */
     @PostMapping("/selectLeaveExamine")
-    public AjaxResponse selectCardExamine(@RequestBody Leave leave){
-        return AjaxResponse.success(auditflowService.selectLeaveExamine(leave));
+    public AjaxResponse selectCardExamine(@RequestBody LeaveDetailsVo leaveDetailsVo){
+        return AjaxResponse.success(auditflowService.selectLeaveExamine(leaveDetailsVo));
     }
 
     /**
@@ -78,5 +78,15 @@ public class LeaveController {
     @PostMapping("/submitToAskForLeave2")
     public AjaxResponse submitToAskForLeave2(@RequestBody LeaveVo leaveVo){
         return AjaxResponse.success(auditflowService.submitToAskForLeave2(leaveVo));
+    }
+
+    /**
+     * 添加请假 一个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave1")
+    public AjaxResponse submitToAskForLeave1(@RequestBody LeaveVo leaveVo){
+        return AjaxResponse.success(auditflowService.submitToAskForLeave1(leaveVo));
     }
 }

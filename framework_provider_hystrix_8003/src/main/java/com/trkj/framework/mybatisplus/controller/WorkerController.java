@@ -152,17 +152,41 @@ public class WorkerController {
     }
 
     /**
+     * 添加转正 添加一个审批人
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive1")
+    @HystrixCommand(fallbackMethod = "SubmitPositive1ExamineHystixGet")
+    public Object SubmitPositive1(@RequestBody WorkerVo workerVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.SubmitPositive1(workerVo));
+        return map1;
+    }
+
+    public Object SubmitPositive1ExamineHystixGet(@RequestBody WorkerVo workerVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
      * 根据员工名称是否有转正记录
      * @param workerVo
      * @return
      */
     @PostMapping("/selectexaminerecord")
-    public Integer selectexaminerecord(@RequestBody WorkerVo workerVo){
-        return workerService.selectexaminerecord(workerVo);
+    public Object selectexaminerecord(@RequestBody WorkerVo workerVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectexaminerecord(workerVo));
+        return map1;
     }
 
     /**
-     * 查询我的转正审批申请 待处理
+     * 查询我的审批申请 待处理
      * @param auditflowone
      * @return
      */
@@ -175,7 +199,7 @@ public class WorkerController {
     }
 
     /**
-     * 查询我的转正审批申请 已处理
+     * 查询我的审批申请 已处理
      * @param auditflowone
      * @return
      */

@@ -95,22 +95,19 @@ public class TransferServicelmpl implements Transfer8003Service {
     }
 
     @Override
-    public Integer selectTransferRecord(Transfer8003Vo transferVo) {
+    public List<Transfer8003Vo> selectTransferRecord(Transfer8003Vo transferVo) {
         QueryWrapper<Transfer8003Vo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("c.STAFF_NAME", transferVo.getStaffName());
         queryWrapper.eq("a.IS_DELETED", 0);
         queryWrapper.eq("b.IS_DELETED", 0);
         queryWrapper.eq("c.IS_DELETED", 0);
         final var i = transferMapper.selectTransferRecord(queryWrapper);
-        if (i == null) {
-            return 5;
-        } else {
-            return i;
-        }
+        return i;
     }
 
     /**
      * 添加调动 添加三个审批人
+     *
      * @param transferVo
      * @return
      */
@@ -191,6 +188,7 @@ public class TransferServicelmpl implements Transfer8003Service {
 
     /**
      * 添加调动 添加两个审批人
+     *
      * @param transferVo
      * @return
      */
@@ -260,4 +258,67 @@ public class TransferServicelmpl implements Transfer8003Service {
             return 0;
         }
     }
+
+    /**
+     * 添加调动 添加一个审批人
+     *
+     * @param transferVo
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer SubmitTransfer1(Transfer8003Vo transferVo) {
+        // 添加审批主表
+        Auditflow auditflow = new Auditflow();
+        //审批主表-标题
+        auditflow.setAuditflowTitle(transferVo.getAuditflowTitle());
+        // 审批主表-审批类型
+        auditflow.setAuditflowType(transferVo.getAuditflowType());
+        // 审批主表-申请人
+        auditflow.setStaffName(transferVo.getStaffName());
+        final var i = auditflowMapper.insert(auditflow);
+        // 如果添加审批主表添加成功，则再去添加审批明细表
+        if (i == 1) {
+            // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
+            Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
+                    .eq("STAFF_NAME", transferVo.getStaffName())
+                    .eq("AUDITFLOW_TITLE", transferVo.getAuditflowTitle())
+                    .eq("IS_DELETED", 0));
+            // 添加审批明细表1
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
+            // 审批明细表1-审批编号
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            // 审批明细表1-审批人
+            auditflowdetail1.setStaffName(transferVo.getStaffName1());
+            // 审批明细表1-审核状态-待我审批
+            auditflowdetail1.setAuditflowdetaiState(1);
+            final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
+            // 如果三个审批明细表添加成功，则添加转正表
+            Transfer transfer = new Transfer();
+            // 调动表-审批编号
+            transfer.setAuditflowId(auditflow1.getAuditflowId());
+            // 调动表-员工名称
+            transfer.setStaffName(transferVo.getStaffName());
+            // 调动表-调动类型
+            transfer.setTransferType(transferVo.getAuditflowType());
+            // 调动表-原部门名称
+            transfer.setCreatedDeptName(transferVo.getCreateddeptname());
+            // 调动表-变动后部门名称
+            transfer.setUpdatedDeptName(transferVo.getUpdatedeptname());
+            // 调动表-调动日期
+            transfer.setTakeEffectDate(transferVo.getTakeeffectdate());
+            // 调动表-调动备注
+            transfer.setTransferRemark(transferVo.getTransferremark());
+            final val i4 = transferMapper.insert(transfer);
+            if (i1 == 1 && i4 == 1) {
+                return 1111;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+
 }

@@ -312,6 +312,14 @@ public interface AuditflowService {
     Object SubmitPositive2(WorkerVo workerVo);
 
     /**
+     * 添加转正 1个审批人
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive1")
+    Object SubmitPositive1(WorkerVo workerVo);
+
+    /**
      * 根据员工名称是否有转正记录
      * @param workerVo
      * @return
@@ -342,6 +350,14 @@ public interface AuditflowService {
      */
     @PostMapping("/SubmitTransfer2")
     Object SubmitTransfer2(Transfer8003Vo transferVo);
+
+    /**
+     * 添加调动 1个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer1")
+    Object SubmitTransfer1(Transfer8003Vo transferVo);
 
     /**
      * 根据员工名称是否有调薪记录
@@ -376,12 +392,20 @@ public interface AuditflowService {
     Object SubmitSalary2(SalaryVo salaryVo);
 
     /**
+     * 添加调薪 1个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary1")
+    Object SubmitSalary1(SalaryVo salaryVo);
+
+    /**
      * 根据员工名称是否有离职记录
-     * @param quit
+     * @param quitDetailsVo
      * @return
      */
     @PostMapping("/selectDimissionRecord")
-    Object selectDimissionRecord(Quit quit);
+    Object selectDimissionRecord(QuitDetailsVo quitDetailsVo);
 
     /**
      * 添加调薪 3个审批人
@@ -398,6 +422,14 @@ public interface AuditflowService {
      */
     @PostMapping("/submitToLeave2")
     Object submitToLeave2(QuitVo quitVo);
+
+    /**
+     * 添加调薪 1个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave1")
+    Object submitToLeave1(QuitVo quitVo);
 
     /**
      * 根据员工名称是否有加班记录
@@ -422,6 +454,14 @@ public interface AuditflowService {
      */
     @PostMapping("/submitToOvertime2")
     Object submitToOvertime2(OvertimeaskVo overtimeaskVo);
+
+    /**
+     * 添加加班 1个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime1")
+    Object submitToOvertime1(OvertimeaskVo overtimeaskVo);
 
     /**
      * 根据员工名称是否有补打卡记录
@@ -457,14 +497,14 @@ public interface AuditflowService {
 
     /**
      * 根据员工名称是否有出差记录
-     * @param travel
+     * @param travelDetailsVo
      * @return
      */
     @PostMapping("/selectEvectionExamine")
-    Object selectEvectionExamine(Travel travel);
+    Object selectEvectionExamine(TravelDetailsVo travelDetailsVo);
 
     /**
-     * 添加补打卡 3个审批人
+     * 添加出差 3个审批人
      * @param travelVo
      * @return
      */
@@ -472,7 +512,7 @@ public interface AuditflowService {
     Object submitToTravel3(TravelVo travelVo);
 
     /**
-     * 添加补打卡 2个审批人
+     * 添加出差 2个审批人
      * @param travelVo
      * @return
      */
@@ -480,15 +520,23 @@ public interface AuditflowService {
     Object submitToTravel2(TravelVo travelVo);
 
     /**
+     * 添加出差 1个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel1")
+    Object submitToTravel1(TravelVo travelVo);
+
+    /**
      * 根据员工名称是否有出差记录
-     * @param leave
+     * @param leaveDetailsVo
      * @return
      */
     @PostMapping("/selectLeaveExamine")
-    Object selectLeaveExamine(Leave leave);
+    Object selectLeaveExamine(LeaveDetailsVo leaveDetailsVo);
 
     /**
-     * 添加补打卡 3个审批人
+     * 添加请假 3个审批人
      * @param leaveVo
      * @return
      */
@@ -496,12 +544,20 @@ public interface AuditflowService {
     Object submitToAskForLeave3(LeaveVo leaveVo);
 
     /**
-     * 添加补打卡 2个审批人
+     * 添加请假 2个审批人
      * @param leaveVo
      * @return
      */
     @PostMapping("/submitToAskForLeave2")
     Object submitToAskForLeave2(LeaveVo leaveVo);
+
+    /**
+     * 添加请假 1个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave1")
+    Object submitToAskForLeave1(LeaveVo leaveVo);
 
     /**
      * 查询我的转正审批申请 待处理

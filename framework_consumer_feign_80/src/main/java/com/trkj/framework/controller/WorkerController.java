@@ -97,6 +97,16 @@ public class WorkerController {
     }
 
     /**
+     * 添加转正 两个审批人
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive1")
+    public AjaxResponse SubmitPositive1(@RequestBody WorkerVo workerVo){
+        return AjaxResponse.success(auditflowService.SubmitPositive1(workerVo));
+    }
+
+    /**
      * 根据员工名称是否有转正记录
      * @param workerVo
      * @return

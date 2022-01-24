@@ -39,7 +39,7 @@ public class CardDetailsVo implements Serializable {
 
     @ApiModelProperty(value = "审核状态")
     @TableField("AUDITFLOW_STATE")
-    private Long auditflowstate;
+    private Long auditflowState;
 
     @ApiModelProperty(value = "审批人")
     @TableField("STAFF_NAME")

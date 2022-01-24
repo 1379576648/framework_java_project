@@ -288,6 +288,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
+            public Object SubmitPositive1(WorkerVo workerVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
             public Object selectexaminerecord(WorkerVo workerVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
@@ -313,6 +321,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object SubmitTransfer2(Transfer8003Vo transferVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object SubmitTransfer1(Transfer8003Vo transferVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -352,7 +368,15 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object selectDimissionRecord(Quit quit) {
+            public Object SubmitSalary1(SalaryVo salaryVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectDimissionRecord(QuitDetailsVo quitDetailsVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -369,6 +393,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object submitToLeave2(QuitVo quitVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToLeave1(QuitVo quitVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -393,6 +425,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object submitToOvertime2(OvertimeaskVo overtimeaskVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToOvertime1(OvertimeaskVo overtimeaskVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -432,7 +472,7 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object selectEvectionExamine(Travel travel) {
+            public Object selectEvectionExamine(TravelDetailsVo travelDetailsVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -456,7 +496,15 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object selectLeaveExamine(Leave leave) {
+            public Object submitToTravel1(TravelVo travelVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectLeaveExamine(LeaveDetailsVo leaveDetailsVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -473,6 +521,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object submitToAskForLeave2(LeaveVo leaveVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitToAskForLeave1(LeaveVo leaveVo) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

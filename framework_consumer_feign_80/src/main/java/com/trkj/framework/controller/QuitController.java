@@ -48,12 +48,12 @@ public class QuitController {
 
     /**
      * 根据员工名称是否有离职记录
-     * @param quit
+     * @param quitDetailsVo
      * @return
      */
     @PostMapping("/selectDimissionRecord")
-    public AjaxResponse selectDimissionRecord(@RequestBody Quit quit){
-        return AjaxResponse.success(auditflowService.selectDimissionRecord(quit));
+    public AjaxResponse selectDimissionRecord(@RequestBody QuitDetailsVo quitDetailsVo){
+        return AjaxResponse.success(auditflowService.selectDimissionRecord(quitDetailsVo));
     }
 
     /**
@@ -74,6 +74,16 @@ public class QuitController {
     @PostMapping("/submitToLeave2")
     public AjaxResponse submitToLeave2(@RequestBody QuitVo quitVo){
         return AjaxResponse.success(auditflowService.submitToLeave2(quitVo));
+    }
+
+    /**
+     * 添加离职 一个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave1")
+    public AjaxResponse submitToLeave1(@RequestBody QuitVo quitVo){
+        return AjaxResponse.success(auditflowService.submitToLeave1(quitVo));
     }
 
 }

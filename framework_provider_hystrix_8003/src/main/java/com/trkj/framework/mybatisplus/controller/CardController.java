@@ -141,10 +141,18 @@ public class CardController {
      * @return
      */
     @PostMapping("/submitToCard1")
+    @HystrixCommand(fallbackMethod = "submitToCard1ExamineHystixGet")
     public Object submitToCard1(@RequestBody CardVo cardVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", cardService.submitToCard1(cardVo));
+        return map1;
+    }
+
+    public Object submitToCard1ExamineHystixGet(@RequestBody CardVo cardVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
         return map1;
     }
 }

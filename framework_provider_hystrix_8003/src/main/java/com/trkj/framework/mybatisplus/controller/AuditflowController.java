@@ -172,8 +172,18 @@ public class AuditflowController {
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    public List<OvertimeaskVo> selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
-        return auditflowService.selectOvertimeExamine(overtimeaskVo);
+    @HystrixCommand(fallbackMethod = "selectOvertimeExamineHystixGet")
+    public Object selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.selectOvertimeExamine(overtimeaskVo));
+        return map1;
+    }
+    public Object selectOvertimeExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
     /**
@@ -197,6 +207,28 @@ public class AuditflowController {
     }
 
     /**
+     * 添加加班 添加一个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime1")
+    @HystrixCommand(fallbackMethod = "submitToOvertime1ExamineHystixGet")
+    public Object submitToOvertime1(@RequestBody OvertimeaskVo overtimeaskVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.submitToOvertime1(overtimeaskVo));
+        return map1;
+    }
+
+    public Object submitToOvertime1ExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+
+    /**
      * 根据员工编号查询部门职位
      * @param staff
      * @return
@@ -208,5 +240,6 @@ public class AuditflowController {
         map1.put("info", auditflowService.inquirePosition(staff));
         return map1;
     }
+
 }
 
