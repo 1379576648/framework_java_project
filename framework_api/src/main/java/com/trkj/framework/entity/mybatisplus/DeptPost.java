@@ -67,4 +67,8 @@ public class DeptPost implements Serializable {
     @TableField(exist = false)
     private Integer pagesize;
 
+    @ApiModelProperty(value = "部门名称")
+    @TableField(exist = false)
+    private String deptName;
+
 }

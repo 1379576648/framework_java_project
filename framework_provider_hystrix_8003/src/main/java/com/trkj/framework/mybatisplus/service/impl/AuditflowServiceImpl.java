@@ -215,10 +215,15 @@ public class AuditflowServiceImpl implements AuditflowService {
                                 queryWrapper7.eq("a.DEPT_ID", satffNO.get(0).getDeptId());
                                 queryWrapper7.eq("a.DEPT_POST_ID", satffNO.get(0).getDeptPostId());
                                 final var deptPosts = auditflowdetailMapper.selectPostName(queryWrapper7);
+                                final var op = deptPosts.get(0).getPostName().matches("(.*)经理(.*)");
                                 // 如果成功，在这里拿到员工调岗前原部门职位名称，则根据原部门职位名称去及变动后部门编号查询变动后部门职位编号
                                 QueryWrapper<DeptPost> queryWrapper8 = new QueryWrapper<>();
+                                if (op == true){
+                                    queryWrapper8.like("a.POST_NAME","经理");
+                                }else{
+                                    queryWrapper8.eq("a.POST_NAME", deptPosts.get(0).getPostName());
+                                }
                                 queryWrapper8.eq("a.DEPT_ID", deptID);
-                                queryWrapper8.eq("a.POST_NAME", deptPosts.get(0).getPostName());
                                 final var postID = auditflowdetailMapper.selectPostID(queryWrapper8);
                                 // 拿这个部门职位编号去修改员工的原部门职位编号
                                 Staff staff1 = new Staff();
@@ -230,8 +235,12 @@ public class AuditflowServiceImpl implements AuditflowService {
                                 queryWrapper14.eq("STAFF_NAME", staffName1);
                                 queryWrapper14.eq("AUDITFLOW_ID", auditflowId);
                                 final var i7 = auditflowdetailMapper.updateTransfer(queryWrapper14);
+                                System.out.println(postID);
+                                System.out.println(i3);
+                                System.out.println(i7);
                                 // 如果修改成功，则添加一条消息给申请人(员工编号、标题、内容、)
-                                if (i7 == 1) {
+                                if (i3 ==1 && i7 == 1) {
+                                    System.out.println("22222222222222222222222222222222222222");
                                     News news = new News();
                                     news.setStaffId(satffNO.get(0).getStaffId());
                                     news.setNewsTitle(auditflowType + "审批已通过:");
