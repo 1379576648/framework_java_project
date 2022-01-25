@@ -98,8 +98,11 @@ public class LeaveController {
      * @return
      */
     @PostMapping("/selectLeaveExamine")
-    public Integer selectLeaveExamine(@RequestBody Leave leave){
-        return leaveService.selectLeaveExamine(leave);
+    public Object selectLeaveExamine(@RequestBody LeaveDetailsVo leaveDetailsVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", leaveService.selectLeaveExamine(leaveDetailsVo));
+        return map1;
     }
 
     /**
@@ -120,6 +123,27 @@ public class LeaveController {
     @PostMapping("/submitToAskForLeave2")
     public int submitToAskForLeave2(@RequestBody LeaveVo leaveVo){
         return  leaveService.submitToAskForLeave2(leaveVo);
+    }
+
+    /**
+     * 添加请假 添加一个审批人
+     * @param leaveVo
+     * @return
+     */
+    @PostMapping("/submitToAskForLeave1")
+    @HystrixCommand(fallbackMethod = "submitToAskForLeave1ExamineHystixGet")
+    public Object submitToAskForLeave1(@RequestBody LeaveVo leaveVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", leaveService.submitToAskForLeave1(leaveVo));
+        return map1;
+    }
+
+    public Object submitToAskForLeave1ExamineHystixGet(@RequestBody LeaveVo leaveVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
 }

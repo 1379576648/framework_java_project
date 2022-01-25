@@ -41,7 +41,7 @@ public interface Transfer8003Service {
      * @param transferVo
      * @return
      */
-    Integer selectTransferRecord(Transfer8003Vo transferVo);
+    List<Transfer8003Vo> selectTransferRecord(Transfer8003Vo transferVo);
 
     /**
      * 添加调动 添加三个审批人
@@ -56,5 +56,12 @@ public interface Transfer8003Service {
      * @return
      */
     int SubmitTransfer2(Transfer8003Vo transferVo);
+
+    /**
+     * 添加调动 添加一个审批人
+     * @param transferVo
+     * @return
+     */
+    Integer SubmitTransfer1(Transfer8003Vo transferVo);
 
 }

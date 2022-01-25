@@ -119,8 +119,11 @@ public class Transfer8003Controller {
      * @return
      */
     @PostMapping("/selectTransferRecord")
-    public Integer selectTransferRecord(@RequestBody Transfer8003Vo transferVo){
-        return transferService.selectTransferRecord(transferVo);
+    public Object selectTransferRecord(@RequestBody Transfer8003Vo transferVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", transferService.selectTransferRecord(transferVo));
+        return map1;
     }
 
     /**
@@ -141,5 +144,26 @@ public class Transfer8003Controller {
     @PostMapping("/SubmitTransfer2")
     public int SubmitTransfer2(@RequestBody Transfer8003Vo transferVo){
         return  transferService.SubmitTransfer2(transferVo);
+    }
+
+    /**
+     * 添加调动 添加一个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer1")
+    @HystrixCommand(fallbackMethod = "SubmitTransfer1ExamineHystixGet")
+    public Object SubmitTransfer1(@RequestBody Transfer8003Vo transferVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", transferService.SubmitTransfer1(transferVo));
+        return map1;
+    }
+
+    public Object SubmitTransfer1ExamineHystixGet(@RequestBody Transfer8003Vo transferVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 }

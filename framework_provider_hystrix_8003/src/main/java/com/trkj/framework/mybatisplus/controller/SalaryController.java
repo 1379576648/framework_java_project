@@ -96,8 +96,11 @@ public class SalaryController {
      * @return
      */
     @PostMapping("/selectSalaryRecord")
-    public Integer selectTransferRecord(@RequestBody SalaryVo salaryVo){
-        return salaryService.selectSalaryRecord(salaryVo);
+    public Object selectTransferRecord(@RequestBody SalaryVo salaryVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", salaryService.selectSalaryRecord(salaryVo));
+        return map1;
     }
 
     /**
@@ -130,4 +133,24 @@ public class SalaryController {
         return  salaryService.SubmitSalary2(salaryVo);
     }
 
+    /**
+     * 添加调薪 添加一个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary1")
+    @HystrixCommand(fallbackMethod = "SubmitSalary1ExamineHystixGet")
+    public Object submitToCard1(@RequestBody SalaryVo salaryVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", salaryService.SubmitSalary1(salaryVo));
+        return map1;
+    }
+
+    public Object SubmitSalary1ExamineHystixGet(@RequestBody SalaryVo salaryVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
 }

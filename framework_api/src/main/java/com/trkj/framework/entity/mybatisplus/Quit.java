@@ -86,5 +86,7 @@ public class Quit implements Serializable {
     @TableField("IS_DELETED")
     private Long isDeleted;
 
-
+    @ApiModelProperty(value = "当前审批状态")
+    @TableField(exist = false)
+    private Long auditflowdetaiState;
 }

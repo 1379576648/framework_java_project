@@ -95,29 +95,26 @@ public class SalaryServicelmpl implements SalaryService {
     }
 
     @Override
-    public Integer selectSalaryRecord(SalaryVo salaryVo) {
+    public List<SalaryVo> selectSalaryRecord(SalaryVo salaryVo) {
         QueryWrapper<SalaryVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("c.STAFF_NAME", salaryVo.getStaffName());
         queryWrapper.eq("a.IS_DELETED", 0);
         queryWrapper.eq("b.IS_DELETED", 0);
         queryWrapper.eq("c.IS_DELETED", 0);
         final var i = salaryMapper.selectSalaryRecord(queryWrapper);
-        if (i == null) {
-            return 5;
-        } else {
-            return i;
-        }
+        return i;
     }
 
     @Override
     public Integer selectPay(Fixedwagf fixedwagf) {
         QueryWrapper<Fixedwagf> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("STAFF_ID",fixedwagf.getStaffid());
+        queryWrapper.eq("STAFF_ID", fixedwagf.getStaffid());
         return fixedwagfMapper.selectPay(queryWrapper);
     }
 
     /**
      * 添加调薪 添加三个审批人
+     *
      * @param salaryVo
      * @return
      */
@@ -134,14 +131,14 @@ public class SalaryServicelmpl implements SalaryService {
         auditflow.setStaffName(salaryVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", salaryVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",salaryVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", salaryVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
             auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表1-审批人
@@ -151,7 +148,7 @@ public class SalaryServicelmpl implements SalaryService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
             auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表2-审批人
@@ -159,15 +156,15 @@ public class SalaryServicelmpl implements SalaryService {
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 添加审批明细表3
-            Auditflowdetail auditflowdetail3=new Auditflowdetail();
+            Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
             auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(salaryVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
             // 如果三个审批明细表添加成功，则添加调薪表
-            if (i1==1 && i2== 1 && i3==1) {
-                Salary salary=new Salary();
+            if (i1 == 1 && i2 == 1 && i3 == 1) {
+                Salary salary = new Salary();
                 // 调薪表-审批编号
                 salary.setAuditflowId(auditflow1.getAuditflowId());
                 // 调薪表-员工名称
@@ -183,21 +180,22 @@ public class SalaryServicelmpl implements SalaryService {
                 // 调薪表-转正日期
                 salary.setTakeEffectDate(salaryVo.getTakeEffectDate());
                 final val i4 = salaryMapper.insert(salary);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
     }
 
     /**
      * 添加调薪 添加三个审批人
+     *
      * @param salaryVo
      * @return
      */
@@ -214,14 +212,14 @@ public class SalaryServicelmpl implements SalaryService {
         auditflow.setStaffName(salaryVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", salaryVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",salaryVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", salaryVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
             auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表1-审批人
@@ -231,15 +229,15 @@ public class SalaryServicelmpl implements SalaryService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
             auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(salaryVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
             // 如果三个审批明细表添加成功，则添加调薪表
-            if (i1==1 && i2==1) {
-                Salary salary=new Salary();
+            if (i1 == 1 && i2 == 1) {
+                Salary salary = new Salary();
                 // 调薪表-审批编号
                 salary.setAuditflowId(auditflow1.getAuditflowId());
                 // 调薪表-员工名称
@@ -255,15 +253,77 @@ public class SalaryServicelmpl implements SalaryService {
                 // 调薪表-转正日期
                 salary.setTakeEffectDate(salaryVo.getTakeEffectDate());
                 final val i4 = salaryMapper.insert(salary);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 添加调薪 添加一个审批人
+     *
+     * @param salaryVo
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer SubmitSalary1(SalaryVo salaryVo) {
+        // 添加审批主表
+        Auditflow auditflow = new Auditflow();
+        //审批主表-标题
+        auditflow.setAuditflowTitle(salaryVo.getAuditflowTitle());
+        // 审批主表-审批类型
+        auditflow.setAuditflowType(salaryVo.getAuditflowType());
+        // 审批主表-申请人
+        auditflow.setStaffName(salaryVo.getStaffName());
+        final var i = auditflowMapper.insert(auditflow);
+        // 如果添加审批主表添加成功，则再去添加审批明细表
+        if (i == 1) {
+            // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
+            Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
+                    .eq("STAFF_NAME", salaryVo.getStaffName())
+                    .eq("AUDITFLOW_TITLE", salaryVo.getAuditflowTitle())
+                    .eq("IS_DELETED", 0));
+            // 添加审批明细表1
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
+            // 审批明细表1-审批编号
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            // 审批明细表1-审批人
+            auditflowdetail1.setStaffName(salaryVo.getStaffName1());
+            // 审批明细表1-审核状态-待我审批
+            auditflowdetail1.setAuditflowdetaiState(1);
+            final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
+
+            // 如果三个审批明细表添加成功，则添加调薪表
+            Salary salary = new Salary();
+            // 调薪表-审批编号
+            salary.setAuditflowId(auditflow1.getAuditflowId());
+            // 调薪表-员工名称
+            salary.setStaffName(salaryVo.getStaffName());
+            // 调薪表-部门名称
+            salary.setDeptName(salaryVo.getDeptname());
+            // 调薪表-调薪备注
+            salary.setSalaryRemarks(salaryVo.getSalaryremarks());
+            // 调薪表-调薪前基本工资
+            salary.setFrontSalary(salaryVo.getFrontsalary());
+            // 调薪表-调薪后基本工资
+            salary.setAfterSalary(salaryVo.getAftersalary());
+            // 调薪表-转正日期
+            salary.setTakeEffectDate(salaryVo.getTakeEffectDate());
+            final val i4 = salaryMapper.insert(salary);
+            if (i1 == 1 && i4 == 1) {
+                return 1111;
+            } else {
+                return 0;
+            }
+        } else {
             return 0;
         }
     }

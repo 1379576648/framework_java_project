@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trkj.framework.entity.mybatisplus.Employment;
 import com.trkj.framework.mybatisplus.mapper.InterviewMapper;
 import com.trkj.framework.mybatisplus.service.InterviewService;
 import com.trkj.framework.vo.InterviewVo;
@@ -26,5 +27,10 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
         QueryWrapper<InterviewVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("INTERVIEW_STATE",2);
         return interviewMapper.selectInterviewPass(page,queryWrapper);
+    }
+
+    @Override
+    public Integer EmployStaff(Employment employment) {
+        return null;
     }
 }
