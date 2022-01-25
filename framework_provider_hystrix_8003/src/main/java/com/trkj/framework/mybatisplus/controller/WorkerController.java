@@ -95,21 +95,6 @@ public class WorkerController {
     }
 
     /**
-     * 根据员工名册查询其员工状态 返回1为实习员工
-     * @param staff
-     * @return
-     */
-    @PostMapping("/selectStaffState")
-    public Long selectStaffState(@RequestBody Staff staff){
-        final var i = workerService.selectStaffState(staff);
-        if (i ==1L){
-            return 1L;
-        }else {
-            return 0L;
-        }
-    }
-
-    /**
      * 根据部门编号查询其部门经理
      * @return
      */
@@ -167,12 +152,63 @@ public class WorkerController {
     }
 
     /**
+     * 添加转正 添加一个审批人
+     * @param workerVo
+     * @return
+     */
+    @PostMapping("/SubmitPositive1")
+    @HystrixCommand(fallbackMethod = "SubmitPositive1ExamineHystixGet")
+    public Object SubmitPositive1(@RequestBody WorkerVo workerVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.SubmitPositive1(workerVo));
+        return map1;
+    }
+
+    public Object SubmitPositive1ExamineHystixGet(@RequestBody WorkerVo workerVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
      * 根据员工名称是否有转正记录
      * @param workerVo
      * @return
      */
     @PostMapping("/selectexaminerecord")
-    public Integer selectexaminerecord(@RequestBody WorkerVo workerVo){
-        return workerService.selectexaminerecord(workerVo);
+    public Object selectexaminerecord(@RequestBody WorkerVo workerVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectexaminerecord(workerVo));
+        return map1;
     }
+
+    /**
+     * 查询我的审批申请 待处理
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectMyWorker")
+    public Object selectMyWorker(@RequestBody Auditflowone auditflowone){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectMyWorker(auditflowone));
+        return map1;
+    }
+
+    /**
+     * 查询我的审批申请 已处理
+     * @param auditflowone
+     * @return
+     */
+    @PostMapping("/selectMyEndWorker")
+    public Object selectMyEndWorker(@RequestBody Auditflowone auditflowone){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workerService.selectMyEndWorker(auditflowone));
+        return map1;
+    }
+
 }

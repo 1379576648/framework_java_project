@@ -76,14 +76,14 @@ public class Staff implements Serializable {
     @TableField("STAFF_PASS")
     private String staffPass;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "入职日期")
     @TableField("STAFF_HIREDATE")
     private Date staffHiredate;
 
     @ApiModelProperty(value = "转正编号")
     @TableField("WORKER_ID")
-    private Long workerId;
+    private Integer workerId;
 
     @ApiModelProperty(value = "身份证")
     @TableField("STAFF_IDENTITY")
@@ -141,14 +141,13 @@ public class Staff implements Serializable {
     private Long staffState;
 
 
-    @ApiModelProperty(value = "员工工龄")
+    @ApiModelProperty(value = "员工年龄")
     @TableField("STAFF_AGE")
     private Long staffAge;
 
-    @ApiModelProperty(value = "转正时间")
-    @TableField("WORKER_DATE")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
-    private Date workerDate;
+    @ApiModelProperty(value = "员工工龄")
+    @TableField("WORK_AGE")
+    private String workAge;
 
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
@@ -159,6 +158,11 @@ public class Staff implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @ApiModelProperty(value = "转正日期")
+    @TableField(exist = false)
+    private Date workerDate;
 
     @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")
     @TableField("IS_DELETED")
@@ -172,7 +176,7 @@ public class Staff implements Serializable {
 
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)
-    private Integer currenPage;
+    private Integer currentPage;
 
     @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
@@ -181,6 +185,14 @@ public class Staff implements Serializable {
     @ApiModelProperty(value = "角色编号")
     @TableField(exist = false)
     private Integer roleId;
+
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tj;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currenPage;
 
 
     @ApiModelProperty(value = "部门")

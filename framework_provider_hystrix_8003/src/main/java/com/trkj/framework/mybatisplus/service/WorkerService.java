@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.Travel;
 import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.vo.*;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,12 +38,6 @@ public interface WorkerService {
      */
     List<WorkerDetaIsVo> selectDetailsWorker(WorkerDetaIsVo workerDetaIsVo);
 
-    /**
-     * 根据员工名册查询其员工状态
-     * @param staff
-     * @return
-     */
-    Long selectStaffState(Staff staff);
 
     /**
      * 根据部门编号查询其部门经理
@@ -78,9 +73,30 @@ public interface WorkerService {
     int SubmitPositive2(WorkerVo workerVo);
 
     /**
+     * 添加转正 添加一个审批人
+     * @param workerVo
+     * @return
+     */
+    Integer SubmitPositive1(WorkerVo workerVo);
+
+    /**
      * 根据员工名称是否有转正记录
      * @param workerVo
      * @return
      */
-    Integer selectexaminerecord(WorkerVo workerVo);
+    List<WorkerVo>  selectexaminerecord(WorkerVo workerVo);
+
+    /**
+     * 查询我的审批申请 待处理
+     * @param auditflowone
+     * @return
+     */
+    IPage<Auditflowone> selectMyWorker(Auditflowone auditflowone);
+
+    /**
+     * 查询我的审批申请 已处理
+     * @param auditflowone
+     * @return
+     */
+    IPage<Auditflowone> selectMyEndWorker(Auditflowone auditflowone);
 }

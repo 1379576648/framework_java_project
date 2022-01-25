@@ -3,10 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Travel;
 import com.trkj.framework.mybatisplus.service.TraveService;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.TravelDetailsVo;
-import com.trkj.framework.vo.TravelVo;
-import com.trkj.framework.vo.WorkerVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -96,12 +93,15 @@ public class TravelController {
 
     /**
      * 根据员工名称是否有出差记录
-     * @param travel
+     * @param travelDetailsVo
      * @return
      */
     @PostMapping("/selectEvectionExamine")
-    public Integer selectEvectionExamine(@RequestBody Travel travel){
-        return traveService.selectEvectionExamine(travel);
+    public Object selectEvectionExamine(@RequestBody TravelDetailsVo travelDetailsVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", traveService.selectEvectionExamine(travelDetailsVo));
+        return map1;
     }
 
     /**
@@ -122,5 +122,26 @@ public class TravelController {
     @PostMapping("/submitToTravel2")
     public int submitToTravel2(@RequestBody TravelVo travelVo){
         return  traveService.submitToTravel2(travelVo);
+    }
+
+    /**
+     * 添加出差 添加一个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel1")
+    @HystrixCommand(fallbackMethod = "submitToTravel1ExamineHystixGet")
+    public Object submitToTravel1(@RequestBody TravelVo travelVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", traveService.submitToTravel1(travelVo));
+        return map1;
+    }
+
+    public Object submitToTravel1ExamineHystixGet(@RequestBody TravelVo travelVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 }

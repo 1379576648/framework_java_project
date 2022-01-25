@@ -18,7 +18,7 @@ import java.util.Date;
 @Accessors(chain = true)
 @TableName("TRAVEL")
 @ApiModel(value="TRAVEL对象", description="出差")
-@KeySequence(value = "WORKER_ID",clazz = Integer.class)
+@KeySequence(value = "TRAVEL_ID",clazz = Integer.class)
 public class Travel implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -57,11 +57,11 @@ public class Travel implements Serializable {
 
     @ApiModelProperty(value = "出差总时长")
     @TableId("TRAVEL_TOTAL_DATE")
-    private Date travelTotalDate;
+    private Integer travelTotalDate;
 
     @ApiModelProperty(value = "状态 0:不同意 1:同意")
-    @TableField("WORKER_STATE")
-    private Long workerState;
+    @TableField("TRAVEL_STATE")
+    private Integer travelState;
 
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -22,6 +23,9 @@ public interface AuditflowoneMapper extends BaseMapper<Auditflowone> {
 
     @Select("select a.AUDITFLOW_ID,a.AUDITFLOW_TITLE,o.STAFF_NAME as STAFF_NAME1,b.AUDITFLOWDETAI_STATE,a.AUDITFLOW_STATE,b.STAFF_NAME as STAFF_NAME2,b.AUDITFLOWDETAI_REMARKS,b.AUDITFLOWDETAI_DATE,o.OVERTIMEASK_TYPE,o.OVERTIMEASK_MATTER,o.OVERTIMEASK_REMARKS,o.OVERTIMEASK_S_DATE,o.OVERTIMEASK_E_DATE,o.OVERTIMEASK_TOTAL_DATE from AUDITFLOW a LEFT JOIN AUDITFLOWDETAIL b on a.AUDITFLOW_ID=b.AUDITFLOW_ID LEFT JOIN OVERTIMEASK o on a.AUDITFLOW_ID=o.AUDITFLOW_ID ${ew.customSqlSegment}")
     List<AuditflowDetailsVo> selectDetailsAuditflow(@Param(Constants.WRAPPER) QueryWrapper<AuditflowDetailsVo> queryWrapper);
+
+    @Select("select STAFF_STATE from STAFF ${ew.customSqlSegment}")
+    Integer selectStaffState(@Param(Constants.WRAPPER) QueryWrapper<Staff> queryWrapper);
 
     @Select("select  a.AUDITFLOW_ID, a.AUDITFLOW_TITLE,l.STAFF_NAME as STAFF_NAME1,b.AUDITFLOWDETAI_STATE,a.AUDITFLOW_STATE,b.STAFF_NAME as STAFF_NAME2,b.AUDITFLOWDETAI_REMARKS,b.AUDITFLOWDETAI_DATE,l.LEAVE_TYPE,l.LEAVE_MATTER,l.LEAVE_REMARKS,l.LEAVE_S_DATE,l.LEAVE_E_DATE,l.LEAVE_TOTAL_DATE from AUDITFLOW a LEFT JOIN AUDITFLOWDETAIL b on a.AUDITFLOW_ID=b.AUDITFLOW_ID LEFT JOIN LEAVE l on a.AUDITFLOW_ID=l.AUDITFLOW_ID ${ew.customSqlSegment}")
     List<LeaveDetailsVo> selectDetailsLeaves(@Param(Constants.WRAPPER) QueryWrapper<LeaveDetailsVo> queryWrapper);
@@ -46,4 +50,10 @@ public interface AuditflowoneMapper extends BaseMapper<Auditflowone> {
 
     @Select("select d.POST_NAME,s.STAFF_NAME from DEPT_POST d LEFT JOIN DEPT a on d.DEPT_ID = a.Dept_ID LEFT JOIN STAFF s on d.DEPT_ID = s.DEPT_ID and d.DEPT_POST_ID = s.DEPT_POST_ID ${ew.customSqlSegment}")
     List<DeptPostVo>selectDeptPostName(@Param(Constants.WRAPPER) QueryWrapper<DeptPostVo> queryWrapper);
+
+    @Select("select a.AUDITFLOW_ID,a.AUDITFLOW_TYPE,a.STAFF_NAME as STAFF_NAME1,a.AUDITFLOW_STATE,b.STAFF_NAME as STAFF_NAME2,a.CREATED_TIME,b.UPDATED_TIME from AUDITFLOW a LEFT JOIN AUDITFLOWDETAIL b on a.AUDITFLOW_ID = b.AUDITFLOW_ID ${ew.customSqlSegment}" )
+    IPage<Auditflowone> selectMyWorker(Page<Auditflowone> page, @Param(Constants.WRAPPER) QueryWrapper<Auditflowone> queryWrapper);
+
+    @Select("select a.AUDITFLOW_ID,a.AUDITFLOW_TYPE,a.STAFF_NAME as STAFF_NAME1,a.AUDITFLOW_STATE,b.STAFF_NAME as STAFF_NAME2,a.CREATED_TIME,b.UPDATED_TIME from AUDITFLOW a LEFT JOIN AUDITFLOWDETAIL b on a.AUDITFLOW_ID = b.AUDITFLOW_ID ${ew.customSqlSegment}" )
+    IPage<Auditflowone> selectMyEndWorker(Page<Auditflowone> page, @Param(Constants.WRAPPER) QueryWrapper<Auditflowone> queryWrapper);
 }

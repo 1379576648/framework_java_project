@@ -33,7 +33,7 @@ public class Fixedwagf {
 
     @ApiModelProperty(value = "正式期基本工资")
     @TableId("FIXEDWAGE_OFFICIALMONEY")
-    private Integer fixedwageofficialmoney;
+    private Integer fixedwageOfficialmoney;
 
     @ApiModelProperty(value = "试用期岗位工资")
     @TableId("FIXEDWAGE_PERIODPOSTMONEY")

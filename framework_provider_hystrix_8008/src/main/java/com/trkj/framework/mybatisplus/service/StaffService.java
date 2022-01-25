@@ -3,6 +3,8 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.trkj.framework.entity.mybatisplus.Worker;
+import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
 import com.trkj.framework.vo.TransferVo;
@@ -55,5 +57,38 @@ public interface StaffService {
      */
     int updateStaffTwo(Staff staff);
 
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    int updateStaffState(Staff staff);
 
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    int updateStaffStateTwo(Staff staff);
+
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    int updateWorkerDate(Staff staff);
+
+    /**
+     * 快要转正名单
+     * @param fullVo
+     * @return
+     */
+    IPage<FullVo> selectQuick(FullVo fullVo);
+
+    /**
+     * 统计快要转正名单
+     * @param
+     * @return
+     */
+    List<Staff> countByStaffState();
 }

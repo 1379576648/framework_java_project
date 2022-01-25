@@ -48,12 +48,12 @@ public class TraveController {
 
     /**
      * 根据员工名称是否有出差记录
-     * @param travel
+     * @param travelDetailsVo
      * @return
      */
     @PostMapping("/selectEvectionExamine")
-    public AjaxResponse selectEvectionExamine(@RequestBody Travel travel){
-        return AjaxResponse.success(auditflowService.selectEvectionExamine(travel));
+    public AjaxResponse selectEvectionExamine(@RequestBody TravelDetailsVo travelDetailsVo){
+        return AjaxResponse.success(auditflowService.selectEvectionExamine(travelDetailsVo));
     }
 
     /**
@@ -74,5 +74,15 @@ public class TraveController {
     @PostMapping("/submitToTravel2")
     public AjaxResponse submitToTravel2(@RequestBody TravelVo travelVo){
         return AjaxResponse.success(auditflowService.submitToTravel2(travelVo));
+    }
+
+    /**
+     * 添加出差 一个审批人
+     * @param travelVo
+     * @return
+     */
+    @PostMapping("/submitToTravel1")
+    public AjaxResponse submitToTravel1(@RequestBody TravelVo travelVo){
+        return AjaxResponse.success(auditflowService.submitToTravel1(travelVo));
     }
 }

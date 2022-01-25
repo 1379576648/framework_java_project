@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * 部门职位Vo
@@ -36,4 +37,27 @@ public class DeptPostVo implements Serializable {
     @TableId("STAFF_NAME")
     private String staffname;
 
+    @ApiModelProperty(value = "员工编号")
+    @TableId("STAFF_ID")
+    private Integer staffId;
+
+    @ApiModelProperty(value = "职位名称")
+    @TableField("POST_NAME")
+    private String postName;
+
+    @ApiModelProperty(value = "乐观锁")
+    @TableField("REVISION")
+    private Long revision;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField("CREATED_TIME")
+    private Date createdTime;
+
+    @ApiModelProperty(value = "修改时间")
+    @TableField("UPDATED_TIME")
+    private Date updatedTime;
+
+    @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")
+    @TableField("IS_DELETED")
+    private Long isDeleted;
 }

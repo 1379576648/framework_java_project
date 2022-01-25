@@ -58,10 +58,12 @@ public class Quit implements Serializable {
     @TableField("QUIT_STATE")
     private Long quitState;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "申请离职日期")
     @TableField("APPLY_QUIT_DATE")
     private Date applyQuitDate;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "正式离职日期")
     @TableField("FORMAL_QUIT_DATE")
     private Date formalQuitDate;
@@ -71,7 +73,7 @@ public class Quit implements Serializable {
     @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
@@ -84,5 +86,7 @@ public class Quit implements Serializable {
     @TableField("IS_DELETED")
     private Long isDeleted;
 
-
+    @ApiModelProperty(value = "当前审批状态")
+    @TableField(exist = false)
+    private Long auditflowdetaiState;
 }

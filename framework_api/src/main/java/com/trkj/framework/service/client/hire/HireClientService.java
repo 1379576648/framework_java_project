@@ -318,5 +318,91 @@ public interface HireClientService {
     @PostMapping("/selectTransferAlls")
     Object selectTransferAlls(@RequestBody Transfer transfer);
 
+    /**
+     * 添加调动记录
+     * @param transfer
+     * @return
+     */
+    @PostMapping("/insertTransfer")
+    Object insertTransfer(@RequestBody Transfer transfer);
+
+    /**
+     * 修改调动后的部门
+     * @param dept
+     * @return
+     */
+    @PutMapping("/updateDeptName")
+    Object updateDeptName(@RequestBody Dept dept);
+
+    /**
+     * 修改调动后的职位
+     * @param deptPost
+     * @return
+     */
+    @PutMapping("/updateDeptPostName")
+    Object updateDeptPostName(@RequestBody DeptPost deptPost);
+
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    @PostMapping("/selectPunishGlory")
+    Object selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo);
+
+    /**
+     * 添加转正
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/insertWorker")
+    Object insertWorker(@RequestBody FullVo fullVo);
+
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffState")
+    Object updateStaffState(@RequestBody Staff staff);
+
+    /**
+     * 添加离职
+     * @param quit
+     * @return
+     */
+    @PostMapping("/insertQuit")
+    Object insertQuit(@RequestBody Quit quit);
+
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffStateTwo")
+    Object updateStaffStateTwo(@RequestBody Staff staff);
+
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateWorkerDate")
+    Object updateWorkerDate(@RequestBody Staff staff);
+
+    /**
+     * 快转正名单
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectQuick")
+    Object selectQuick(@RequestBody FullVo fullVo);
+
+    /**
+     * 统计快要转正名单
+     * @return
+     */
+    @PostMapping("/countByStaffState")
+    Object countByStaffState();
 }
 

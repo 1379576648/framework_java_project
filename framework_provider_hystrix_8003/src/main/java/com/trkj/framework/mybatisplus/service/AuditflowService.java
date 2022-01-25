@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.AuditflowDetailsVo;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.OvertimeaskVo;
@@ -45,6 +46,13 @@ public interface AuditflowService {
     List<AuditflowDetailsVo> selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo);
 
     /**
+     * 根据员工名称查询员工状态
+     * @param staff
+     * @return
+     */
+    Integer selectStaffState(Staff staff);
+
+    /**
      * 根据审批明细表ID修改其状态 通过
      * @param
      * @return
@@ -71,7 +79,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
+    List<OvertimeaskVo> selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
 
     /**
      * 添加加班 添加三个审批人
@@ -86,5 +94,19 @@ public interface AuditflowService {
      * @return
      */
     int submitToOvertime2(OvertimeaskVo overtimeaskVo);
+
+    /**
+     * 添加加班 添加两个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    Integer submitToOvertime1(OvertimeaskVo overtimeaskVo);
+
+    /**
+     * 根据员工编号查询部门职位
+     * @param staff
+     * @return
+     */
+    String inquirePosition(Staff staff);
 
 }

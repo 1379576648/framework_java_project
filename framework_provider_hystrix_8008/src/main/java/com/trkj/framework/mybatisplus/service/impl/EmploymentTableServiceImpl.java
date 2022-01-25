@@ -15,6 +15,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 
 /**
@@ -105,6 +107,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
        if(workVo.getStaffName()!=null){
             queryWrapper.like("s.STAFF_NAME",workVo.getStaffName());
         }
+       queryWrapper.eq("w.IS_DELETED",0);
         return employmentTableMapper.selectwork(page,queryWrapper);
     }
 
@@ -217,6 +220,20 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         Educationss educationss = educationssMapper.selectById(resume.getResumeId());
         System.out.println("查询教育经历");
         System.out.println(educationss);
+
+        //设置日期格式
+        SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+        Calendar c = Calendar.getInstance();
+        System.out.println("1111111");
+        System.out.println(hireVo.getHiredate());
+        //员工入职日期
+        c.setTime(hireVo.getHiredate());
+
+        //加三个月
+        c.add(Calendar.MONTH,3);
+        //将入职日期后三个月写入转正日期
+        staff.setWorkerDate(c.getTime());
+
         //如果工作经历和教育经历为空
         if(workExperiencess == null && educationss == null){
             //只添加员工数据
@@ -244,7 +261,6 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             staff.setStaffRegistered(hireVo.getResumeResidence());
             //政治面貌
             staff.setStaffOutlook(hireVo.getResumePoliticalOutlook());
-
             //添加到员工表
             int row = staffMapper.insert(staff);
 

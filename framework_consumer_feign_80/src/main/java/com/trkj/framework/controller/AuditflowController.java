@@ -1,8 +1,10 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.*;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +42,17 @@ public class AuditflowController {
     public AjaxResponse selectDetailsAuditflow(@RequestBody AuditflowDetailsVo auditflowDetailsVo){
         return AjaxResponse.success(auditflowService.selectDetailsAuditflow(auditflowDetailsVo)) ;
     }
+
+    /**
+     * 根据员工名称查询其状态
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectStaffState")
+    public AjaxResponse selectStaffState(@RequestBody Staff staff){
+        return AjaxResponse.success(auditflowService.selectStaffState(staff)) ;
+    }
+
 
     /**
      *根据审批明细表ID修改其状态 通过
@@ -99,5 +112,25 @@ public class AuditflowController {
     @PostMapping("/submitToOvertime2")
     public AjaxResponse submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo){
         return AjaxResponse.success(auditflowService.submitToOvertime2(overtimeaskVo));
+    }
+
+    /**
+     * 添加加班 一个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime1")
+    public AjaxResponse submitToOvertime1(@RequestBody OvertimeaskVo overtimeaskVo){
+        return AjaxResponse.success(auditflowService.submitToOvertime1(overtimeaskVo));
+    }
+
+    /**
+     * 根据员工编号查询部门职位
+     * @param staff
+     * @return
+     */
+    @PostMapping("/inquirePosition")
+    public AjaxResponse inquirePosition(@RequestBody Staff staff){
+        return AjaxResponse.success(auditflowService.inquirePosition(staff));
     }
 }
