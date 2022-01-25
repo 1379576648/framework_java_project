@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.InsuredPaymentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.mybatisplus.entity.InsuredPayment">
+        <id column="INSURED_PAYMENT_ID" property="insuredPaymentId" />
+        <result column="STAFF_ID" property="staffId" />
+        <result column="INSURED_SCHEME_ID" property="insuredSchemeId" />
+        <result column="INS_DETAIL_ID" property="insDetailId" />
+        <result column="INSURED_PAYMENT_NUMBER" property="insuredPaymentNumber" />
+        <result column="INSURED_PAYMENT_INSURED_MONTH" property="insuredPaymentInsuredMonth" />
+        <result column="INSURED_PAYMENT_SALARY_MONTH" property="insuredPaymentSalaryMonth" />
+        <result column="INSURED_PAYMENT_TYPE" property="insuredPaymentType" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="REVISION" property="revision" />
+        <result column="IS_DELETED" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        INSURED_PAYMENT_ID, STAFF_ID, INSURED_SCHEME_ID, INS_DETAIL_ID, INSURED_PAYMENT_NUMBER, INSURED_PAYMENT_INSURED_MONTH, INSURED_PAYMENT_SALARY_MONTH, INSURED_PAYMENT_TYPE, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
+    </sql>
+
+</mapper>
