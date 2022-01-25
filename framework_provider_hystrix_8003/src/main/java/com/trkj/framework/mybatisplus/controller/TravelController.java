@@ -125,7 +125,7 @@ public class TravelController {
     }
 
     /**
-     * 添加加班 添加一个审批人
+     * 添加出差 添加一个审批人
      * @param travelVo
      * @return
      */
