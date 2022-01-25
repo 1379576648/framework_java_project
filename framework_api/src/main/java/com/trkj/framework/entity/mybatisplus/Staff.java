@@ -175,7 +175,7 @@ public class Staff implements Serializable {
 
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)
-    private Integer currenPage;
+    private Integer currentPage;
 
     @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
@@ -184,6 +184,15 @@ public class Staff implements Serializable {
     @ApiModelProperty(value = "角色编号")
     @TableField(exist = false)
     private Integer roleId;
+
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tj;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currenPage;
+
 
     @ApiModelProperty(value = "部门名称")
     @TableField(exist = false)
