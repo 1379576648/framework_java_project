@@ -91,4 +91,23 @@ public interface StaffService {
      * @return
      */
     List<Staff> countByStaffState();
+
+    /**
+     * 转正已生效
+     * @param fullVo
+     * @return
+     */
+    IPage<FullVo> selectStateOne(FullVo fullVo);
+
+    /**
+     * 统计转正已生效
+     * @return
+     */
+    List<Staff> countStateOne();
+
+    /**
+     * 统计试用期人员
+     * @return
+     */
+    List<Staff> countStateTwo();
 }
