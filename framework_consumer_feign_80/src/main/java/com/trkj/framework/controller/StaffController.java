@@ -331,4 +331,23 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.updateWorkerDate(staff));
     }
 
+    /**
+     * 快转正名单
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectQuick")
+    public AjaxResponse selectQuick(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.selectQuick(fullVo));
+    }
+
+    /**
+     * 统计快要转正的名单
+     * @return
+     */
+    @PostMapping("/countByStaffState")
+    public AjaxResponse countByStaffState(){
+        return AjaxResponse.success(hireClientService.countByStaffState());
+    }
+
 }
