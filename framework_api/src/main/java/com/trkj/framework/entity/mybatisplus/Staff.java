@@ -189,5 +189,9 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private Integer tj;
 
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currenPage;
+
 
 }
