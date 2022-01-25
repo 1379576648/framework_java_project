@@ -9,10 +9,12 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
+import java.util.List;
+
 @Mapper
 public interface SalaryMapper extends BaseMapper<Salary> {
 
     @Select("select distinct  a.AUDITFLOW_STATE from AUDITFLOW a LEFT JOIN AUDITFLOWDETAIL b on a.AUDITFLOW_ID = b.AUDITFLOW_ID LEFT JOIN SALARY c on a.AUDITFLOW_ID = c.AUDITFLOW_ID ${ew.customSqlSegment}")
-    Integer selectSalaryRecord(@Param(Constants.WRAPPER) QueryWrapper<SalaryVo> queryWrapper);
+    List<SalaryVo> selectSalaryRecord(@Param(Constants.WRAPPER) QueryWrapper<SalaryVo> queryWrapper);
 
 }

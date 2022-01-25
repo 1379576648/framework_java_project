@@ -49,6 +49,8 @@ public class AuditflowServiceImpl implements AuditflowService {
     private TravelMapper travelMapper;
     @Autowired
     private LeaveMapper leaveMapper;
+    @Autowired
+    private DeptPostMapper deptPostMapper;
 
 
     /**
@@ -731,6 +733,7 @@ public class AuditflowServiceImpl implements AuditflowService {
 
     /**
      * 根据员工名称是否有加班记录
+     *
      * @param overtimeaskVo
      * @return
      */
@@ -903,4 +906,86 @@ public class AuditflowServiceImpl implements AuditflowService {
             return 0;
         }
     }
+
+    /**
+     * 添加加班 添加一个审批人
+     *
+     * @param overtimeaskVo
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer submitToOvertime1(OvertimeaskVo overtimeaskVo) {
+        // 添加审批主表
+        Auditflow auditflow = new Auditflow();
+        //审批主表-标题
+        auditflow.setAuditflowTitle(overtimeaskVo.getAuditflowTitle());
+        // 审批主表-审批类型
+        auditflow.setAuditflowType(overtimeaskVo.getAuditflowType());
+        // 审批主表-申请人
+        auditflow.setStaffName(overtimeaskVo.getStaffName());
+        final var i = auditflowMapper.insert(auditflow);
+        // 如果添加审批主表添加成功，则再去添加审批明细表
+        if (i == 1) {
+            // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
+            Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
+                    .eq("STAFF_NAME", overtimeaskVo.getStaffName())
+                    .eq("AUDITFLOW_TITLE", overtimeaskVo.getAuditflowTitle())
+                    .eq("IS_DELETED", 0));
+            // 添加审批明细表1
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
+            // 审批明细表1-审批编号
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            // 审批明细表1-审批人
+            auditflowdetail1.setStaffName(overtimeaskVo.getStaffName1());
+            // 审批明细表1-审核状态-待我审批
+            auditflowdetail1.setAuditflowdetaiState(1);
+            final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
+
+            // 如果三个审批明细表添加成功，则添加加班表
+            Overtimeask overtimeask = new Overtimeask();
+            // 加班表-审批编号
+            overtimeask.setAuditflowId(auditflow1.getAuditflowId());
+            // 加班表-员工名称
+            overtimeask.setStaffName(overtimeaskVo.getStaffName());
+            // 加班表-部门名称
+            overtimeask.setDeptName(overtimeaskVo.getDeptName());
+            // 加班表-加班类型
+            overtimeask.setOvertimeaskType(overtimeaskVo.getOvertimeaskType());
+            // 加班表-加班事由
+            overtimeask.setOvertimeaskMatter(overtimeaskVo.getOvertimeaskMatter());
+            // 加班表-加班开始时间
+            overtimeask.setOvertimeaskSDate(overtimeaskVo.getOvertimeaskSDate());
+            // 加班表-加班结束时间
+            overtimeask.setOvertimeaskEDate(overtimeaskVo.getOvertimeaskEDate());
+            // 加班表-加班总时长
+            overtimeask.setOvertimeaskTotalDate(overtimeask.getOvertimeaskTotalDate());
+            final val i4 = ovimeaskMapper.insert(overtimeask);
+            if (i1 == 1 && i4 == 1) {
+                return 1111;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 查询部门职位
+     *
+     * @param staff
+     * @return
+     */
+    @Override
+    public String inquirePosition(Staff staff) {
+        // 先根据员工编号查询员工数据
+        final var staff1 = staffMapper.selectById(staff);
+        // 取到员工部门职位编号
+        final var deptPostId = staff1.getDeptPostId();
+        // 再根据部门职位编号查询部门职位数据
+        final var deptPost = deptPostMapper.selectById(deptPostId);
+        return deptPost.getPostName();
+    }
+
 }

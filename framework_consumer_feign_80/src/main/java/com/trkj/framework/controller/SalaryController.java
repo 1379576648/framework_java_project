@@ -77,12 +77,22 @@ public class SalaryController {
     }
 
     /**
-     * 添加调薪 添加三个审批人
+     * 添加调薪 添加两个审批人
      * @param salaryVo
      * @return
      */
     @PostMapping("/SubmitSalary2")
     public AjaxResponse SubmitSalary2(@RequestBody SalaryVo salaryVo){
         return AjaxResponse.success(auditflowService.SubmitSalary2(salaryVo));
+    }
+
+    /**
+     * 添加调薪 添加一个审批人
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/SubmitSalary1")
+    public AjaxResponse SubmitSalary1(@RequestBody SalaryVo salaryVo){
+        return AjaxResponse.success(auditflowService.SubmitSalary1(salaryVo));
     }
 }

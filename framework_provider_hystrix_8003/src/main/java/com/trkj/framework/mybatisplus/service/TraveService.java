@@ -38,11 +38,11 @@ public interface TraveService {
 
 
     /**
-     * 根据员工名称是否有转正记录
-     * @param travel
+     * 根据员工名称是否有出差记录
+     * @param travelDetailsVo
      * @return
      */
-    Integer selectEvectionExamine(Travel travel);
+    List<TravelDetailsVo> selectEvectionExamine(TravelDetailsVo travelDetailsVo);
 
     /**
      * 添加出差 添加三个审批人
@@ -57,4 +57,11 @@ public interface TraveService {
      * @return
      */
     int submitToTravel2(TravelVo travelVo);
+
+    /**
+     * 添加出差 添加一个审批人
+     * @param travelVo
+     * @return
+     */
+    Integer submitToTravel1(TravelVo travelVo);
 }

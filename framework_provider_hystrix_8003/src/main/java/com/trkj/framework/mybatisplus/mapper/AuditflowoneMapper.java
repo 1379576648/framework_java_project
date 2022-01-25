@@ -50,4 +50,10 @@ public interface AuditflowoneMapper extends BaseMapper<Auditflowone> {
 
     @Select("select d.POST_NAME,s.STAFF_NAME from DEPT_POST d LEFT JOIN DEPT a on d.DEPT_ID = a.Dept_ID LEFT JOIN STAFF s on d.DEPT_ID = s.DEPT_ID and d.DEPT_POST_ID = s.DEPT_POST_ID ${ew.customSqlSegment}")
     List<DeptPostVo>selectDeptPostName(@Param(Constants.WRAPPER) QueryWrapper<DeptPostVo> queryWrapper);
+
+    @Select("select a.AUDITFLOW_ID,a.AUDITFLOW_TYPE,a.STAFF_NAME as STAFF_NAME1,a.AUDITFLOW_STATE,b.STAFF_NAME as STAFF_NAME2,a.CREATED_TIME,b.UPDATED_TIME from AUDITFLOW a LEFT JOIN AUDITFLOWDETAIL b on a.AUDITFLOW_ID = b.AUDITFLOW_ID ${ew.customSqlSegment}" )
+    IPage<Auditflowone> selectMyWorker(Page<Auditflowone> page, @Param(Constants.WRAPPER) QueryWrapper<Auditflowone> queryWrapper);
+
+    @Select("select a.AUDITFLOW_ID,a.AUDITFLOW_TYPE,a.STAFF_NAME as STAFF_NAME1,a.AUDITFLOW_STATE,b.STAFF_NAME as STAFF_NAME2,a.CREATED_TIME,b.UPDATED_TIME from AUDITFLOW a LEFT JOIN AUDITFLOWDETAIL b on a.AUDITFLOW_ID = b.AUDITFLOW_ID ${ew.customSqlSegment}" )
+    IPage<Auditflowone> selectMyEndWorker(Page<Auditflowone> page, @Param(Constants.WRAPPER) QueryWrapper<Auditflowone> queryWrapper);
 }

@@ -33,7 +33,7 @@ public interface SalaryService {
      * @param
      * @return
      */
-    Integer selectSalaryRecord(SalaryVo salaryVo);
+    List<SalaryVo>  selectSalaryRecord(SalaryVo salaryVo);
 
     /**
      * 根据员工ID查询其基本工资
@@ -50,10 +50,17 @@ public interface SalaryService {
     int SubmitSalary3(SalaryVo salaryVo);
 
     /**
-     * 添加调薪 添加三个审批人
+     * 添加调薪 添加两个审批人
      * @param salaryVo
      * @return
      */
     int SubmitSalary2(SalaryVo salaryVo);
+
+    /**
+     * 添加调薪 添加一个审批人
+     * @param salaryVo
+     * @return
+     */
+    Integer SubmitSalary1(SalaryVo salaryVo);
 
 }

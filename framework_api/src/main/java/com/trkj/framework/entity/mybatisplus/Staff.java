@@ -160,7 +160,7 @@ public class Staff implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "转正日期")
-    @TableField("WORKER_DATE")
+    @TableField(exist = false)
     private Date workerDate;
 
     @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")
@@ -175,7 +175,7 @@ public class Staff implements Serializable {
 
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)
-    private Integer currenPage;
+    private Integer currentPage;
 
     @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
@@ -184,6 +184,10 @@ public class Staff implements Serializable {
     @ApiModelProperty(value = "角色编号")
     @TableField(exist = false)
     private Integer roleId;
+
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tj;
 
 
 }

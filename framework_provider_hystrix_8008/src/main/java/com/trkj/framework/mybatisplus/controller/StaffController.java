@@ -5,6 +5,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.service.StaffService;
+import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
 import com.trkj.framework.vo.TransferVo;
@@ -212,6 +213,52 @@ public class StaffController {
         }else {
             return 100;
         }
+    }
+
+    /**
+     * 快转正名单
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectQuick")
+    @HystrixCommand(fallbackMethod = "HystixGet4")
+    public Object selectQuick(@RequestBody FullVo fullVo){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.selectQuick(fullVo));
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet4(@RequestBody FullVo fullVo){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 统计快转正名单
+     * @param
+     * @return
+     */
+    @PostMapping("/countByStaffState")
+    @HystrixCommand(fallbackMethod = "HystixGet5")
+    public Object countByStaffState(){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.countByStaffState());
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet5(){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
     }
 
 }

@@ -389,5 +389,20 @@ public interface HireClientService {
      */
     @PutMapping("/updateWorkerDate")
     Object updateWorkerDate(@RequestBody Staff staff);
+
+    /**
+     * 快转正名单
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectQuick")
+    Object selectQuick(@RequestBody FullVo fullVo);
+
+    /**
+     * 统计快要转正名单
+     * @return
+     */
+    @PostMapping("/countByStaffState")
+    Object countByStaffState();
 }
 

@@ -4,13 +4,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Staff;
-import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.mapper.StaffMapper;
 import com.trkj.framework.mybatisplus.service.StaffService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
-import com.trkj.framework.vo.TransferVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,10 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Queue;
+import java.util.*;
 
 /**
  * <p>
@@ -180,6 +175,37 @@ public class StaffServiceImpl implements StaffService {
         }else {
             return 100;
         }
+    }
+
+    /**
+     * 快要转正名单
+     * @param fullVo
+     * @return
+     */
+    @Override
+    public IPage<FullVo> selectQuick(FullVo fullVo) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        Calendar calendar = Calendar.getInstance();
+        //过去7天
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE,-7);
+        Date d = calendar.getTime();
+        Page<FullVo> page = new Page<>(fullVo.getCurrentPage(),fullVo.getPagesize());
+        QueryWrapper<FullVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_STATE",0);
+        queryWrapper.lt("WORKER_DATE",d);
+        return staffMapper.selectQuick(page,queryWrapper);
+    }
+
+    /**
+     * 统计快要转正名单
+     * @param
+     * @return
+     */
+    @Override
+    public List<Staff> countByStaffState() {
+        return staffMapper.countByStaffState();
+
     }
 
 

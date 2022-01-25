@@ -2,12 +2,10 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
+import com.trkj.framework.entity.mybatisplus.DeptPost;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.OvertimeaskVo;
-import com.trkj.framework.vo.WorkerVo;
+import com.trkj.framework.vo.*;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -174,8 +172,18 @@ public class AuditflowController {
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    public List<OvertimeaskVo> selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
-        return auditflowService.selectOvertimeExamine(overtimeaskVo);
+    @HystrixCommand(fallbackMethod = "selectOvertimeExamineHystixGet")
+    public Object selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.selectOvertimeExamine(overtimeaskVo));
+        return map1;
+    }
+    public Object selectOvertimeExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
     /**
@@ -197,5 +205,41 @@ public class AuditflowController {
     public int submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo){
         return  auditflowService.submitToOvertime2(overtimeaskVo);
     }
+
+    /**
+     * 添加加班 添加一个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    @PostMapping("/submitToOvertime1")
+    @HystrixCommand(fallbackMethod = "submitToOvertime1ExamineHystixGet")
+    public Object submitToOvertime1(@RequestBody OvertimeaskVo overtimeaskVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.submitToOvertime1(overtimeaskVo));
+        return map1;
+    }
+
+    public Object submitToOvertime1ExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+
+    /**
+     * 根据员工编号查询部门职位
+     * @param staff
+     * @return
+     */
+    @PostMapping("/inquirePosition")
+    public Object inquirePosition(@RequestBody Staff staff){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.inquirePosition(staff));
+        return map1;
+    }
+
 }
 
