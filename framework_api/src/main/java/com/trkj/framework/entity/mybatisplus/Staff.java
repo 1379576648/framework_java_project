@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -144,6 +145,11 @@ public class Staff implements Serializable {
     @TableField("STAFF_AGE")
     private Long staffAge;
 
+    @ApiModelProperty(value = "转正时间")
+    @TableField("WORKER_DATE")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    private Date workerDate;
+
     @ApiModelProperty(value = "创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
@@ -177,4 +183,25 @@ public class Staff implements Serializable {
     private Integer roleId;
 
 
+    @ApiModelProperty(value = "部门")
+    @TableField(exist = false)
+    private Dept dept;
+
+
+    @ApiModelProperty(value = "部门职位")
+    @TableField(exist = false)
+    private DeptPost deptPost;
+
+
+    @ApiModelProperty(value = "转正")
+    @TableField(exist = false)
+    private Worker worker;
+
+    @ApiModelProperty(value = "部门名称")
+    @TableField(exist = false)
+    private String deptName;
+
+    @ApiModelProperty(value = "参保方案")
+    @TableField(exist = false)
+    private List<InsuredScheme> insuredScheme;
 }

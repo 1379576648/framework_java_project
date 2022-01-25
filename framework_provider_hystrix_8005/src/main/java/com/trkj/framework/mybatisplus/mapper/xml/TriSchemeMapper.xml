@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.TriSchemeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.mybatisplus.entity.TriScheme">
+        <id column="TRI_SCHEME_ID" property="triSchemeId" />
+        <result column="TRI_INSURED_ID" property="triInsuredId" />
+        <result column="TRI_SCHEME_MIN" property="triSchemeMin" />
+        <result column="TRI_SCHEME_MAX" property="triSchemeMax" />
+        <result column="TRI_SCHEME_UPPER" property="triSchemeUpper" />
+        <result column="TRI_SCHEME_FLOOR" property="triSchemeFloor" />
+        <result column="TRI_SCHEME_PERSON_PROP" property="triSchemePersonProp" />
+        <result column="TRI_SCHEME_PERSON_SUM" property="triSchemePersonSum" />
+        <result column="TRI_SCHEME_FIRM_PROP" property="triSchemeFirmProp" />
+        <result column="TRI_SCHEME_FIRM_SUM" property="triSchemeFirmSum" />
+        <result column="TRI_SCHEME_TYPE" property="triSchemeType" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="REVISION" property="revision" />
+        <result column="IS_DELETED" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        TRI_SCHEME_ID, TRI_INSURED_ID, TRI_SCHEME_MIN, TRI_SCHEME_MAX, TRI_SCHEME_UPPER, TRI_SCHEME_FLOOR, TRI_SCHEME_PERSON_PROP, TRI_SCHEME_PERSON_SUM, TRI_SCHEME_FIRM_PROP, TRI_SCHEME_FIRM_SUM, TRI_SCHEME_TYPE, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
+    </sql>
+
+</mapper>

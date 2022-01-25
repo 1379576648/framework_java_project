@@ -230,7 +230,7 @@ public class RoleServiceImpl implements RoleService {
         roleStaffQueryWrapper.eq("a.ROLE_ID", roleStaff.getRoleId());
         //逻辑删除
         roleStaffQueryWrapper.eq("b.IS_DELETED", 0);
-
+        roleStaffQueryWrapper.eq("a.IS_DELETED", 0);
 
         return roleStaffMapper.pageRoleStaff(iPage, roleStaffQueryWrapper);
     }

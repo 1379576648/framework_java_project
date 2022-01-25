@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.DefInsuredMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.Staff">
+        <id column="a_STAFF_ID" property="staffId"/>
+        <result column="a_STAFF_NAME" property="staffName"/>
+        <result column="a_STAFF_PHONE" property="staffPhone"/>
+        <result column="a_CREATED_TIME" property="createdTime"/>
+        <result column="a_STAFF_STATE" property="staffState"/>
+        <result column="a_WORKER_DATE" property="workerDate"/>
+        <association property="dept" javaType="com.trkj.framework.entity.mybatisplus.Dept">
+            <id column="b_DEPT_ID" property="deptId"/>
+            <result column="b_DEPT_NAME" property="deptName"/>
+        </association>
+        <association property="deptPost" javaType="com.trkj.framework.entity.mybatisplus.DeptPost">
+            <id column="c_DEPT_POST_ID" property="deptPostId"/>
+            <result column="c_POST_NAME" property="postName"/>
+        </association>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.STAFF_ID as a_STAFF_ID,
+        a.STAFF_NAME as a_STAFF_NAME,
+        a.STAFF_PHONE as a_STAFF_PHONE,
+        a.CREATED_TIME as a_CREATED_TIME,
+        a.STAFF_STATE as a_STAFF_STATE,
+        a.WORKER_DATE as a_WORKER_DATE,
+        b.DEPT_ID as  b_DEPT_ID,
+        b.DEPT_NAME as b_DEPT_NAME,
+        c.DEPT_POST_ID as c_DEPT_POST_ID,
+        c.POST_NAME as c_POST_NAME
+    </sql>
+
+    <select id="pageStaff" resultMap="BaseResultMap">
+        select <include refid="Base_Column_List"/>
+        from STAFF a left join DEPT b  on a.DEPT_ID=b.DEPT_ID
+        left join  DEPT_POST c on a.DEPT_POST_ID=c.DEPT_POST_ID
+        left join INSURED_SCHEME e on e.STAFF_ID=a.STAFF_ID  ${ew.customSqlSegment}
+    </select>
+</mapper>
