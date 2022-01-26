@@ -208,5 +208,36 @@ public class StaffServiceImpl implements StaffService {
 
     }
 
+    /**
+     * 转正已生效
+     * @param fullVo
+     * @return
+     */
+    @Override
+    public IPage<FullVo> selectStateOne(FullVo fullVo) {
+        Page<FullVo> page = new Page<>(fullVo.getCurrentPage(),fullVo.getPagesize());
+        QueryWrapper<FullVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_STATE",1);
+        return staffMapper.selectStateOne(page,queryWrapper);
+    }
+
+    /**
+     * 统计转正已生效
+     * @return
+     */
+    @Override
+    public List<Staff> countStateOne() {
+        return staffMapper.countStateOne();
+    }
+
+    /**
+     * 统计试用期人员
+     * @return
+     */
+    @Override
+    public List<Staff> countStateTwo() {
+        return staffMapper.countStateTwo();
+    }
+
 
 }

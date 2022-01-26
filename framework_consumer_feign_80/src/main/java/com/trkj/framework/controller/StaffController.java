@@ -350,4 +350,31 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.countByStaffState());
     }
 
+    /**
+     * 转正已生效
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectStateOne")
+    public AjaxResponse selectStateOne(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.selectStateOne(fullVo));
+    }
+
+    /**
+     * 统计转正已生效
+     * @return
+     */
+    @PostMapping("/countStateOne")
+    public AjaxResponse countStateOne(){
+        return AjaxResponse.success(hireClientService.countStateOne());
+    }
+
+    /**
+     * 统计试用期人员
+     * @return
+     */
+    @PostMapping("/countStateTwo")
+    public AjaxResponse countStateTwo(){
+        return AjaxResponse.success(hireClientService.countStateTwo());
+    }
 }
