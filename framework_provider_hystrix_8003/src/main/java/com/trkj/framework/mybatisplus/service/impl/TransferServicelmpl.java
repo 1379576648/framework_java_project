@@ -76,7 +76,9 @@ public class TransferServicelmpl implements Transfer8003Service {
     @Override
     public List<TransferDetailsVo> selectDetailsTransfer(TransferDetailsVo transferDetailsVo) {
         QueryWrapper<TransferDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", transferDetailsVo.getStaffName2());
+        if (transferDetailsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", transferDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", transferDetailsVo.getAuditflowId());
         queryWrapper.eq("t.STAFF_NAME", transferDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsTransfer(queryWrapper);

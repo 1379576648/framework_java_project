@@ -99,7 +99,9 @@ public class LeaveServicelmpl implements LeaveService {
     @Override
     public List<LeaveDetailsVo> selectDetailsLeaves(LeaveDetailsVo leaveDetailsVo) {
         QueryWrapper<LeaveDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", leaveDetailsVo.getStaffName2());
+        if (leaveDetailsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", leaveDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", leaveDetailsVo.getAuditflowId());
         queryWrapper.eq("l.STAFF_NAME", leaveDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsLeaves(queryWrapper);

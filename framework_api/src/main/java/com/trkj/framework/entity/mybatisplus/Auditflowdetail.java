@@ -38,10 +38,6 @@ public class Auditflowdetail implements Serializable {
     @TableField("AUDITFLOW_ID")
     private Integer auditflowId;
 
-    @ApiModelProperty(value = "审核人编号")
-    @TableField("STAFF_ID")
-    private Long staffId;
-
     @ApiModelProperty(value = "审核人")
     @TableField("STAFF_NAME")
     private String staffName;

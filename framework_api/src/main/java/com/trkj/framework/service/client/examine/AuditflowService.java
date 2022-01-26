@@ -591,4 +591,7 @@ public interface AuditflowService {
     @PostMapping("/inquirePosition")
     Object inquirePosition(Staff staff);
 
+    @PostMapping("/revocation")
+    Object revocation(@RequestBody Auditflow auditflow);
+
 }

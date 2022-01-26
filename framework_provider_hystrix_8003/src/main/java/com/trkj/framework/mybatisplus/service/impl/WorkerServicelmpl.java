@@ -75,7 +75,9 @@ public class WorkerServicelmpl implements WorkerService {
     @Override
     public List<WorkerDetaIsVo> selectDetailsWorker(WorkerDetaIsVo workerDetaIsVo) {
         QueryWrapper<WorkerDetaIsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", workerDetaIsVo.getStaffName2());
+        if (workerDetaIsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", workerDetaIsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", workerDetaIsVo.getAuditflowId());
         queryWrapper.eq("w.STAFF_NAME", workerDetaIsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsWorker(queryWrapper);

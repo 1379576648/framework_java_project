@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Auditflow;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.DeptPost;
 import com.trkj.framework.entity.mybatisplus.Staff;
@@ -234,12 +235,51 @@ public class AuditflowController {
      * @return
      */
     @PostMapping("/inquirePosition")
+    @HystrixCommand(fallbackMethod = "inquirePositionExamineHystixGet")
     public Object inquirePosition(@RequestBody Staff staff){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.inquirePosition(staff));
         return map1;
     }
+    public Object inquirePositionExamineHystixGet(@RequestBody Staff staff) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
 
+    /**
+     * 撤销审批
+     * @param
+     * @return
+     */
+    @PostMapping("/revocation")
+    @HystrixCommand(fallbackMethod = "submitToOvertime1ExamineHystixGet")
+    public Object revocation(@RequestBody Auditflow auditflow){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.revocation(auditflow));
+        return map1;
+    }
+    public Object submitToOvertime1ExamineHystixGet(@RequestBody Auditflow auditflow) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 查询调薪审批数据详情
+     * @param salaryVo
+     * @return
+     */
+    @PostMapping("/selectSalaryDetails")
+    public Object selectSalaryDetails(@RequestBody SalaryVo salaryVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.selectSalaryDetails(salaryVo));
+        return map1;
+    }
 }
 
