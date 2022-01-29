@@ -198,6 +198,22 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private Integer tjThree;
 
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tjFour;
+
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tjFive;
+
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tjSix;
+
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tjSeven;
+
 
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)

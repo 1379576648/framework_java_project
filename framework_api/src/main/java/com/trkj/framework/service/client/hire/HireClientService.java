@@ -426,5 +426,33 @@ public interface HireClientService {
      */
     @PostMapping("/countStateTwo")
     Object countStateTwo();
+
+    /**
+     * 本月离职
+     * @return
+     */
+    @PostMapping("/countStateThree")
+    Object countStateThree();
+
+    /**
+     * 正式
+     * @return
+     */
+    @PostMapping("/countStateFour")
+    Object countStateFour();
+
+    /**
+     * 试用
+     * @return
+     */
+    @PostMapping("/countStateFive")
+    Object countStateFive();
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @PostMapping("/countStateSix")
+    Object countStateSix();
 }
 
