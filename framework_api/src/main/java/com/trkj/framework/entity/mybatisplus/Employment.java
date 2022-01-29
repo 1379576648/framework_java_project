@@ -25,15 +25,15 @@ public class Employment implements Serializable {
 
     @ApiModelProperty(value = "录用编号")
     @TableId("EMPLOYMENT_ID")
-    private Integer employmentId;
+    private Long employmentId;
 
     @ApiModelProperty(value = "录用状态")
     @TableId("EMPLOYMENT_STATE")
-    private Integer employmentState;
+    private Long employmentState;
 
     @ApiModelProperty(value = "简历编号")
     @TableId("RESUME_ID")
-    private Integer resumeId;
+    private Long resumeId;
 
     @ApiModelProperty(value = "备注")
     @TableField("REMARKS")
@@ -46,7 +46,7 @@ public class Employment implements Serializable {
 
     @ApiModelProperty(value = "简历编号")
     @TableId("EMPLOYMENT_SALARY")
-    private Integer employmentSalary;
+    private Long employmentSalary;
 
     @ApiModelProperty(value = "放弃原因")
     @TableField("WAIVE_REASON")
