@@ -651,6 +651,43 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 转正已生效
+             * @param fullVo
+             * @return
+             */
+            @Override
+            public Object selectStateOne(FullVo fullVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 统计转正已生效
+             * @return
+             */
+            @Override
+            public Object countStateOne() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 统计试用期人员
+             * @return
+             */
+            @Override
+            public Object countStateTwo() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }

@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
 import java.io.Serializable;
+import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
@@ -149,12 +150,12 @@ public class Staff implements Serializable {
     private String workAge;
 
     @ApiModelProperty(value = "创建时间")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
@@ -189,5 +190,39 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private Integer tj;
 
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tjTwo;
 
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tjThree;
+
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currenPage;
+
+
+    @ApiModelProperty(value = "部门")
+    @TableField(exist = false)
+    private Dept dept;
+
+
+    @ApiModelProperty(value = "部门职位")
+    @TableField(exist = false)
+    private DeptPost deptPost;
+
+
+    @ApiModelProperty(value = "转正")
+    @TableField(exist = false)
+    private Worker worker;
+
+    @ApiModelProperty(value = "部门名称")
+    @TableField(exist = false)
+    private String deptName;
+
+    @ApiModelProperty(value = "参保方案")
+    @TableField(exist = false)
+    private List<InsuredScheme> insuredScheme;
 }

@@ -1,5 +1,6 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Auditflow;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
@@ -132,5 +133,15 @@ public class AuditflowController {
     @PostMapping("/inquirePosition")
     public AjaxResponse inquirePosition(@RequestBody Staff staff){
         return AjaxResponse.success(auditflowService.inquirePosition(staff));
+    }
+
+    /**
+     * 撤销审批
+     * @param auditflow
+     * @return
+     */
+    @PostMapping("/revocation")
+    public AjaxResponse revocation(@RequestBody Auditflow auditflow){
+        return AjaxResponse.success(auditflowService.revocation(auditflow));
     }
 }

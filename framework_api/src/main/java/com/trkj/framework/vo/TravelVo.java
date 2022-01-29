@@ -88,6 +88,6 @@ public class TravelVo {
 
     @ApiModelProperty(value = "出差总时长")
     @TableId("TRAVEL_TOTAL_DATE")
-    private Date travelTotalDate;
+    private Integer travelTotalDate;
 
 }

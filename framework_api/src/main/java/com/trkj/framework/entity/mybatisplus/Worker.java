@@ -65,21 +65,24 @@ public class Worker implements Serializable {
     @TableField("WORKER_DATE")
     private Date workerDate;
 
-    @ApiModelProperty(value = "创建时间")
-    @TableField(fill = FieldFill.INSERT)
+    @ApiModelProperty(value = "创建时间 精确到秒")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "CREATED_TIME", fill = FieldFill.INSERT)
     private Date createdTime;
 
-    @ApiModelProperty(value = "修改时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @ApiModelProperty(value = "修改时间 精确到秒")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(value = "UPDATED_TIME", fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
     @TableField("REVISION")
+    @Version
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除")
+    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删")
     @TableField("IS_DELETED")
+    @TableLogic
     private Long isDeleted;
-
 
 }

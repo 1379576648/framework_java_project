@@ -88,9 +88,11 @@ public class SalaryServicelmpl implements SalaryService {
     @Override
     public List<SalaryDetailsVo> selectDetailsSalary(SalaryDetailsVo salaryDetailsVo) {
         QueryWrapper<SalaryDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", salaryDetailsVo.getStaffName2());
-        queryWrapper.eq("a.AUDITFLOW_ID", salaryDetailsVo.getAuditflowId());
         queryWrapper.eq("s.STAFF_NAME", salaryDetailsVo.getStaffName1());
+        queryWrapper.eq("a.AUDITFLOW_ID", salaryDetailsVo.getAuditflowId());
+        if (salaryDetailsVo.getStaffName2() !=null){
+            queryWrapper.eq("b.STAFF_NAME", salaryDetailsVo.getStaffName2());
+        }
         return auditflowoneMapper.selectDetailsSalary(queryWrapper);
     }
 

@@ -73,7 +73,9 @@ public class CardServicelmpl implements CardService {
     @Override
     public List<CardDetailsVo> selectDetailsCards(CardDetailsVo cardDetailsVo) {
         QueryWrapper<CardDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", cardDetailsVo.getStaffName2());
+        if (cardDetailsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", cardDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", cardDetailsVo.getAuditflowId());
         queryWrapper.eq("c.STAFF_NAME", cardDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsCards(queryWrapper);

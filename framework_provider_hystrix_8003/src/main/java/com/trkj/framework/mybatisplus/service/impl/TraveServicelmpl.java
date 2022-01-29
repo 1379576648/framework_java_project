@@ -91,7 +91,9 @@ public class TraveServicelmpl implements TraveService {
     @Override
     public List<TravelDetailsVo> selectDetailsTrave(TravelDetailsVo travelDetailsVo) {
         QueryWrapper<TravelDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", travelDetailsVo.getStaffName2());
+        if (travelDetailsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", travelDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", travelDetailsVo.getAuditflowId());
         queryWrapper.eq("t.STAFF_NAME", travelDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsTrave(queryWrapper);
@@ -127,6 +129,9 @@ public class TraveServicelmpl implements TraveService {
         // 审批主表-申请人
         auditflow.setStaffName(travelVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
+        System.out.println("111111111111111111111111111111111111111");
+        System.out.println(travelVo.getTravelSDate());
+        System.out.println("111111111111111111111111111111111111111");
         // 如果添加审批主表添加成功，则再去添加审批明细表
         if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
@@ -173,11 +178,12 @@ public class TraveServicelmpl implements TraveService {
                 // 出差表-出差事由
                 travel.setTravelMatter(travelVo.getTravelMatter());
                 // 出差表-出差开始时间
+                System.out.println(travelVo.getTravelSDate());
                 travel.setTravelSDate(travelVo.getTravelSDate());
                 // 出差表-出差结束时间
                 travel.setTravelEDate(travelVo.getTravelEDate());
                 // 出差表-出差总时长
-                travel.setTravelSDate(travelVo.getTravelTotalDate());
+                travel.setTravelTotalDate(travelVo.getTravelTotalDate());
                 final val i4 = travelMapper.insert(travel);
                 if (i4 == 1) {
                     return 1111;
@@ -234,7 +240,9 @@ public class TraveServicelmpl implements TraveService {
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(travelVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
-
+            System.out.println("111111111111111111111111111111111111111");
+            System.out.println(travelVo.getTravelSDate());
+            System.out.println("111111111111111111111111111111111111111");
             // 如果三个审批明细表添加成功，则添加出差表
             if (i1 == 1 && i2 == 1) {
                 Travel travel = new Travel();
@@ -253,7 +261,7 @@ public class TraveServicelmpl implements TraveService {
                 // 出差表-出差结束时间
                 travel.setTravelEDate(travelVo.getTravelEDate());
                 // 出差表-出差总时长
-                travel.setTravelSDate(travelVo.getTravelTotalDate());
+                travel.setTravelTotalDate(travelVo.getTravelTotalDate());
                 final val i4 = travelMapper.insert(travel);
                 if (i4 == 1) {
                     return 1111;
@@ -286,6 +294,9 @@ public class TraveServicelmpl implements TraveService {
         // 审批主表-申请人
         auditflow.setStaffName(travelVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
+        System.out.println("111111111111111111111111111111111111111");
+        System.out.println(travelVo.getTravelSDate());
+        System.out.println("111111111111111111111111111111111111111");
         // 如果添加审批主表添加成功，则再去添加审批明细表
         if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
@@ -319,7 +330,7 @@ public class TraveServicelmpl implements TraveService {
             // 出差表-出差结束时间
             travel.setTravelEDate(travelVo.getTravelEDate());
             // 出差表-出差总时长
-            travel.setTravelSDate(travelVo.getTravelTotalDate());
+            travel.setTravelTotalDate(travelVo.getTravelTotalDate());
             final val i4 = travelMapper.insert(travel);
             if (i1 == 1 && i4 == 1) {
                 return 1111;

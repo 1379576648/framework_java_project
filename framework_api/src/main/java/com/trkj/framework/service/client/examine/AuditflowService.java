@@ -360,6 +360,14 @@ public interface AuditflowService {
     Object SubmitTransfer1(Transfer8003Vo transferVo);
 
     /**
+     * 添加调动 1个审批人
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectDeptPost")
+    Object selectDeptPost(Staff staff);
+
+    /**
      * 根据员工名称是否有调薪记录
      * @param salaryVo
      * @return
@@ -582,5 +590,8 @@ public interface AuditflowService {
      */
     @PostMapping("/inquirePosition")
     Object inquirePosition(Staff staff);
+
+    @PostMapping("/revocation")
+    Object revocation(@RequestBody Auditflow auditflow);
 
 }

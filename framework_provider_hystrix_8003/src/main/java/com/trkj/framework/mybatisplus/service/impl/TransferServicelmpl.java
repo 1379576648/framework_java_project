@@ -30,6 +30,10 @@ public class TransferServicelmpl implements Transfer8003Service {
     private AuditflowMapper auditflowMapper;
     @Autowired
     private AuditflowdetailMapper auditflowdetailMapper;
+    @Autowired
+    private DeptPostMapper deptPostMapper;
+    @Autowired
+    private StaffMapper staffMapper;
 
     @Override
     public IPage<Auditflowone> selectTransferAll(Auditflowone auditflowone) {
@@ -72,7 +76,9 @@ public class TransferServicelmpl implements Transfer8003Service {
     @Override
     public List<TransferDetailsVo> selectDetailsTransfer(TransferDetailsVo transferDetailsVo) {
         QueryWrapper<TransferDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", transferDetailsVo.getStaffName2());
+        if (transferDetailsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", transferDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", transferDetailsVo.getAuditflowId());
         queryWrapper.eq("t.STAFF_NAME", transferDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsTransfer(queryWrapper);
@@ -320,5 +326,25 @@ public class TransferServicelmpl implements Transfer8003Service {
         }
     }
 
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public List<Staff>selectDeptPost(Staff staff){
+        // 先根据部门名称去查询部门编号
+        QueryWrapper<Dept> queryWrapper =new QueryWrapper<>();
+        queryWrapper.eq("DEPT_NAME",staff.getDeptName());
+        final var depts = deptMapper.selectList(queryWrapper);
+        // 取部门编号
+        final var deptId = depts.get(0).getDeptId();
+        // 再根据部门编号去查询部门职位
+        QueryWrapper<DeptPost>queryWrapper1=new QueryWrapper<>();
+        queryWrapper1.eq("DEPT_ID",deptId);
+        queryWrapper1.like("POST_NAME","经理");
+        final var deptPosts = deptPostMapper.selectList(queryWrapper1);
+        // 再根据查询到的部门职位数据（部门职位编号）去员工表查询是否有员工是该职位
+        QueryWrapper<Staff> queryWrapper2 = new QueryWrapper<>();
+        queryWrapper2.eq("DEPT_POST_ID",deptPosts.get(0).getDeptPostId());
+        final var staff1 = staffMapper.selectList(queryWrapper2);
+        return staff1;
+    }
 
 }

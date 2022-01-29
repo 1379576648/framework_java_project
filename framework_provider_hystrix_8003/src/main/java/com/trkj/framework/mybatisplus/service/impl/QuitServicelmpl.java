@@ -80,7 +80,9 @@ public class QuitServicelmpl implements QuitService {
     @Override
     public List<QuitDetailsVo> selectDetailsQuit(QuitDetailsVo quitDetailsVo) {
         QueryWrapper<QuitDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", quitDetailsVo.getStaffName2());
+        if (quitDetailsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", quitDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", quitDetailsVo.getAuditflowId());
         queryWrapper.eq("q.STAFF_NAME", quitDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsQuit(queryWrapper);
