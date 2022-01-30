@@ -25,7 +25,6 @@ import lombok.experimental.Accessors;
 @ApiModel(value="Overtimeask对象", description="加班表")
 @KeySequence(value = "OVERTIMEASK_ID",clazz = Integer.class)
 public class Overtimeask implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "加班表编号")
@@ -35,10 +34,6 @@ public class Overtimeask implements Serializable {
     @ApiModelProperty(value = "审批编号")
     @TableField("AUDITFLOW_ID")
     private Integer auditflowId;
-
-    @ApiModelProperty(value = "员工编号")
-    @TableField("STAFF_ID")
-    private Integer staffId;
 
     @ApiModelProperty(value = "员工名称")
     @TableField("STAFF_NAME")
@@ -92,5 +87,20 @@ public class Overtimeask implements Serializable {
     @TableField("IS_DELETED")
     private Long isDeleted;
 
+    @ApiModelProperty(value = "起始时间")
+    @TableField(exist = false)
+    private Date startTime;
+
+    @ApiModelProperty(value = "结束时间")
+    @TableField(exist = false)
+    private Date endTime;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 
 }
