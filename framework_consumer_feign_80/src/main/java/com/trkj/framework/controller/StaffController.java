@@ -377,4 +377,40 @@ public class StaffController {
     public AjaxResponse countStateTwo(){
         return AjaxResponse.success(hireClientService.countStateTwo());
     }
+
+    /**
+     * 本月离职
+     * @return
+     */
+    @PostMapping("/countStateThree")
+    public AjaxResponse countStateThree(){
+        return AjaxResponse.success(hireClientService.countStateThree());
+    }
+
+    /**
+     * 正式
+     * @return
+     */
+    @PostMapping("/countStateFour")
+    public AjaxResponse countStateFour(){
+        return AjaxResponse.success(hireClientService.countStateFour());
+    }
+
+    /**
+     * 试用
+     * @return
+     */
+    @PostMapping("/countStateFive")
+    public AjaxResponse countStateFive(){
+        return AjaxResponse.success(hireClientService.countStateFive());
+    }
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @PostMapping("/countStateSix")
+    public AjaxResponse countStateSix(){
+        return AjaxResponse.success(hireClientService.countStateSix());
+    }
 }

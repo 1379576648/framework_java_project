@@ -1,5 +1,6 @@
 package com.trkj.framework.service.client.recruitment;
 
+import com.trkj.framework.entity.mybatisplus.Employment;
 import com.trkj.framework.service.client.fallbackfactory.NewresumeClinetServiceFallbackfactory;
 import com.trkj.framework.vo.InterviewVo;
 import com.trkj.framework.vo.RecruitmentVo;
@@ -78,5 +79,13 @@ public interface NewresumeClinetService {
      */
     @PostMapping("/selectInvite")
     Object queryInvite(@RequestBody ResumeVo resumeVo);
+
+    /**
+     * 添加录用数据
+     * @param employment
+     * @return
+     */
+    @PostMapping("/EmployStaff")
+    Object employStaff(@RequestBody Employment employment);
 
 }

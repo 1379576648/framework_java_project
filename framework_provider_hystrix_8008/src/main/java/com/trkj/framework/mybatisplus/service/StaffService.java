@@ -110,4 +110,28 @@ public interface StaffService {
      * @return
      */
     List<Staff> countStateTwo();
+
+    /**
+     * 本月离职
+     * @return
+     */
+    List<Staff> countStateThree();
+
+    /**
+     * 正式
+     * @return
+     */
+    List<Staff> countStateFour();
+
+    /**
+     * 试用
+     * @return
+     */
+    List<Staff> countStateFive();
+
+    /**
+     *本月新入职
+     * @return
+     */
+    List<Staff> countStateSix();
 }
