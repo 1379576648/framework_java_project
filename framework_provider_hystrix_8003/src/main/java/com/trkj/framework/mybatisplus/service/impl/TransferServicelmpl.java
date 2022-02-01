@@ -123,9 +123,9 @@ public class TransferServicelmpl implements Transfer8003Service {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(transferVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(transferVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(transferVo.getAuditflowType());
+        auditflow.setAuditFlowType(transferVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(transferVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -139,7 +139,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(transferVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -149,7 +149,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             // 添加审批明细表2
             Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(transferVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
@@ -157,7 +157,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             // 添加审批明细表3
             Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
-            auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail3.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(transferVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
@@ -165,7 +165,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             if (i1 == 1 && i2 == 1 && i3 == 1) {
                 Transfer transfer = new Transfer();
                 // 调动表-审批编号
-                transfer.setAuditflowId(auditflow1.getAuditflowId());
+                transfer.setAuditflowId(auditflow1.getAuditFlowId());
                 // 调动表-员工名称
                 transfer.setStaffName(transferVo.getStaffName());
                 // 调动表-调动类型
@@ -204,9 +204,9 @@ public class TransferServicelmpl implements Transfer8003Service {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(transferVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(transferVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(transferVo.getAuditflowType());
+        auditflow.setAuditFlowType(transferVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(transferVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -220,7 +220,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(transferVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -230,7 +230,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             // 添加审批明细表2
             Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(transferVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
@@ -238,7 +238,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             if (i1 == 1 && i2 == 1) {
                 Transfer transfer = new Transfer();
                 // 调动表-审批编号
-                transfer.setAuditflowId(auditflow1.getAuditflowId());
+                transfer.setAuditflowId(auditflow1.getAuditFlowId());
                 // 调动表-员工名称
                 transfer.setStaffName(transferVo.getStaffName());
                 // 调动表-调动类型
@@ -277,9 +277,9 @@ public class TransferServicelmpl implements Transfer8003Service {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(transferVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(transferVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(transferVo.getAuditflowType());
+        auditflow.setAuditFlowType(transferVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(transferVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -293,7 +293,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(transferVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -302,7 +302,7 @@ public class TransferServicelmpl implements Transfer8003Service {
             // 如果三个审批明细表添加成功，则添加转正表
             Transfer transfer = new Transfer();
             // 调动表-审批编号
-            transfer.setAuditflowId(auditflow1.getAuditflowId());
+            transfer.setAuditflowId(auditflow1.getAuditFlowId());
             // 调动表-员工名称
             transfer.setStaffName(transferVo.getStaffName());
             // 调动表-调动类型

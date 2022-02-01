@@ -574,6 +574,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
             }
+
+            @Override
+            public Object selectTodayOverTimeExamine(Auditflow auditflow) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
         };
     }
 }

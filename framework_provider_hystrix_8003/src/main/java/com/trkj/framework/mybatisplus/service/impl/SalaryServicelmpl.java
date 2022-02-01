@@ -126,9 +126,9 @@ public class SalaryServicelmpl implements SalaryService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(salaryVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(salaryVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(salaryVo.getAuditflowType());
+        auditflow.setAuditFlowType(salaryVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(salaryVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -142,7 +142,7 @@ public class SalaryServicelmpl implements SalaryService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(salaryVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -152,7 +152,7 @@ public class SalaryServicelmpl implements SalaryService {
             // 添加审批明细表2
             Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(salaryVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
@@ -160,7 +160,7 @@ public class SalaryServicelmpl implements SalaryService {
             // 添加审批明细表3
             Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
-            auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail3.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(salaryVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
@@ -168,7 +168,7 @@ public class SalaryServicelmpl implements SalaryService {
             if (i1 == 1 && i2 == 1 && i3 == 1) {
                 Salary salary = new Salary();
                 // 调薪表-审批编号
-                salary.setAuditflowId(auditflow1.getAuditflowId());
+                salary.setAuditflowId(auditflow1.getAuditFlowId());
                 // 调薪表-员工名称
                 salary.setStaffName(salaryVo.getStaffName());
                 // 调薪表-部门名称
@@ -207,9 +207,9 @@ public class SalaryServicelmpl implements SalaryService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(salaryVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(salaryVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(salaryVo.getAuditflowType());
+        auditflow.setAuditFlowType(salaryVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(salaryVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -223,7 +223,7 @@ public class SalaryServicelmpl implements SalaryService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(salaryVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -233,7 +233,7 @@ public class SalaryServicelmpl implements SalaryService {
             // 添加审批明细表2
             Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(salaryVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
@@ -241,7 +241,7 @@ public class SalaryServicelmpl implements SalaryService {
             if (i1 == 1 && i2 == 1) {
                 Salary salary = new Salary();
                 // 调薪表-审批编号
-                salary.setAuditflowId(auditflow1.getAuditflowId());
+                salary.setAuditflowId(auditflow1.getAuditFlowId());
                 // 调薪表-员工名称
                 salary.setStaffName(salaryVo.getStaffName());
                 // 调薪表-部门名称
@@ -280,9 +280,9 @@ public class SalaryServicelmpl implements SalaryService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(salaryVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(salaryVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(salaryVo.getAuditflowType());
+        auditflow.setAuditFlowType(salaryVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(salaryVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -296,7 +296,7 @@ public class SalaryServicelmpl implements SalaryService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(salaryVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -306,7 +306,7 @@ public class SalaryServicelmpl implements SalaryService {
             // 如果三个审批明细表添加成功，则添加调薪表
             Salary salary = new Salary();
             // 调薪表-审批编号
-            salary.setAuditflowId(auditflow1.getAuditflowId());
+            salary.setAuditflowId(auditflow1.getAuditFlowId());
             // 调薪表-员工名称
             salary.setStaffName(salaryVo.getStaffName());
             // 调薪表-部门名称

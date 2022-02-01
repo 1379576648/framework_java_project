@@ -144,4 +144,14 @@ public class AuditflowController {
     public AjaxResponse revocation(@RequestBody Auditflow auditflow){
         return AjaxResponse.success(auditflowService.revocation(auditflow));
     }
+
+    /**
+     * 查询当天的加班审批记录
+     * @param auditflow
+     * @return
+     */
+    @PostMapping("/selectTodayOverTimeExamine")
+    public AjaxResponse selectTodayOverTimeExamine(@RequestBody Auditflow auditflow){
+        return AjaxResponse.success(auditflowService.selectTodayOverTimeExamine(auditflow));
+    }
 }
