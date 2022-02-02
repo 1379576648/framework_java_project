@@ -281,5 +281,18 @@ public class AuditflowController {
         map1.put("info", auditflowService.selectSalaryDetails(salaryVo));
         return map1;
     }
+
+    /**
+     * 查询当天的加班审批记录
+     * @param auditflow
+     * @return
+     */
+    @PostMapping("/selectTodayOverTimeExamine")
+    public Object selectTodayOverTimeExamine(@RequestBody Auditflow auditflow){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.selectTodayOverTimeExamine(auditflow));
+        return map1;
+    }
 }
 

@@ -239,5 +239,41 @@ public class StaffServiceImpl implements StaffService {
         return staffMapper.countStateTwo();
     }
 
+    /**
+     * 本月离职
+     * @return
+     */
+    @Override
+    public List<Staff> countStateThree() {
+        return staffMapper.countStateThree();
+    }
+
+    /**
+     * 正式
+     * @return
+     */
+    @Override
+    public List<Staff> countStateFour() {
+        return staffMapper.countStateFour();
+    }
+
+    /**
+     * 试用
+     * @return
+     */
+    @Override
+    public List<Staff> countStateFive() {
+        return staffMapper.countStateFive();
+    }
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @Override
+    public List<Staff> countStateSix() {
+        return staffMapper.countStateSix();
+    }
+
 
 }

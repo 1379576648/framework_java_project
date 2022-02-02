@@ -120,4 +120,11 @@ public interface AuditflowService {
      * @return
      */
     List<SalaryVo>selectSalaryDetails(SalaryVo salaryVo);
+
+    /**
+     * 查询当天的加班审批记录
+     * @param auditflow
+     * @return
+     */
+    List<Auditflow>selectTodayOverTimeExamine(Auditflow auditflow);
 }

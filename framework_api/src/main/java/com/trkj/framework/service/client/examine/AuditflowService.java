@@ -591,7 +591,19 @@ public interface AuditflowService {
     @PostMapping("/inquirePosition")
     Object inquirePosition(Staff staff);
 
+    /**
+     * 撤销审批
+     * @param auditflow
+     * @return
+     */
     @PostMapping("/revocation")
     Object revocation(@RequestBody Auditflow auditflow);
 
+    /**
+     * 查询当天的加班审批记录
+     * @param auditflow
+     * @return
+     */
+    @PostMapping("/selectTodayOverTimeExamine")
+    Object selectTodayOverTimeExamine(@RequestBody Auditflow auditflow);
 }

@@ -12,6 +12,7 @@ import com.trkj.framework.vo.StaffVo;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
+import org.springframework.scheduling.config.ScheduledTask;
 
 import java.util.List;
 
@@ -83,6 +84,34 @@ public interface StaffMapper extends BaseMapper<Staff> {
      */
     @Select("SELECT COUNT(STAFF_STATE) tjThree FROM STAFF WHERE STAFF_STATE=0")
     List<Staff> countStateTwo();
+
+    /**
+     * 本月离职
+     * @return
+     */
+    @Select("SELECT COUNT(STAFF_STATE) tjFour FROM STAFF WHERE TO_CHAR(CREATED_TIME,'yyyy-mm')=TO_CHAR(SYSDATE,'yyyy-mm') AND STAFF_STATE=2")
+    List<Staff> countStateThree();
+
+    /**
+     * 正式
+     * @return
+     */
+    @Select("SELECT COUNT(STAFF_STATE) tjFive FROM STAFF WHERE STAFF_STATE=1")
+    List<Staff> countStateFour();
+
+    /**
+     * 试用
+     * @return
+     */
+    @Select("SELECT COUNT(STAFF_STATE) tjSix FROM STAFF WHERE STAFF_STATE=0")
+    List<Staff> countStateFive();
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @Select("SELECT COUNT(STAFF_STATE) tjSeven FROM STAFF WHERE TO_CHAR(CREATED_TIME,'yyyy-mm')=TO_CHAR(SYSDATE,'yyyy-mm') AND STAFF_STATE=0")
+    List<Staff> countStateSix();
 
 
 }
