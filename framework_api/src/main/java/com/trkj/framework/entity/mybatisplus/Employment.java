@@ -17,7 +17,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("EMPLOYMENT")
+@TableName("EMPLOYMENT_TABLE")
 @ApiModel(value="Employment对象", description="录用表")
 @KeySequence(value = "EMPLOYMENT_ID",clazz = Integer.class)
 public class Employment implements Serializable {
@@ -25,15 +25,15 @@ public class Employment implements Serializable {
 
     @ApiModelProperty(value = "录用编号")
     @TableId("EMPLOYMENT_ID")
-    private Long employmentId;
+    private Integer employmentId;
 
     @ApiModelProperty(value = "录用状态")
     @TableId("EMPLOYMENT_STATE")
-    private Long employmentState;
+    private Integer employmentState;
 
     @ApiModelProperty(value = "简历编号")
     @TableId("RESUME_ID")
-    private Long resumeId;
+    private Integer resumeId;
 
     @ApiModelProperty(value = "备注")
     @TableField("REMARKS")
@@ -44,9 +44,9 @@ public class Employment implements Serializable {
     @TableField("EMPLOYMENT_HIREDATE")
     private Date employmentHireDate;
 
-    @ApiModelProperty(value = "简历编号")
+    @ApiModelProperty(value = "工资")
     @TableId("EMPLOYMENT_SALARY")
-    private Long employmentSalary;
+    private Integer employmentSalary;
 
     @ApiModelProperty(value = "放弃原因")
     @TableField("WAIVE_REASON")

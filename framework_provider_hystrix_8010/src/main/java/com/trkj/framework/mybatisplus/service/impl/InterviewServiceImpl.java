@@ -39,9 +39,11 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
         System.out.println("11111111111111111111111111111");
         System.out.println(employment);
         System.out.println("11111111111111111111111111111");
+        employment1.setEmploymentState(employment.getEmploymentState());
         employment1.setResumeId(employment.getResumeId());
         employment1.setRemarks(employment.getRemarks());
         employment1.setEmploymentSalary(employment.getEmploymentSalary());
+        //employment1.setWaiveReason(employment.getWaiveReason());
         employment1.setEmploymentHireDate(new Date());
         return employmentMapper.insert(employment1);
     }
