@@ -12,6 +12,5 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface CardRecordMapper extends BaseMapper<ClockRecord> {
-    @Select("select * from CLOCK_RECORD ${ew.customSqlSegment}")
-    IPage<ClockRecord> selectCardRecordAll(Page<ClockRecord> page, @Param(Constants.WRAPPER) QueryWrapper<ClockRecord> queryWrapper);
+
 }

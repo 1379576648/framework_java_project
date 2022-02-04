@@ -36,15 +36,17 @@ public class ClockRecord implements Serializable {
     @TableId("DEPT_NAME")
     private String deptName;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "早上打卡时间")
     @TableId("MORN_CLOCK")
     private Date mornClock;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "下午打卡时间")
     @TableId("AFTERNOON_CLOCK")
     private Date afternoonClock;
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
@@ -56,10 +58,13 @@ public class ClockRecord implements Serializable {
 
     @ApiModelProperty(value = "乐观锁")
     @TableId("REVISION")
+    @Version
     private Long revision;
+
 
     @ApiModelProperty(value = "逻辑删除")
     @TableId("IS_DELETED")
+    @TableLogic
     private Long isDeleted;
 
     @ApiModelProperty(value = "起始时间")

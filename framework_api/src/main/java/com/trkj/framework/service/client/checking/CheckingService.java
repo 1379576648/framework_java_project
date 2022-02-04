@@ -20,11 +20,29 @@ public interface CheckingService {
     Object selectCardRecordAll(@RequestBody ClockRecord cardRecord);
 
     /**
-     * 根据员工名称查询打卡记录
+     * 根据员工名称查询加班记录
      * @param
      * @param
      * @return
      */
     @PostMapping("/selectOverTimeRecordAll")
     Object selectOverTimeRecordAll(@RequestBody Overtimeask overtimeask);
+
+    /**
+     * 删除打卡记录
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/deleteClock")
+    Object deleteClock(@RequestBody ClockRecord cardRecord);
+
+    /**
+     * 删除加班记录
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/deleteOverTime")
+    Object deleteOverTime(@RequestBody Overtimeask overtimeask);
 }

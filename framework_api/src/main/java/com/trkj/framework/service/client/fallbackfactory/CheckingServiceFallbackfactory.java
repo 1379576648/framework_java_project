@@ -29,6 +29,22 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
             }
+
+            @Override
+            public Object deleteClock(ClockRecord cardRecord) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object deleteOverTime(Overtimeask overtimeask) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
         };
     }
 }

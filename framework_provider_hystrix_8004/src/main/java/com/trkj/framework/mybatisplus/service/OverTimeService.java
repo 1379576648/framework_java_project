@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.entity.mybatisplus.Overtimeask;
 
 /**
@@ -17,4 +18,11 @@ public interface OverTimeService {
      * @return
      */
     IPage<Overtimeask> selectOverTimeRecordAll(Overtimeask overtimeask);
+
+    /**
+     * 删除加班记录
+     * @param overtimeask
+     * @return
+     */
+    Integer deleteOverTime(Overtimeask overtimeask);
 }

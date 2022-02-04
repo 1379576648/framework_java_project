@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.entity.mybatisplus.Overtimeask;
 import com.trkj.framework.mybatisplus.service.OverTimeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +34,27 @@ public class OverTimeController {
         return map1;
     }
     public Object selectOverTimeRecordAllHystixGet(@RequestBody Overtimeask overtimeask) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 删除加班记录
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/deleteOverTime")
+    @HystrixCommand(fallbackMethod = "deleteOverTimeHystixGet")
+    public Object deleteOverTime(@RequestBody Overtimeask overtimeask) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", overTimeService.deleteOverTime(overtimeask));
+        return map1;
+    }
+    public Object deleteOverTimeHystixGet(@RequestBody Overtimeask overtimeask) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");

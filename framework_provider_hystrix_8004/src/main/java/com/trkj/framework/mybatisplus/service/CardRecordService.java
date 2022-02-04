@@ -17,4 +17,11 @@ public interface CardRecordService {
      * @return
      */
     IPage<ClockRecord> selectCardRecordAll(ClockRecord cardRecord);
+
+    /**
+     * 删除打卡记录
+     * @param clockRecord
+     * @return
+     */
+    Integer deleteClock(ClockRecord clockRecord);
 }

@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.annotation.*;
 
 import java.util.Date;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -55,36 +57,56 @@ public class Overtimeask implements Serializable {
     @TableField("OVERTIMEASK_REMARKS")
     private String overtimeaskRemarks;
 
-    @ApiModelProperty(value = "加班开始时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "计划加班开始时间")
     @TableField("OVERTIMEASK_S_DATE")
     private Date overtimeaskSDate;
 
-    @ApiModelProperty(value = "加班结束时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "计划加班结束时间")
     @TableField("OVERTIMEASK_E_DATE")
     private Date overtimeaskEDate;
 
-    @ApiModelProperty(value = "加班总小时")
+    @ApiModelProperty(value = "计划加班总小时")
     @TableField("OVERTIMEASK_TOTAL_DATE")
     private Long overtimeaskTotalDate;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "实际加班开始时间")
+    @TableField("OVERTIMASK_ACTUAL_TIME")
+    private Date overtimeaskActualTime;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @ApiModelProperty(value = "实际加班结束时间")
+    @TableField("OVERTIMASK_ACTUAL_OVERTIME")
+    private Date overtimeaskActualOvertime;
+
+    @ApiModelProperty(value = "实际加班总小时")
+    @TableField("OVERTIMASK_ACTUAL_TOKINAGA")
+    private Long overtimeaskActualTokinaga;
 
     @ApiModelProperty(value = "状态 0:不同意 1:同意")
     @TableField("OVERTIMEASK_STATE")
     private Long overtimeaskState;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
     @TableField("REVISION")
+    @Version
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除")
     @TableField("IS_DELETED")
+    @TableLogic
     private Long isDeleted;
 
     @ApiModelProperty(value = "起始时间")

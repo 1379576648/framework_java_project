@@ -23,4 +23,14 @@ public class CardRecordController {
         return AjaxResponse.success(checkingService.selectCardRecordAll(cardRecord));
     }
 
+    /**
+     * 删除打卡记录
+     * @param cardRecord
+     * @return
+     */
+    @PostMapping("/deleteClock")
+    public AjaxResponse deleteClock(@RequestBody ClockRecord cardRecord) {
+        return AjaxResponse.success(checkingService.deleteClock(cardRecord));
+    }
+
 }

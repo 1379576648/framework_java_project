@@ -39,4 +39,24 @@ public class CardRecordController {
         return map1;
     }
 
+    /**
+     * 删除打卡记录
+     * @param cardRecord
+     * @return
+     */
+    @PostMapping("/deleteClock")
+    @HystrixCommand(fallbackMethod = "deleteClockHystixGet")
+    public Object deleteClock(@RequestBody ClockRecord cardRecord) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", cardRecordService.deleteClock(cardRecord));
+        return map1;
+    }
+    public Object deleteClockHystixGet(@RequestBody ClockRecord cardRecord) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
 }

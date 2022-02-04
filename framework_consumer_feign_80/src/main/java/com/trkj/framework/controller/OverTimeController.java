@@ -1,5 +1,6 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.entity.mybatisplus.Overtimeask;
 import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.vo.AjaxResponse;
@@ -21,5 +22,15 @@ public class OverTimeController {
     @PostMapping("/selectOverTimeRecordAll")
     public AjaxResponse selectOverTimeRecordAll(@RequestBody Overtimeask overtimeask) {
         return AjaxResponse.success(checkingService.selectOverTimeRecordAll(overtimeask));
+    }
+
+    /**
+     * 删除打卡记录
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/deleteOverTime")
+    public AjaxResponse deleteOverTime(@RequestBody Overtimeask overtimeask) {
+        return AjaxResponse.success(checkingService.deleteOverTime(overtimeask));
     }
 }
