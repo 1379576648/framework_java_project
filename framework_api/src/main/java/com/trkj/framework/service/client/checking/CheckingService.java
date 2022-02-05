@@ -1,8 +1,6 @@
 package com.trkj.framework.service.client.checking;
 
-import com.trkj.framework.entity.mybatisplus.ClockRecord;
-import com.trkj.framework.entity.mybatisplus.Leave;
-import com.trkj.framework.entity.mybatisplus.Overtimeask;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.CheckingServiceFallbackfactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -64,4 +62,40 @@ public interface CheckingService {
      */
     @PostMapping("/deleteLeave")
     Object deleteLeave(@RequestBody Leave leave);
+
+    /**
+     * 根据员工名称查询加班记录
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectEvectionRecordAll")
+    Object selectEvectionRecordAll(@RequestBody Travel travel);
+
+    /**
+     * 删除加班记录
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/deleteEvection")
+    Object deleteEvection(@RequestBody Travel travel);
+
+    /**
+     * 根据员工名称查询补打卡记录
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectReissueCardRecordAll")
+    Object selectReissueCardRecordAll(@RequestBody Card card);
+
+    /**
+     * 删除补打卡记录
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/deleteCard")
+    Object deleteCard(@RequestBody Card card);
 }
