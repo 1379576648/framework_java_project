@@ -2,38 +2,41 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
+import com.trkj.framework.entity.mybatisplus.Leave;
 import com.trkj.framework.mybatisplus.service.CardRecordService;
+import com.trkj.framework.mybatisplus.service.LeaveRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 打卡记录 前端控制器
+ * 请假记录 前端控制器
  * @author 112729
  */
 @RestController
-public class CardRecordController {
+public class LeaveRecordController {
     @Autowired
-    private CardRecordService cardRecordService;
+    private LeaveRecordService leaveRecordService;
 
     /**
-     * 根据员工名称查询打卡记录
-     * @param cardRecord
+     * 根据员工名称查询请假记录
+     * @param
      * @return
      */
-    @PostMapping("/selectCardRecordAll")
-    @HystrixCommand(fallbackMethod = "selectCardRecordAllHystixGet")
-    public Object selectCardRecordAll(@RequestBody ClockRecord cardRecord) {
+    @PostMapping("/selectLeaveRecordAll")
+    @HystrixCommand(fallbackMethod = "selectLeaveRecordAllHystixGet")
+    public Object selectLeaveRecordAll(@RequestBody Leave leave) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
-        map1.put("info", cardRecordService.selectCardRecordAll(cardRecord));
+        map1.put("info", leaveRecordService.selectLeaveRecordAll(leave));
         return map1;
     }
-    public Object selectCardRecordAllHystixGet(@RequestBody ClockRecord cardRecord) {
+    public Object selectLeaveRecordAllHystixGet(@RequestBody Leave leave) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
@@ -41,20 +44,20 @@ public class CardRecordController {
     }
 
     /**
-     * 删除打卡记录
-     * @param cardRecord
+     * 删除请假记录
+     * @param leave
      * @return
      */
-    @PostMapping("/deleteClock")
-    @HystrixCommand(fallbackMethod = "deleteClockHystixGet")
-    public Object deleteClock(@RequestBody ClockRecord cardRecord) {
+    @PostMapping("/deleteLeave")
+    @HystrixCommand(fallbackMethod = "deleteLeaveHystixGet")
+    public Object deleteLeave(@RequestBody Leave leave) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
-        map1.put("info", cardRecordService.deleteClock(cardRecord));
+        map1.put("info", leaveRecordService.deleteLeave(leave));
         return map1;
     }
-    public Object deleteClockHystixGet(@RequestBody ClockRecord cardRecord) {
+    public Object deleteLeaveHystixGet(@RequestBody Leave leave) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");

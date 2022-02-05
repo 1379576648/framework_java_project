@@ -1,6 +1,7 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
+import com.trkj.framework.entity.mybatisplus.Leave;
 import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,28 +13,27 @@ import org.springframework.web.bind.annotation.RestController;
  * @author 112729
  */
 @RestController
-public class CardRecordController {
+public class LeaveRecordController {
     @Autowired
     private CheckingService checkingService;
 
     /**
      * 根据员工名称查询打卡记录
-     * @param cardRecord
+     * @param leave
      * @return
      */
-    @PostMapping("/selectCardRecordAll")
-    public AjaxResponse selectCardRecordAll(@RequestBody ClockRecord cardRecord) {
-        return AjaxResponse.success(checkingService.selectCardRecordAll(cardRecord));
+    @PostMapping("/selectLeaveRecordAll")
+    public AjaxResponse selectLeaveRecordAll(@RequestBody Leave leave) {
+        return AjaxResponse.success(checkingService.selectLeaveRecordAll(leave));
     }
 
     /**
-     * 删除打卡记录
-     * @param cardRecord
+     * 删除请假记录
+     * @param leave
      * @return
      */
-    @PostMapping("/deleteClock")
-    public AjaxResponse deleteClock(@RequestBody ClockRecord cardRecord) {
-        return AjaxResponse.success(checkingService.deleteClock(cardRecord));
+    @PostMapping("/deleteLeave")
+    public AjaxResponse deleteLeave(@RequestBody Leave leave) {
+        return AjaxResponse.success(checkingService.deleteLeave(leave));
     }
-
 }
