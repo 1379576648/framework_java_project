@@ -98,4 +98,40 @@ public interface CheckingService {
      */
     @PostMapping("/deleteCard")
     Object deleteCard(@RequestBody Card card);
+
+    /**
+     * 查询所有加班方案
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectClassesAll")
+    Object selectClassesAll(@RequestBody Classes classes);
+
+    /**
+     * 查询所有加班方案
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/submitFormClasses")
+    Object submitFormClasses(@RequestBody Classes classes);
+
+    /**
+     * 查询所有加班方案
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/inquireClasses")
+    Object inquireClasses(@RequestBody Classes classes);
+
+    /**
+     * 删除班次方案
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/deleteClasses")
+    Object deleteClasses(@RequestBody Classes classes);
 }

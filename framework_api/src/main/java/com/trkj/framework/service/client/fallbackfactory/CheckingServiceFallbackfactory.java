@@ -92,6 +92,38 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
                 map.put("info", "服务发生关闭");
                 return AjaxResponse.success(map);
             }
+
+            @Override
+            public Object selectClassesAll(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object submitFormClasses(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object inquireClasses(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object deleteClasses(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
         };
     }
 }
