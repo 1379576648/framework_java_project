@@ -56,4 +56,54 @@ public class ClassesController {
     public AjaxResponse deleteClasses(@RequestBody Classes classes) {
         return AjaxResponse.success(checkingService.deleteClasses(classes));
     }
+
+    /**
+     * 查询所有班次方案1
+     * @param classes
+     * @return
+     */
+    @PostMapping("/selectClasses")
+    public AjaxResponse selectClasses(@RequestBody Classes classes) {
+        return AjaxResponse.success(checkingService.selectClasses(classes));
+    }
+
+    /**
+     * 修改班次方案状态(启用)
+     * @param classes
+     * @return
+     */
+    @PostMapping("/updateClassesState")
+    public AjaxResponse updateClassesState(@RequestBody Classes classes) {
+        return AjaxResponse.success(checkingService.updateClassesState(classes));
+    }
+
+    /**
+     * 修改班次方案状态(禁用)
+     * @param classes
+     * @return
+     */
+    @PostMapping("/updateClassesStateTwo")
+    public AjaxResponse updateClassesStateTwo(@RequestBody Classes classes) {
+        return AjaxResponse.success(checkingService.updateClassesStateTwo(classes));
+    }
+
+    /**
+     * 根据班次编号去查询班次方案
+     * @param classes
+     * @return
+     */
+    @PostMapping("/selectClassesByID")
+    public AjaxResponse selectClassesByID(@RequestBody Classes classes) {
+        return AjaxResponse.success(checkingService.selectClassesByID(classes));
+    }
+
+    /**
+     * 修改班次方案
+     * @param classes
+     * @return
+     */
+    @PostMapping("/updateClasses")
+    public AjaxResponse updateClasses(@RequestBody Classes classes) {
+        return AjaxResponse.success(checkingService.updateClasses(classes));
+    }
 }

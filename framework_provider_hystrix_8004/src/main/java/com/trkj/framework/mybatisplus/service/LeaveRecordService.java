@@ -18,4 +18,6 @@ public interface LeaveRecordService {
      * @return
      */
     Integer deleteLeave(Leave leave);
+
+    void save(Leave leave);
 }

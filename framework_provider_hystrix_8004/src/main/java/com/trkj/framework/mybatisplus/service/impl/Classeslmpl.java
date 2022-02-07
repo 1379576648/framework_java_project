@@ -65,4 +65,43 @@ public class Classeslmpl implements ClassesService {
         classes1.setUpdatedTime(new Date());
         return classesMapper.deleteById(classes1);
     }
+
+    @Override
+    public List<Classes> selectClasses(Classes classes) {
+        QueryWrapper<Classes> queryWrapper = new QueryWrapper<>();
+        return classesMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public Integer updateClassesState(Classes classes) {
+        Classes classes1=new Classes();
+        classes1.setClassesId(classes.getClassesId());
+        classes1.setClassesState(0);
+        return classesMapper.updateById(classes1);
+    }
+
+    @Override
+    public Integer updateClassesStateTwo(Classes classes) {
+        Classes classes1=new Classes();
+        classes1.setClassesId(classes.getClassesId());
+        classes1.setClassesState(1);
+        return classesMapper.updateById(classes1);
+    }
+
+    @Override
+    public Classes selectClassesByID(Classes classes) {
+        Classes classes1=new Classes();
+        classes1.setClassesId(classes.getClassesId());
+        return classesMapper.selectById(classes1);
+    }
+
+    @Override
+    public Integer updateClasses(Classes classes) {
+        Classes classes1=new Classes();
+        classes1.setClassesId(classes.getClassesId());
+        classes1.setClassesName(classes.getClassesName());
+        classes1.setClassesBeginDate(classes.getClassesBeginDate());
+        classes1.setClassesEndDate(classes.getClassesEndDate());
+        return classesMapper.updateById(classes1);
+    }
 }

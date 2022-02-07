@@ -47,5 +47,10 @@ public class LeaveRecordlmpl implements LeaveRecordService {
         return leaveRecordMapper.deleteById(leave1);
     }
 
+    @Override
+    public void save(Leave leave) {
+
+    }
+
 
 }

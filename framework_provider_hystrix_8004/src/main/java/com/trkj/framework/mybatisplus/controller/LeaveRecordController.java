@@ -8,9 +8,12 @@ import com.trkj.framework.mybatisplus.service.LeaveRecordService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -62,5 +65,14 @@ public class LeaveRecordController {
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
         return map1;
+    }
+
+    @RequestMapping("/xlsx_two")
+    public String xlsx_two(@RequestBody(required = false) List<Leave> list) throws ParseException {
+        int sum = list.size();
+        for(int i=0; i<sum; i++){
+            leaveRecordService.save(list.get(i));
+        }
+        return "Success";
     }
 }
