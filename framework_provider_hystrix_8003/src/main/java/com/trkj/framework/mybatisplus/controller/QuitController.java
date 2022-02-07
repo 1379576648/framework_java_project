@@ -3,10 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Quit;
 import com.trkj.framework.mybatisplus.service.QuitService;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.QuitDetailsVo;
-import com.trkj.framework.vo.QuitVo;
-import com.trkj.framework.vo.SalaryVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -95,12 +92,15 @@ public class QuitController {
 
     /**
      * 根据员工名称是否有离职记录
-     * @param quit
+     * @param quitDetailsVo
      * @return
      */
     @PostMapping("/selectDimissionRecord")
-    public Integer selectDimissionRecord(@RequestBody Quit quit){
-        return quitService.selectDimissionRecord(quit);
+    public Object selectDimissionRecord(@RequestBody QuitDetailsVo quitDetailsVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", quitService.selectDimissionRecord(quitDetailsVo));
+        return map1;
     }
 
     /**
@@ -121,5 +121,26 @@ public class QuitController {
     @PostMapping("/submitToLeave2")
     public int submitToLeave2(@RequestBody QuitVo quitVo){
         return  quitService.submitToLeave2(quitVo);
+    }
+
+    /**
+     * 添加离职 添加一个审批人
+     * @param quitVo
+     * @return
+     */
+    @PostMapping("/submitToLeave1")
+    @HystrixCommand(fallbackMethod = "submitToLeave1ExamineHystixGet")
+    public Object submitToLeave1(@RequestBody QuitVo quitVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", quitService.submitToLeave1(quitVo));
+        return map1;
+    }
+
+    public Object submitToLeave1ExamineHystixGet(@RequestBody QuitVo quitVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 }

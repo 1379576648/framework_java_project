@@ -12,10 +12,7 @@ import com.trkj.framework.mybatisplus.mapper.AuditflowdetailMapper;
 import com.trkj.framework.mybatisplus.mapper.AuditflowoneMapper;
 import com.trkj.framework.mybatisplus.mapper.LeaveMapper;
 import com.trkj.framework.mybatisplus.service.LeaveService;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.CardVo;
-import com.trkj.framework.vo.LeaveDetailsVo;
-import com.trkj.framework.vo.LeaveVo;
+import com.trkj.framework.vo.*;
 import lombok.val;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -102,7 +99,9 @@ public class LeaveServicelmpl implements LeaveService {
     @Override
     public List<LeaveDetailsVo> selectDetailsLeaves(LeaveDetailsVo leaveDetailsVo) {
         QueryWrapper<LeaveDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", leaveDetailsVo.getStaffName2());
+        if (leaveDetailsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", leaveDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", leaveDetailsVo.getAuditflowId());
         queryWrapper.eq("l.STAFF_NAME", leaveDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsLeaves(queryWrapper);
@@ -110,53 +109,51 @@ public class LeaveServicelmpl implements LeaveService {
 
     /**
      * 根据名称及请假类型去查询是否有记录
-     * @param leave
+     *
+     * @param leaveDetailsVo
      * @return
      */
     @Override
-    public Integer selectLeaveExamine(Leave leave) {
-        QueryWrapper<Leave> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("c.STAFF_NAME",leave.getStaffName());
-        queryWrapper.eq("c.LEAVE_TYPE",leave.getLeaveType());
-        queryWrapper.eq("a.IS_DELETED",0);
-        queryWrapper.eq("b.IS_DELETED",0);
-        queryWrapper.eq("c.IS_DELETED",0);
+    public List<LeaveDetailsVo> selectLeaveExamine(LeaveDetailsVo leaveDetailsVo) {
+        QueryWrapper<LeaveDetailsVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("c.STAFF_NAME", leaveDetailsVo.getStaffName1());
+        queryWrapper.eq("c.LEAVE_TYPE", leaveDetailsVo.getLeaveType());
+        queryWrapper.eq("a.IS_DELETED", 0);
+        queryWrapper.eq("b.IS_DELETED", 0);
+        queryWrapper.eq("c.IS_DELETED", 0);
         final var i = leaveMapper.selectLeaveExamine(queryWrapper);
-        if (i == null){
-            return 5;
-        }else {
-            return i;
-        }
+        return i;
     }
 
     /**
      * 添加请假 添加三个审批人
+     *
      * @param leaveVo
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToAskForLeave3(LeaveVo leaveVo){
+    public int submitToAskForLeave3(LeaveVo leaveVo) {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(leaveVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(leaveVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(leaveVo.getAuditflowType());
+        auditflow.setAuditFlowType(leaveVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(leaveVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", leaveVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",leaveVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", leaveVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(leaveVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -164,25 +161,25 @@ public class LeaveServicelmpl implements LeaveService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(leaveVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 添加审批明细表3
-            Auditflowdetail auditflowdetail3=new Auditflowdetail();
+            Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
-            auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail3.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(leaveVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
             // 如果三个审批明细表添加成功，则添加请假表
-            if (i1==1 && i2== 1 && i3==1) {
-                Leave leave=new Leave();
+            if (i1 == 1 && i2 == 1 && i3 == 1) {
+                Leave leave = new Leave();
                 // 请假表-审批编号
-                leave.setAuditflowId(auditflow1.getAuditflowId());
+                leave.setAuditflowId(auditflow1.getAuditFlowId());
                 // 请假表-员工名称
                 leave.setStaffName(leaveVo.getStaffName());
                 // 请假表-部门名称
@@ -198,47 +195,48 @@ public class LeaveServicelmpl implements LeaveService {
                 // 请假表-请假时长
                 leave.setLeaveTotalDate(leaveVo.getLeaveTotalDate());
                 final val i4 = leaveMapper.insert(leave);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
     }
 
     /**
      * 添加请假 添加两个审批人
+     *
      * @param leaveVo
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToAskForLeave2(LeaveVo leaveVo){
+    public int submitToAskForLeave2(LeaveVo leaveVo) {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(leaveVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(leaveVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(leaveVo.getAuditflowType());
+        auditflow.setAuditFlowType(leaveVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(leaveVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", leaveVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",leaveVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", leaveVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(leaveVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -246,18 +244,18 @@ public class LeaveServicelmpl implements LeaveService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(leaveVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 如果三个审批明细表添加成功，则添加请假表
-            if (i1==1 && i2== 1) {
-                Leave leave=new Leave();
+            if (i1 == 1 && i2 == 1) {
+                Leave leave = new Leave();
                 // 请假表-审批编号
-                leave.setAuditflowId(auditflow1.getAuditflowId());
+                leave.setAuditflowId(auditflow1.getAuditFlowId());
                 // 请假表-员工名称
                 leave.setStaffName(leaveVo.getStaffName());
                 // 请假表-部门名称
@@ -273,15 +271,78 @@ public class LeaveServicelmpl implements LeaveService {
                 // 请假表-请假时长
                 leave.setLeaveTotalDate(leaveVo.getLeaveTotalDate());
                 final val i4 = leaveMapper.insert(leave);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
+            return 0;
+        }
+    }
+
+    /**
+     * 添加请假 添加一个审批人
+     *
+     * @param leaveVo
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer submitToAskForLeave1(LeaveVo leaveVo) {
+        // 添加审批主表
+        Auditflow auditflow = new Auditflow();
+        //审批主表-标题
+        auditflow.setAuditFlowTitle(leaveVo.getAuditflowTitle());
+        // 审批主表-审批类型
+        auditflow.setAuditFlowType(leaveVo.getAuditflowType());
+        // 审批主表-申请人
+        auditflow.setStaffName(leaveVo.getStaffName());
+        final var i = auditflowMapper.insert(auditflow);
+        // 如果添加审批主表添加成功，则再去添加审批明细表
+        if (i == 1) {
+            // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
+            Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
+                    .eq("STAFF_NAME", leaveVo.getStaffName())
+                    .eq("AUDITFLOW_TITLE", leaveVo.getAuditflowTitle())
+                    .eq("IS_DELETED", 0));
+            // 添加审批明细表1
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
+            // 审批明细表1-审批编号
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
+            // 审批明细表1-审批人
+            auditflowdetail1.setStaffName(leaveVo.getStaffName1());
+            // 审批明细表1-审核状态-待我审批
+            auditflowdetail1.setAuditflowdetaiState(1);
+            final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
+            // 如果三个审批明细表添加成功，则添加请假表
+            Leave leave = new Leave();
+            // 请假表-审批编号
+            leave.setAuditflowId(auditflow1.getAuditFlowId());
+            // 请假表-员工名称
+            leave.setStaffName(leaveVo.getStaffName());
+            // 请假表-部门名称
+            leave.setDeptname(leaveVo.getDeptname());
+            // 请假表-请假类型
+            leave.setLeaveType(leaveVo.getLeaveType());
+            // 请假表-请假事由
+            leave.setLeaveMatter(leaveVo.getLeaveMatter());
+            // 请假表-请假开始时间
+            leave.setLeaveSDate(leaveVo.getLeaveSDate());
+            // 请假表-请假结束时间
+            leave.setLeaveEDate(leaveVo.getLeaveEDate());
+            // 请假表-请假时长
+            leave.setLeaveTotalDate(leaveVo.getLeaveTotalDate());
+            final val i4 = leaveMapper.insert(leave);
+            if (i1 == 1 && i4 == 1) {
+                return 1111;
+            } else {
+                return 0;
+            }
+        } else {
             return 0;
         }
     }

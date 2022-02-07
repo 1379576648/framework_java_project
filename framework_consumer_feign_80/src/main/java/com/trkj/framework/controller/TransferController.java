@@ -1,5 +1,7 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.DeptPost;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +86,25 @@ public class TransferController {
     @PostMapping("/SubmitTransfer2")
     public AjaxResponse SubmitTransfer2(@RequestBody Transfer8003Vo transferVo){
         return AjaxResponse.success(auditflowService.SubmitTransfer2(transferVo));
+    }
+
+    /**
+     * 添加调动 添加一个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer1")
+    public AjaxResponse SubmitTransfer1(@RequestBody Transfer8003Vo transferVo){
+        return AjaxResponse.success(auditflowService.SubmitTransfer1(transferVo));
+    }
+
+    /**
+     * 根据部门名称查询该部门是否有部门经理
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectDeptPost")
+    public AjaxResponse selectDeptPost(@RequestBody Staff staff){
+        return AjaxResponse.success(auditflowService.selectDeptPost(staff));
     }
 }

@@ -6,17 +6,18 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.mapper.StaffMapper;
 import com.trkj.framework.mybatisplus.service.StaffService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.StaffQuitVo;
 import com.trkj.framework.vo.StaffVo;
-import com.trkj.framework.vo.TransferVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
-import java.util.Queue;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.util.*;
 
 /**
  * <p>
@@ -38,6 +39,7 @@ public class StaffServiceImpl implements StaffService {
      */
     @Override
     public IPage<StaffVo> selectStaff(StaffVo staffVo) {
+        Staff staff = new Staff();
         Page<StaffVo> page = new Page<>(staffVo.getCurrentPage(),staffVo.getPagesize());
         QueryWrapper<StaffVo> queryWrapper = new QueryWrapper<>();
         //根据名称查询
@@ -45,7 +47,23 @@ public class StaffServiceImpl implements StaffService {
             queryWrapper.like("s.STAFF_NAME",staffVo.getStaffName());
         }
         queryWrapper.ne("s.STAFF_STATE",2);
-        return staffMapper.selectStaff(page,queryWrapper);
+        IPage<StaffVo> list = staffMapper.selectStaff(page,queryWrapper);
+        for(StaffVo staffvo : list.getRecords()){
+            //设置日期格式
+            SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
+            //放入入职日期和当前日期
+            Period period = Period.between(LocalDate.parse(df.format(staffvo.getStaffHiredate())),
+                    LocalDate.parse(df.format(new Date())));
+            //将计算好的工龄放入vo视图中
+            staffvo.setWorkAge(period.getYears()+"年"+period.getMonths()+"月"+period.getDays()+"日");
+            //在数据库中修改
+            //取当前循环的员工id
+            staff.setStaffId(staffvo.getStaffId());
+            //取当前循环员工的工龄
+            staff.setWorkAge(staffvo.getWorkAge());
+            staffMapper.updateById(staff);
+        }
+        return list;
     }
 
     /**
@@ -111,6 +129,151 @@ public class StaffServiceImpl implements StaffService {
         }
     }
 
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateStaffState(Staff staff) {
+        final var i = staffMapper.updateById(staff);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateStaffStateTwo(Staff staff) {
+        final var i = staffMapper.updateById(staff);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateWorkerDate(Staff staff) {
+        final var i = staffMapper.updateById(staff);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 快要转正名单
+     * @param fullVo
+     * @return
+     */
+    @Override
+    public IPage<FullVo> selectQuick(FullVo fullVo) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+        Calendar calendar = Calendar.getInstance();
+        //过去7天
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE,-7);
+        Date d = calendar.getTime();
+        Page<FullVo> page = new Page<>(fullVo.getCurrentPage(),fullVo.getPagesize());
+        QueryWrapper<FullVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_STATE",0);
+        queryWrapper.lt("WORKER_DATE",d);
+        return staffMapper.selectQuick(page,queryWrapper);
+    }
+
+    /**
+     * 统计快要转正名单
+     * @param
+     * @return
+     */
+    @Override
+    public List<Staff> countByStaffState() {
+        return staffMapper.countByStaffState();
+
+    }
+
+    /**
+     * 转正已生效
+     * @param fullVo
+     * @return
+     */
+    @Override
+    public IPage<FullVo> selectStateOne(FullVo fullVo) {
+        Page<FullVo> page = new Page<>(fullVo.getCurrentPage(),fullVo.getPagesize());
+        QueryWrapper<FullVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_STATE",1);
+        return staffMapper.selectStateOne(page,queryWrapper);
+    }
+
+    /**
+     * 统计转正已生效
+     * @return
+     */
+    @Override
+    public List<Staff> countStateOne() {
+        return staffMapper.countStateOne();
+    }
+
+    /**
+     * 统计试用期人员
+     * @return
+     */
+    @Override
+    public List<Staff> countStateTwo() {
+        return staffMapper.countStateTwo();
+    }
+
+    /**
+     * 本月离职
+     * @return
+     */
+    @Override
+    public List<Staff> countStateThree() {
+        return staffMapper.countStateThree();
+    }
+
+    /**
+     * 正式
+     * @return
+     */
+    @Override
+    public List<Staff> countStateFour() {
+        return staffMapper.countStateFour();
+    }
+
+    /**
+     * 试用
+     * @return
+     */
+    @Override
+    public List<Staff> countStateFive() {
+        return staffMapper.countStateFive();
+    }
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @Override
+    public List<Staff> countStateSix() {
+        return staffMapper.countStateSix();
+    }
 
 
 }

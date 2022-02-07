@@ -51,12 +51,12 @@ public class CardController {
 
     /**
      * 根据员工名称是否有补打卡记录
-     * @param card
+     * @param cardDetailsVo
      * @return
      */
     @PostMapping("/selectCardExamine")
-    public AjaxResponse selectCardExamine(@RequestBody Card card){
-        return AjaxResponse.success(auditflowService.selectCardExamine(card));
+    public AjaxResponse selectCardExamine(@RequestBody CardDetailsVo cardDetailsVo){
+        return AjaxResponse.success(auditflowService.selectCardExamine(cardDetailsVo));
     }
 
     /**
@@ -79,4 +79,13 @@ public class CardController {
         return AjaxResponse.success(auditflowService.submitToCard2(cardVo));
     }
 
+    /**
+     * 添加补打卡 一个审批人
+     * @param cardVo
+     * @return
+     */
+    @PostMapping("/submitToCard1")
+    public AjaxResponse submitToCard1(@RequestBody CardVo cardVo){
+        return AjaxResponse.success(auditflowService.submitToCard1(cardVo));
+    }
 }

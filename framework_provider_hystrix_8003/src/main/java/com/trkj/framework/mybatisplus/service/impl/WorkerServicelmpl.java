@@ -75,25 +75,12 @@ public class WorkerServicelmpl implements WorkerService {
     @Override
     public List<WorkerDetaIsVo> selectDetailsWorker(WorkerDetaIsVo workerDetaIsVo) {
         QueryWrapper<WorkerDetaIsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", workerDetaIsVo.getStaffName2());
+        if (workerDetaIsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", workerDetaIsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", workerDetaIsVo.getAuditflowId());
         queryWrapper.eq("w.STAFF_NAME", workerDetaIsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsWorker(queryWrapper);
-    }
-
-    /**
-     * 根据员工名称去查询其员工状态为0实习的员工 条件为逻辑删除为0/员工状态为0实习的
-     *
-     * @param staff
-     * @return
-     */
-    @Override
-    public Long selectStaffState(Staff staff) {
-        QueryWrapper<Staff> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("IS_DELETED", 0);
-        queryWrapper.eq("STAFF_STATE", 0);
-        queryWrapper.eq("STAFF_NAME", staff.getStaffName());
-        return staffMapper.selectStaffState(queryWrapper);
     }
 
     @Override
@@ -121,6 +108,7 @@ public class WorkerServicelmpl implements WorkerService {
 
     /**
      * 添加转正 添加三个审批人
+     *
      * @param workerVo
      * @return
      */
@@ -130,23 +118,23 @@ public class WorkerServicelmpl implements WorkerService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(workerVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(workerVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(workerVo.getAuditflowType());
+        auditflow.setAuditFlowType(workerVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(workerVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", workerVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",workerVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", workerVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
             // 添加审批明细表1
-            Auditflowdetail auditflowdetail1=new Auditflowdetail();
+            Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(workerVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -154,25 +142,25 @@ public class WorkerServicelmpl implements WorkerService {
             final var i1 = auditflowdetailMapper.insert(auditflowdetail1);
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(workerVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 添加审批明细表3
-            Auditflowdetail auditflowdetail3=new Auditflowdetail();
+            Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
-            auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail3.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(workerVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
             // 如果三个审批明细表添加成功，则添加转正表
-            if (i1==1 && i2== 1 && i3==1) {
-                Worker worker=new Worker();
+            if (i1 == 1 && i2 == 1 && i3 == 1) {
+                Worker worker = new Worker();
                 // 转正表-审批编号
-                worker.setAuditflowId(auditflow1.getAuditflowId());
+                worker.setAuditflowId(auditflow1.getAuditFlowId());
                 // 转正表-员工名称
                 worker.setStaffName(workerVo.getStaffName());
                 // 转正表-部门名称
@@ -184,21 +172,22 @@ public class WorkerServicelmpl implements WorkerService {
                 // 转正表-转正日期
                 worker.setWorkerDate(workerVo.getWorkerdate());
                 final val i4 = workerMapper.insert(worker);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
     }
 
     /**
      * 添加转正 添加两个审批人
+     *
      * @param workerVo
      * @return
      */
@@ -208,24 +197,24 @@ public class WorkerServicelmpl implements WorkerService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(workerVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(workerVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(workerVo.getAuditflowType());
+        auditflow.setAuditFlowType(workerVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(workerVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
         // 如果添加审批主表添加成功，则再去添加审批明细表
-        if (i ==1){
+        if (i == 1) {
             // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
             Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
                     .eq("STAFF_NAME", workerVo.getStaffName())
-                    .eq("AUDITFLOW_TITLE",workerVo.getAuditflowTitle())
+                    .eq("AUDITFLOW_TITLE", workerVo.getAuditflowTitle())
                     .eq("IS_DELETED", 0));
 
             // 添加审批明细表2
-            Auditflowdetail auditflowdetail2=new Auditflowdetail();
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(workerVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -233,17 +222,17 @@ public class WorkerServicelmpl implements WorkerService {
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
 
             // 添加审批明细表3
-            Auditflowdetail auditflowdetail3=new Auditflowdetail();
+            Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
-            auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail3.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(workerVo.getStaffName2());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
             // 如果三个审批明细表添加成功，则添加转正表
-            if ( i2== 1 && i3==1) {
-                Worker worker=new Worker();
+            if (i2 == 1 && i3 == 1) {
+                Worker worker = new Worker();
                 // 转正表-审批编号
-                worker.setAuditflowId(auditflow1.getAuditflowId());
+                worker.setAuditflowId(auditflow1.getAuditFlowId());
                 // 转正表-员工名称
                 worker.setStaffName(workerVo.getStaffName());
                 // 转正表-部门名称
@@ -255,32 +244,115 @@ public class WorkerServicelmpl implements WorkerService {
                 // 转正表-转正日期
                 worker.setWorkerDate(workerVo.getWorkerdate());
                 final val i4 = workerMapper.insert(worker);
-                if (i4==1){
+                if (i4 == 1) {
                     return 1111;
-                }else {
+                } else {
                     return 0;
                 }
-            }else {
+            } else {
                 return 0;
             }
-        }else {
+        } else {
             return 0;
         }
     }
 
+    /**
+     * 添加转正 添加一个审批人
+     *
+     * @param workerVo
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Integer SubmitPositive1(WorkerVo workerVo) {
+        // 添加审批主表
+        Auditflow auditflow = new Auditflow();
+        //审批主表-标题
+        auditflow.setAuditFlowTitle(workerVo.getAuditflowTitle());
+        // 审批主表-审批类型
+        auditflow.setAuditFlowType(workerVo.getAuditflowType());
+        // 审批主表-申请人
+        auditflow.setStaffName(workerVo.getStaffName());
+        final var i = auditflowMapper.insert(auditflow);
+        // 如果添加审批主表添加成功，则再去添加审批明细表
+        if (i == 1) {
+            // 根据员工名称（申请人）以及审批标题 查询已添加的审批主表编号
+            Auditflow auditflow1 = auditflowMapper.selectOne(new QueryWrapper<Auditflow>()
+                    .eq("STAFF_NAME", workerVo.getStaffName())
+                    .eq("AUDITFLOW_TITLE", workerVo.getAuditflowTitle())
+                    .eq("IS_DELETED", 0));
+            // 添加审批明细表1
+            Auditflowdetail auditflowdetail2 = new Auditflowdetail();
+            // 审批明细表1-审批编号
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
+            // 审批明细表1-审批人
+            auditflowdetail2.setStaffName(workerVo.getStaffName1());
+            // 审批明细表1-审核状态-待我审批
+            auditflowdetail2.setAuditflowdetaiState(1);
+            final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
+            Worker worker = new Worker();
+            // 转正表-审批编号
+            worker.setAuditflowId(auditflow1.getAuditFlowId());
+            // 转正表-员工名称
+            worker.setStaffName(workerVo.getStaffName());
+            // 转正表-部门名称
+            worker.setDeptname(workerVo.getDeptname());
+            // 转正表-转正备注
+            worker.setWorkerRemarks(workerVo.getAuditflowdetaiRemarks());
+            // 转正表-转正类型
+            worker.setWorkerType(workerVo.getAuditflowType());
+            // 转正表-转正日期
+            worker.setWorkerDate(workerVo.getWorkerdate());
+            final val i4 = workerMapper.insert(worker);
+            if (i2 == 1 && i4 == 1) {
+                return 1111;
+            } else {
+                return 0;
+            }
+        } else {
+            return 0;
+        }
+    }
 
     @Override
-    public Integer selectexaminerecord(WorkerVo workerVo) {
+    public List<WorkerVo> selectexaminerecord(WorkerVo workerVo) {
         QueryWrapper<WorkerVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("c.STAFF_NAME",workerVo.getStaffName());
-        queryWrapper.eq("a.IS_DELETED",0);
-        queryWrapper.eq("b.IS_DELETED",0);
-        queryWrapper.eq("c.IS_DELETED",0);
+        queryWrapper.eq("c.STAFF_NAME", workerVo.getStaffName());
+        queryWrapper.eq("a.IS_DELETED", 0);
+        queryWrapper.eq("b.IS_DELETED", 0);
+        queryWrapper.eq("c.IS_DELETED", 0);
         final var i = workerMapper.selectexaminerecord(queryWrapper);
-        if (i == null){
-            return 5;
-        }else {
-            return i;
+        return i;
+    }
+
+    @Override
+    public IPage<Auditflowone> selectMyWorker(Auditflowone auditflowone) {
+        Page<Auditflowone> page = new Page<>(auditflowone.getCurrentPage(), auditflowone.getPagesize());
+        QueryWrapper<Auditflowone> queryWrapper = new QueryWrapper<>();
+        if (auditflowone.getStartTime() != null || auditflowone.getEndTime() != null) {
+            //根据开始日期结束日期范围查询
+            queryWrapper.between("a.CREATED_TIME", auditflowone.getStartTime(), auditflowone.getEndTime());
         }
+        queryWrapper.eq("a.STAFF_NAME", auditflowone.getStaffName1());
+        queryWrapper.eq("b.AUDITFLOWDETAI_STATE", 1);
+        queryWrapper.eq("a.AUDITFLOW_TYPE", auditflowone.getAuditflowType());
+        return auditflowoneMapper.selectMyWorker(page, queryWrapper);
+    }
+
+    @Override
+    public IPage<Auditflowone> selectMyEndWorker(Auditflowone auditflowone) {
+        Page<Auditflowone> page = new Page<>(auditflowone.getCurrentPage(), auditflowone.getPagesize());
+        QueryWrapper<Auditflowone> queryWrapper = new QueryWrapper<>();
+        if (auditflowone.getStartTime() != null || auditflowone.getEndTime() != null) {
+            //根据开始日期结束日期范围查询
+            queryWrapper.between("a.CREATED_TIME", auditflowone.getStartTime(), auditflowone.getEndTime());
+        }
+        queryWrapper.eq("a.STAFF_NAME", auditflowone.getStaffName1());
+        queryWrapper.eq("b.STAFF_NAME", auditflowone.getStaffName2());
+        queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 0);
+        queryWrapper.ne("b.AUDITFLOWDETAI_STATE", 1);
+        queryWrapper.eq("a.AUDITFLOW_TYPE", auditflowone.getAuditflowType());
+        return auditflowoneMapper.selectMyEndWorker(page, queryWrapper);
     }
 }

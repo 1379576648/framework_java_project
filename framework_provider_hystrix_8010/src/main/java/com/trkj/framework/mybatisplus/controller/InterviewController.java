@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Employment;
 import com.trkj.framework.mybatisplus.service.InterviewService;
 import com.trkj.framework.vo.InterviewVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,4 +43,16 @@ public class InterviewController {
         return map1;
     }
 
+    /**
+     * 添加录用数据
+     * @param
+     * @return
+     */
+    @PostMapping("/EmployStaff")
+    public Object employStaff(@RequestBody Employment employment){
+        Map<String, Object>map = new HashMap<>(2);
+        map.put("state",200);
+        map.put("succeed",interviewService.EmployStaff(employment));
+        return map;
+    }
 }

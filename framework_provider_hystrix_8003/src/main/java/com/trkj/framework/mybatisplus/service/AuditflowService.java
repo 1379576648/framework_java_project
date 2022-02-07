@@ -2,12 +2,11 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.Auditflow;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.OvertimeaskVo;
-import com.trkj.framework.vo.WorkerVo;
+import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.vo.*;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashMap;
@@ -45,6 +44,13 @@ public interface AuditflowService {
     List<AuditflowDetailsVo> selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo);
 
     /**
+     * 根据员工名称查询员工状态
+     * @param staff
+     * @return
+     */
+    Integer selectStaffState(Staff staff);
+
+    /**
      * 根据审批明细表ID修改其状态 通过
      * @param
      * @return
@@ -71,7 +77,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    Integer selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
+    List<OvertimeaskVo> selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
 
     /**
      * 添加加班 添加三个审批人
@@ -87,4 +93,38 @@ public interface AuditflowService {
      */
     int submitToOvertime2(OvertimeaskVo overtimeaskVo);
 
+    /**
+     * 添加加班 添加两个审批人
+     * @param overtimeaskVo
+     * @return
+     */
+    Integer submitToOvertime1(OvertimeaskVo overtimeaskVo);
+
+    /**
+     * 根据员工编号查询部门职位
+     * @param staff
+     * @return
+     */
+    String inquirePosition(Staff staff);
+
+    /**
+     * 撤销审批
+     * @param auditflow
+     * @return
+     */
+    Integer revocation(Auditflow auditflow);
+
+    /**
+     * 查询调薪审批详情
+     * @param salaryVo
+     * @return
+     */
+    List<SalaryVo>selectSalaryDetails(SalaryVo salaryVo);
+
+    /**
+     * 查询当天的加班审批记录
+     * @param auditflow
+     * @return
+     */
+    List<Auditflow>selectTodayOverTimeExamine(Auditflow auditflow);
 }

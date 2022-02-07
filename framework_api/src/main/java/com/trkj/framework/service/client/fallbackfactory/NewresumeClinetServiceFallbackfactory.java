@@ -1,5 +1,6 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
+import com.trkj.framework.entity.mybatisplus.Employment;
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.InterviewVo;
@@ -119,6 +120,19 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryInvite(ResumeVo resumeVo) {
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
+            /**
+             * 添加录用数据
+             * @param employment
+             * @return
+             */
+            @Override
+            public Object employStaff(Employment employment) {
                 Map<String, Object> objectMap = new HashMap<>();
                 objectMap.put("state", 100);
                 objectMap.put("info", "服务发生关闭");

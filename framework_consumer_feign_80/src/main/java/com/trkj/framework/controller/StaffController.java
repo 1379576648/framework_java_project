@@ -261,4 +261,156 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.updateDeptName(dept));
     }
 
+    /**
+     * 修改调动后的职位
+     * @param deptPost
+     * @return
+     */
+    @PutMapping("/updateDeptPostName")
+    public AjaxResponse updateDeptPostName(@RequestBody DeptPost deptPost){
+        return AjaxResponse.success(hireClientService.updateDeptPostName(deptPost));
+    }
+
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    @PostMapping("/selectPunishGlory")
+    public AjaxResponse selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo){
+        return AjaxResponse.success(hireClientService.selectPunishGlory(punishGloryVo));
+    }
+
+    /**
+     * 添加转正
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/insertWorker")
+    public AjaxResponse insertWorker(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.insertWorker(fullVo));
+    }
+
+    /**
+     * 修改员工状态为正式
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffState")
+    public AjaxResponse updateStaffState(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateStaffState(staff));
+    }
+
+    /**
+     * 添加离职
+     * @param quit
+     * @return
+     */
+    @PostMapping("/insertQuit")
+    public AjaxResponse insertQuit(@RequestBody Quit quit){
+        return AjaxResponse.success(hireClientService.insertQuit(quit));
+    }
+
+    /**
+     * 修改员工状态为离职
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateStaffStateTwo")
+    public AjaxResponse updateStaffStateTwo(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateStaffStateTwo(staff));
+    }
+
+    /**
+     * 修改转正日期
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateWorkerDate")
+    public AjaxResponse updateWorkerDate(@RequestBody Staff staff){
+        return AjaxResponse.success(hireClientService.updateWorkerDate(staff));
+    }
+
+    /**
+     * 快转正名单
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectQuick")
+    public AjaxResponse selectQuick(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.selectQuick(fullVo));
+    }
+
+    /**
+     * 统计快要转正的名单
+     * @return
+     */
+    @PostMapping("/countByStaffState")
+    public AjaxResponse countByStaffState(){
+        return AjaxResponse.success(hireClientService.countByStaffState());
+    }
+
+    /**
+     * 转正已生效
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectStateOne")
+    public AjaxResponse selectStateOne(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.selectStateOne(fullVo));
+    }
+
+    /**
+     * 统计转正已生效
+     * @return
+     */
+    @PostMapping("/countStateOne")
+    public AjaxResponse countStateOne(){
+        return AjaxResponse.success(hireClientService.countStateOne());
+    }
+
+    /**
+     * 统计试用期人员
+     * @return
+     */
+    @PostMapping("/countStateTwo")
+    public AjaxResponse countStateTwo(){
+        return AjaxResponse.success(hireClientService.countStateTwo());
+    }
+
+    /**
+     * 本月离职
+     * @return
+     */
+    @PostMapping("/countStateThree")
+    public AjaxResponse countStateThree(){
+        return AjaxResponse.success(hireClientService.countStateThree());
+    }
+
+    /**
+     * 正式
+     * @return
+     */
+    @PostMapping("/countStateFour")
+    public AjaxResponse countStateFour(){
+        return AjaxResponse.success(hireClientService.countStateFour());
+    }
+
+    /**
+     * 试用
+     * @return
+     */
+    @PostMapping("/countStateFive")
+    public AjaxResponse countStateFive(){
+        return AjaxResponse.success(hireClientService.countStateFive());
+    }
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @PostMapping("/countStateSix")
+    public AjaxResponse countStateSix(){
+        return AjaxResponse.success(hireClientService.countStateSix());
+    }
 }

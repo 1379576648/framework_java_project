@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
@@ -16,7 +17,7 @@ import java.util.Date;
 @TableName("CARD")
 @ApiModel(value="Card对象", description="补打卡")
 @KeySequence(value = "CARD_ID",clazz = Integer.class)
-public class Card {
+public class Card implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "补打卡编号")
@@ -35,6 +36,7 @@ public class Card {
     @TableId("CARD_TYPE")
     private String cardType;
 
+    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "补打卡时间")
     @TableId("CARD_DATE")
     private Date cardDate;
@@ -44,8 +46,8 @@ public class Card {
     private String cardRemarks;
 
     @ApiModelProperty(value = "状态")
-    @TableId("CARD_STAFF")
-    private String cardStaFF;
+    @TableId("CARD_STATE")
+    private String cardState;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
@@ -58,10 +60,28 @@ public class Card {
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
-    @TableId("REVISION")
+    @TableField("REVISION")
+    @Version
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除")
-    @TableId("IS_DELETED")
+    @TableField("IS_DELETED")
+    @TableLogic
     private Long isDeleted;
+
+    @ApiModelProperty(value = "起始时间")
+    @TableField(exist = false)
+    private Date startTime;
+
+    @ApiModelProperty(value = "结束时间")
+    @TableField(exist = false)
+    private Date endTime;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currentPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pagesize;
 }

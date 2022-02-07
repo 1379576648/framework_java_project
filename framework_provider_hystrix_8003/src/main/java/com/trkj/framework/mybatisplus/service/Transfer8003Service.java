@@ -2,6 +2,8 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Dept;
+import com.trkj.framework.entity.mybatisplus.DeptPost;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.vo.*;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -41,7 +43,7 @@ public interface Transfer8003Service {
      * @param transferVo
      * @return
      */
-    Integer selectTransferRecord(Transfer8003Vo transferVo);
+    List<Transfer8003Vo> selectTransferRecord(Transfer8003Vo transferVo);
 
     /**
      * 添加调动 添加三个审批人
@@ -56,5 +58,19 @@ public interface Transfer8003Service {
      * @return
      */
     int SubmitTransfer2(Transfer8003Vo transferVo);
+
+    /**
+     * 添加调动 添加一个审批人
+     * @param transferVo
+     * @return
+     */
+    Integer SubmitTransfer1(Transfer8003Vo transferVo);
+
+    /**
+     * 根据部门名称查询该部门是否有部门经理
+     * @param staff
+     * @return
+     */
+    List<Staff>selectDeptPost(Staff staff);
 
 }

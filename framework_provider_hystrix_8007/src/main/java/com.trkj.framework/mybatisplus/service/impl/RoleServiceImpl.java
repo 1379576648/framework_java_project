@@ -230,7 +230,7 @@ public class RoleServiceImpl implements RoleService {
         roleStaffQueryWrapper.eq("a.ROLE_ID", roleStaff.getRoleId());
         //逻辑删除
         roleStaffQueryWrapper.eq("b.IS_DELETED", 0);
-
+        roleStaffQueryWrapper.eq("a.IS_DELETED", 0);
 
         return roleStaffMapper.pageRoleStaff(iPage, roleStaffQueryWrapper);
     }
@@ -264,7 +264,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Object selectStaffInState(Staff staff) {
         //分页插件
-        Page<Staff> iPage = new Page<Staff>(staff.getCurrenPage(), staff.getPageSize());
+        Page<Staff> iPage = new Page<Staff>(staff.getCurrentPage(), staff.getPageSize());
         //条件构造器
         QueryWrapper<Staff> queryWrapper = new QueryWrapper<Staff>();
         //判断员工名称是否为空

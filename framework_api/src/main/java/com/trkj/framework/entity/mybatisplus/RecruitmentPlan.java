@@ -5,6 +5,8 @@ import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -48,10 +50,12 @@ public class RecruitmentPlan implements Serializable {
     @TableField("RECRUITMENT_PLAN_NUMBER")
     private Long recruitmentPlanNumber;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "开始时间")
     @TableField("RECRUITMENT_PLAN_START_TIME")
     private Date recruitmentPlanStartTime;
 
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "结束时间")
     @TableField("RECRUITMENT_PLAN_END_TIME")
     private Date recruitmentPlanEndTime;

@@ -40,11 +40,11 @@ public interface LeaveService {
 
     /**
      * 根据员工名称是否有补打卡记录
-     * @param leave
+     * @param leaveDetailsVo
      * @return
      */
     @PostMapping("/selectLeaveExamine")
-    Integer selectLeaveExamine(Leave leave);
+    List<LeaveDetailsVo> selectLeaveExamine(LeaveDetailsVo leaveDetailsVo);
 
     /**
      * 添加请假 添加三个审批人
@@ -59,4 +59,11 @@ public interface LeaveService {
      * @return
      */
     int submitToAskForLeave2(LeaveVo leaveVo);
+
+    /**
+     * 添加请假 添加一个审批人
+     * @param leaveVo
+     * @return
+     */
+    Integer submitToAskForLeave1(LeaveVo leaveVo);
 }

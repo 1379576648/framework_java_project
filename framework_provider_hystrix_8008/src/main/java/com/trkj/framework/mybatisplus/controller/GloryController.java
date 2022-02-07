@@ -3,6 +3,8 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Glory;
 import com.trkj.framework.mybatisplus.service.GloryService;
+import com.trkj.framework.vo.PunishGloryVo;
+import com.trkj.framework.vo.StaffVo;
 import com.trkj.framework.vo.WorkVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -110,6 +112,29 @@ public class GloryController {
 
     //备选方案
     public Object HystixGet3(@RequestBody ArrayList<Integer> list){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 查询奖励和惩罚
+     * @param punishGloryVo
+     * @return
+     */
+    @PostMapping("/selectPunishGlory")
+    @HystrixCommand(fallbackMethod = "HystixGet4")
+    public Object selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",gloryService.selectPunishGlory(punishGloryVo));
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet4(@RequestBody PunishGloryVo punishGloryVo){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");

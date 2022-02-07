@@ -1,6 +1,9 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Dept;
+import com.trkj.framework.entity.mybatisplus.DeptPost;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.Transfer8003Service;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -119,8 +122,11 @@ public class Transfer8003Controller {
      * @return
      */
     @PostMapping("/selectTransferRecord")
-    public Integer selectTransferRecord(@RequestBody Transfer8003Vo transferVo){
-        return transferService.selectTransferRecord(transferVo);
+    public Object selectTransferRecord(@RequestBody Transfer8003Vo transferVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", transferService.selectTransferRecord(transferVo));
+        return map1;
     }
 
     /**
@@ -141,5 +147,46 @@ public class Transfer8003Controller {
     @PostMapping("/SubmitTransfer2")
     public int SubmitTransfer2(@RequestBody Transfer8003Vo transferVo){
         return  transferService.SubmitTransfer2(transferVo);
+    }
+
+    /**
+     * 添加调动 添加一个审批人
+     * @param transferVo
+     * @return
+     */
+    @PostMapping("/SubmitTransfer1")
+    @HystrixCommand(fallbackMethod = "SubmitTransfer1ExamineHystixGet")
+    public Object SubmitTransfer1(@RequestBody Transfer8003Vo transferVo){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", transferService.SubmitTransfer1(transferVo));
+        return map1;
+    }
+
+    public Object SubmitTransfer1ExamineHystixGet(@RequestBody Transfer8003Vo transferVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 根据部门名称查询该部门是否有部门经理
+     * @param staff
+     * @return
+     */
+    @PostMapping("selectDeptPost")
+    @HystrixCommand(fallbackMethod = "selectDeptPostExamineHystixGet")
+    public Object selectDeptPost(@RequestBody Staff staff){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", transferService.selectDeptPost(staff));
+        return map1;
+    }
+    public Object selectDeptPostExamineHystixGet(@RequestBody Staff staff) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 }

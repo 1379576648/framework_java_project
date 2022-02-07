@@ -55,7 +55,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("select s.STAFF_ID,s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY FROM WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
+    @Select("select s.STAFF_ID,s.STAFF_NAME,w.WORK_EXPERIENCE_ID,w.WORK_STARE_TIME,w.WORK_END_TIME,w.COMPANY_NAME,w.POSITION_NAME,w.POSITION_INDUSTRY,w.POSITION_DESCRIBE,w.POSITION_SQMONTHLY,w.IS_DELETED FROM WORK_EXPERIENCE w LEFT JOIN STAFF s on w.STAFF_ID=s.STAFF_ID ${ew.customSqlSegment}")
     IPage<WorkVo> selectwork(Page<WorkVo> page,@Param(Constants.WRAPPER) QueryWrapper<WorkVo> queryWrapper);
 
     /**
@@ -96,7 +96,7 @@ public interface EmploymentTableMapper extends BaseMapper<EmploymentTable> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT s.STAFF_NAME , s.STAFF_STATE , s.STAFF_IDENTITY , d.DEPT_NAME , p.POST_NAME , s.STAFF_HIREDATE FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID = s.DEPT_POST_ID ${ew.customSqlSegment} ")
+    @Select("SELECT s.STAFF_ID,s.STAFF_NAME , s.STAFF_STATE , s.STAFF_IDENTITY , d.DEPT_NAME , p.POST_NAME , s.STAFF_HIREDATE FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID = s.DEPT_POST_ID ${ew.customSqlSegment} ")
     IPage<FullVo> selectpost(Page<FullVo> page,@Param(Constants.WRAPPER) QueryWrapper<FullVo> queryWrapper);
 
     /**

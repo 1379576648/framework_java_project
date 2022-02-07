@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.InsuredLogMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.mybatisplus.entity.InsuredLog">
+        <id column="INS_LOG_ID" property="insLogId" />
+        <result column="INS_LOG_ID_THE_INSURED" property="insLogIdTheInsured" />
+        <result column="INS_LOG_UPDATE_OBJECT" property="insLogUpdateObject" />
+        <result column="INS_LOG_EXPLAIN" property="insLogExplain" />
+        <result column="INS_LOG_INSURED_NAME" property="insLogInsuredName" />
+        <result column="INS_LOG_SOCIAL_NUMBER" property="insLogSocialNumber" />
+        <result column="INS_LOG_SOCIAL_INSURED_MONTH" property="insLogSocialInsuredMonth" />
+        <result column="INS_LOG_SOCIAL_SALARY_MONTH" property="insLogSocialSalaryMonth" />
+        <result column="INS_LOG_FUND_NUMBER" property="insLogFundNumber" />
+        <result column="INS_LOG_FUND_INSURED_MONTH" property="insLogFundInsuredMonth" />
+        <result column="INS_LOG_FUND_SALARY_MONTH" property="insLogFundSalaryMonth" />
+        <result column="CREATED_TIME" property="createdTime" />
+        <result column="UPDATED_TIME" property="updatedTime" />
+        <result column="REVISION" property="revision" />
+        <result column="IS_DELETED" property="isDeleted" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        INS_LOG_ID, INS_LOG_ID_THE_INSURED, INS_LOG_UPDATE_OBJECT, INS_LOG_EXPLAIN, INS_LOG_INSURED_NAME, INS_LOG_SOCIAL_NUMBER, INS_LOG_SOCIAL_INSURED_MONTH, INS_LOG_SOCIAL_SALARY_MONTH, INS_LOG_FUND_NUMBER, INS_LOG_FUND_INSURED_MONTH, INS_LOG_FUND_SALARY_MONTH, CREATED_TIME, UPDATED_TIME, REVISION, IS_DELETED
+    </sql>
+
+</mapper>

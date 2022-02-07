@@ -3,8 +3,8 @@ spring:
     name: REGISTER-8004
   datasource:
     url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
-    username: scott
-    password: tiger
+    username: power
+    password: 123456
     driver-class-name: oracle.jdbc.driver.OracleDriver
     #mysql配置如下：
     #url: jdbc:mysql://127.0.0.1:3308/mydb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8

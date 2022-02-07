@@ -535,6 +535,207 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                 return AjaxResponse.success(map);
             }
 
+            /**
+             * 修改调动后的职位
+             * @param deptPost
+             * @return
+             */
+            @Override
+            public Object updateDeptPostName(DeptPost deptPost) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 查询奖励和惩罚
+             * @param punishGloryVo
+             * @return
+             */
+            @Override
+            public Object selectPunishGlory(PunishGloryVo punishGloryVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 添加转正
+             * @param fullVo
+             * @return
+             */
+            @Override
+            public Object insertWorker(FullVo fullVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改员工状态为正式
+             * @param staff
+             * @return
+             */
+            @Override
+            public Object updateStaffState(Staff staff) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 添加离职
+             * @param quit
+             * @return
+             */
+            @Override
+            public Object insertQuit(Quit quit) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改员工状态为离职
+             * @param staff
+             * @return
+             */
+            @Override
+            public Object updateStaffStateTwo(Staff staff) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 修改转正日期
+             * @param staff
+             * @return
+             */
+            @Override
+            public Object updateWorkerDate(Staff staff) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 快转正名单
+             * @param fullVo
+             * @return
+             */
+            @Override
+            public Object selectQuick(FullVo fullVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 统计快要转正名单
+             * @return
+             */
+            @Override
+            public Object countByStaffState() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 转正已生效
+             * @param fullVo
+             * @return
+             */
+            @Override
+            public Object selectStateOne(FullVo fullVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 统计转正已生效
+             * @return
+             */
+            @Override
+            public Object countStateOne() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 统计试用期人员
+             * @return
+             */
+            @Override
+            public Object countStateTwo() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 本月离职
+             * @return
+             */
+            @Override
+            public Object countStateThree() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 正式
+             * @return
+             */
+            @Override
+            public Object countStateFour() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 试用
+             * @return
+             */
+            @Override
+            public Object countStateFive() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 本月新入职
+             * @return
+             */
+            @Override
+            public Object countStateSix() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }
