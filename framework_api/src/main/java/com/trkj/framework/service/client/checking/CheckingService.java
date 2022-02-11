@@ -3,8 +3,11 @@ package com.trkj.framework.service.client.checking;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.CheckingServiceFallbackfactory;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @FeignClient(value = "FRAMEWORK-ZUUL/8004/provider", fallbackFactory = CheckingServiceFallbackfactory.class)
 public interface CheckingService {
@@ -179,4 +182,7 @@ public interface CheckingService {
      */
     @PostMapping("/updateClasses")
     Object updateClasses(@RequestBody Classes classes);
+
+    @PostMapping(value="/import/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
+    Object importCard(@PathVariable("name") String name,MultipartFile file);
 }

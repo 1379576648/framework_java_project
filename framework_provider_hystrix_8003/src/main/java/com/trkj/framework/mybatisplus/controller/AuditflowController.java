@@ -122,7 +122,9 @@ public class AuditflowController {
         final var i = auditflowService.updateApprovalState(auditflowdetail1);
         if (i==1){
             return 666;
-        }else {
+        }else if (i == 100){
+            return 100;
+        }else{
             return 999;
         }
     }

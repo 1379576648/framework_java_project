@@ -79,6 +79,9 @@ public interface AuditflowdetailMapper extends BaseMapper<Auditflowdetail> {
 
     @Select("select * from Leave ${ew.customSqlSegment}")
     List<Leave> selectLeave(@Param(Constants.WRAPPER) QueryWrapper<Leave> queryWrapper);
+
+    @Select("select * from Card ${ew.customSqlSegment}")
+    List<Card> selectCard(@Param(Constants.WRAPPER) QueryWrapper<Card> queryWrapper);
 }
 
 

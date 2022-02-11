@@ -32,6 +32,7 @@ public class OverTimelmpl implements OverTimeService{
             //根据开始日期结束日期范围查询
             queryWrapper.between("CREATED_TIME", overtimeask.getStartTime(), overtimeask.getEndTime());
         }
+        queryWrapper.eq("OVERTIMEASK_STATE",1);
         queryWrapper.eq("STAFF_NAME",staffName);
         return overTimeMapper.selectPage(page,queryWrapper);
     }

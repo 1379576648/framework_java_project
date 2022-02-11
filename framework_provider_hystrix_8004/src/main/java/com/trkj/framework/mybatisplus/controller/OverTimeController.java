@@ -8,6 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +31,9 @@ public class OverTimeController {
     @PostMapping("/selectOverTimeRecordAll")
     @HystrixCommand(fallbackMethod = "selectOverTimeRecordAllHystixGet")
     public Object selectOverTimeRecordAll(@RequestBody Overtimeask overtimeask) {
+        System.out.println("11111111111111111111111111111111111111111111111111111111111");
+        String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
+        System.out.println(date);
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);

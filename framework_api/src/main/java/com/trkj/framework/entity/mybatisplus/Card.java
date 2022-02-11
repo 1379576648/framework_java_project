@@ -47,7 +47,7 @@ public class Card implements Serializable {
 
     @ApiModelProperty(value = "状态")
     @TableId("CARD_STATE")
-    private String cardState;
+    private Integer cardState;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")

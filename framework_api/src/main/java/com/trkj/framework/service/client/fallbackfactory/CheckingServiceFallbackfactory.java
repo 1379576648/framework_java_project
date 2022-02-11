@@ -5,6 +5,8 @@ import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.vo.AjaxResponse;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -162,6 +164,14 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object updateClasses(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object importCard(String name,MultipartFile file) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
