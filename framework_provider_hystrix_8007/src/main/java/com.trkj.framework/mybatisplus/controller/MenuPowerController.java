@@ -3,14 +3,11 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.MenuPower;
-import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.mybatisplus.service.MenuPowerService;
+import com.trkj.framework.util.Fuse8007Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.ws.rs.DELETE;
-import javax.ws.rs.GET;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -27,6 +24,8 @@ public class MenuPowerController {
     @Autowired
     private MenuPowerService menuPowerService;
 
+    @Autowired
+    private Fuse8007Util fuse8007Util;
     /***
      * 获取所有的菜单列表
      * @return
@@ -44,10 +43,7 @@ public class MenuPowerController {
 
     //备选方案
     public Object menuPowerListHystrix() {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /**
@@ -69,10 +65,7 @@ public class MenuPowerController {
 
     //备选方案
     public Object menuPowerListInRoleIdListHystrix(@PathVariable(name = "id") Integer integer) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
 
@@ -94,10 +87,7 @@ public class MenuPowerController {
 
     //备选方案
     public Object menuPowerInConditionHystrix(@RequestBody MenuPower menuPower) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -119,10 +109,7 @@ public class MenuPowerController {
 
     //备选方案
     public Object menuPowerAddSingleHystrix(@RequestBody MenuPower menuPower) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
 
@@ -145,10 +132,7 @@ public class MenuPowerController {
 
     //备选方案
     public Object menuPowerInPidHystrix(@PathVariable("id") Integer integer) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -169,10 +153,7 @@ public class MenuPowerController {
 
     //备选方案
     public Object menuPowerUpdateHystrix(@RequestBody MenuPower menuPower) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -193,10 +174,7 @@ public class MenuPowerController {
 
     //备选
     public Object menuPowerDeleteHystrix(@PathVariable("id") Integer integer){
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
 
@@ -219,10 +197,7 @@ public class MenuPowerController {
 
     //备选
     public Object menuPowerAddHystrix(@RequestBody MenuPower menuPower){
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
 }

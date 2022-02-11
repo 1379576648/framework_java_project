@@ -13,9 +13,6 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 /**
  * <p>
@@ -64,8 +61,6 @@ public class RoleStaff implements Serializable {
     @TableField("REVISION")
     @Version
     private Long revision;
-
-
 
 
     @ApiModelProperty(value = "当前页")

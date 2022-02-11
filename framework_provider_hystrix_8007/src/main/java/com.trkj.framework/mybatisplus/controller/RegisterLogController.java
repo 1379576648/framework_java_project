@@ -4,6 +4,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.mybatisplus.service.RegisterLogService;
+import com.trkj.framework.util.Fuse8007Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,8 @@ public class RegisterLogController {
     @Autowired
     private RegisterLogService registerLogService;
 
+    @Autowired
+    private Fuse8007Util fuse8007Util;
     /***
      * 登录日志分页查询
      * @param registerLog
@@ -41,10 +44,7 @@ public class RegisterLogController {
     }
     //备选方案
     public Object selectRegisterLogAllHystrix(@RequestBody RegisterLog registerLog){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /**
@@ -69,10 +69,7 @@ public class RegisterLogController {
      * @return
      */
     public Object checkRegisterLogDeleteHystrix(@RequestBody ArrayList<Integer> list){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -95,10 +92,7 @@ public class RegisterLogController {
      * @return
      */
     public Object emptyRegisterLogListHystrix(@RequestBody RegisterLog registerLog){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
 }

@@ -42,19 +42,19 @@ public class TriScheme implements Serializable {
 
     @ApiModelProperty(value = "最少基数")
     @TableField("TRI_SCHEME_MIN")
-    private Long triSchemeMin;
+    private Double triSchemeMin;
 
     @ApiModelProperty(value = "最多基数")
     @TableField("TRI_SCHEME_MAX")
-    private Long triSchemeMax;
+    private Double triSchemeMax;
 
     @ApiModelProperty(value = "基数上限")
     @TableField("TRI_SCHEME_UPPER")
-    private Long triSchemeUpper;
+    private Double triSchemeUpper;
 
     @ApiModelProperty(value = "基数下限")
     @TableField("TRI_SCHEME_FLOOR")
-    private Long triSchemeFloor;
+    private Double triSchemeFloor;
 
     @ApiModelProperty(value = "个人缴纳比例")
     @TableField("TRI_SCHEME_PERSON_PROP")

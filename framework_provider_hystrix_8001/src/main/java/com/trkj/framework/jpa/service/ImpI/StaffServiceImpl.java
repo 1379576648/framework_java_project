@@ -1,9 +1,6 @@
 package com.trkj.framework.jpa.service.ImpI;
 
-import ch.qos.logback.core.joran.action.AppenderRefAction;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.trkj.framework.entity.jpa.*;
-import com.trkj.framework.entity.mybatisplus.MenuPower;
 import com.trkj.framework.jpa.dao.*;
 import com.trkj.framework.jpa.service.StaffService;
 import com.trkj.framework.util.MenuChild;
@@ -11,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,6 +30,8 @@ public class StaffServiceImpl implements StaffService {
     private MenuPowerDao menuPowerDao;
     @Autowired
     private MenuChild getChild;
+    @Autowired
+    private DeptPostDao deptPostDao;
     /***
      * 通过id查询用户信息
      * @param map
@@ -139,10 +137,8 @@ public class StaffServiceImpl implements StaffService {
             List<RoleMenuPowerEntity> roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
             //迭代菜单编号列表
             for (RoleMenuPowerEntity roleMenuPowerEntity : roleMenuPowerEntities) {
-                System.out.println(roleMenuPowerEntity);
                 //通过菜单编号查询菜单
                 MenuPowerEntity menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
-                System.out.println(menuPower);
                 //将查询的菜单列表添加到集合中
                 if (menuPower != null) {
                     menuPowerEntities.add(menuPower);
@@ -172,5 +168,19 @@ public class StaffServiceImpl implements StaffService {
             nav.setChildren(childList);
         }
         return menuPowerEntities2;
+    }
+
+    /***
+     * 通过员工编号查询职位名称
+     * @param integer
+     * @return
+     */
+    @Override
+    public String selectPostName(Integer integer) {
+        DeptPostEntity deptPost =deptPostDao.findDeptPostEntityByDeptPostId(integer);
+        if (deptPost==null) {
+            return null;
+        }
+        return deptPost.getPostName();
     }
 }

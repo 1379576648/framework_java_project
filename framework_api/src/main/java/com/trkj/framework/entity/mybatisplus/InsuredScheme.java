@@ -44,9 +44,6 @@ public class InsuredScheme implements Serializable {
     @TableField("DEF_INSURED_ID")
     private Long defInsuredId;
 
-    @ApiModelProperty(value = "微调参保方案编号")
-    @TableField("TRI_INSURED_ID")
-    private Long triInsuredId;
 
     @ApiModelProperty(value = "创建时间 精确到秒")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
@@ -63,9 +60,5 @@ public class InsuredScheme implements Serializable {
     @Version
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删")
-    @TableField("IS_DELETED")
-    @TableLogic
-    private Long isDeleted;
 
 }

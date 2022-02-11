@@ -10,7 +10,7 @@ import java.util.List;
  * @author 13795
  */
 @Component
-public class Menu {
+public class MenuUtil {
 
     /**
      * 获取子节点

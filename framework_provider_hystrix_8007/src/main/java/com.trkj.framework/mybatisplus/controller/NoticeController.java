@@ -2,11 +2,9 @@ package com.trkj.framework.mybatisplus.controller;
 
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.sun.corba.se.spi.ior.ObjectKey;
 import com.trkj.framework.entity.mybatisplus.Notice;
-import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.mybatisplus.service.NoticeService;
-import io.swagger.models.auth.In;
+import com.trkj.framework.util.Fuse8007Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,6 +24,9 @@ import java.util.Map;
 public class NoticeController {
     @Autowired
     private NoticeService noticeService;
+    
+    @Autowired
+    private Fuse8007Util fuse8007Util;
 
     /**
      * 分页查询所有公告数据
@@ -44,10 +45,7 @@ public class NoticeController {
     }
     //备选方案
     public Object selectNoticeAllHystrix(@RequestBody Notice notice){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
     /**
      * 多选删除
@@ -67,10 +65,7 @@ public class NoticeController {
 
     //备选方案
     public Object checkNoticeDeleteHystrix(@RequestBody ArrayList<Integer> list){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -89,10 +84,7 @@ public class NoticeController {
     }
     //备选
     public  Object selectDeptListHystrix(){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /**
@@ -112,10 +104,7 @@ public class NoticeController {
     }
     //备选方案
     public Object insertNoticeHystrix(@RequestBody Notice notice){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -135,10 +124,7 @@ public class NoticeController {
     }
     //备选方案
     public Object selectPossessDeptListHystrix(@RequestParam("id") Integer id){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /**
@@ -158,10 +144,7 @@ public class NoticeController {
     }
     //备选方案
     public Object updateNoticeHystrix(@RequestBody Notice notice){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -181,10 +164,7 @@ public class NoticeController {
     }
     //备选方案
     public Object peropleNoticeViewedHystrix(@RequestParam("id") Integer id){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
     /***
      * 未看公告人员
@@ -203,10 +183,7 @@ public class NoticeController {
     }
     //备选方案
     public Object unseenNoticePersonHystrix(@RequestParam("id") Integer id){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 }
 

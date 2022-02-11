@@ -1,25 +1,18 @@
 package com.trkj.framework.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.trkj.framework.entity.mybatisplus.MenuPower;
 import com.trkj.framework.entity.mybatisplus.RoleMenuPower;
 import com.trkj.framework.mybatisplus.mapper.MenuPowerMapper;
 import com.trkj.framework.mybatisplus.mapper.RoleMenuPowerMapper;
 import com.trkj.framework.mybatisplus.service.MenuPowerService;
-import com.trkj.framework.util.Menu;
-import com.trkj.framework.util.MenuChild;
-import io.swagger.models.auth.In;
+import com.trkj.framework.util.MenuChildUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -42,7 +35,7 @@ public class MenuPowerServiceImpl implements MenuPowerService {
      * 获取菜单子菜单类
      */
     @Autowired
-    private MenuChild getChild;
+    private MenuChildUtil getChild;
 
     //子菜单
     List<Integer> childListList = new ArrayList<Integer>();

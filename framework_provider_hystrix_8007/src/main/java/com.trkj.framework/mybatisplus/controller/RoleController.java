@@ -2,11 +2,11 @@ package com.trkj.framework.mybatisplus.controller;
 
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.Role;
 import com.trkj.framework.entity.mybatisplus.RoleStaff;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.RoleService;
+import com.trkj.framework.util.Fuse8007Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,6 +27,9 @@ public class RoleController {
 
     @Autowired
     private RoleService roleService;
+    
+    @Autowired
+    private Fuse8007Util fuse8007Util;
 
     /**
      * 分页查询所有的角色数据
@@ -47,10 +50,7 @@ public class RoleController {
 
     //备选方案
     public Object selectRoleAllHystrix(@RequestBody Role role) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -71,10 +71,7 @@ public class RoleController {
 
     //备选方案
     public Object checkRoleDeleteHystrix(@RequestBody ArrayList<Integer> list) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -95,10 +92,7 @@ public class RoleController {
 
     //备选方案
     public Object addRoleHystrix(@RequestBody Role role) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -121,10 +115,7 @@ public class RoleController {
 
     //备选方案
     public Object selectRoleRoleNameHystrix(@PathVariable(name = "name") String name, @PathVariable(name = "value") String value) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -145,10 +136,7 @@ public class RoleController {
 
     //备选方案
     public Object updateRoleHystrix(@RequestBody Role role) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     @PutMapping("/allotMenu")
@@ -164,10 +152,7 @@ public class RoleController {
 
     //备选方案
     public Object allotMenuHystrix(@RequestBody Role role) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -188,10 +173,7 @@ public class RoleController {
 
     //备选方案
     public Object selectRoleStaffHystrix(@RequestBody RoleStaff roleStaff) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /**
@@ -213,10 +195,7 @@ public class RoleController {
 
     //备选方案
     public Object cancelImpowerHystrix(@RequestBody ArrayList<Integer> list) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
     /***
@@ -237,10 +216,7 @@ public class RoleController {
 
     //备选方案
     public Object selectStaffInStateHystrix(@RequestBody Staff staff) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 
 
@@ -263,10 +239,7 @@ public class RoleController {
     //备选方案
     @HystrixCommand(fallbackMethod = "allotStaffHystrix")
     public Object allotStaffHystrix(@RequestBody RoleStaff roleStaff) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8007Util.main();
     }
 }
 
