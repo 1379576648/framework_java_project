@@ -78,4 +78,6 @@ public class Classes implements Serializable {
     @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
     private Integer pagesize;
+
+
 }

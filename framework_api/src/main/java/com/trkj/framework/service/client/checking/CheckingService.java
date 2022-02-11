@@ -100,7 +100,7 @@ public interface CheckingService {
     Object deleteCard(@RequestBody Card card);
 
     /**
-     * 查询所有加班方案
+     * 查询所有班次方案
      * @param
      * @param
      * @return
@@ -134,4 +134,49 @@ public interface CheckingService {
      */
     @PostMapping("/deleteClasses")
     Object deleteClasses(@RequestBody Classes classes);
+
+    /**
+     * 查询所有班次方案1
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectClasses")
+    Object selectClasses(@RequestBody Classes classes);
+
+    /**
+     * 修改班次方案状态(启用)
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateClassesState")
+    Object updateClassesState(@RequestBody Classes classes);
+
+    /**
+     * 修改班次方案状态(禁用)
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateClassesStateTwo")
+    Object updateClassesStateTwo(@RequestBody Classes classes);
+
+    /**
+     * 根据班次编号去查询班次方案
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectClassesByID")
+    Object selectClassesByID(@RequestBody Classes classes);
+
+    /**
+     * 修改班次方案
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateClasses")
+    Object updateClasses(@RequestBody Classes classes);
 }

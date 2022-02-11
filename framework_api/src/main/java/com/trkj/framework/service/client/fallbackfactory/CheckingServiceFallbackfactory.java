@@ -8,6 +8,9 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author 112729
+ */
 @Component
 public class CheckingServiceFallbackfactory implements FallbackFactory {
     @Override
@@ -119,6 +122,46 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object deleteClasses(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectClasses(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateClassesState(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateClassesStateTwo(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object selectClassesByID(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateClasses(Classes classes) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
