@@ -404,5 +404,55 @@ public interface HireClientService {
      */
     @PostMapping("/countByStaffState")
     Object countByStaffState();
+
+    /**
+     * 转正已生效
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectStateOne")
+    Object selectStateOne(@RequestBody FullVo fullVo);
+
+    /**
+     * 统计转正已生效
+     * @return
+     */
+    @PostMapping("/countStateOne")
+    Object countStateOne();
+
+    /**
+     * 统计试用期人员
+     * @return
+     */
+    @PostMapping("/countStateTwo")
+    Object countStateTwo();
+
+    /**
+     * 本月离职
+     * @return
+     */
+    @PostMapping("/countStateThree")
+    Object countStateThree();
+
+    /**
+     * 正式
+     * @return
+     */
+    @PostMapping("/countStateFour")
+    Object countStateFour();
+
+    /**
+     * 试用
+     * @return
+     */
+    @PostMapping("/countStateFive")
+    Object countStateFive();
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @PostMapping("/countStateSix")
+    Object countStateSix();
 }
 

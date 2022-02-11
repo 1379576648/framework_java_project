@@ -17,7 +17,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@TableName("EMPLOYMENT")
+@TableName("EMPLOYMENT_TABLE")
 @ApiModel(value="Employment对象", description="录用表")
 @KeySequence(value = "EMPLOYMENT_ID",clazz = Integer.class)
 public class Employment implements Serializable {
@@ -44,7 +44,7 @@ public class Employment implements Serializable {
     @TableField("EMPLOYMENT_HIREDATE")
     private Date employmentHireDate;
 
-    @ApiModelProperty(value = "简历编号")
+    @ApiModelProperty(value = "工资")
     @TableId("EMPLOYMENT_SALARY")
     private Integer employmentSalary;
 

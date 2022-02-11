@@ -261,5 +261,161 @@ public class StaffController {
         return map1;
     }
 
+    /**
+     * 转正已生效
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectStateOne")
+    @HystrixCommand(fallbackMethod = "HystixGet6")
+    public Object selectStateOne(@RequestBody FullVo fullVo){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.selectStateOne(fullVo));
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet6(@RequestBody FullVo fullVo){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 统计转正已生效
+     * @return
+     */
+    @PostMapping("/countStateOne")
+    @HystrixCommand(fallbackMethod = "HystixGet7")
+    public Object countStateOne(){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.countStateOne());
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet7(){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 统计试用期人员
+     * @return
+     */
+    @PostMapping("/countStateTwo")
+    @HystrixCommand(fallbackMethod = "HystixGet8")
+    public Object countStateTwo(){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.countStateTwo());
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet8(){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 本月离职
+     * @return
+     */
+    @PostMapping("/countStateThree")
+    @HystrixCommand(fallbackMethod = "HystixGet9")
+    public Object countStateThree(){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.countStateThree());
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet9(){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 正式
+     * @return
+     */
+    @PostMapping("/countStateFour")
+    @HystrixCommand(fallbackMethod = "HystixGet10")
+    public Object countStateFour(){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.countStateFour());
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet10(){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 试用
+     * @return
+     */
+    @PostMapping("/countStateFive")
+    @HystrixCommand(fallbackMethod = "HystixGet11")
+    public Object countStateFive(){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.countStateFive());
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet11(){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @PostMapping("/countStateSix")
+    @HystrixCommand(fallbackMethod = "HystixGet12")
+    public Object countStateSix(){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",staffService.countStateSix());
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet12(){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+
 }
 

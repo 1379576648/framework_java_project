@@ -350,4 +350,67 @@ public class StaffController {
         return AjaxResponse.success(hireClientService.countByStaffState());
     }
 
+    /**
+     * 转正已生效
+     * @param fullVo
+     * @return
+     */
+    @PostMapping("/selectStateOne")
+    public AjaxResponse selectStateOne(@RequestBody FullVo fullVo){
+        return AjaxResponse.success(hireClientService.selectStateOne(fullVo));
+    }
+
+    /**
+     * 统计转正已生效
+     * @return
+     */
+    @PostMapping("/countStateOne")
+    public AjaxResponse countStateOne(){
+        return AjaxResponse.success(hireClientService.countStateOne());
+    }
+
+    /**
+     * 统计试用期人员
+     * @return
+     */
+    @PostMapping("/countStateTwo")
+    public AjaxResponse countStateTwo(){
+        return AjaxResponse.success(hireClientService.countStateTwo());
+    }
+
+    /**
+     * 本月离职
+     * @return
+     */
+    @PostMapping("/countStateThree")
+    public AjaxResponse countStateThree(){
+        return AjaxResponse.success(hireClientService.countStateThree());
+    }
+
+    /**
+     * 正式
+     * @return
+     */
+    @PostMapping("/countStateFour")
+    public AjaxResponse countStateFour(){
+        return AjaxResponse.success(hireClientService.countStateFour());
+    }
+
+    /**
+     * 试用
+     * @return
+     */
+    @PostMapping("/countStateFive")
+    public AjaxResponse countStateFive(){
+        return AjaxResponse.success(hireClientService.countStateFive());
+    }
+
+    /**
+     * 本月新入职
+     * @return
+     */
+    @PostMapping("/countStateSix")
+    public AjaxResponse countStateSix(){
+        return AjaxResponse.success(hireClientService.countStateSix());
+    }
 }

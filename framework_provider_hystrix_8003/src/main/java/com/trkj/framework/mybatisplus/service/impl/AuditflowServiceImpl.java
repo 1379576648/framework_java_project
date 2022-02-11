@@ -7,19 +7,24 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.mybatisplus.mapper.*;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.OvertimeaskVo;
-import com.trkj.framework.vo.WorkerVo;
+import com.trkj.framework.vo.*;
 import lombok.val;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import static com.alibaba.druid.util.FnvHash.Constants.TO_CHAR;
 
 /**
  * <p>
@@ -51,7 +56,10 @@ public class AuditflowServiceImpl implements AuditflowService {
     private LeaveMapper leaveMapper;
     @Autowired
     private DeptPostMapper deptPostMapper;
-
+    @Autowired
+    private CardMapper cardMapper;
+    @Autowired
+    private ClockRecordMapper clockRecordMapper;
 
     /**
      * 根据审批类型的加班/审批人查询待处理的审批
@@ -112,7 +120,9 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Override
     public List<AuditflowDetailsVo> selectDetailsAuditflow(AuditflowDetailsVo auditflowDetailsVo) {
         QueryWrapper<AuditflowDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", auditflowDetailsVo.getStaffName2());
+        if (auditflowDetailsVo.getStaffName2() != null) {
+            queryWrapper.eq("b.STAFF_NAME", auditflowDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", auditflowDetailsVo.getAuditflowId());
         queryWrapper.eq("o.STAFF_NAME", auditflowDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsAuditflow(queryWrapper);
@@ -134,6 +144,7 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public int updateApprovalState(Auditflowdetail auditflowdetail) {
+
         // 获取下一个审批人
         final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
         // 获取审批类型
@@ -218,9 +229,9 @@ public class AuditflowServiceImpl implements AuditflowService {
                                 final var op = deptPosts.get(0).getPostName().matches("(.*)经理(.*)");
                                 // 如果成功，在这里拿到员工调岗前原部门职位名称，则根据原部门职位名称去及变动后部门编号查询变动后部门职位编号
                                 QueryWrapper<DeptPost> queryWrapper8 = new QueryWrapper<>();
-                                if (op == true){
-                                    queryWrapper8.like("a.POST_NAME","经理");
-                                }else{
+                                if (op == true) {
+                                    queryWrapper8.like("a.POST_NAME", "经理");
+                                } else {
                                     queryWrapper8.eq("a.POST_NAME", deptPosts.get(0).getPostName());
                                 }
                                 queryWrapper8.eq("a.DEPT_ID", deptID);
@@ -239,7 +250,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                                 System.out.println(i3);
                                 System.out.println(i7);
                                 // 如果修改成功，则添加一条消息给申请人(员工编号、标题、内容、)
-                                if (i3 ==1 && i7 == 1) {
+                                if (i3 == 1 && i7 == 1) {
                                     System.out.println("22222222222222222222222222222222222222");
                                     News news = new News();
                                     news.setStaffId(satffNO.get(0).getStaffId());
@@ -408,6 +419,81 @@ public class AuditflowServiceImpl implements AuditflowService {
                     } else {
                         return 999;
                     }
+                } else if ("补打卡".equals(auditflowType)) {
+                    // 根据审批编号去查询补打卡记录表数据
+                    QueryWrapper<Card> card = new QueryWrapper<>();
+                    card.eq("AUDITFLOW_ID", auditflowId);
+                    final var cards = cardMapper.selectList(card);
+                    System.out.println("补打卡数据：");
+                    System.out.println(cards);
+                    // 修改补打卡中的状态为同意
+                    Card card1 = new Card();
+                    card1.setCardId(cards.get(0).getCardId());
+                    card1.setAuditflowId(auditflowId);
+                    card1.setCardState(1);
+                    final var i1 = cardMapper.updateById(card1);
+                    if (i1 == 1) {
+                        // 修改成功后，发给申请人一条消息
+                        News news = new News();
+                        news.setStaffId(satffNO.get(0).getStaffId());
+                        news.setNewsTitle(auditflowType + "审批已通过:");
+                        // 转日期格式
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        String CreatedTime = sdf.format(cards.get(0).getCreatedTime());
+                        news.setNewsMatter("您于" + CreatedTime + "发起的" + auditflowType + "审批,现已通过，请核实，如有纰漏，请联系管理员");
+                        final var insert = newsMapper.insert(news);
+                        // 发消息成功后，则根据补打卡表中的员工名称及创建时间去打卡记录表中的查询有无记录
+                        QueryWrapper<ClockRecord> clockRecord = new QueryWrapper<>();
+                        clockRecord.eq("STAFF_NAME", cards.get(0).getStaffName());
+                        System.out.println("补打卡创建时间：");
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        String CreatedTime1 = df.format(cards.get(0).getCreatedTime());
+                        System.out.println(CreatedTime1);
+                        clockRecord.apply("TO_CHAR(CREATED_TIME,'yyyy-mm-dd' ) like {0}", CreatedTime1);
+                        final var clockRecords = clockRecordMapper.selectList(clockRecord);
+                        System.out.println(clockRecords);
+                        try {
+                            if (clockRecords.size() != 0) {
+                                try {
+                                    // 查到打卡记录表中有数据，则根据补打卡表中的补打卡类型（未签退、未签到）去修改打卡记录中的数据
+                                    if ("未签到".equals(cards.get(0).getCardType())) {
+                                        ClockRecord clockRecord1 = new ClockRecord();
+                                        clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
+                                        clockRecord1.setMornClock(cards.get(0).getCardDate());
+                                        final var i3 = clockRecordMapper.updateById(clockRecord1);
+                                        if (i3 == 1 && insert == 1) {
+                                            return 1;
+                                        } else {
+                                            return 999;
+                                        }
+                                    } else if ("未签退".equals(cards.get(0).getCardType())) {
+                                        ClockRecord clockRecord1 = new ClockRecord();
+                                        clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
+                                        clockRecord1.setAfternoonClock(cards.get(0).getCardDate());
+                                        final var i4 = clockRecordMapper.updateById(clockRecord1);
+                                        if (i4 == 1 && insert == 1) {
+                                            return 1;
+                                        } else {
+                                            return 999;
+                                        }
+                                    } else {
+                                        return 999;
+                                    }
+                                } catch (Exception e) {
+                                    System.out.println("222222222222222222222222222222222222");
+                                    //手动强制回滚事务，这里一定要第一时间处理
+                                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                                    // 如果查到打卡记录表中没有匹配数据
+                                    return 100;
+                                }
+                            }
+                        } catch (Exception e) {
+                            System.out.println("11111111111111111111111111111111111111111111111111");
+                            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                        }
+                    } else {
+                        return 999;
+                    }
                 } else {
                     return 999;
                 }
@@ -417,6 +503,7 @@ public class AuditflowServiceImpl implements AuditflowService {
         } else {
             return 999;
         }
+        return 0;
     }
 
 
@@ -769,9 +856,9 @@ public class AuditflowServiceImpl implements AuditflowService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(overtimeaskVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(overtimeaskVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(overtimeaskVo.getAuditflowType());
+        auditflow.setAuditFlowType(overtimeaskVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(overtimeaskVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -785,7 +872,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(overtimeaskVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -795,7 +882,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 添加审批明细表2
             Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(overtimeaskVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
@@ -803,7 +890,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 添加审批明细表3
             Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
-            auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail3.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(overtimeaskVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
@@ -811,7 +898,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             if (i1 == 1 && i2 == 1 && i3 == 1) {
                 Overtimeask overtimeask = new Overtimeask();
                 // 加班表-审批编号
-                overtimeask.setAuditflowId(auditflow1.getAuditflowId());
+                overtimeask.setAuditflowId(auditflow1.getAuditFlowId());
                 // 加班表-员工名称
                 overtimeask.setStaffName(overtimeaskVo.getStaffName());
                 // 加班表-部门名称
@@ -825,7 +912,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                 // 加班表-加班结束时间
                 overtimeask.setOvertimeaskEDate(overtimeaskVo.getOvertimeaskEDate());
                 // 加班表-加班总时长
-                overtimeask.setOvertimeaskTotalDate(overtimeask.getOvertimeaskTotalDate());
+                overtimeask.setOvertimeaskTotalDate(overtimeaskVo.getOvertimeaskTotalDate());
                 final val i4 = ovimeaskMapper.insert(overtimeask);
                 if (i4 == 1) {
                     return 1111;
@@ -852,9 +939,9 @@ public class AuditflowServiceImpl implements AuditflowService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(overtimeaskVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(overtimeaskVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(overtimeaskVo.getAuditflowType());
+        auditflow.setAuditFlowType(overtimeaskVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(overtimeaskVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -868,7 +955,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(overtimeaskVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -878,7 +965,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 添加审批明细表2
             Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(overtimeaskVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
@@ -887,7 +974,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             if (i1 == 1 && i2 == 1) {
                 Overtimeask overtimeask = new Overtimeask();
                 // 加班表-审批编号
-                overtimeask.setAuditflowId(auditflow1.getAuditflowId());
+                overtimeask.setAuditflowId(auditflow1.getAuditFlowId());
                 // 加班表-员工名称
                 overtimeask.setStaffName(overtimeaskVo.getStaffName());
                 // 加班表-部门名称
@@ -901,7 +988,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                 // 加班表-加班结束时间
                 overtimeask.setOvertimeaskEDate(overtimeaskVo.getOvertimeaskEDate());
                 // 加班表-加班总时长
-                overtimeask.setOvertimeaskTotalDate(overtimeask.getOvertimeaskTotalDate());
+                overtimeask.setOvertimeaskTotalDate(overtimeaskVo.getOvertimeaskTotalDate());
                 final val i4 = ovimeaskMapper.insert(overtimeask);
                 if (i4 == 1) {
                     return 1111;
@@ -928,9 +1015,9 @@ public class AuditflowServiceImpl implements AuditflowService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(overtimeaskVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(overtimeaskVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(overtimeaskVo.getAuditflowType());
+        auditflow.setAuditFlowType(overtimeaskVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(overtimeaskVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -944,7 +1031,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(overtimeaskVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -954,7 +1041,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 如果三个审批明细表添加成功，则添加加班表
             Overtimeask overtimeask = new Overtimeask();
             // 加班表-审批编号
-            overtimeask.setAuditflowId(auditflow1.getAuditflowId());
+            overtimeask.setAuditflowId(auditflow1.getAuditFlowId());
             // 加班表-员工名称
             overtimeask.setStaffName(overtimeaskVo.getStaffName());
             // 加班表-部门名称
@@ -968,7 +1055,7 @@ public class AuditflowServiceImpl implements AuditflowService {
             // 加班表-加班结束时间
             overtimeask.setOvertimeaskEDate(overtimeaskVo.getOvertimeaskEDate());
             // 加班表-加班总时长
-            overtimeask.setOvertimeaskTotalDate(overtimeask.getOvertimeaskTotalDate());
+            overtimeask.setOvertimeaskTotalDate(overtimeaskVo.getOvertimeaskTotalDate());
             final val i4 = ovimeaskMapper.insert(overtimeask);
             if (i1 == 1 && i4 == 1) {
                 return 1111;
@@ -997,4 +1084,80 @@ public class AuditflowServiceImpl implements AuditflowService {
         return deptPost.getPostName();
     }
 
+    /**
+     * 撤销审批
+     *
+     * @param auditflow
+     * @return
+     */
+    @Override
+    public Integer revocation(Auditflow auditflow) {
+        // 获取审批主表编号
+        final val auditflowId = auditflow.getAuditFlowId();
+        // 根据审批编号去查询对应的审批明细编号
+        QueryWrapper<Auditflowdetail> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("AUDITFLOW_ID", auditflowId);
+        final val auditflowdetails = auditflowdetailMapper.selectList(queryWrapper);
+        var i = 0;
+        for (i = 0; i < auditflowdetails.size(); i++) {
+            // 如果审批明细编号1不为空则去修改其状态
+            if (auditflowdetails.get(i).getAuditflowdetailId() != null) {
+                Auditflowdetail auditflowdetail1 = new Auditflowdetail();
+                auditflowdetail1.setAuditflowdetaiState(4);
+                auditflowdetail1.setAuditflowdetailId(auditflowdetails.get(i).getAuditflowdetailId());
+                auditflowdetailMapper.updateById(auditflowdetail1);
+            }
+        }
+        // 修改完审批明细表状态则修改审批主表状态(撤销)
+        Auditflow auditflow1 = new Auditflow();
+        auditflow1.setAuditFlowId(auditflowId);
+        auditflow1.setAuditFlowState(3L);
+        final var i1 = auditflowMapper.updateById(auditflow1);
+        if (i1 == 1) {
+            return 1;
+        } else {
+            return 999;
+        }
+
+    }
+
+    /**
+     * 查询调薪审批详情
+     *
+     * @param salaryVo
+     * @return
+     */
+    @Override
+    public List<SalaryVo> selectSalaryDetails(SalaryVo salaryVo) {
+        // 取出审批主表编号
+        final var auditflowId = salaryVo.getAuditflowId();
+        // 申请人
+        final var staffName = salaryVo.getStaffName();
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("AUDITFLOW_ID", auditflowId);
+        queryWrapper.eq("STAFF_NAME", staffName);
+        return auditflowMapper.selectSalaryDetails(queryWrapper);
+    }
+
+    /**
+     * 查询当天的加班审批记录
+     *
+     * @param auditflow
+     * @return
+     */
+    @Override
+    public List<Auditflow> selectTodayOverTimeExamine(Auditflow auditflow) {
+        QueryWrapper<Auditflow> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_NAME", auditflow.getStaffName());
+        queryWrapper.eq("AUDITFLOW_TYPE", auditflow.getAuditFlowType());
+        // 当前日期转格式
+        Date now = new Date();
+        LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        Date newDate = java.sql.Date.valueOf(localDate);
+        // 再转成string型
+        java.text.SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String date = formatter.format(newDate);
+        queryWrapper.apply("TO_CHAR(CREATED_TIME,'yyyy-MM-dd') like {0}", date);
+        return auditflowMapper.selectList(queryWrapper);
+    }
 }

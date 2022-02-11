@@ -49,8 +49,8 @@ public class InterviewController {
      * @return
      */
     @PostMapping("/EmployStaff")
-    public Object EmployStaff(@RequestBody Employment employment){
-        Map<String, Object>map = new HashMap<>();
+    public Object employStaff(@RequestBody Employment employment){
+        Map<String, Object>map = new HashMap<>(2);
         map.put("state",200);
         map.put("succeed",interviewService.EmployStaff(employment));
         return map;

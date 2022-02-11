@@ -503,6 +503,91 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
                  return AjaxResponse.success(fuseUtil.main(throwable));
             }
 
+            /**
+             * 转正已生效
+             * @param fullVo
+             * @return
+             */
+            @Override
+            public Object selectStateOne(FullVo fullVo) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 统计转正已生效
+             * @return
+             */
+            @Override
+            public Object countStateOne() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 统计试用期人员
+             * @return
+             */
+            @Override
+            public Object countStateTwo() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 本月离职
+             * @return
+             */
+            @Override
+            public Object countStateThree() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 正式
+             * @return
+             */
+            @Override
+            public Object countStateFour() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 试用
+             * @return
+             */
+            @Override
+            public Object countStateFive() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            /**
+             * 本月新入职
+             * @return
+             */
+            @Override
+            public Object countStateSix() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
         };
     }
 }

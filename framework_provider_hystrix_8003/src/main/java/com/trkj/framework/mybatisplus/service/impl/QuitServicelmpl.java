@@ -80,7 +80,9 @@ public class QuitServicelmpl implements QuitService {
     @Override
     public List<QuitDetailsVo> selectDetailsQuit(QuitDetailsVo quitDetailsVo) {
         QueryWrapper<QuitDetailsVo> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("b.STAFF_NAME", quitDetailsVo.getStaffName2());
+        if (quitDetailsVo.getStaffName2()!=null){
+            queryWrapper.eq("b.STAFF_NAME", quitDetailsVo.getStaffName2());
+        }
         queryWrapper.eq("a.AUDITFLOW_ID", quitDetailsVo.getAuditflowId());
         queryWrapper.eq("q.STAFF_NAME", quitDetailsVo.getStaffName1());
         return auditflowoneMapper.selectDetailsQuit(queryWrapper);
@@ -109,9 +111,9 @@ public class QuitServicelmpl implements QuitService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(quitVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(quitVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(quitVo.getAuditflowType());
+        auditflow.setAuditFlowType(quitVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(quitVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -125,7 +127,7 @@ public class QuitServicelmpl implements QuitService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(quitVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -135,7 +137,7 @@ public class QuitServicelmpl implements QuitService {
             // 添加审批明细表2
             Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(quitVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
@@ -143,7 +145,7 @@ public class QuitServicelmpl implements QuitService {
             // 添加审批明细表3
             Auditflowdetail auditflowdetail3 = new Auditflowdetail();
             // 审批明细表3-审批编号
-            auditflowdetail3.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail3.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表3-审批人
             auditflowdetail3.setStaffName(quitVo.getStaffName3());
             final var i3 = auditflowdetailMapper.insert(auditflowdetail3);
@@ -151,7 +153,7 @@ public class QuitServicelmpl implements QuitService {
             if (i1 == 1 && i2 == 1 && i3 == 1) {
                 Quit quit = new Quit();
                 // 离职表-审批编号
-                quit.setAuditflowId(auditflow1.getAuditflowId());
+                quit.setAuditflowId(auditflow1.getAuditFlowId());
                 // 离职表-员工名称
                 quit.setStaffName(quitVo.getStaffName());
                 // 离职表-部门名称
@@ -188,9 +190,9 @@ public class QuitServicelmpl implements QuitService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(quitVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(quitVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(quitVo.getAuditflowType());
+        auditflow.setAuditFlowType(quitVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(quitVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -204,7 +206,7 @@ public class QuitServicelmpl implements QuitService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(quitVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -214,7 +216,7 @@ public class QuitServicelmpl implements QuitService {
             // 添加审批明细表2
             Auditflowdetail auditflowdetail2 = new Auditflowdetail();
             // 审批明细表2-审批编号
-            auditflowdetail2.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail2.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表2-审批人
             auditflowdetail2.setStaffName(quitVo.getStaffName2());
             final var i2 = auditflowdetailMapper.insert(auditflowdetail2);
@@ -223,7 +225,7 @@ public class QuitServicelmpl implements QuitService {
             if (i1 == 1 && i2 == 1) {
                 Quit quit = new Quit();
                 // 离职表-审批编号
-                quit.setAuditflowId(auditflow1.getAuditflowId());
+                quit.setAuditflowId(auditflow1.getAuditFlowId());
                 // 离职表-员工名称
                 quit.setStaffName(quitVo.getStaffName());
                 // 离职表-部门名称
@@ -260,9 +262,9 @@ public class QuitServicelmpl implements QuitService {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
-        auditflow.setAuditflowTitle(quitVo.getAuditflowTitle());
+        auditflow.setAuditFlowTitle(quitVo.getAuditflowTitle());
         // 审批主表-审批类型
-        auditflow.setAuditflowType(quitVo.getAuditflowType());
+        auditflow.setAuditFlowType(quitVo.getAuditflowType());
         // 审批主表-申请人
         auditflow.setStaffName(quitVo.getStaffName());
         final var i = auditflowMapper.insert(auditflow);
@@ -276,7 +278,7 @@ public class QuitServicelmpl implements QuitService {
             // 添加审批明细表1
             Auditflowdetail auditflowdetail1 = new Auditflowdetail();
             // 审批明细表1-审批编号
-            auditflowdetail1.setAuditflowId(auditflow1.getAuditflowId());
+            auditflowdetail1.setAuditflowId(auditflow1.getAuditFlowId());
             // 审批明细表1-审批人
             auditflowdetail1.setStaffName(quitVo.getStaffName1());
             // 审批明细表1-审核状态-待我审批
@@ -285,7 +287,7 @@ public class QuitServicelmpl implements QuitService {
             // 如果三个审批明细表添加成功，则添加调薪表
             Quit quit = new Quit();
             // 离职表-审批编号
-            quit.setAuditflowId(auditflow1.getAuditflowId());
+            quit.setAuditflowId(auditflow1.getAuditFlowId());
             // 离职表-员工名称
             quit.setStaffName(quitVo.getStaffName());
             // 离职表-部门名称

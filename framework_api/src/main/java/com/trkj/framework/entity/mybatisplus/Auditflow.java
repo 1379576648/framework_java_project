@@ -31,15 +31,15 @@ public class Auditflow implements Serializable {
 
     @ApiModelProperty(value = "审批编号")
     @TableId("AUDITFLOW_ID")
-    private Integer auditflowId;
+    private Integer auditFlowId;
 
     @ApiModelProperty(value = "标题")
     @TableField("AUDITFLOW_TITLE")
-    private String auditflowTitle;
+    private String auditFlowTitle;
 
     @ApiModelProperty(value = "审批类型")
     @TableField("AUDITFLOW_TYPE")
-    private String auditflowType;
+    private String auditFlowType;
 
     @ApiModelProperty(value = "申请人")
     @TableField("STAFF_NAME")
@@ -47,7 +47,7 @@ public class Auditflow implements Serializable {
 
     @ApiModelProperty(value = "申请状态")
     @TableField("AUDITFLOW_STATE")
-    private Long auditflowState;
+    private Long auditFlowState;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")

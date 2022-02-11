@@ -1,15 +1,17 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
+import com.trkj.framework.entity.mybatisplus.Employment;
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
-import com.trkj.framework.service.client.util.FuseUtil;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.InterviewVo;
 import com.trkj.framework.vo.RecruitmentVo;
 import com.trkj.framework.vo.ResumeVo;
 
 import feign.hystrix.FallbackFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 降级~
@@ -18,8 +20,6 @@ import org.springframework.stereotype.Component;
 @Component
 public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
 
-    @Autowired
-    private FuseUtil fuseUtil;
     @Override
     public Object create(Throwable throwable) {
         return new NewresumeClinetService() {
@@ -30,7 +30,10 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryResume(ResumeVo resumeVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
 
             /**
@@ -40,7 +43,10 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryAll(ResumeVo resumeVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
 
             /**
@@ -50,7 +56,10 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryCandidate(ResumeVo resumeVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+                Map<String, Object> objectMap = new HashMap<>(2);
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
 
             /**
@@ -60,7 +69,10 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryEliminate(ResumeVo resumeVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
 
             /**
@@ -70,7 +82,10 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryRecruitment(RecruitmentVo recruitmentVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
 
             /**
@@ -80,7 +95,10 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryInterviewPass(InterviewVo interviewVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
 
             /**
@@ -90,7 +108,10 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryInterviewCandidate(ResumeVo resumeVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
             /**
              * 已邀约
@@ -99,8 +120,25 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object queryInvite(ResumeVo resumeVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
             }
+
+            /**
+             * 添加录用数据
+             * @param employment
+             * @return
+             */
+            @Override
+            public Object employStaff(Employment employment) {
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
+
         };
     }
 }

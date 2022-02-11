@@ -2,13 +2,11 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.Auditflow;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.entity.mybatisplus.Staff;
-import com.trkj.framework.vo.AuditflowDetailsVo;
-import com.trkj.framework.vo.Auditflowone;
-import com.trkj.framework.vo.OvertimeaskVo;
-import com.trkj.framework.vo.WorkerVo;
+import com.trkj.framework.vo.*;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.util.HashMap;
@@ -109,4 +107,24 @@ public interface AuditflowService {
      */
     String inquirePosition(Staff staff);
 
+    /**
+     * 撤销审批
+     * @param auditflow
+     * @return
+     */
+    Integer revocation(Auditflow auditflow);
+
+    /**
+     * 查询调薪审批详情
+     * @param salaryVo
+     * @return
+     */
+    List<SalaryVo>selectSalaryDetails(SalaryVo salaryVo);
+
+    /**
+     * 查询当天的加班审批记录
+     * @param auditflow
+     * @return
+     */
+    List<Auditflow>selectTodayOverTimeExamine(Auditflow auditflow);
 }
