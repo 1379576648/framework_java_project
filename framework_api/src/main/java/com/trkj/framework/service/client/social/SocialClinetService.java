@@ -23,7 +23,7 @@ public interface SocialClinetService {
      * @return
      */
     @PostMapping("/selectDefInsured")
-    public Object selectDefInsured(@RequestBody DefInsured defInsured);
+    public Map<String,Object> selectDefInsured(@RequestBody DefInsured defInsured);
 
     /***
      * 删除社保方案
@@ -31,7 +31,7 @@ public interface SocialClinetService {
      * @return
      */
     @DeleteMapping("/deleteDefInsured/{id}")
-    public Object deleteDefInsured(@PathVariable("id") Integer integer);
+    public Map<String,Object> deleteDefInsured(@PathVariable("id") Integer integer);
 
     /***
      * 修改社保方案状态
@@ -39,7 +39,7 @@ public interface SocialClinetService {
      * @return
      */
     @PutMapping("/updateDefInsuredState/{id}")
-    public Object updateDefInsuredState(@PathVariable("id") Integer integer);
+    public Map<String,Object> updateDefInsuredState(@PathVariable("id") Integer integer);
 
 
     /***
@@ -48,7 +48,7 @@ public interface SocialClinetService {
      * @return
      */
     @GetMapping("/selectDefInsuredId/{id}")
-    public Object selectDefInsuredId(@PathVariable("id") Integer integer);
+    public Map<String,Object> selectDefInsuredId(@PathVariable("id") Integer integer);
 
     /***
      * 通过外键查询方案数据
@@ -56,7 +56,7 @@ public interface SocialClinetService {
      * @return
      */
     @GetMapping("/listSelectDefScheme/{id}")
-    public Object listSelectDefScheme(@PathVariable("id") Integer integer);
+    public Map<String,Object> listSelectDefScheme(@PathVariable("id") Integer integer);
 
     /***
      * 添加社保方案
@@ -81,14 +81,14 @@ public interface SocialClinetService {
      * @return
      */
     @GetMapping("/selectDefInsuredName/{name}")
-    public Object selectDefInsuredName(@PathVariable("name") String name);
+    public Map<String,Object> selectDefInsuredName(@PathVariable("name") String name);
 
     /***
      * 查询所有的社保方案
      * @return
      */
     @GetMapping("/selectDefInsuredListName")
-    public Object selectDefInsuredListName();
+    public Map<String,Object> selectDefInsuredListName();
 
     /***
      * 查询所有的员工
@@ -96,7 +96,7 @@ public interface SocialClinetService {
      * @return
      */
     @PostMapping("/pageStaff")
-    public Object pageStaff(@RequestBody Staff staff);
+    public Map<String,Object> pageStaff(@RequestBody Staff staff);
 
     /***
      * 查询所有的部门列表
@@ -111,7 +111,7 @@ public interface SocialClinetService {
      * @return
      */
     @PostMapping("/insuredSubmit")
-    public Object insuredSubmit(@RequestBody Map<String,Object> map);
+    public Map<String,Object> insuredSubmit(@RequestBody Map<String,Object> map);
 
     /****
      * 分页查询参保明细
@@ -119,7 +119,7 @@ public interface SocialClinetService {
      * @return
      */
     @PostMapping("/selectPageIsuredDetail")
-    public Object selectPageIsuredDetail(@RequestBody InsuredDetail insuredDetail);
+    public Map<String,Object> selectPageIsuredDetail(@RequestBody InsuredDetail insuredDetail);
 
 
     /***
@@ -128,14 +128,14 @@ public interface SocialClinetService {
      * @return
      */
     @DeleteMapping("/deleteInsuredDetail/{name}")
-    public Object deleteInsuredDetail(@RequestBody InsuredDetail insuredDetail);
+    public Map<String,Object> deleteInsuredDetail(@RequestBody InsuredDetail insuredDetail);
 
     /**
      * 归档
      * @return
      */
     @PostMapping("/pigeonhole")
-    public Object pigeonhole();
+    public Map<String,Object> pigeonhole();
 
     /***
      * 归档分页查询
@@ -143,7 +143,7 @@ public interface SocialClinetService {
      * @return
      */
     @PostMapping("/archived")
-    public Object archived(@RequestBody InsuredArchive insuredArchive);
+    public Map<String,Object> archived(@RequestBody InsuredArchive insuredArchive);
 
 
     /***
@@ -152,7 +152,7 @@ public interface SocialClinetService {
      * @return
      */
     @GetMapping("/archivedInMonth/{name}")
-    public Object archivedInMonth(@PathVariable("name") String name);
+    public Map<String,Object> archivedInMonth(@PathVariable("name") String name);
 
     /***
      * 删除某一个月的归档数据
@@ -160,7 +160,7 @@ public interface SocialClinetService {
      * @return
      */
     @DeleteMapping("/deleteArchived")
-    public Object deleteArchivedInName(@RequestBody Map<String,Object> map);
+    public Map<String,Object> deleteArchivedInName(@RequestBody Map<String,Object> map);
 
     /***
      * 通过员工名称获取职位名称
@@ -168,7 +168,7 @@ public interface SocialClinetService {
      * @return
      */
     @GetMapping("/selectPostName/{name}")
-    public Object selectPostName(@PathVariable("name") String name);
+    public Map<String,Object> selectPostName(@PathVariable("name") String name);
 
     /***
      * 通过明细编号查询
@@ -176,7 +176,7 @@ public interface SocialClinetService {
      * @return
      */
     @GetMapping("/selectListScheme/{id}")
-    public Object selectListScheme(@PathVariable("id") Integer integer);
+    public Map<String,Object> selectListScheme(@PathVariable("id") Integer integer);
 
     /****
      * 查询某一个员工某一个月的参保日志
@@ -185,7 +185,7 @@ public interface SocialClinetService {
      * @return
      */
     @GetMapping("/selectInsuredLog/{name}/{month}")
-    public Object selectInsuredLog(@PathVariable("name") String name ,@PathVariable("month") String month);
+    public Map<String,Object> selectInsuredLog(@PathVariable("name") String name ,@PathVariable("month") String month);
 
     /***
      * 分页查询参保归档数据
@@ -193,7 +193,7 @@ public interface SocialClinetService {
      * @return
      */
     @PostMapping("/pageSelectInsuredArchive")
-    public Object pageSelectInsuredArchive(@RequestBody InsuredArchive insuredArchive);
+    public Map<String,Object> pageSelectInsuredArchive(@RequestBody InsuredArchive insuredArchive);
 
 
     /****
@@ -202,5 +202,5 @@ public interface SocialClinetService {
      * @return
      */
     @PostMapping("/selectListInsuredArchive")
-    public Object selectListInsuredArchive(@RequestBody InsuredArchive insuredArchive);
+    public Map<String,Object> selectListInsuredArchive(@RequestBody InsuredArchive insuredArchive);
 }

@@ -20,118 +20,118 @@ public class SocialClinetServiceFallbackfactory implements FallbackFactory {
     public Object create(Throwable throwable) {
         return new SocialClinetService() {
             @Override
-            public Object selectDefInsured(DefInsured defInsured) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectDefInsured(DefInsured defInsured) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object deleteDefInsured(Integer integer) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deleteDefInsured(Integer integer) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object updateDefInsuredState(Integer integer) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateDefInsuredState(Integer integer) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectDefInsuredId(Integer integer) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectDefInsuredId(Integer integer) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object listSelectDefScheme(Integer integer) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> listSelectDefScheme(Integer integer) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public AjaxResponse addDefInsured(Map<String,Object> map) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> addDefInsured(Map<String,Object> map) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public AjaxResponse updateDefInsured(Map<String,Object> map) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateDefInsured(Map<String,Object> map) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectDefInsuredName(String name) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectDefInsuredName(String name) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectDefInsuredListName() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectDefInsuredListName() {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object pageStaff(Staff staff) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> pageStaff(Staff staff) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object deptList() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deptList() {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object insuredSubmit(Map<String,Object> map) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insuredSubmit(Map<String,Object> map) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectPageIsuredDetail(InsuredDetail insuredDetail) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectPageIsuredDetail(InsuredDetail insuredDetail) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object deleteInsuredDetail(InsuredDetail insuredDetail) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deleteInsuredDetail(InsuredDetail insuredDetail) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object pigeonhole() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> pigeonhole() {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object archived(InsuredArchive insuredArchive) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> archived(InsuredArchive insuredArchive) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object archivedInMonth(String name) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> archivedInMonth(String name) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object deleteArchivedInName(Map<String,Object> map) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deleteArchivedInName(Map<String,Object> map) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectPostName(String name) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectPostName(String name) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectListScheme(Integer integer) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectListScheme(Integer integer) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectInsuredLog(String name, String month) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectInsuredLog(String name, String month) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object pageSelectInsuredArchive(InsuredArchive insuredArchive) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> pageSelectInsuredArchive(InsuredArchive insuredArchive) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectListInsuredArchive(@RequestBody InsuredArchive insuredArchive) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectListInsuredArchive(@RequestBody InsuredArchive insuredArchive) {
+                return fuseUtil.main(throwable);
             }
         };
     }

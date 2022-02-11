@@ -34,7 +34,7 @@ public class InsuredArchiveController {
      */
     @PostMapping("/pageSelectInsuredArchive")
     @HystrixCommand(fallbackMethod = "pageSelectInsuredArchiveHystrix")
-    public Object pageSelectInsuredArchive(@RequestBody InsuredArchive insuredArchive){
+    public Map<String,Object> pageSelectInsuredArchive(@RequestBody InsuredArchive insuredArchive){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -44,7 +44,7 @@ public class InsuredArchiveController {
     }
 
     //备选方案
-    public Object pageSelectInsuredArchiveHystrix(@RequestBody InsuredArchive insuredArchive){
+    public Map<String,Object> pageSelectInsuredArchiveHystrix(@RequestBody InsuredArchive insuredArchive){
         return fuse8005Util.main();
     }
     /****
@@ -54,7 +54,7 @@ public class InsuredArchiveController {
      */
     @PostMapping("/selectListInsuredArchive")
     @HystrixCommand(fallbackMethod = "selectListInsuredArchiveHystrix")
-    public Object selectListInsuredArchive(@RequestBody InsuredArchive insuredArchive){
+    public Map<String,Object> selectListInsuredArchive(@RequestBody InsuredArchive insuredArchive){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -63,7 +63,7 @@ public class InsuredArchiveController {
         return map1;
     }
     //备选方案
-    public Object selectListInsuredArchiveHystrix(@RequestBody InsuredArchive insuredArchive){
+    public Map<String,Object> selectListInsuredArchiveHystrix(@RequestBody InsuredArchive insuredArchive){
         return fuse8005Util.main();
     }
 

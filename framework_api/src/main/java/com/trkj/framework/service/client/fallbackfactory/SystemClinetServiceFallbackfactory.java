@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author 13795
@@ -23,148 +24,148 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
     public Object create(Throwable throwable) {
         return new SystemClinetService() {
             @Override
-            public AjaxResponse selectRegisterLogAll(@RequestBody RegisterLog registerLog) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String, Object> selectRegisterLogAll(@RequestBody RegisterLog registerLog) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object checkDelete(@RequestBody ArrayList<Integer> list) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> checkDelete(@RequestBody ArrayList<Integer> list) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object emptyList(RegisterLog registerLog) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> emptyList(RegisterLog registerLog) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectNoticeAll(@RequestBody Notice notice) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectNoticeAll(@RequestBody Notice notice) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object checkNoticeDelete(@RequestBody ArrayList<Integer> list) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> checkNoticeDelete(@RequestBody ArrayList<Integer> list) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public AjaxResponse selectDeptList() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String, Object> selectDeptList() {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object insertNotice(@RequestBody Notice notice) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertNotice(@RequestBody Notice notice) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectPossessDeptList(Integer id) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectPossessDeptList(Integer id) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object updateNotice(Notice notice) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateNotice(Notice notice) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object peropleNoticeViewed(Integer id) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> peropleNoticeViewed(Integer id) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object unseenNoticePerson(Integer id) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> unseenNoticePerson(Integer id) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectRoleAll(Role role) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectRoleAll(Role role) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object checkRoleDelete(ArrayList<Integer> list) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> checkRoleDelete(ArrayList<Integer> list) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object menuPowerList() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> menuPowerList() {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object addRole(Role role) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> addRole(Role role) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectRoleRoleName(String name, String value) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectRoleRoleName(String name, String value) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object menuPowerListInRoleId(Integer integer) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> menuPowerListInRoleId(Integer integer) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object updateRole(Role role) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateRole(Role role) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object allotMenu(Role role) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> allotMenu(Role role) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectRoleStaff(RoleStaff roleStaff) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectRoleStaff(RoleStaff roleStaff) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object cancelImpower(ArrayList<Integer> list) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> cancelImpower(ArrayList<Integer> list) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object selectStaffInState(Staff staff) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectStaffInState(Staff staff) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object allotStaff(RoleStaff roleStaff) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> allotStaff(RoleStaff roleStaff) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object menuPowerInCondition(MenuPower menuPower) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> menuPowerInCondition(MenuPower menuPower) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object menuPowerAddSingle(MenuPower menuPower) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> menuPowerAddSingle(MenuPower menuPower) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object menuPowerInPid(Integer integer) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> menuPowerInPid(Integer integer) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object menuPowerUpdate(MenuPower menuPower) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> menuPowerUpdate(MenuPower menuPower) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object menuPowerDelete(Integer id) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> menuPowerDelete(Integer id) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object menuPowerAdd(MenuPower menuPower) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> menuPowerAdd(MenuPower menuPower) {
+                return fuseUtil.main(throwable);
             }
         };
     }

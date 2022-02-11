@@ -8,6 +8,9 @@ import feign.hystrix.FallbackFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.HashMap;
+import java.util.Map;
+
 //降级~
 @Component
 public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {

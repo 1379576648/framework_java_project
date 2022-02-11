@@ -36,7 +36,7 @@ public class InsuredDetailController {
      */
     @PostMapping("/selectPageIsuredDetail")
     @HystrixCommand(fallbackMethod = "selectPageIsuredDetailHystrix")
-    public Object selectPageIsuredDetail(@RequestBody InsuredDetail insuredDetail){
+    public Map<String,Object> selectPageIsuredDetail(@RequestBody InsuredDetail insuredDetail){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -46,7 +46,7 @@ public class InsuredDetailController {
     }
 
     //备选方案
-    public Object selectPageIsuredDetailHystrix(@RequestBody InsuredDetail insuredDetail){
+    public Map<String,Object> selectPageIsuredDetailHystrix(@RequestBody InsuredDetail insuredDetail){
          return fuse8005Util.main();
     }
 
@@ -57,7 +57,7 @@ public class InsuredDetailController {
      */
     @DeleteMapping("/deleteInsuredDetail")
     @HystrixCommand(fallbackMethod = "deleteInsuredDetailHystrix")
-    public Object deleteInsuredDetail(@RequestBody InsuredDetail insuredDetail){
+    public Map<String,Object> deleteInsuredDetail(@RequestBody InsuredDetail insuredDetail){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -66,7 +66,7 @@ public class InsuredDetailController {
         return map1;
     }
     //备选方案
-    public Object deleteInsuredDetailHystrix(@RequestBody InsuredDetail insuredDetail){
+    public Map<String,Object> deleteInsuredDetailHystrix(@RequestBody InsuredDetail insuredDetail){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -79,7 +79,7 @@ public class InsuredDetailController {
      */
     @PostMapping("/pigeonhole")
     @HystrixCommand(fallbackMethod = "pigeonholeHystrix")
-    public Object pigeonhole(){
+    public Map<String,Object> pigeonhole(){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -89,7 +89,7 @@ public class InsuredDetailController {
     }
 
     //备选方案
-    public Object pigeonholeHystrix(){
+    public Map<String,Object> pigeonholeHystrix(){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -103,7 +103,7 @@ public class InsuredDetailController {
      */
     @PostMapping("/archived")
     @HystrixCommand(fallbackMethod = "archivedHystrix")
-    public Object archived(@RequestBody InsuredArchive insuredArchive){
+    public Map<String,Object> archived(@RequestBody InsuredArchive insuredArchive){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -113,7 +113,7 @@ public class InsuredDetailController {
     }
 
     //备选方案
-    public Object archivedHystrix(@RequestBody InsuredArchive insuredArchive){
+    public Map<String,Object> archivedHystrix(@RequestBody InsuredArchive insuredArchive){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -127,7 +127,7 @@ public class InsuredDetailController {
      */
     @GetMapping("/archivedInMonth/{name}")
     @HystrixCommand(fallbackMethod = "archivedInMonthHystrix")
-    public Object archivedInMonth(@PathVariable("name") String name){
+    public Map<String,Object> archivedInMonth(@PathVariable("name") String name){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -137,7 +137,7 @@ public class InsuredDetailController {
     }
 
     //备选方案
-    public Object archivedInMonthHystrix(@PathVariable("name") String name){
+    public Map<String,Object> archivedInMonthHystrix(@PathVariable("name") String name){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -151,7 +151,7 @@ public class InsuredDetailController {
      */
     @DeleteMapping("/deleteArchived")
     @HystrixCommand(fallbackMethod = "deleteArchivedHystrix")
-    public Object deleteArchivedInName(@RequestBody Map<String,Object> map){
+    public Map<String,Object> deleteArchivedInName(@RequestBody Map<String,Object> map){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -161,7 +161,7 @@ public class InsuredDetailController {
     }
 
     //备选方案
-    public Object deleteArchivedHystrix(@RequestBody Map<String,Object> map){
+    public Map<String,Object> deleteArchivedHystrix(@RequestBody Map<String,Object> map){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -175,7 +175,7 @@ public class InsuredDetailController {
      */
     @GetMapping("/selectPostName/{name}")
     @HystrixCommand(fallbackMethod = "selectPostNameHystrix")
-    public Object selectPostName(@PathVariable("name") String name){
+    public Map<String,Object> selectPostName(@PathVariable("name") String name){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -185,7 +185,7 @@ public class InsuredDetailController {
     }
 
     //备选方案
-    public Object selectPostNameHystrix(@PathVariable("name") String name){
+    public Map<String,Object> selectPostNameHystrix(@PathVariable("name") String name){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -199,7 +199,7 @@ public class InsuredDetailController {
      */
     @GetMapping("/selectListScheme/{id}")
     @HystrixCommand(fallbackMethod = "selectListSchemeHystrix")
-    public Object selectListScheme(@PathVariable("id") Integer integer){
+    public Map<String,Object> selectListScheme(@PathVariable("id") Integer integer){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -209,7 +209,7 @@ public class InsuredDetailController {
     }
 
     //备选方案
-    public Object selectListSchemeHystrix(@PathVariable("id") Integer integer){
+    public Map<String,Object> selectListSchemeHystrix(@PathVariable("id") Integer integer){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
@@ -224,7 +224,7 @@ public class InsuredDetailController {
      */
     @GetMapping("/selectInsuredLog/{name}/{month}")
     @HystrixCommand(fallbackMethod = "selectInsuredLogHystrix")
-    public Object selectInsuredLog(@PathVariable("name") String name,@PathVariable("month") String month){
+    public Map<String,Object> selectInsuredLog(@PathVariable("name") String name,@PathVariable("month") String month){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -234,7 +234,7 @@ public class InsuredDetailController {
     }
 
     //备选方案
-    public Object selectInsuredLogHystrix(@PathVariable("name") String name,@PathVariable("month") String month){
+    public Map<String,Object> selectInsuredLogHystrix(@PathVariable("name") String name,@PathVariable("month") String month){
         Map<String,Object> map1 = new HashMap<>(2);
         map1.put("state",300);
         map1.put("info","服务发生雪崩");

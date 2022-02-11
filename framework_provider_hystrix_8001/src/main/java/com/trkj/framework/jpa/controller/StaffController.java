@@ -31,7 +31,7 @@ public class StaffController {
      * @throws Exception
      */
     @PostMapping("/register")
-    public Object register(@RequestBody Map<String, Object> map) throws Exception {
+    public Map<String,Object> register(@RequestBody Map<String, Object> map) throws Exception {
         try{
         //初始化储藏
         Map<String, Object> map1 = new HashMap<>(2);
@@ -73,7 +73,7 @@ public class StaffController {
      * @return
      */
     @PostMapping("/login")
-    public Object login(@RequestBody Map<String, Object> map) throws InterruptedException {
+    public Map<String,Object> login(@RequestBody Map<String, Object> map) throws InterruptedException {
         try {
             //初始化储藏
             Map<String, Object> map1 = new HashMap<>(2);

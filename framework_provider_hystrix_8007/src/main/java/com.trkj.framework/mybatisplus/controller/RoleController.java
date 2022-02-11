@@ -39,7 +39,7 @@ public class RoleController {
      */
     @PostMapping("/selectRoleAll")
     @HystrixCommand(fallbackMethod = "selectRoleAllHystrix")
-    public Object selectRoleAll(@RequestBody Role role) {
+    public Map<String,Object> selectRoleAll(@RequestBody Role role) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -49,7 +49,7 @@ public class RoleController {
     }
 
     //备选方案
-    public Object selectRoleAllHystrix(@RequestBody Role role) {
+    public Map<String,Object> selectRoleAllHystrix(@RequestBody Role role) {
         return fuse8007Util.main();
     }
 
@@ -60,7 +60,7 @@ public class RoleController {
      */
     @DeleteMapping("/checkRoleDelete")
     @HystrixCommand(fallbackMethod = "checkRoleDeleteHystrix")
-    public Object checkRoleDelete(@RequestBody ArrayList<Integer> list) {
+    public Map<String,Object> checkRoleDelete(@RequestBody ArrayList<Integer> list) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -70,7 +70,7 @@ public class RoleController {
     }
 
     //备选方案
-    public Object checkRoleDeleteHystrix(@RequestBody ArrayList<Integer> list) {
+    public Map<String,Object> checkRoleDeleteHystrix(@RequestBody ArrayList<Integer> list) {
         return fuse8007Util.main();
     }
 
@@ -81,7 +81,7 @@ public class RoleController {
      */
     @PostMapping("/addRole")
     @HystrixCommand(fallbackMethod = "addRoleHystrix")
-    public Object addRole(@RequestBody Role role) {
+    public Map<String,Object> addRole(@RequestBody Role role) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -91,7 +91,7 @@ public class RoleController {
     }
 
     //备选方案
-    public Object addRoleHystrix(@RequestBody Role role) {
+    public Map<String,Object> addRoleHystrix(@RequestBody Role role) {
         return fuse8007Util.main();
     }
 
@@ -103,7 +103,7 @@ public class RoleController {
      */
     @GetMapping("/selectRoleRoleName/{name}/{value}")
     @HystrixCommand(fallbackMethod = "selectRoleRoleNameHystrix")
-    public Object selectRoleRoleName(@PathVariable(name = "name") String name, @PathVariable(name = "value") String value) {
+    public Map<String,Object> selectRoleRoleName(@PathVariable(name = "name") String name, @PathVariable(name = "value") String value) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -114,7 +114,7 @@ public class RoleController {
 
 
     //备选方案
-    public Object selectRoleRoleNameHystrix(@PathVariable(name = "name") String name, @PathVariable(name = "value") String value) {
+    public Map<String,Object> selectRoleRoleNameHystrix(@PathVariable(name = "name") String name, @PathVariable(name = "value") String value) {
         return fuse8007Util.main();
     }
 
@@ -125,7 +125,7 @@ public class RoleController {
      */
     @PutMapping("/updateRole")
     @HystrixCommand(fallbackMethod = "updateRoleHystrix")
-    public Object updateRole(@RequestBody Role role) {
+    public Map<String,Object> updateRole(@RequestBody Role role) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -135,13 +135,13 @@ public class RoleController {
     }
 
     //备选方案
-    public Object updateRoleHystrix(@RequestBody Role role) {
+    public Map<String,Object> updateRoleHystrix(@RequestBody Role role) {
         return fuse8007Util.main();
     }
 
     @PutMapping("/allotMenu")
     @HystrixCommand(fallbackMethod = "allotMenuHystrix")
-    public Object allotMenu(@RequestBody Role role) {
+    public Map<String,Object> allotMenu(@RequestBody Role role) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -151,7 +151,7 @@ public class RoleController {
     }
 
     //备选方案
-    public Object allotMenuHystrix(@RequestBody Role role) {
+    public Map<String,Object> allotMenuHystrix(@RequestBody Role role) {
         return fuse8007Util.main();
     }
 
@@ -162,7 +162,7 @@ public class RoleController {
      */
     @PostMapping("/selectRoleStaff")
     @HystrixCommand(fallbackMethod = "selectRoleStaffHystrix")
-    public Object selectRoleStaff(@RequestBody RoleStaff roleStaff) {
+    public Map<String,Object> selectRoleStaff(@RequestBody RoleStaff roleStaff) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -172,7 +172,7 @@ public class RoleController {
     }
 
     //备选方案
-    public Object selectRoleStaffHystrix(@RequestBody RoleStaff roleStaff) {
+    public Map<String,Object> selectRoleStaffHystrix(@RequestBody RoleStaff roleStaff) {
         return fuse8007Util.main();
     }
 
@@ -184,7 +184,7 @@ public class RoleController {
      */
     @DeleteMapping("/cancelImpower")
     @HystrixCommand(fallbackMethod = "cancelImpowerHystrix")
-    public Object cancelImpower(@RequestBody ArrayList<Integer> list) {
+    public Map<String,Object> cancelImpower(@RequestBody ArrayList<Integer> list) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -194,7 +194,7 @@ public class RoleController {
     }
 
     //备选方案
-    public Object cancelImpowerHystrix(@RequestBody ArrayList<Integer> list) {
+    public Map<String,Object> cancelImpowerHystrix(@RequestBody ArrayList<Integer> list) {
         return fuse8007Util.main();
     }
 
@@ -205,7 +205,7 @@ public class RoleController {
      */
     @PostMapping("/selectStaffInState")
     @HystrixCommand(fallbackMethod = "selectStaffInStateHystrix")
-    public Object selectStaffInState(@RequestBody Staff staff) {
+    public Map<String,Object> selectStaffInState(@RequestBody Staff staff) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -215,7 +215,7 @@ public class RoleController {
     }
 
     //备选方案
-    public Object selectStaffInStateHystrix(@RequestBody Staff staff) {
+    public Map<String,Object> selectStaffInStateHystrix(@RequestBody Staff staff) {
         return fuse8007Util.main();
     }
 
@@ -227,7 +227,7 @@ public class RoleController {
      */
     @PostMapping("/allotStaff")
     @HystrixCommand(fallbackMethod = "allotStaffHystrix")
-    public Object allotStaff(@RequestBody RoleStaff roleStaff) {
+    public Map<String,Object> allotStaff(@RequestBody RoleStaff roleStaff) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -238,7 +238,7 @@ public class RoleController {
 
     //备选方案
     @HystrixCommand(fallbackMethod = "allotStaffHystrix")
-    public Object allotStaffHystrix(@RequestBody RoleStaff roleStaff) {
+    public Map<String,Object> allotStaffHystrix(@RequestBody RoleStaff roleStaff) {
         return fuse8007Util.main();
     }
 }

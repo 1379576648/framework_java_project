@@ -22,13 +22,13 @@ public class RegisterClinetServiceFallbackfactory implements FallbackFactory {
         return new RegisterClinetService() {
 
             @Override
-             public Object register(Map<String, Object> map) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+             public Map<String,Object> register(Map<String, Object> map) {
+                return fuseUtil.main(throwable);
             }
 
             @Override
-            public Object login(Map<String, Object> map) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> login(Map<String, Object> map) {
+                return fuseUtil.main(throwable);
             }
         };
     }

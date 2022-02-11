@@ -36,7 +36,7 @@ public class DefInsuredController {
      */
     @PostMapping("/selectDefInsured")
     @HystrixCommand(fallbackMethod = "selectDefInsuredHystrix")
-    public Object selectDefInsured(@RequestBody DefInsured defInsured){
+    public Map<String,Object> selectDefInsured(@RequestBody DefInsured defInsured){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -46,7 +46,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object selectDefInsuredHystrix(@RequestBody DefInsured defInsured){
+    public Map<String,Object> selectDefInsuredHystrix(@RequestBody DefInsured defInsured){
        return fuse8005Util.main();
     }
 
@@ -57,7 +57,7 @@ public class DefInsuredController {
      */
     @DeleteMapping("/deleteDefInsured/{id}")
     @HystrixCommand(fallbackMethod = "deleteDefInsuredHystrix")
-    public Object deleteDefInsured(@PathVariable("id") Integer integer){
+    public Map<String,Object> deleteDefInsured(@PathVariable("id") Integer integer){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -67,7 +67,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object deleteDefInsuredHystrix(@PathVariable("id") Integer integer){
+    public Map<String,Object> deleteDefInsuredHystrix(@PathVariable("id") Integer integer){
        return fuse8005Util.main();
     }
 
@@ -78,7 +78,7 @@ public class DefInsuredController {
      */
     @PutMapping("/updateDefInsuredState/{id}")
     @HystrixCommand(fallbackMethod = "updateDefInsuredStateHystrix")
-    public Object updateDefInsuredState(@PathVariable("id") Integer integer){
+    public Map<String,Object> updateDefInsuredState(@PathVariable("id") Integer integer){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -88,7 +88,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object updateDefInsuredStateHystrix(@PathVariable("id") Integer integer){
+    public Map<String,Object> updateDefInsuredStateHystrix(@PathVariable("id") Integer integer){
        return fuse8005Util.main();
     }
 
@@ -100,7 +100,7 @@ public class DefInsuredController {
     @GetMapping("/selectDefInsuredId/{id}")
     @ApiOperation(value = "添加部门，成功后进入show页面，显示部门信息", notes = "查询", httpMethod = "GET")
     @HystrixCommand(fallbackMethod = "selectDefInsuredIdHystrix")
-    public Object selectDefInsuredId(@PathVariable("id") Integer integer){
+    public Map<String,Object> selectDefInsuredId(@PathVariable("id") Integer integer){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -110,7 +110,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object selectDefInsuredIdHystrix(@PathVariable("id") Integer integer){
+    public Map<String,Object> selectDefInsuredIdHystrix(@PathVariable("id") Integer integer){
        return fuse8005Util.main();
     }
 
@@ -121,7 +121,7 @@ public class DefInsuredController {
      */
     @GetMapping("/listSelectDefScheme/{id}")
     @HystrixCommand(fallbackMethod = "listSelectDefSchemeHystrix")
-    public Object listSelectDefScheme(@PathVariable("id") Integer integer){
+    public Map<String,Object> listSelectDefScheme(@PathVariable("id") Integer integer){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -131,7 +131,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object listSelectDefSchemeHystrix(@PathVariable("id") Integer integer){
+    public Map<String,Object> listSelectDefSchemeHystrix(@PathVariable("id") Integer integer){
        return fuse8005Util.main();
     }
 
@@ -142,7 +142,7 @@ public class DefInsuredController {
      */
     @PostMapping("/addDefInsured")
     @HystrixCommand(fallbackMethod = "addDefInsuredHystrix")
-    public Object addDefInsured(@RequestBody Map<String,Object> objectMap){
+    public Map<String,Object> addDefInsured(@RequestBody Map<String,Object> objectMap){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -152,7 +152,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object addDefInsuredHystrix(@RequestBody Map<String,Object> objectMap){
+    public Map<String,Object> addDefInsuredHystrix(@RequestBody Map<String,Object> objectMap){
        return fuse8005Util.main();
     }
 
@@ -164,7 +164,7 @@ public class DefInsuredController {
      */
     @PutMapping("/updateDefInsured")
     @HystrixCommand(fallbackMethod = "updateDefInsuredHystrix")
-    public Object updateDefInsured(@RequestBody Map<String,Object> objectMap){
+    public Map<String,Object> updateDefInsured(@RequestBody Map<String,Object> objectMap){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -174,7 +174,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object updateDefInsuredHystrix(@RequestBody Map<String,Object> objectMap){
+    public Map<String,Object> updateDefInsuredHystrix(@RequestBody Map<String,Object> objectMap){
        return fuse8005Util.main();
     }
 
@@ -185,7 +185,7 @@ public class DefInsuredController {
      */
     @GetMapping("/selectDefInsuredName/{name}")
     @HystrixCommand(fallbackMethod = "selectDefInsuredNameHystrix")
-    public Object selectDefInsuredName(@PathVariable("name") String name){
+    public Map<String,Object> selectDefInsuredName(@PathVariable("name") String name){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -195,7 +195,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object selectDefInsuredNameHystrix(@PathVariable("name") String name){
+    public Map<String,Object> selectDefInsuredNameHystrix(@PathVariable("name") String name){
        return fuse8005Util.main();
     }
 
@@ -215,7 +215,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object selectDefInsuredListNameHystrix(){
+    public Map<String,Object> selectDefInsuredListNameHystrix(){
        return fuse8005Util.main();
     }
 
@@ -226,7 +226,7 @@ public class DefInsuredController {
      */
     @PostMapping("/pageStaff")
     @HystrixCommand(fallbackMethod = "pageStaffHystrix")
-    public Object pageStaff(@RequestBody Staff staff){
+    public Map<String,Object> pageStaff(@RequestBody Staff staff){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -235,7 +235,7 @@ public class DefInsuredController {
         return map1;
     }
     //备选方案
-    public Object pageStaffHystrix(@RequestBody Staff staff){
+    public Map<String,Object> pageStaffHystrix(@RequestBody Staff staff){
        return fuse8005Util.main();
     }
 
@@ -245,7 +245,7 @@ public class DefInsuredController {
      */
     @GetMapping("/deptList")
     @HystrixCommand(fallbackMethod = "deptListHystrix")
-    public Object deptList(){
+    public Map<String,Object> deptList(){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -255,7 +255,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object deptListHystrix(){
+    public Map<String,Object> deptListHystrix(){
        return fuse8005Util.main();
     }
 
@@ -266,7 +266,7 @@ public class DefInsuredController {
      */
     @PostMapping("/insuredSubmit")
     @HystrixCommand(fallbackMethod = "insuredSubmitHystrix")
-    public Object insuredSubmit(@RequestBody Map<String,Object> map){
+    public Map<String,Object> insuredSubmit(@RequestBody Map<String,Object> map){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -276,7 +276,7 @@ public class DefInsuredController {
     }
 
     //备选方案
-    public Object insuredSubmitHystrix(Map<String,Object> map){
+    public Map<String,Object> insuredSubmitHystrix(Map<String,Object> map){
        return fuse8005Util.main();
     }
 }

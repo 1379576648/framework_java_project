@@ -32,7 +32,7 @@ public class MenuPowerController {
      */
     @GetMapping("/menuPowerList")
     @HystrixCommand(fallbackMethod = "menuPowerListHystrix")
-    public Object menuPowerList() {
+    public Map<String,Object> menuPowerList() {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -42,7 +42,7 @@ public class MenuPowerController {
     }
 
     //备选方案
-    public Object menuPowerListHystrix() {
+    public Map<String,Object> menuPowerListHystrix() {
         return fuse8007Util.main();
     }
 
@@ -54,7 +54,7 @@ public class MenuPowerController {
      */
     @GetMapping("/menuPowerListInRoleId/{id}")
     @HystrixCommand(fallbackMethod = "menuPowerListInRoleIdListHystrix")
-    public Object menuPowerListInRoleId(@PathVariable(name = "id") Integer integer) {
+    public Map<String,Object> menuPowerListInRoleId(@PathVariable(name = "id") Integer integer) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -64,7 +64,7 @@ public class MenuPowerController {
     }
 
     //备选方案
-    public Object menuPowerListInRoleIdListHystrix(@PathVariable(name = "id") Integer integer) {
+    public Map<String,Object> menuPowerListInRoleIdListHystrix(@PathVariable(name = "id") Integer integer) {
         return fuse8007Util.main();
     }
 
@@ -76,7 +76,7 @@ public class MenuPowerController {
      */
     @PostMapping("/menuPowerInCondition")
     @HystrixCommand(fallbackMethod = "menuPowerInConditionHystrix")
-    public Object menuPowerInCondition(@RequestBody MenuPower menuPower) {
+    public Map<String,Object> menuPowerInCondition(@RequestBody MenuPower menuPower) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -86,7 +86,7 @@ public class MenuPowerController {
     }
 
     //备选方案
-    public Object menuPowerInConditionHystrix(@RequestBody MenuPower menuPower) {
+    public Map<String,Object> menuPowerInConditionHystrix(@RequestBody MenuPower menuPower) {
         return fuse8007Util.main();
     }
 
@@ -97,7 +97,7 @@ public class MenuPowerController {
      */
     @PostMapping("/menuPowerAddSingle")
     @HystrixCommand(fallbackMethod = "menuPowerAddSingleHystrix")
-    public Object menuPowerAddSingle(@RequestBody MenuPower menuPower) {
+    public Map<String,Object> menuPowerAddSingle(@RequestBody MenuPower menuPower) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -108,7 +108,7 @@ public class MenuPowerController {
 
 
     //备选方案
-    public Object menuPowerAddSingleHystrix(@RequestBody MenuPower menuPower) {
+    public Map<String,Object> menuPowerAddSingleHystrix(@RequestBody MenuPower menuPower) {
         return fuse8007Util.main();
     }
 
@@ -120,7 +120,7 @@ public class MenuPowerController {
      */
     @GetMapping("/menuPowerInPid/{id}")
     @HystrixCommand(fallbackMethod = "menuPowerInPidHystrix")
-    public Object menuPowerInPid(@PathVariable("id") Integer integer) {
+    public Map<String,Object> menuPowerInPid(@PathVariable("id") Integer integer) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -131,7 +131,7 @@ public class MenuPowerController {
 
 
     //备选方案
-    public Object menuPowerInPidHystrix(@PathVariable("id") Integer integer) {
+    public Map<String,Object> menuPowerInPidHystrix(@PathVariable("id") Integer integer) {
         return fuse8007Util.main();
     }
 
@@ -142,7 +142,7 @@ public class MenuPowerController {
      */
     @PostMapping("/menuPowerUpdate")
     @HystrixCommand(fallbackMethod = "menuPowerUpdateHystrix")
-    public Object menuPowerUpdate(@RequestBody MenuPower menuPower) {
+    public Map<String,Object> menuPowerUpdate(@RequestBody MenuPower menuPower) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -152,7 +152,7 @@ public class MenuPowerController {
     }
 
     //备选方案
-    public Object menuPowerUpdateHystrix(@RequestBody MenuPower menuPower) {
+    public Map<String,Object> menuPowerUpdateHystrix(@RequestBody MenuPower menuPower) {
         return fuse8007Util.main();
     }
 
@@ -163,7 +163,7 @@ public class MenuPowerController {
      */
     @DeleteMapping("/menuPowerDelete/{id}")
     @HystrixCommand(fallbackMethod = "menuPowerDeleteHystrix")
-    public Object menuPowerDelete(@PathVariable("id") Integer integer){
+    public Map<String,Object> menuPowerDelete(@PathVariable("id") Integer integer){
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -173,7 +173,7 @@ public class MenuPowerController {
     }
 
     //备选
-    public Object menuPowerDeleteHystrix(@PathVariable("id") Integer integer){
+    public Map<String,Object> menuPowerDeleteHystrix(@PathVariable("id") Integer integer){
         return fuse8007Util.main();
     }
 
@@ -196,7 +196,7 @@ public class MenuPowerController {
 
 
     //备选
-    public Object menuPowerAddHystrix(@RequestBody MenuPower menuPower){
+    public Map<String,Object> menuPowerAddHystrix(@RequestBody MenuPower menuPower){
         return fuse8007Util.main();
     }
 

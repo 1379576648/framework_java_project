@@ -34,7 +34,7 @@ public class RegisterLogController {
      */
     @PostMapping("/selectRegisterLogAll")
     @HystrixCommand(fallbackMethod = "selectRegisterLogAllHystrix")
-    public Object selectRegisterLogAll(@RequestBody  RegisterLog registerLog){
+    public Map<String,Object> selectRegisterLogAll(@RequestBody  RegisterLog registerLog){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
@@ -43,7 +43,7 @@ public class RegisterLogController {
         return  map1;
     }
     //备选方案
-    public Object selectRegisterLogAllHystrix(@RequestBody RegisterLog registerLog){
+    public Map<String,Object> selectRegisterLogAllHystrix(@RequestBody RegisterLog registerLog){
         return fuse8007Util.main();
     }
 
@@ -54,7 +54,7 @@ public class RegisterLogController {
      */
     @DeleteMapping("/checkRegisterLogDelete")
     @HystrixCommand(fallbackMethod = "checkRegisterLogDeleteHystrix")
-    public Object checkDelete(@RequestBody ArrayList<Integer> list){
+    public Map<String,Object> checkDelete(@RequestBody ArrayList<Integer> list){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
@@ -68,7 +68,7 @@ public class RegisterLogController {
      * @param list
      * @return
      */
-    public Object checkRegisterLogDeleteHystrix(@RequestBody ArrayList<Integer> list){
+    public Map<String,Object> checkRegisterLogDeleteHystrix(@RequestBody ArrayList<Integer> list){
         return fuse8007Util.main();
     }
 
@@ -78,7 +78,7 @@ public class RegisterLogController {
      */
     @DeleteMapping("/emptyRegisterLogList")
     @HystrixCommand(fallbackMethod = "emptyRegisterLogListHystrix")
-    public Object emptyList(@RequestBody RegisterLog registerLog){
+    public Map<String,Object> emptyList(@RequestBody RegisterLog registerLog){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
@@ -91,7 +91,7 @@ public class RegisterLogController {
      * 备选方案
      * @return
      */
-    public Object emptyRegisterLogListHystrix(@RequestBody RegisterLog registerLog){
+    public Map<String,Object> emptyRegisterLogListHystrix(@RequestBody RegisterLog registerLog){
         return fuse8007Util.main();
     }
 
