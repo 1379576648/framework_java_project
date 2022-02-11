@@ -89,7 +89,7 @@ public interface StaffMapper extends BaseMapper<Staff> {
      * 本月离职
      * @return
      */
-    @Select("SELECT COUNT(STAFF_STATE) tjFour FROM STAFF WHERE TO_CHAR(CREATED_TIME,'yyyy-mm')=TO_CHAR(SYSDATE,'yyyy-mm') AND STAFF_STATE=2")
+    @Select("SELECT COUNT(STAFF_STATE) tjFour FROM STAFF WHERE TO_CHAR(UPDATED_TIME,'yyyy-mm')=TO_CHAR(SYSDATE,'yyyy-mm') AND STAFF_STATE=2")
     List<Staff> countStateThree();
 
     /**
