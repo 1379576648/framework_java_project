@@ -25,4 +25,18 @@ public interface OverTimeService {
      * @return
      */
     Integer deleteOverTime(Overtimeask overtimeask);
+
+    /**
+     * 开始加班
+     * @param overtimeask
+     * @return
+     */
+    String updateBeginOverTime(Overtimeask overtimeask);
+
+    /**
+     * 结束加班
+     * @param overtimeask
+     * @return
+     */
+    String updateEndOverTime(Overtimeask overtimeask);
 }

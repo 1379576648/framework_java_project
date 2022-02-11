@@ -51,6 +51,22 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
+            public Object updateBeginOverTime(Overtimeask overtimeask) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateEndOverTime(Overtimeask overtimeask) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
             public Object selectLeaveRecordAll(Leave leave) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);

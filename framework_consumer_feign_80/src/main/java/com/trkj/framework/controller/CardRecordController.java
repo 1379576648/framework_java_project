@@ -61,7 +61,7 @@ public class CardRecordController {
     }
 
     /**
-     * 导入
+     * 导入打卡记录
      * @param file
      * @return
      */

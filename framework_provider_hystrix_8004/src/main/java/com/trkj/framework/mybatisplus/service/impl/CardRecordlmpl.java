@@ -84,7 +84,6 @@ public class CardRecordlmpl implements CardRecordService {
         QueryWrapper<ClockRecord> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("STAFF_NAME", objects.get(0).toString());
         queryWrapper.eq("DEPT_NAME", objects.get(1).toString());
-        System.out.println("111111111111111111111111111111111");
         queryWrapper.apply("TO_CHAR(MORN_CLOCK,'yyyy-mm-dd') = {0}",objects.get(2).toString().substring(0,10));
         queryWrapper.apply("TO_CHAR(AFTERNOON_CLOCK,'yyyy-mm-dd') = {0}",objects.get(3).toString().substring(0,10));
         return cardRecordMapper.selectCount(queryWrapper);

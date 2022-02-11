@@ -33,4 +33,24 @@ public class OverTimeController {
     public AjaxResponse deleteOverTime(@RequestBody Overtimeask overtimeask) {
         return AjaxResponse.success(checkingService.deleteOverTime(overtimeask));
     }
+
+    /**
+     * 开始加班
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/updateBeginOverTime")
+    public AjaxResponse updateBeginOverTime(@RequestBody Overtimeask overtimeask) {
+        return AjaxResponse.success(checkingService.updateBeginOverTime(overtimeask));
+    }
+
+    /**
+     * 结束加班
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/updateEndOverTime")
+    public AjaxResponse updateEndOverTime(@RequestBody Overtimeask overtimeask) {
+        return AjaxResponse.success(checkingService.updateEndOverTime(overtimeask));
+    }
 }

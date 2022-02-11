@@ -420,80 +420,80 @@ public class AuditflowServiceImpl implements AuditflowService {
                         return 999;
                     }
                 } else if ("补打卡".equals(auditflowType)) {
-                        // 根据审批编号去查询补打卡记录表数据
-                        QueryWrapper<Card> card = new QueryWrapper<>();
-                        card.eq("AUDITFLOW_ID", auditflowId);
-                        final var cards = cardMapper.selectList(card);
-                        System.out.println("补打卡数据：");
-                        System.out.println(cards);
-                        // 修改补打卡中的状态为同意
-                        Card card1 = new Card();
-                        card1.setCardId(cards.get(0).getCardId());
-                        card1.setAuditflowId(auditflowId);
-                        card1.setCardState(1);
-                        final var i1 = cardMapper.updateById(card1);
-                        if (i1 == 1) {
-                            // 修改成功后，发给申请人一条消息
-                            News news = new News();
-                            news.setStaffId(satffNO.get(0).getStaffId());
-                            news.setNewsTitle(auditflowType + "审批已通过:");
-                            // 转日期格式
-                            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-                            String CreatedTime = sdf.format(cards.get(0).getCreatedTime());
-                            news.setNewsMatter("您于" + CreatedTime + "发起的" + auditflowType + "审批,现已通过，请核实，如有纰漏，请联系管理员");
-                            final var insert = newsMapper.insert(news);
-                            // 发消息成功后，则根据补打卡表中的员工名称及创建时间去打卡记录表中的查询有无记录
-                                QueryWrapper<ClockRecord> clockRecord = new QueryWrapper<>();
-                                clockRecord.eq("STAFF_NAME", cards.get(0).getStaffName());
-                                System.out.println("补打卡创建时间：");
-                                SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-                                String CreatedTime1 = df.format(cards.get(0).getCreatedTime());
-                                System.out.println(CreatedTime1);
-                                clockRecord.apply("TO_CHAR(CREATED_TIME,'yyyy-mm-dd' ) like {0}", CreatedTime1);
-                                final var clockRecords = clockRecordMapper.selectList(clockRecord);
-                                System.out.println(clockRecords);
+                    // 根据审批编号去查询补打卡记录表数据
+                    QueryWrapper<Card> card = new QueryWrapper<>();
+                    card.eq("AUDITFLOW_ID", auditflowId);
+                    final var cards = cardMapper.selectList(card);
+                    System.out.println("补打卡数据：");
+                    System.out.println(cards);
+                    // 修改补打卡中的状态为同意
+                    Card card1 = new Card();
+                    card1.setCardId(cards.get(0).getCardId());
+                    card1.setAuditflowId(auditflowId);
+                    card1.setCardState(1);
+                    final var i1 = cardMapper.updateById(card1);
+                    if (i1 == 1) {
+                        // 修改成功后，发给申请人一条消息
+                        News news = new News();
+                        news.setStaffId(satffNO.get(0).getStaffId());
+                        news.setNewsTitle(auditflowType + "审批已通过:");
+                        // 转日期格式
+                        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+                        String CreatedTime = sdf.format(cards.get(0).getCreatedTime());
+                        news.setNewsMatter("您于" + CreatedTime + "发起的" + auditflowType + "审批,现已通过，请核实，如有纰漏，请联系管理员");
+                        final var insert = newsMapper.insert(news);
+                        // 发消息成功后，则根据补打卡表中的员工名称及创建时间去打卡记录表中的查询有无记录
+                        QueryWrapper<ClockRecord> clockRecord = new QueryWrapper<>();
+                        clockRecord.eq("STAFF_NAME", cards.get(0).getStaffName());
+                        System.out.println("补打卡创建时间：");
+                        SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+                        String CreatedTime1 = df.format(cards.get(0).getCreatedTime());
+                        System.out.println(CreatedTime1);
+                        clockRecord.apply("TO_CHAR(CREATED_TIME,'yyyy-mm-dd' ) like {0}", CreatedTime1);
+                        final var clockRecords = clockRecordMapper.selectList(clockRecord);
+                        System.out.println(clockRecords);
+                        try {
+                            if (clockRecords.size() != 0) {
                                 try {
-                                    if (clockRecords.size() != 0) {
-                                        try {
-                                            // 查到打卡记录表中有数据，则根据补打卡表中的补打卡类型（未签退、未签到）去修改打卡记录中的数据
-                                            if ("未签到".equals(cards.get(0).getCardType())) {
-                                                ClockRecord clockRecord1 = new ClockRecord();
-                                                clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
-                                                clockRecord1.setMornClock(cards.get(0).getCardDate());
-                                                final var i3 = clockRecordMapper.updateById(clockRecord1);
-                                                if (i3 == 1 && insert == 1) {
-                                                    return 1;
-                                                } else {
-                                                    return 999;
-                                                }
-                                            } else if ("未签退".equals(cards.get(0).getCardType())) {
-                                                ClockRecord clockRecord1 = new ClockRecord();
-                                                clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
-                                                clockRecord1.setAfternoonClock(cards.get(0).getCardDate());
-                                                final var i4 = clockRecordMapper.updateById(clockRecord1);
-                                                if (i4 == 1 && insert == 1) {
-                                                    return 1;
-                                                } else {
-                                                    return 999;
-                                                }
-                                            } else {
-                                                return 999;
-                                            }
-                                        } catch (Exception e) {
-                                            System.out.println("222222222222222222222222222222222222");
-                                            //手动强制回滚事务，这里一定要第一时间处理
-                                            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                                            // 如果查到打卡记录表中没有匹配数据
-                                            return 100;
+                                    // 查到打卡记录表中有数据，则根据补打卡表中的补打卡类型（未签退、未签到）去修改打卡记录中的数据
+                                    if ("未签到".equals(cards.get(0).getCardType())) {
+                                        ClockRecord clockRecord1 = new ClockRecord();
+                                        clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
+                                        clockRecord1.setMornClock(cards.get(0).getCardDate());
+                                        final var i3 = clockRecordMapper.updateById(clockRecord1);
+                                        if (i3 == 1 && insert == 1) {
+                                            return 1;
+                                        } else {
+                                            return 999;
                                         }
+                                    } else if ("未签退".equals(cards.get(0).getCardType())) {
+                                        ClockRecord clockRecord1 = new ClockRecord();
+                                        clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
+                                        clockRecord1.setAfternoonClock(cards.get(0).getCardDate());
+                                        final var i4 = clockRecordMapper.updateById(clockRecord1);
+                                        if (i4 == 1 && insert == 1) {
+                                            return 1;
+                                        } else {
+                                            return 999;
+                                        }
+                                    } else {
+                                        return 999;
                                     }
                                 } catch (Exception e) {
-                                    System.out.println("11111111111111111111111111111111111111111111111111");
+                                    System.out.println("222222222222222222222222222222222222");
+                                    //手动强制回滚事务，这里一定要第一时间处理
                                     TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                                    // 如果查到打卡记录表中没有匹配数据
+                                    return 100;
                                 }
-                        } else {
-                            return 999;
+                            }
+                        } catch (Exception e) {
+                            System.out.println("11111111111111111111111111111111111111111111111111");
+                            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
                         }
+                    } else {
+                        return 999;
+                    }
                 } else {
                     return 999;
                 }

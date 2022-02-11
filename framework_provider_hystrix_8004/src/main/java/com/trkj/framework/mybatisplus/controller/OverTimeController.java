@@ -31,7 +31,6 @@ public class OverTimeController {
     @PostMapping("/selectOverTimeRecordAll")
     @HystrixCommand(fallbackMethod = "selectOverTimeRecordAllHystixGet")
     public Object selectOverTimeRecordAll(@RequestBody Overtimeask overtimeask) {
-        System.out.println("11111111111111111111111111111111111111111111111111111111111");
         String date=new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(Calendar.getInstance().getTime());
         System.out.println(date);
         Map<String, Object> map1 = new HashMap<>(2);
@@ -62,6 +61,48 @@ public class OverTimeController {
         return map1;
     }
     public Object deleteOverTimeHystixGet(@RequestBody Overtimeask overtimeask) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 开始加班
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/updateBeginOverTime")
+    @HystrixCommand(fallbackMethod = "updateBeginOverTimeHystixGet")
+    public Object updateBeginOverTime(@RequestBody Overtimeask overtimeask) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", overTimeService.updateBeginOverTime(overtimeask));
+        return map1;
+    }
+    public Object updateBeginOverTimeHystixGet(@RequestBody Overtimeask overtimeask) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 结束加班
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/updateEndOverTime")
+    @HystrixCommand(fallbackMethod = "updateEndOverTimeHystixGet")
+    public Object updateEndOverTime(@RequestBody Overtimeask overtimeask) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", overTimeService.updateEndOverTime(overtimeask));
+        return map1;
+    }
+    public Object updateEndOverTimeHystixGet(@RequestBody Overtimeask overtimeask) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 300);
         map1.put("info", "服务发生雪崩");
