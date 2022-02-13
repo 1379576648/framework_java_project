@@ -67,7 +67,7 @@ public interface CheckingService {
     Object updateEndOverTime(@RequestBody Overtimeask overtimeask);
 
     /**
-     * 根据员工名称查询打卡记录
+     * 根据员工名称查询请假记录
      * @param
      * @param
      * @return
@@ -76,13 +76,31 @@ public interface CheckingService {
     Object selectLeaveRecordAll(@RequestBody Leave leave);
 
     /**
-     * 删除打卡记录
+     * 删除请假记录
      * @param
      * @param
      * @return
      */
     @PostMapping("/deleteLeave")
     Object deleteLeave(@RequestBody Leave leave);
+
+    /**
+     * 开始请假
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateBeginLeave")
+    Object updateBeginLeave(@RequestBody Leave leave);
+
+    /**
+     * 结束请假
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateEndLeave")
+    Object updateEndLeave(@RequestBody Leave leave);
 
     /**
      * 根据员工名称查询出差记录
@@ -101,6 +119,24 @@ public interface CheckingService {
      */
     @PostMapping("/deleteEvection")
     Object deleteEvection(@RequestBody Travel travel);
+
+    /**
+     * 开始出差
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateBeginTravel")
+    Object updateBeginTravel(@RequestBody Travel travel);
+
+    /**
+     * 结束出差
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateEndTravel")
+    Object updateEndTravel(@RequestBody Travel travel);
 
     /**
      * 根据员工名称查询补打卡记录
@@ -207,6 +243,7 @@ public interface CheckingService {
      * @param file
      * @return
      */
-    @PostMapping(value="/import/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
-    Object importCard(@PathVariable("name") String name,MultipartFile file);
+    @PostMapping(value="/importCardRecord/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
+    Object importCardRecord(@PathVariable("name") String name,MultipartFile file);
+
 }

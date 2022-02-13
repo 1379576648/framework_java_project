@@ -1,6 +1,7 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
+import com.trkj.framework.entity.mybatisplus.Leave;
 import com.trkj.framework.entity.mybatisplus.Travel;
 import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.vo.AjaxResponse;
@@ -35,5 +36,25 @@ public class EvectionRecordController {
     @PostMapping("/deleteEvection")
     public AjaxResponse deleteEvection(@RequestBody Travel travel) {
         return AjaxResponse.success(checkingService.deleteEvection(travel));
+    }
+
+    /**
+     * 开始出差
+     * @param travel
+     * @return
+     */
+    @PostMapping("/updateBeginTravel")
+    public AjaxResponse updateBeginOverTime(@RequestBody Travel travel) {
+        return AjaxResponse.success(checkingService.updateBeginTravel(travel));
+    }
+
+    /**
+     * 结束出差
+     * @param travel
+     * @return
+     */
+    @PostMapping("/updateEndTravel")
+    public AjaxResponse updateEndLeave(@RequestBody Travel travel) {
+        return AjaxResponse.success(checkingService.updateEndTravel(travel));
     }
 }

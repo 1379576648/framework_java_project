@@ -67,7 +67,7 @@ public class CardRecordlmpl implements CardRecordService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer importCard(List<ClockRecord> list) {
+    public Integer importCardRecord(List<ClockRecord> list) {
         var insert = "";
         for (int i = 0; i < list.size(); i++) {
             insert = String.valueOf(cardRecordMapper.insert(list.get(i)));

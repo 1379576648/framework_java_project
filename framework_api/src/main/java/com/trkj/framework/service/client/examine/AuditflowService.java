@@ -296,6 +296,13 @@ public interface AuditflowService {
     Object selectpresident();
 
     /**
+     * 查询人事经理及总裁（总经理）
+     * @return
+     */
+    @PostMapping("/selectStaffing")
+    Object selectStaffing();
+
+    /**
      * 添加转正 3个审批人
      * @param workerVo
      * @return

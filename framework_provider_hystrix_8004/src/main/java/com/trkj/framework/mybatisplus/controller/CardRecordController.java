@@ -75,8 +75,8 @@ public class CardRecordController {
         return map1;
     }
 
-    @PostMapping("/import/{name}")
-    public Object importCard(@PathVariable("name") String name, MultipartFile file) throws Exception {
+    @PostMapping("/importCardRecord/{name}")
+    public Object importCardRecord(@PathVariable("name") String name, MultipartFile file) throws Exception {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -84,7 +84,7 @@ public class CardRecordController {
         ExcelReader reader = ExcelUtil.getReader(inputStream);
         // 方法1：通过javabean的方式读取Excel内的对象，但是要求表头必须是英文，跟javabean的属性要对应
         // List<ClockRecord> list = reader.readAll(ClockRecord.class);
-        // 方法2：忽略表头，直接读取
+        // 方法2：忽略表头，直接读取 弊端 写的太死 不方便
         List<List<Object>> list = reader.read(1);
         // 获取Excel表中的数据去数据库中查有无相同数据
         var integer = 0;
@@ -109,7 +109,7 @@ public class CardRecordController {
             excelName = objects.get(0).toString();
             for (int i = 0; i < excelName.length(); i++) {
                 // 如果不相同，则代表Excel表格中的数据不适用
-                if (!Objects.equals(staffName, excelName)){
+                if (!Objects.equals(staffName, excelName)) {
                     judge = 100;
                     break;
                 }
@@ -118,8 +118,6 @@ public class CardRecordController {
                 break;
             }
         }
-        System.out.println(integer);
-        System.out.println(judge);
         if (integer == 100 || judge == 100) {
             map1.put("info", "导入失败,该Excel表格中的数据不适用于该员工");
             return map1;
@@ -137,7 +135,7 @@ public class CardRecordController {
                 clockRecords.setAfternoonClock(d2);
                 cardRecord.add(clockRecords);
             }
-            map1.put("info", cardRecordService.importCard(cardRecord));
+            map1.put("info", cardRecordService.importCardRecord(cardRecord));
             return map1;
         }
     }

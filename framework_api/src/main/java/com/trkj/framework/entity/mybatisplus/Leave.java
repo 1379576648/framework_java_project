@@ -84,6 +84,10 @@ public class Leave implements Serializable {
     @TableField("LEAVE_STATE")
     private Integer leaveState;
 
+    @ApiModelProperty(value = "请假状态 0：未开始 1：进行中 2：已完成")
+    @TableField("LEAVE_CONDITION")
+    private Integer leaveCondition;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

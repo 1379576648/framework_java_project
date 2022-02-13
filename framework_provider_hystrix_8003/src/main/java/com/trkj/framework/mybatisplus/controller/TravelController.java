@@ -93,45 +93,79 @@ public class TravelController {
 
     /**
      * 根据员工名称是否有出差记录
+     *
      * @param travelDetailsVo
      * @return
      */
     @PostMapping("/selectEvectionExamine")
-    public Object selectEvectionExamine(@RequestBody TravelDetailsVo travelDetailsVo){
+    @HystrixCommand(fallbackMethod = "selectEvectionExamineExamineHystixGet")
+    public Object selectEvectionExamine(@RequestBody TravelDetailsVo travelDetailsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", traveService.selectEvectionExamine(travelDetailsVo));
         return map1;
     }
 
+    public Object selectEvectionExamineExamineHystixGet(@RequestBody TravelDetailsVo travelDetailsVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
     /**
      * 添加出差 添加三个审批人
+     *
      * @param travelVo
      * @return
      */
     @PostMapping("/submitToTravel3")
-    public int submitToTravel3(@RequestBody TravelVo travelVo){
-        return  traveService.submitToTravel3(travelVo);
+    @HystrixCommand(fallbackMethod = "submitToTravel3ExamineHystixGet")
+    public Object submitToTravel3(@RequestBody TravelVo travelVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", traveService.submitToTravel3(travelVo));
+        return map1;
+    }
+
+    public Object submitToTravel3ExamineHystixGet(@RequestBody TravelVo travelVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
     /**
      * 添加出差 添加两个审批人
+     *
      * @param travelVo
      * @return
      */
     @PostMapping("/submitToTravel2")
-    public int submitToTravel2(@RequestBody TravelVo travelVo){
-        return  traveService.submitToTravel2(travelVo);
+    @HystrixCommand(fallbackMethod = "submitToTravel2ExamineHystixGet")
+    public Object submitToTravel2(@RequestBody TravelVo travelVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", traveService.submitToTravel2(travelVo));
+        return map1;
+    }
+
+    public Object submitToTravel2ExamineHystixGet(@RequestBody TravelVo travelVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
     /**
      * 添加出差 添加一个审批人
+     *
      * @param travelVo
      * @return
      */
     @PostMapping("/submitToTravel1")
     @HystrixCommand(fallbackMethod = "submitToTravel1ExamineHystixGet")
-    public Object submitToTravel1(@RequestBody TravelVo travelVo){
+    public Object submitToTravel1(@RequestBody TravelVo travelVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", traveService.submitToTravel1(travelVo));

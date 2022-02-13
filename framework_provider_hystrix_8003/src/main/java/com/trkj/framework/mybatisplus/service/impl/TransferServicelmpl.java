@@ -97,6 +97,7 @@ public class TransferServicelmpl implements Transfer8003Service {
         queryWrapper.eq("IS_DELETED", 0);
         //是否禁用 启用
         queryWrapper.eq("DEPT_STATE", 0);
+        queryWrapper.ne("DEPT_NAME","总裁办");
         return deptMapper.selectList(queryWrapper);
     }
 

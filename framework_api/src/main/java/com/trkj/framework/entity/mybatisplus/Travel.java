@@ -80,6 +80,10 @@ public class Travel implements Serializable {
     @TableField("TRAVEL_STATE")
     private Integer travelState;
 
+    @ApiModelProperty(value = "出差状态 0：未开始 1：进行中 2：已完成")
+    @TableField("TRAVEL_CONDITION")
+    private Integer travelCondition;
+
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
