@@ -39,6 +39,21 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
+            public Map<String, Object> selectOperatLogAll(OperatLog operatLog) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String, Object> checkOperatLogDelete(ArrayList<Integer> list) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String, Object> emptyOperatLogList(OperatLog operatLog) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
             public Map<String,Object> selectNoticeAll(@RequestBody Notice notice) {
                 return fuseUtil.main(throwable);
             }

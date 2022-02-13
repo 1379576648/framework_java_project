@@ -125,8 +125,10 @@ public class JwtTokenUtil {
             Claims claims = getClaimsFromToken(token);
             //获取过期时间
             Date expiration = claims.getExpiration();
+            System.out.println(expiration.toLocaleString());
             log.info("过期时间为{}",expiration.toLocaleString());
             Date date=new Date();
+            System.out.println("现在时间:{},过期时间:{} ,{}"+date.toLocaleString()+expiration.toLocaleString()+expiration.before(date));
             log.info("现在时间:{},过期时间:{} ,{}",date.toLocaleString(),expiration.toLocaleString(),expiration.before(date));
             //返回是否过期
             return expiration.before(date);

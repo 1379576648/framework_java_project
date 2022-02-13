@@ -25,5 +25,5 @@ eureka:
       #单机：defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
       #集群（关联）：
       defaultZone: http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
-    eureka-server-read-timeout-seconds: 8 #client对服务端的读超时时长
-    eureka-server-connect-timeout-seconds: 5 #client连接eureka服务端的连接超时时间，默认为5秒
+    eureka-server-read-timeout-seconds: 10 #client对服务端的读超时时长
+    eureka-server-connect-timeout-seconds: 10 #client连接eureka服务端的连接超时时间，默认为5秒

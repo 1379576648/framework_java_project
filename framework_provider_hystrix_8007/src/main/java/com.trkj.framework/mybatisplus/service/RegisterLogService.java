@@ -20,7 +20,7 @@ public interface RegisterLogService {
      * @param registerLog
      * @return
      */
-    IPage<RegisterLog> selectRegisterLogAll( RegisterLog registerLog);
+    Object selectRegisterLogAll( RegisterLog registerLog);
 
     /***
      * 多选删除

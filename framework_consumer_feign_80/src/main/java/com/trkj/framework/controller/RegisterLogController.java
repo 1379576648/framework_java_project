@@ -29,7 +29,7 @@ public class RegisterLogController {
      */
     @PostMapping("/selectRegisterLogAll")
     @ApiOperation(value = "登录日志分页查询",notes = "系统模块",httpMethod = "POST",nickname="查询",produces = "/selectRegisterLogAll")
-    public AjaxResponse selectRegisterLogAll( @RequestBody  RegisterLog registerLog){
+    public AjaxResponse selectRegisterLogAll(@RequestBody RegisterLog registerLog){
         Map<String,Object> map = (Map<String, Object>) systemClinetService.selectRegisterLogAll(registerLog);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }

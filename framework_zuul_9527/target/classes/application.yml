@@ -42,28 +42,23 @@ zuul:
     eleven.path: /8011/** #现在的地址
   ignored-services: "*" #不能再使用这个路径访问，ignored：忽略 ,隐藏全部的~
   host:
-    connect-timeout-millis: 3000
-    socket-timeout-millis: 3000
+    connect-timeout-millis: 10000
+    socket-timeout-millis: 10000
   sensitive-headers: "*"
 
-# 添加ribbon的超时时间设置
-ribbon:
-  ReadTimeout: 3000
-  ConnectTimeout: 3000
-
-# JWT配置
-jwt:
-  # 密匙KEY
-  secret: JwtSecret
-  # HeaderKEY
-  header: JWTDemo
-  # 过期时间(这里设定为豪秒)
-  expire: 60000
-
+#hystrix的超时时间
 hystrix:
   command:
     default:
       execution:
+        timeout:
+          enabled: true
         isolation:
           thread:
-            timeout-in-milliseconds: 3000
+            timeoutInMilliseconds: 100000
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 100000
+  ConnectTimeout: 100000
+
+

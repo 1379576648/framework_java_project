@@ -59,6 +59,7 @@ public class StaffController {
         }
         return map1;
         }catch (Exception e) {
+            e.printStackTrace();
             Map<String, Object> map1 = new HashMap<>(2);
             map1.put("state", 300);
             map1.put("info", "服务发生雪崩");
@@ -96,6 +97,7 @@ public class StaffController {
             return map1;
 
         } catch (Exception e) {
+            e.printStackTrace();
             Map<String, Object> map1 = new HashMap<>(2);
             map1.put("state", 300);
             map1.put("info", "服务发生雪崩");

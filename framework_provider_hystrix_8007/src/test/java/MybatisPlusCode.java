@@ -1,7 +1,7 @@
 // import com.baomidou.mybatisplus.annotation.DbType;
+// import com.baomidou.mybatisplus.core.config.GlobalConfig;
 // import com.baomidou.mybatisplus.generator.AutoGenerator;
 // import com.baomidou.mybatisplus.generator.config.DataSourceConfig;
-// import com.baomidou.mybatisplus.generator.config.GlobalConfig;
 // import com.baomidou.mybatisplus.generator.config.PackageConfig;
 // import com.baomidou.mybatisplus.generator.config.StrategyConfig;
 // import com.baomidou.mybatisplus.generator.config.rules.DateType;
@@ -15,7 +15,7 @@
 //         AutoGenerator autoGenerator = new AutoGenerator();
 //         //配置策略
 //         //1.全局配置
-//         GlobalConfig globalConfig = new GlobalConfig();
+//         com.baomidou.mybatisplus.generator.config.GlobalConfig globalConfig = new com.baomidou.mybatisplus.generator.config.GlobalConfig();
 //         /*获取当前系统目录*/
 //         String property = System.getProperty("user.dir");
 //         //代码输出目录
@@ -56,7 +56,7 @@
 //         //3.包的配置
 //         PackageConfig packageConfig = new PackageConfig();
 //         //模块名
-//         packageConfig.setModuleName("mybatisplu1s");
+//         packageConfig.setModuleName("mybatisplus");
 //         //放在哪一个包下
 //         packageConfig.setParent("com.trkj.framework");
 //         //实体类的名字
@@ -74,7 +74,7 @@
 //         //4、策略配置
 //         StrategyConfig strategyConfig = new StrategyConfig();
 //         //数据库表名
-//         strategyConfig.setInclude("ROLE_MENU_POWER");
+//         strategyConfig.setInclude("OPERAT_LOG");
 //         //包的命名规则
 //         strategyConfig.setNaming(NamingStrategy.underline_to_camel);
 //         //列的名字

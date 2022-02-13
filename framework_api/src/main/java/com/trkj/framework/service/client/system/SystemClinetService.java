@@ -42,6 +42,30 @@ public interface SystemClinetService {
     public Map<String,Object> emptyList(@RequestBody RegisterLog registerLog);
 
     /***
+     *  操作日志分页查询
+     * @param operatLog
+     * @return
+     */
+    @PostMapping("/selectOperatLogAll")
+    public Map<String,Object> selectOperatLogAll(@RequestBody  OperatLog operatLog);
+
+    /***
+     * 操作日志复选删除
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/checkOperatLogDelete")
+    public Map<String,Object> checkOperatLogDelete(@RequestBody ArrayList<Integer> list);
+
+    /***
+     * 操作日志清空数据
+     * @param operatLog
+     * @return
+     */
+    @DeleteMapping("/emptyOperatLogList")
+    public Map<String,Object> emptyOperatLogList(@RequestBody OperatLog operatLog);
+
+    /***
      *分页查询所有公告数据
      * @param notice
      * @return
