@@ -1,10 +1,8 @@
 package com.trkj.framework.mybatisplus.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.mybatisplus.mapper.RoleMapper;
 import com.trkj.framework.mybatisplus.mapper.RoleMenuPowerMapper;
@@ -230,7 +228,6 @@ public class RoleServiceImpl implements RoleService {
         roleStaffQueryWrapper.eq("a.ROLE_ID", roleStaff.getRoleId());
         //逻辑删除
         roleStaffQueryWrapper.eq("b.IS_DELETED", 0);
-        roleStaffQueryWrapper.eq("a.IS_DELETED", 0);
 
         return roleStaffMapper.pageRoleStaff(iPage, roleStaffQueryWrapper);
     }

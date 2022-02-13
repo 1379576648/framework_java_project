@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.trkj.framework.mybatisplus.mapper.InsuredDetailMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.trkj.framework.entity.mybatisplus.InsuredDetail">
+        <id column="a_INS_DETAIL_ID" property="insDetailId"/>
+        <result column="a_INS_DETAIL_STAFF_NAME" property="insDetailStaffName"/>
+        <result column="a_INS_DETAIL_INSURED_NAME" property="insDetailInsuredName"/>
+        <result column="a_INS_DETAIL_INSURED_MONTH" property="insDetailInsuredMonth"/>
+        <result column="a_INS_DETAIL_SALARY_MONTH" property="insDetailSalaryMonth"/>
+        <result column="a_INS_DETAIL_SOCIAL_PERSON_PAY" property="insDetailSocialPersonPay"/>
+        <result column="a_INS_DETAIL_SOCIAL_FIRM_PAY" property="insDetailSocialFirmPay"/>
+        <result column="a_INS_DETAIL_FUND_PERSON_PAY" property="insDetailFundPersonPay"/>
+        <result column="a_INS_DETAIL_FUND_FIRM_PAY" property="insDetailFundFirmPay"/>
+        <result column="a_CREATED_TIME" property="createdTime"/>
+        <result column="a_UPDATED_TIME" property="updatedTime"/>
+        <result column="a_REVISION" property="revision"/>
+        <association property="staff" javaType="com.trkj.framework.entity.mybatisplus.Staff">
+            <id column="b_STAFF_ID" property="staffId"/>
+            <result column="b_STAFF_NAME" property="staffName"/>
+            <result column="b_DEPT_ID" property="deptId"/>
+        </association>
+        <association property="dept" javaType="com.trkj.framework.entity.mybatisplus.Dept">
+            <id column="c_DEPT_ID" property="deptId"/>
+            <result column="c_DEPT_NAME" property="deptName"/>
+            <result column="c_DEPT_STATE" property="deptState"/>
+        </association>
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        a.INS_DETAIL_ID as a_INS_DETAIL_ID,
+        a.INS_DETAIL_STAFF_NAME as  a_INS_DETAIL_STAFF_NAME,
+        a.INS_DETAIL_INSURED_NAME as a_INS_DETAIL_INSURED_NAME,
+a.INS_DETAIL_INSURED_MONTH as a_INS_DETAIL_INSURED_MONTH,
+a.INS_DETAIL_SALARY_MONTH as a_INS_DETAIL_SALARY_MONTH,
+a.INS_DETAIL_SOCIAL_PERSON_PAY as a_INS_DETAIL_SOCIAL_PERSON_PAY,
+a.INS_DETAIL_SOCIAL_FIRM_PAY as a_INS_DETAIL_SOCIAL_FIRM_PAY,
+a.INS_DETAIL_FUND_PERSON_PAY as a_INS_DETAIL_FUND_PERSON_PAY,
+a.INS_DETAIL_FUND_FIRM_PAY as a_INS_DETAIL_FUND_FIRM_PAY,
+a.CREATED_TIME as a_CREATED_TIME,
+a.UPDATED_TIME as a_UPDATED_TIME,
+a.REVISION as a_REVISION,
+b.STAFF_ID as b_STAFF_ID,
+b.STAFF_NAME as b_STAFF_NAME,
+b.DEPT_ID as b_DEPT_ID,
+c.DEPT_NAME as c_DEPT_NAME,
+c.DEPT_STATE as c_DEPT_STATE
+    </sql>
+
+    <select id="pageInsuredDetail" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from INSURED_DETAIL a
+        inner join STAFF b on a.INS_DETAIL_STAFF_NAME=b.STAFF_NAME
+        inner join DEPT c on b.DEPT_ID=c.DEPT_ID
+        ${ew.customSqlSegment}
+    </select>
+
+</mapper>

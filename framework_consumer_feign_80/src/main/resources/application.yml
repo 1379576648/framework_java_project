@@ -14,14 +14,7 @@ feign:
 #      name: admin
 #      password: admin
 
-# JWT配置
-jwt:
-  # 密匙KEY
-  secret: JWTSecret
-  # HeaderKEY
-  header: jwtAuth
-  # 过期时间毫秒
-  expire: 100000
+
 
 #hystrix熔断超时配置
 hystrix:
@@ -44,6 +37,15 @@ ribbon:
   MaxAutoRetries: 0     #对当前实例的重试次数，默认0
   MaxAutoRetriesNextServer: 1 #对切换实例的重试次数，默认1
 
+# JWT配置
+jwt:
+  # 密匙KEY
+  secret: JwtSecret
+  # HeaderKEY
+  header: JWTDemo
+  # 过期时间(这里设定为豪秒)
+  expire: 900000
+
 #Redis配置
 #spring:
 #  redis:
@@ -63,3 +65,51 @@ eureka:
     register-with-eureka: false #不向Eureka注册自己
     service-url:
       defaultZone: http://eureka7001.com:7001/eureka/,http://eureka7002.com:7002/eureka/,http://eureka7003.com:7003/eureka/
+
+
+spring:
+  datasource:
+    url: jdbc:oracle:thin:@127.0.0.1:1521:orcl
+    username: power
+    password: 123456
+    driver-class-name: oracle.jdbc.driver.OracleDriver
+    #mysql配置如下：
+    #url: jdbc:mysql://127.0.0.1:3308/mydb?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8
+    #username: root
+    #password: root2020
+    #driver-class-name: com.mysql.cj.jdbc.Driver
+    # 使用druid数据源
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      # 配置测试查询语句
+      validationQuery: SELECT 1 FROM DUAL
+      # 初始化大小，最小，最大
+      initialSize: 10
+      minIdle: 10
+      maxActive: 200
+      # 配置一个连接在池中最小生存的时间，单位是毫秒
+      minEvictableIdleTimeMillis: 180000
+      testOnBorrow: false
+      testWhileIdle: true
+      removeAbandoned: true
+      removeAbandonedTimeout: 1800
+      logAbandoned: true
+      # 打开PSCache，并且指定每个连接上PSCache的大小
+      poolPreparedStatements: true
+      maxOpenPreparedStatements: 100
+      # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+      filters: stat,wall
+  profiles:
+    active: dev
+mybatis-plus:
+  mapper-locations: classpath:xml/*.xml
+  type-aliases-package: com.trkj.framework.mybatisplus.entity
+  #配置日志
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    #逻辑删除配置
+  global-config:
+    db-config:
+      logic-delete-field: flag  # 全局逻辑删除的实体字段名(since 3.3.0,配置后可以忽略不配置步骤2)
+      logic-delete-value: 1 # 逻辑已删除值(默认为 1)
+      logic-not-delete-value: 0 # 逻辑未删除值(默认为 0)

@@ -9,14 +9,15 @@ import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.mybatisplus.mapper.*;
 import com.trkj.framework.mybatisplus.service.DefInsuredService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import javafx.util.BuilderFactory;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
 
-import java.util.List;
-import java.util.Map;
+import javax.xml.crypto.Data;
+import java.util.*;
 
 /**
  * <p>
@@ -48,13 +49,20 @@ public class DefInsuredServiceImpl implements DefInsuredService {
 
     @Autowired
     private InsuredPaymentMapper insuredPaymentMapper;
+
+    @Autowired
+    private InsuredArchiveMapper insuredArchiveMapper;
+
+    @Autowired
+    private InsuredLogMapper insuredLogMapper;
+
     /***
      * 分页查询社保方案
      * @param defInsured
      * @return
      */
     @Override
-    public Object selectDefInsured(DefInsured defInsured) {
+    public IPage<DefInsured> selectDefInsured(DefInsured defInsured) {
         //条件构造器
         QueryWrapper<DefInsured> queryWrapper = new QueryWrapper<DefInsured>();
         //分页插件
@@ -76,10 +84,15 @@ public class DefInsuredServiceImpl implements DefInsuredService {
     @Override
     @Transactional
     public String deleteDefInsured(Integer integer) {
+        //查询方案是否被使用
+        List<InsuredScheme> list = insuredSchemeMapper.selectList(new QueryWrapper<InsuredScheme>().eq("DEF_INSURED_ID", integer));
+        if (list.size() > 0) {
+            return "该方案正被使用无法删除";
+        }
         //删除方案数据
         defSchemeMapper.delete(new QueryWrapper<DefScheme>().eq("DEF_INSURED_ID", integer));
         if (defInsuredMapper.deleteById(integer) <= 0) {
-            return "删除社保方案失败";
+            return "删除失败";
         }
         return "成功";
     }
@@ -213,26 +226,21 @@ public class DefInsuredServiceImpl implements DefInsuredService {
         //分页插件
         Page<Staff> staffPage = new Page<Staff>(staff.getCurrenPage(), staff.getPageSize());
         QueryWrapper<Staff> queryWrapper = new QueryWrapper<Staff>();
+        //当前月
+        int year =new Date().getYear()+1900;
+        int month =new Date().getMonth()+1;
+        queryWrapper.ne("to_char(e_INSURED_PAYMENT_SALARY_MONTH,'YYYY-MM')",month>9?year+"-"+month:year+"-"+"0"+month);
+        queryWrapper.or().isNull("e_INSURED_PAYMENT_SALARY_MONTH");
         //判断名称是否为空
         if (staff.getStaffName() != null && !staff.getStaffName().equals("")) {
             //根据姓名模糊查询
-            queryWrapper.like("a.STAFF_NAME", staff.getStaffName());
+            queryWrapper.like("a_STAFF_NAME", staff.getStaffName());
         }
         //判断部门名称是否为空
         if (staff.getDeptName() != null && !staff.getDeptName().equals("")) {
             //根据部门名称
-            queryWrapper.eq("b.DEPT_NAME", staff.getDeptName());
+            queryWrapper.eq("b_DEPT_NAME", staff.getDeptName());
         }
-        //在职
-        queryWrapper.eq("a.STAFF_STATE", 0);
-        //时间倒叙
-        queryWrapper.orderByDesc("a.CREATED_TIME");
-        //逻辑删除
-        queryWrapper.eq("a.IS_DELETED", 0);
-        queryWrapper.eq("b.IS_DELETED", 0);
-        queryWrapper.eq("c.IS_DELETED", 0);
-        //参保方案
-        queryWrapper.isNull("e.INSURED_SCHEME_ID");
         return defInsuredMapper.pageStaff(staffPage, queryWrapper);
     }
 
@@ -255,8 +263,10 @@ public class DefInsuredServiceImpl implements DefInsuredService {
     public String insuredSubmit(@RequestBody Map<String, Object> map) {
         List<Staff> staffList = JSONObject.parseArray(JSONObject.toJSONString(map.get("selectStaffList")), Staff.class);
         InsuredPayment insuredPayment = JSONObject.parseObject(JSONObject.toJSONString(map.get("payment")), InsuredPayment.class);
-        Long schemeId =  Long.valueOf(map.get("scheme_id").toString());
+        Long schemeId = Long.valueOf(map.get("scheme_id").toString());
+        InsuredLog insuredLog = new InsuredLog();
         for (int i = 0; i < staffList.size(); i++) {
+            insuredLog.setInsLogIdTheInsured(staffList.get(i).getStaffName());
             //添加参保方案表
             InsuredScheme insuredScheme = new InsuredScheme();
             insuredScheme.setStaffId(Long.valueOf(staffList.get(i).getStaffId()));
@@ -281,38 +291,7 @@ public class DefInsuredServiceImpl implements DefInsuredService {
             insuredDetail.setInsDetailInsuredMonth(insuredPayment.getInMonth());
             insuredDetail.setInsDetailSalaryMonth(insuredPayment.getTime());
             for (int j = 0; j < defSchemeList.size(); j++) {
-                if (defSchemeList.get(j).getDefSchemeType().equals("公积金")) {
-                    Double integer = 0.0;
-                    Double aLong = 0.0;
-                    //判断基数多少
-                    if (insuredPayment.getFundNumber() < defSchemeList.get(j).getDefSchemeMin()) {
-                        integer = defSchemeList.get(j).getDefSchemeMin();
-                    } else if (insuredPayment.getFundNumber() > defSchemeList.get(j).getDefSchemeMax()) {
-                        integer = defSchemeList.get(j).getDefSchemeMax();
-                    } else {
-                        integer = insuredPayment.getFundNumber();
-                    }
-                    //判断基数上下限
-                    if (integer < defSchemeList.get(j).getDefSchemeFloor()) {
-                        aLong = defSchemeList.get(j).getDefSchemeFloor();
-                    } else if (integer > defSchemeList.get(j).getDefSchemeUpper()) {
-                        aLong = defSchemeList.get(j).getDefSchemeUpper();
-                    } else {
-                        aLong = integer;
-                    }
-                    //积金公司缴费
-                    insuredDetail.setInsDetailFundFirmPay(
-                            insuredDetail.getInsDetailFundFirmPay() +
-                                    aLong * (defSchemeList.get(j).getDefSchemeFirmProp() / 100) +
-                                    defSchemeList.get(j).getDefSchemeFirmSum()
-                    );
-                    //积金个人缴费
-                    insuredDetail.setInsDetailFundPersonPay(
-                            insuredDetail.getInsDetailFundPersonPay() +
-                                    aLong * (defSchemeList.get(j).getDefSchemePersonProp() / 100) +
-                                    defSchemeList.get(j).getDefSchemePersonSum()
-                    );
-                } else {
+                if (defSchemeList.get(j).getDefSchemeType().equals("养老保险")) {
                     Double integer = 0.0;
                     Double aLong = 0.0;
                     //判断基数多少
@@ -331,6 +310,7 @@ public class DefInsuredServiceImpl implements DefInsuredService {
                     } else {
                         aLong = integer;
                     }
+                    insuredLog.setInsLogSocialNumber(insuredPayment.getSocialNumber());
                     //社保公司缴费
                     insuredDetail.setInsDetailSocialFirmPay(
                             insuredDetail.getInsDetailSocialFirmPay() +
@@ -343,19 +323,182 @@ public class DefInsuredServiceImpl implements DefInsuredService {
                                     aLong * (defSchemeList.get(j).getDefSchemePersonProp() / 100) +
                                     defSchemeList.get(j).getDefSchemePersonSum()
                     );
+                } else if (defSchemeList.get(j).getDefSchemeType().equals("失业保险")) {
+                    Double integer = 0.0;
+                    Double aLong = 0.0;
+                    //判断基数多少
+                    if (insuredPayment.getSocialNumber() < defSchemeList.get(j).getDefSchemeMin()) {
+                        integer = defSchemeList.get(j).getDefSchemeMin();
+                    } else if (insuredPayment.getSocialNumber() > defSchemeList.get(j).getDefSchemeMax()) {
+                        integer = defSchemeList.get(j).getDefSchemeMax();
+                    } else {
+                        integer = insuredPayment.getSocialNumber();
+                    }
+                    //判断基数上下限
+                    if (integer < defSchemeList.get(j).getDefSchemeFloor()) {
+                        aLong = defSchemeList.get(j).getDefSchemeFloor();
+                    } else if (integer > defSchemeList.get(j).getDefSchemeUpper()) {
+                        aLong = defSchemeList.get(j).getDefSchemeUpper();
+                    } else {
+                        aLong = integer;
+                    }
+                    insuredLog.setInsLogSocialNumber(insuredPayment.getSocialNumber());
+                    //社保公司缴费
+                    insuredDetail.setInsDetailSocialFirmPay(
+                            insuredDetail.getInsDetailSocialFirmPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemeFirmProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemeFirmSum()
+                    );
+                    //社保个人缴费
+                    insuredDetail.setInsDetailSocialPersonPay(
+                            insuredDetail.getInsDetailSocialPersonPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemePersonProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemePersonSum()
+                    );
+                } else if (defSchemeList.get(j).getDefSchemeType().equals("工伤保险")) {
+                    Double integer = 0.0;
+                    Double aLong = 0.0;
+                    //判断基数多少
+                    if (insuredPayment.getSocialNumber() < defSchemeList.get(j).getDefSchemeMin()) {
+                        integer = defSchemeList.get(j).getDefSchemeMin();
+                    } else if (insuredPayment.getSocialNumber() > defSchemeList.get(j).getDefSchemeMax()) {
+                        integer = defSchemeList.get(j).getDefSchemeMax();
+                    } else {
+                        integer = insuredPayment.getSocialNumber();
+                    }
+                    //判断基数上下限
+                    if (integer < defSchemeList.get(j).getDefSchemeFloor()) {
+                        aLong = defSchemeList.get(j).getDefSchemeFloor();
+                    } else if (integer > defSchemeList.get(j).getDefSchemeUpper()) {
+                        aLong = defSchemeList.get(j).getDefSchemeUpper();
+                    } else {
+                        aLong = integer;
+                    }
+                    insuredLog.setInsLogSocialNumber(insuredPayment.getSocialNumber());
+                    //社保公司缴费
+                    insuredDetail.setInsDetailSocialFirmPay(
+                            insuredDetail.getInsDetailSocialFirmPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemeFirmProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemeFirmSum()
+                    );
+                    //社保个人缴费
+                    insuredDetail.setInsDetailSocialPersonPay(
+                            insuredDetail.getInsDetailSocialPersonPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemePersonProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemePersonSum()
+                    );
+                } else if (defSchemeList.get(j).getDefSchemeType().equals("生育保险")) {
+                    Double integer = 0.0;
+                    Double aLong = 0.0;
+                    //判断基数多少
+                    if (insuredPayment.getSocialNumber() < defSchemeList.get(j).getDefSchemeMin()) {
+                        integer = defSchemeList.get(j).getDefSchemeMin();
+                    } else if (insuredPayment.getSocialNumber() > defSchemeList.get(j).getDefSchemeMax()) {
+                        integer = defSchemeList.get(j).getDefSchemeMax();
+                    } else {
+                        integer = insuredPayment.getSocialNumber();
+                    }
+                    //判断基数上下限
+                    if (integer < defSchemeList.get(j).getDefSchemeFloor()) {
+                        aLong = defSchemeList.get(j).getDefSchemeFloor();
+                    } else if (integer > defSchemeList.get(j).getDefSchemeUpper()) {
+                        aLong = defSchemeList.get(j).getDefSchemeUpper();
+                    } else {
+                        aLong = integer;
+                    }
+                    insuredLog.setInsLogSocialNumber(insuredPayment.getSocialNumber());
+                    //社保公司缴费
+                    insuredDetail.setInsDetailSocialFirmPay(
+                            insuredDetail.getInsDetailSocialFirmPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemeFirmProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemeFirmSum()
+                    );
+                    //社保个人缴费
+                    insuredDetail.setInsDetailSocialPersonPay(
+                            insuredDetail.getInsDetailSocialPersonPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemePersonProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemePersonSum()
+                    );
+                } else if (defSchemeList.get(j).getDefSchemeType().equals("医疗保险")) {
+                    Double integer = 0.0;
+                    Double aLong = 0.0;
+                    //判断基数多少
+                    if (insuredPayment.getSocialNumber() < defSchemeList.get(j).getDefSchemeMin()) {
+                        integer = defSchemeList.get(j).getDefSchemeMin();
+                    } else if (insuredPayment.getSocialNumber() > defSchemeList.get(j).getDefSchemeMax()) {
+                        integer = defSchemeList.get(j).getDefSchemeMax();
+                    } else {
+                        integer = insuredPayment.getSocialNumber();
+                    }
+                    //判断基数上下限
+                    if (integer < defSchemeList.get(j).getDefSchemeFloor()) {
+                        aLong = defSchemeList.get(j).getDefSchemeFloor();
+                    } else if (integer > defSchemeList.get(j).getDefSchemeUpper()) {
+                        aLong = defSchemeList.get(j).getDefSchemeUpper();
+                    } else {
+                        aLong = integer;
+                    }
+                    insuredLog.setInsLogSocialNumber(insuredPayment.getSocialNumber());
+                    //社保公司缴费
+                    insuredDetail.setInsDetailSocialFirmPay(
+                            insuredDetail.getInsDetailSocialFirmPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemeFirmProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemeFirmSum()
+                    );
+                    //社保个人缴费
+                    insuredDetail.setInsDetailSocialPersonPay(
+                            insuredDetail.getInsDetailSocialPersonPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemePersonProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemePersonSum()
+                    );
+                } else if (defSchemeList.get(j).getDefSchemeType().equals("公积金")) {
+                    Double integer = 0.0;
+                    Double aLong = 0.0;
+                    //判断基数多少
+                    if (insuredPayment.getFundNumber() < defSchemeList.get(j).getDefSchemeMin()) {
+                        integer = defSchemeList.get(j).getDefSchemeMin();
+                    } else if (insuredPayment.getFundNumber() > defSchemeList.get(j).getDefSchemeMax()) {
+                        integer = defSchemeList.get(j).getDefSchemeMax();
+                    } else {
+                        integer = insuredPayment.getFundNumber();
+                    }
+                    //判断基数上下限
+                    if (integer < defSchemeList.get(j).getDefSchemeFloor()) {
+                        aLong = defSchemeList.get(j).getDefSchemeFloor();
+                    } else if (integer > defSchemeList.get(j).getDefSchemeUpper()) {
+                        aLong = defSchemeList.get(j).getDefSchemeUpper();
+                    } else {
+                        aLong = integer;
+                    }
+                    insuredLog.setInsLogFundNumber(insuredPayment.getFundNumber());
+                    //积金公司缴费
+                    insuredDetail.setInsDetailFundFirmPay(
+                            insuredDetail.getInsDetailFundFirmPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemeFirmProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemeFirmSum()
+                    );
+                    //积金个人缴费
+                    insuredDetail.setInsDetailFundPersonPay(
+                            insuredDetail.getInsDetailFundPersonPay() +
+                                    aLong * (defSchemeList.get(j).getDefSchemePersonProp() / 100) +
+                                    defSchemeList.get(j).getDefSchemePersonSum()
+                    );
                 }
             }
             //四舍五入
             //社保
-            insuredDetail.setInsDetailSocialFirmPay((double)Math.round(insuredDetail.getInsDetailSocialFirmPay()*100)/100);
-            insuredDetail.setInsDetailSocialPersonPay((double)Math.round(insuredDetail.getInsDetailSocialPersonPay()*100)/100);
+            insuredDetail.setInsDetailSocialFirmPay((double) Math.round(insuredDetail.getInsDetailSocialFirmPay() * 100) / 100);
+            insuredDetail.setInsDetailSocialPersonPay((double) Math.round(insuredDetail.getInsDetailSocialPersonPay() * 100) / 100);
             //积金
-            insuredDetail.setInsDetailFundFirmPay((double)Math.round(insuredDetail.getInsDetailFundFirmPay()*100)/100);
-            insuredDetail.setInsDetailFundPersonPay((double)Math.round(insuredDetail.getInsDetailFundPersonPay()*100)/100);
-            if (insuredDetailMapper.insert(insuredDetail)<=0){
+            insuredDetail.setInsDetailFundFirmPay((double) Math.round(insuredDetail.getInsDetailFundFirmPay() * 100) / 100);
+            insuredDetail.setInsDetailFundPersonPay((double) Math.round(insuredDetail.getInsDetailFundPersonPay() * 100) / 100);
+            if (insuredDetailMapper.insert(insuredDetail) <= 0) {
                 return "提交失败";
             }
-
+            insuredLog.setInsLogSocialInsuredMonth(insuredPayment.getInMonth());
+            insuredLog.setInsLogSocialSalaryMonth(insuredPayment.getTime());
+            insuredLog.setInsLogFundInsuredMonth(insuredPayment.getInMonth());
+            insuredLog.setInsLogFundSalaryMonth(insuredPayment.getInMonth());
             //添加参保缴纳表
             InsuredPayment insuredPayment1 = new InsuredPayment();
             insuredPayment1.setStaffId(Long.valueOf(staffList.get(i).getStaffId()));
@@ -365,10 +508,24 @@ public class DefInsuredServiceImpl implements DefInsuredService {
             insuredPayment1.setInsuredPaymentFundNumber(insuredPayment.getFundNumber());
             insuredPayment1.setInsuredPaymentInsuredMonth(insuredPayment.getInMonth());
             insuredPayment1.setInsuredPaymentSalaryMonth(insuredPayment.getTime());
-            if (insuredPaymentMapper.insert(insuredPayment1)<=0){
+            if (insuredPaymentMapper.insert(insuredPayment1) <= 0) {
+                return "提交失败";
+            }
+            //参保日志
+            insuredLog.setInsLogUpdateObject(map.get("staffName").toString());
+            insuredLog.setInsLogInsuredName(defInsured.getDefInsuredName());
+            insuredLog.setInsLogExplain("提交社保公积金");
+            insuredLog.setInsLogColor("rgb(49, 222, 0)");
+            if (insuredLogMapper.insert(insuredLog) <= 0) {
+                return "提交失败";
+            }
+            //修改参保方案的人数
+            defInsured.setDefInsuredNumber(defInsured.getDefInsuredNumber() + 1);
+            if (defInsuredMapper.updateById(defInsured) <= 0) {
                 return "提交失败";
             }
         }
+
         return "成功";
     }
 }

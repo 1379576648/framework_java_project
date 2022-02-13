@@ -31,13 +31,41 @@
         b.DEPT_ID as  b_DEPT_ID,
         b.DEPT_NAME as b_DEPT_NAME,
         c.DEPT_POST_ID as c_DEPT_POST_ID,
-        c.POST_NAME as c_POST_NAME
+        c.POST_NAME as c_POST_NAME,
+d.INS_ARCHIVE_INSURED_MONTH as d_INS_ARCHIVE_INSURED_MONTH,
+e.INSURED_PAYMENT_SALARY_MONTH as e_INSURED_PAYMENT_SALARY_MONTH
+    </sql>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List2">
+        a_STAFF_ID,
+         a_STAFF_NAME,
+         a_STAFF_PHONE,
+         a_CREATED_TIME,
+         a_STAFF_STATE,
+         a_WORKER_DATE,
+        b_DEPT_ID,
+        b_DEPT_NAME,
+         c_DEPT_POST_ID,
+         c_POST_NAME,
+ d_INS_ARCHIVE_INSURED_MONTH,
+e_INSURED_PAYMENT_SALARY_MONTH
     </sql>
 
     <select id="pageStaff" resultMap="BaseResultMap">
-        select <include refid="Base_Column_List"/>
-        from STAFF a left join DEPT b  on a.DEPT_ID=b.DEPT_ID
-        left join  DEPT_POST c on a.DEPT_POST_ID=c.DEPT_POST_ID
-        left join INSURED_SCHEME e on e.STAFF_ID=a.STAFF_ID  ${ew.customSqlSegment}
+        select
+        <include refid="Base_Column_List2"/>
+        from ( select
+        <include refid="Base_Column_List"/>
+        from STAFF a left join DEPT b on a.DEPT_ID=b.DEPT_ID
+        left join DEPT_POST c on a.DEPT_POST_ID=c.DEPT_POST_ID
+        left join (SELECT STAFF_ID, INSURED_PAYMENT_INSURED_MONTH, INSURED_PAYMENT_SALARY_MONTH FROM INSURED_PAYMENT  WHERE to_char(INSURED_PAYMENT_INSURED_MONTH, 'YYYY-MM') = to_char(sysdate, 'YYYY-MM') ) e on e.STAFF_ID=a.STAFF_ID
+        left join (select * from INSURED_ARCHIVE  WHERE to_char(INS_ARCHIVE_INSURED_MONTH, 'YYYY-MM') = to_char(sysdate, 'YYYY-MM') ) d ON d.INS_ARCHIVE_STAFF_NAME = a.STAFF_NAME
+        where to_char(d.INS_ARCHIVE_INSURED_MONTH,'YYYY-MM') != to_char(sysdate, 'YYYY-MM')
+           and a.STAFF_STATE=1
+           and a.IS_DELETED=0
+           or d.INS_ARCHIVE_INSURED_MONTH is null
+              order by  a.CREATED_TIME desc)
+          ${ew.customSqlSegment}
     </select>
 </mapper>

@@ -35,7 +35,11 @@ public class AjaxResponse {
             resultBean.setMessage("未能找到所请求的资源！");
         } else if (e.getCode() == CustomErrorType.ACCOUNT_ERROR.getCode()) {
             resultBean.setMessage(e.getMessage());
-        } else {
+        }  else if (e.getCode() == CustomErrorType.SIGNATURE_ERROR.getCode()) {
+            resultBean.setMessage(e.getMessage());
+        } else if (e.getCode() == CustomErrorType.OTHER_ERROR.getCode()) {
+            resultBean.setMessage(e.getMessage());
+        }else {
             resultBean.setMessage("系统出现未知异常，请联系管理员电话!");
         }
         return resultBean;

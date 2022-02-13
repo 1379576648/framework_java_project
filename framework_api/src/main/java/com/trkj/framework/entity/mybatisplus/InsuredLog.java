@@ -27,7 +27,7 @@ import java.util.Date;
 /***
  * value=自增序列名 clazz=实体类的数据类型
  */
-@KeySequence(value = "INS_LOG_ID",clazz = Integer.class)
+@KeySequence(value = "INSURED_LOG_ID",clazz = Integer.class)
 public class InsuredLog implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -54,27 +54,35 @@ public class InsuredLog implements Serializable {
 
     @ApiModelProperty(value = "社保基数")
     @TableField("INS_LOG_SOCIAL_NUMBER")
-    private Long insLogSocialNumber;
+    private Double insLogSocialNumber;
 
     @ApiModelProperty(value = "社保参保月份 精确到年月")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     @TableField("INS_LOG_SOCIAL_INSURED_MONTH")
     private Date insLogSocialInsuredMonth;
 
     @ApiModelProperty(value = "社保计薪月份  精确到年月")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     @TableField("INS_LOG_SOCIAL_SALARY_MONTH")
     private Date insLogSocialSalaryMonth;
 
     @ApiModelProperty(value = "积金基数")
     @TableField("INS_LOG_FUND_NUMBER")
-    private Long insLogFundNumber;
+    private Double insLogFundNumber;
 
     @ApiModelProperty(value = "积金参保月份 精确到年月")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     @TableField("INS_LOG_FUND_INSURED_MONTH")
     private Date insLogFundInsuredMonth;
 
     @ApiModelProperty(value = "积金计薪月份 精确到年月")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     @TableField("INS_LOG_FUND_SALARY_MONTH")
     private Date insLogFundSalaryMonth;
+
+    @ApiModelProperty(value = "颜色")
+    @TableField("INS_LOG_COLOR")
+    private String insLogColor;
 
     @ApiModelProperty(value = "创建时间 精确到秒")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")

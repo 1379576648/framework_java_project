@@ -54,16 +54,20 @@ public class Dept implements Serializable {
     @TableField(exist = false)
     private Integer pagesize;
 
+
     @ApiModelProperty(value = "创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
     @TableField("REVISION")
+    @Version
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")

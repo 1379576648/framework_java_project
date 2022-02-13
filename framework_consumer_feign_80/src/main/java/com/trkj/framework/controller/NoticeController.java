@@ -3,7 +3,9 @@ package com.trkj.framework.controller;
 import com.trkj.framework.entity.mybatisplus.Notice;
 import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.service.client.system.SystemClinetService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
+import io.swagger.annotations.ApiOperation;
 import io.swagger.models.auth.In;
 import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +22,9 @@ import java.util.Map;
 @RequestMapping("/notice")
 public class NoticeController {
     @Autowired
-        private SystemClinetService systemClinetService =null;
+    private SystemClinetService systemClinetService = null;
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
 
     /***
      * 分页查询所有公告数据
@@ -28,8 +32,10 @@ public class NoticeController {
      * @return
      */
     @PostMapping("/selectNoticeAll")
-    public AjaxResponse selectNoticeAll(@RequestBody Notice notice){
-        return AjaxResponse.success(systemClinetService.selectNoticeAll(notice)) ;
+    @ApiOperation(value = "分页查询所有公告数据", notes = "系统模块", httpMethod = "POST", nickname = "查询", produces = "/selectNoticeAll")
+    public AjaxResponse selectNoticeAll(@RequestBody Notice notice) {
+        Map<String, Object> map = (Map<String, Object>) systemClinetService.selectNoticeAll(notice);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /***
@@ -38,8 +44,10 @@ public class NoticeController {
      * @return
      */
     @DeleteMapping("/checkNoticeDelete")
-    public AjaxResponse checkNoticeDelete(@RequestBody ArrayList<Integer> list){
-        return AjaxResponse.success(systemClinetService.checkNoticeDelete(list));
+    @ApiOperation(value = "复选删除公告列表", notes = "系统模块", httpMethod = "DELETE", nickname = "删除", produces = "/checkNoticeDelete")
+    public AjaxResponse checkNoticeDelete(@RequestBody ArrayList<Integer> list) {
+        Map<String, Object> map = (Map<String, Object>) systemClinetService.checkNoticeDelete(list);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /***
@@ -47,8 +55,10 @@ public class NoticeController {
      * @return
      */
     @GetMapping("/selectDeptList")
-    public  AjaxResponse selectDeptList(){
-        return AjaxResponse.success(systemClinetService.selectDeptList());
+    @ApiOperation(value = "查询所有的部门列表", notes = "系统模块", httpMethod = "GET", nickname = "查询", produces = "/selectDeptList")
+    public AjaxResponse selectDeptList() {
+        Map<String, Object> map = (Map<String, Object>) systemClinetService.selectDeptList();
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /***
@@ -57,8 +67,10 @@ public class NoticeController {
      * @return
      */
     @PostMapping("/insertNotice")
-    public AjaxResponse insertNotice(@RequestBody Notice notice){
-        return AjaxResponse.success(systemClinetService.insertNotice(notice));
+    @ApiOperation(value = "新增公告", notes = "系统模块", httpMethod = "POST", nickname = "添加", produces = "/insertNotice")
+    public AjaxResponse insertNotice(@RequestBody Notice notice) {
+        Map<String, Object> map = (Map<String, Object>) systemClinetService.insertNotice(notice);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /***
@@ -67,8 +79,10 @@ public class NoticeController {
      * @return
      */
     @GetMapping("/selectPossessDeptList")
-    public AjaxResponse selectPossessDeptList(@RequestParam("id") Integer id){
-        return AjaxResponse.success(systemClinetService.selectPossessDeptList(id));
+    @ApiOperation(value = "修改社保方案状态", notes = "系统模块", httpMethod = "GET", nickname = "查询", produces = "/selectPossessDeptList")
+    public AjaxResponse selectPossessDeptList(@RequestParam("id") Integer id) {
+        Map<String, Object> map = (Map<String, Object>) systemClinetService.selectPossessDeptList(id);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /***
@@ -77,8 +91,10 @@ public class NoticeController {
      * @return
      */
     @PutMapping("/updateNotice")
-    public AjaxResponse updateNotice(@RequestBody Notice notice){
-       return AjaxResponse.success(systemClinetService.updateNotice(notice));
+    @ApiOperation(value = "修改公告", notes = "系统模块", httpMethod = "PUT", nickname = "修改", produces = "/updateNotice")
+    public AjaxResponse updateNotice(@RequestBody Notice notice) {
+        Map<String, Object> map = (Map<String, Object>) systemClinetService.updateNotice(notice);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /***
@@ -87,17 +103,22 @@ public class NoticeController {
      * @return
      */
     @GetMapping("/peropleNoticeViewed")
-    public AjaxResponse peropleNoticeViewed(@RequestParam("id") Integer id){
-        return AjaxResponse.success(systemClinetService.peropleNoticeViewed(id));
+    @ApiOperation(value = "查询已看公告人员", notes = "系统模块", httpMethod = "GET", nickname = "查询", produces = "/peropleNoticeViewed")
+    public AjaxResponse peropleNoticeViewed(@RequestParam("id") Integer id) {
+        Map<String, Object> map = (Map<String, Object>) systemClinetService.peropleNoticeViewed(id);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 未看公告人员
+     *
      * @param id
      * @return
      */
     @GetMapping("/unseenNoticePerson")
-    public AjaxResponse unseenNoticePerson(@RequestParam("id") Integer id){
-        return AjaxResponse.success(systemClinetService.unseenNoticePerson(id));
+    @ApiOperation(value = "查询未看公告人员", notes = "系统模块", httpMethod = "GET", nickname = "查询", produces = "/unseenNoticePerson")
+    public AjaxResponse unseenNoticePerson(@RequestParam("id") Integer id) {
+        Map<String, Object> map = (Map<String, Object>) systemClinetService.unseenNoticePerson(id);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

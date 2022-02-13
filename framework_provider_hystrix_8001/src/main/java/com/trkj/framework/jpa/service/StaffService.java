@@ -1,10 +1,10 @@
 package com.trkj.framework.jpa.service;
 
-import com.trkj.framework.entity.jpa.RegisterLogEntity;
+import com.trkj.framework.entity.jpa.DeptPostEntity;
 import com.trkj.framework.entity.jpa.StaffEntity;
-import com.trkj.framework.entity.mybatisplus.Staff;
 
 import java.util.Map;
+import java.util.Optional;
 
 /**
  * @author 13795
@@ -31,4 +31,10 @@ public interface StaffService {
      */
     public Object  menuList(Integer id);
 
+    /***
+     * 通过员工编号查询职位名称
+     * @param integer
+     * @return
+     */
+    public String selectPostName(Integer integer);
 }
