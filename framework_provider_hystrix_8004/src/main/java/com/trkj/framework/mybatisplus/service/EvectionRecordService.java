@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trkj.framework.entity.mybatisplus.Leave;
 import com.trkj.framework.entity.mybatisplus.Travel;
 
 public interface EvectionRecordService {
@@ -18,4 +19,18 @@ public interface EvectionRecordService {
      * @return
      */
     Integer deleteEvection(Travel travel);
+
+    /**
+     * 开始请假
+     * @param travel
+     * @return
+     */
+    String updateBeginTravel(Travel travel);
+
+    /**
+     * 结束请假
+     * @param travel
+     * @return
+     */
+    String updateEndTravel(Travel travel);
 }

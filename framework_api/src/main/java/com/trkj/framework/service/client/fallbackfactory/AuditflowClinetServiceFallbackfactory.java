@@ -180,6 +180,14 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
+            public Object selectStaffing() {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
             public Object SubmitPositive3(WorkerVo workerVo) {
                 return AjaxResponse.success(fuseUtil.main(throwable));
             }

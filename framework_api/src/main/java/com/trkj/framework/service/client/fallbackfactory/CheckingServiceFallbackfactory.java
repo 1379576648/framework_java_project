@@ -83,6 +83,22 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
+            public Object updateBeginLeave(Leave leave) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateEndLeave(Leave leave) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
             public Object selectEvectionRecordAll(Travel travel) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
@@ -92,6 +108,22 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object deleteEvection(Travel travel) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateBeginTravel(Travel travel) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateEndTravel(Travel travel) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -187,7 +219,7 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Object importCard(String name,MultipartFile file) {
+            public Object importCardRecord(String name,MultipartFile file) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

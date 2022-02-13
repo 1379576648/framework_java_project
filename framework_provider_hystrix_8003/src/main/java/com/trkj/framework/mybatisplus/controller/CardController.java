@@ -95,12 +95,13 @@ public class CardController {
 
     /**
      * 根据员工名称是否有补打卡记录
+     *
      * @param
      * @return
      */
     @PostMapping("/selectCardExamine")
     @HystrixCommand(fallbackMethod = "selectCardExamineHystixGet")
-    public Object selectCardExamine(@RequestBody CardDetailsVo cardDetailsVo){
+    public Object selectCardExamine(@RequestBody CardDetailsVo cardDetailsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", cardService.selectCardExamine(cardDetailsVo));
@@ -117,32 +118,57 @@ public class CardController {
 
     /**
      * 添加补打卡 添加三个审批人
+     *
      * @param cardVo
      * @return
      */
     @PostMapping("/submitToCard3")
-    public int submitToCard3(@RequestBody CardVo cardVo){
-        return  cardService.submitToCard3(cardVo);
+    @HystrixCommand(fallbackMethod = "submitToCard3ExamineHystixGet")
+    public Object submitToCard3(@RequestBody CardVo cardVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", cardService.submitToCard3(cardVo));
+        return map1;
+    }
+
+    public Object submitToCard3ExamineHystixGet(@RequestBody CardVo cardVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
     /**
      * 添加补打卡 添加两个审批人
+     *
      * @param cardVo
      * @return
      */
     @PostMapping("/submitToCard2")
-    public int submitToCard2(@RequestBody CardVo cardVo){
-        return  cardService.submitToCard2(cardVo);
+    @HystrixCommand(fallbackMethod = "submitToCard2ExamineHystixGet")
+    public Object submitToCard2(@RequestBody CardVo cardVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", cardService.submitToCard2(cardVo));
+        return map1;
+    }
+
+    public Object submitToCard2ExamineHystixGet(@RequestBody CardVo cardVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
     /**
      * 添加补打卡 添加一个审批人
+     *
      * @param cardVo
      * @return
      */
     @PostMapping("/submitToCard1")
     @HystrixCommand(fallbackMethod = "submitToCard1ExamineHystixGet")
-    public Object submitToCard1(@RequestBody CardVo cardVo){
+    public Object submitToCard1(@RequestBody CardVo cardVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", cardService.submitToCard1(cardVo));

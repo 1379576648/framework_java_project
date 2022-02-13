@@ -94,45 +94,79 @@ public class LeaveController {
 
     /**
      * 根据员工名称及请假类型是否有请假记录
+     *
      * @param
      * @return
      */
     @PostMapping("/selectLeaveExamine")
-    public Object selectLeaveExamine(@RequestBody LeaveDetailsVo leaveDetailsVo){
+    @HystrixCommand(fallbackMethod = "selectLeaveExamineHystixGet")
+    public Object selectLeaveExamine(@RequestBody LeaveDetailsVo leaveDetailsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", leaveService.selectLeaveExamine(leaveDetailsVo));
         return map1;
     }
 
+    public Object selectLeaveExamineHystixGet(@RequestBody LeaveDetailsVo leaveDetailsVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
+    }
+
     /**
      * 添加请假 添加三个审批人
+     *
      * @param leaveVo
      * @return
      */
     @PostMapping("/submitToAskForLeave3")
-    public int submitToAskForLeave3(@RequestBody LeaveVo leaveVo){
-        return  leaveService.submitToAskForLeave3(leaveVo);
+    @HystrixCommand(fallbackMethod = "submitToAskForLeave3ExamineHystixGet")
+    public Object submitToAskForLeave3(@RequestBody LeaveVo leaveVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", leaveService.submitToAskForLeave3(leaveVo));
+        return map1;
+    }
+
+    public Object submitToAskForLeave3ExamineHystixGet(@RequestBody LeaveVo leaveVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
     /**
      * 添加请假 添加两个审批人
+     *
      * @param leaveVo
      * @return
      */
     @PostMapping("/submitToAskForLeave2")
-    public int submitToAskForLeave2(@RequestBody LeaveVo leaveVo){
-        return  leaveService.submitToAskForLeave2(leaveVo);
+    @HystrixCommand(fallbackMethod = "submitToAskForLeave2ExamineHystixGet")
+    public Object submitToAskForLeave2(@RequestBody LeaveVo leaveVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", leaveService.submitToAskForLeave2(leaveVo));
+        return map1;
+    }
+
+    public Object submitToAskForLeave2ExamineHystixGet(@RequestBody LeaveVo leaveVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 300);
+        map1.put("info", "服务发生雪崩");
+        return map1;
     }
 
     /**
      * 添加请假 添加一个审批人
+     *
      * @param leaveVo
      * @return
      */
     @PostMapping("/submitToAskForLeave1")
     @HystrixCommand(fallbackMethod = "submitToAskForLeave1ExamineHystixGet")
-    public Object submitToAskForLeave1(@RequestBody LeaveVo leaveVo){
+    public Object submitToAskForLeave1(@RequestBody LeaveVo leaveVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", leaveService.submitToAskForLeave1(leaveVo));

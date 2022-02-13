@@ -5,9 +5,12 @@ import com.trkj.framework.entity.mybatisplus.Overtimeask;
 import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 @RestController
 public class OverTimeController {
@@ -25,7 +28,7 @@ public class OverTimeController {
     }
 
     /**
-     * 删除打卡记录
+     * 删除加班记录
      * @param overtimeask
      * @return
      */
@@ -53,4 +56,5 @@ public class OverTimeController {
     public AjaxResponse updateEndOverTime(@RequestBody Overtimeask overtimeask) {
         return AjaxResponse.success(checkingService.updateEndOverTime(overtimeask));
     }
+
 }

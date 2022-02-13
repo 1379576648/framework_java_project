@@ -15,6 +15,7 @@ import java.util.Map;
 
 /**
  * 补打卡记录 前端控制器
+ *
  * @author 112729
  */
 @RestController
@@ -24,6 +25,7 @@ public class ReissueCardRecordController {
 
     /**
      * 根据员工名称查询出补打卡记录
+     *
      * @param card
      * @return
      */
@@ -36,6 +38,7 @@ public class ReissueCardRecordController {
         map1.put("info", reissueCardRecordService.selectReissueCardRecordAll(card));
         return map1;
     }
+
     public Object selectReissueCardRecordAllHystixGet(@RequestBody Card card) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 300);
@@ -45,6 +48,7 @@ public class ReissueCardRecordController {
 
     /**
      * 删除补打卡记录
+     *
      * @param card
      * @return
      */
@@ -57,6 +61,7 @@ public class ReissueCardRecordController {
         map1.put("info", reissueCardRecordService.deleteCard(card));
         return map1;
     }
+
     public Object deleteCardHystixGet(@RequestBody Card card) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 300);

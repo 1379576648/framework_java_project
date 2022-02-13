@@ -28,7 +28,12 @@ public interface CardRecordService {
      */
     Integer deleteClock(ClockRecord clockRecord);
 
-    Integer importCard(List<ClockRecord> list);
+    /**
+     * 导入打卡记录
+     * @param list
+     * @return
+     */
+    Integer importCardRecord(List<ClockRecord> list);
 
     /**
      * 获取Excel表中的数据去数据库中查有无相同数据

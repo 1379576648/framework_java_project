@@ -77,6 +77,15 @@ public class WorkerController {
     }
 
     /**
+     * 查询人事经理
+     * @return
+     */
+    @PostMapping("/selectStaffing")
+    public AjaxResponse selectStaffing(){
+        return AjaxResponse.success(auditflowService.selectStaffing());
+    }
+
+    /**
      * 添加转正 三个审批人
      * @param workerVo
      * @return

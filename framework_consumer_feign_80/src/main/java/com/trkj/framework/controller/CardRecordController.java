@@ -65,8 +65,8 @@ public class CardRecordController {
      * @param file
      * @return
      */
-    @PostMapping(value="/import/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxResponse importCard(@PathVariable("name") String name, MultipartFile file) {
-        return AjaxResponse.success(checkingService.importCard(name,file));
+    @PostMapping(value="/importCardRecord/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public AjaxResponse importCardRecord(@PathVariable("name") String name, MultipartFile file) {
+        return AjaxResponse.success(checkingService.importCardRecord(name,file));
     }
 }
