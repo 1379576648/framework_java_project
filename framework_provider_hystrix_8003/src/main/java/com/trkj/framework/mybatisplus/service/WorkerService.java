@@ -59,6 +59,12 @@ public interface WorkerService {
     List<DeptPostVo>selectpresident();
 
     /**
+     * 查询人事经理
+     * @return
+     */
+    List<DeptPostVo>selectStaffing();
+
+    /**
      * 添加转正 添加三个审批人
      * @param workerVo
      * @return

@@ -1,17 +1,14 @@
 package com.trkj.framework.jpa.service.ImpI;
 
-import ch.qos.logback.core.joran.action.AppenderRefAction;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.trkj.framework.entity.jpa.*;
-import com.trkj.framework.entity.mybatisplus.MenuPower;
 import com.trkj.framework.jpa.dao.*;
 import com.trkj.framework.jpa.service.StaffService;
 import com.trkj.framework.util.MenuChild;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -34,6 +31,12 @@ public class StaffServiceImpl implements StaffService {
     private MenuPowerDao menuPowerDao;
     @Autowired
     private MenuChild getChild;
+    @Autowired
+    private DeptPostDao deptPostDao;
+
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     /***
      * 通过id查询用户信息
      * @param map
@@ -42,7 +45,18 @@ public class StaffServiceImpl implements StaffService {
     @Override
     @Transactional
     public StaffEntity staffId(Map<String, Object> map) {
-        StaffEntity staffEntity = staffDao.selectId(Integer.parseInt(map.get("成功").toString()));
+        //查询缓存数据
+        Set set = redisTemplate.keys("Staff*staffId=" + Integer.parseInt(map.get("成功").toString()) + ",*");
+        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
+        StaffEntity staffEntity = new StaffEntity();
+        if (o == null || o.equals("")) {
+            //查询数据库数据
+            staffEntity = staffDao.selectId(Integer.parseInt(map.get("成功").toString()));
+            //存在缓存
+            redisTemplate.opsForValue().set("Staff:" + staffEntity.toString(), staffEntity);
+        } else {
+            staffEntity = (StaffEntity) o;
+        }
         if (staffEntity != null) {
             RegisterLogEntity registerLog = new RegisterLogEntity();
             //登录类型
@@ -68,6 +82,7 @@ public class StaffServiceImpl implements StaffService {
             //乐观锁
             registerLog.setRevision(1);
             registerLogDao.save(registerLog);
+            redisTemplate.opsForValue().set("RegisterLog:" + registerLog.toString(), registerLog);
         }
         return staffEntity;
     }
@@ -83,13 +98,33 @@ public class StaffServiceImpl implements StaffService {
         StaffEntity entity = new StaffEntity();
         //系统当前时间
         Date date = new Date();
-        List<RegisterLogEntity> registerLogEntities = registerLogDao.selectRegisterNumber(Long.decode(map.get("phone").toString()));
+        List<RegisterLogEntity> registerLogEntities = new ArrayList<>();
+        //查询缓存
+        Set set  = redisTemplate.keys("RegisterLogList:*registerLogPhone=" + Long.decode(map.get("phone").toString()) + ",*");
+        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
+        if (o == null || o.equals("")) {
+            //查询数据库
+            registerLogEntities = registerLogDao.selectRegisterNumber(Long.decode(map.get("phone").toString()));
+            redisTemplate.opsForValue().set("RegisterLogList:" + registerLogEntities.toString(), registerLogEntities);
+        } else {
+            registerLogEntities = (List<RegisterLogEntity>) o;
+        }
         if (registerLogEntities.size() >= 3) {
             //返回需要等待的时间
             entity.setError(30 - (date.getTime() - registerLogEntities.get(0).getCreatedTime().getTime()) / (1000 * 60));
             return entity;
         } else {
-            StaffEntity staffEntity = staffDao.findStaffByPhoneAndPass(Long.decode(map.get("phone").toString()), map.get("pass").toString());
+            StaffEntity staffEntity = new StaffEntity();
+            //查询缓存
+            Set set1 = redisTemplate.keys("Staff:*staffPhone=" + Long.decode(map.get("phone").toString()) + "*staffPass=" + map.get("pass").toString() + ",*");
+            Object o1 = redisTemplate.opsForValue().get(!set1.isEmpty()?set1.toArray()[0].toString():"");
+            if (o1 == null || o1.equals("")) {
+                //查询数据库
+                staffEntity = staffDao.findStaffByPhoneAndPass(Long.decode(map.get("phone").toString()), map.get("pass").toString());
+                redisTemplate.opsForValue().set("Staff:" + staffEntity.toString(), staffEntity);
+            } else {
+                staffEntity = (StaffEntity) o1;
+            }
             RegisterLogEntity registerLog = new RegisterLogEntity();
             //登录类型
             registerLog.setRegisterLogGenre(1);
@@ -120,9 +155,11 @@ public class StaffServiceImpl implements StaffService {
             //乐观锁
             registerLog.setRevision(1);
             registerLogDao.save(registerLog);
+            redisTemplate.opsForValue().set("RegisterLog:" + registerLog.toString(), registerLog);
             return staffEntity;
         }
     }
+
     /***
      *  查询用户角色下菜单列表
      * @return
@@ -130,26 +167,55 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Object menuList(Integer id) {
         //获取用户下所有的角色列表
-        List<RoleStaffEntity> roleStaffEntities = roleStaffDao.selectRoleStaff(id);
+        Set set  = redisTemplate.keys("RoleStaffList:*roleStaffId" + id + ",*");
+        //查询缓存
+        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
+        List<RoleStaffEntity> roleStaffEntities = new ArrayList<>();
+        if (o == null || o.equals("")) {
+            //查询数据库
+            roleStaffEntities = roleStaffDao.selectRoleStaff(id);
+            redisTemplate.opsForValue().set("RoleStaffList:" + roleStaffEntities.toString(), roleStaffEntities);
+        } else {
+            roleStaffEntities = (List<RoleStaffEntity>) o;
+        }
         //储藏所有角色下的菜单列表 没有去重
         List<MenuPowerEntity> menuPowerEntities = new ArrayList<>();
         //迭代角色列表
         for (RoleStaffEntity roleStaffEntity : roleStaffEntities) {
             //获取所有角色下的菜单编号列表
-            List<RoleMenuPowerEntity> roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
+            List<RoleMenuPowerEntity> roleMenuPowerEntities = new ArrayList<>();
+            //查询缓存
+            Set set1 = redisTemplate.keys("RoleMenuPowerList:*roleId=" + roleStaffEntity.getRoleId() + ",*");
+            Object o1 = redisTemplate.opsForValue().get(!set1.isEmpty()?set1.toArray()[0].toString():"");
+            if (o1 == null || o1.equals("")) {
+                //查询数据库
+                roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
+                redisTemplate.opsForValue().set("RoleMenuPowerList:" + roleMenuPowerEntities.toString(), roleMenuPowerEntities);
+            } else {
+                roleMenuPowerEntities = (List<RoleMenuPowerEntity>) o1;
+            }
             //迭代菜单编号列表
             for (RoleMenuPowerEntity roleMenuPowerEntity : roleMenuPowerEntities) {
-                System.out.println(roleMenuPowerEntity);
                 //通过菜单编号查询菜单
-                MenuPowerEntity menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
-                System.out.println(menuPower);
+                MenuPowerEntity menuPower = new MenuPowerEntity();
+                //查询缓存
+                System.out.println( roleMenuPowerEntity.getMenuPowerId() +"周刘奇");
+                Set set2 = redisTemplate.keys("MenuPower:*menuPowerId=" + roleMenuPowerEntity.getMenuPowerId() + ",*");
+                Object o2 = redisTemplate.opsForValue().get(!set2.isEmpty()?set2.toArray()[0].toString():"");
+                if (o2 == null || o2.equals("")) {
+                    //查询数据库
+                    menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
+                    redisTemplate.opsForValue().set("MenuPower:" + menuPower.toString(), menuPower);
+                } else {
+                    menuPower = (MenuPowerEntity) o2;
+                }
                 //将查询的菜单列表添加到集合中
                 if (menuPower != null) {
                     menuPowerEntities.add(menuPower);
                 }
             }
         }
-
+        System.out.println(menuPowerEntities.toString());
         //储藏所有角色下的菜单列表 去重
         List<MenuPowerEntity> menuPowerEntities1 = menuPowerEntities.stream().distinct().collect(Collectors.toList());
         //排序
@@ -158,9 +224,8 @@ public class StaffServiceImpl implements StaffService {
         List<MenuPowerEntity> menuPowerEntities2 = new ArrayList<>();
         //循环菜单列表找出根节点
         for (MenuPowerEntity menuPower : menuPowerEntities1) {
-            System.out.println(menuPower.toString());
             //如果父级菜单为0 菜单类型为菜单 状态为启用
-            if (menuPower.getMenuPowerPid() == 0 && menuPower.getMenuPowerType() == 0 && menuPower.getMenuPowerState()==0) {
+            if (menuPower.getMenuPowerPid() == 0 && menuPower.getMenuPowerType() == 0 && menuPower.getMenuPowerState() == 0) {
                 menuPowerEntities2.add(menuPower);
             }
         }
@@ -172,5 +237,30 @@ public class StaffServiceImpl implements StaffService {
             nav.setChildren(childList);
         }
         return menuPowerEntities2;
+    }
+
+    /***
+     * 通过员工编号查询职位名称
+     * @param integer
+     * @return
+     */
+    @Override
+    public String selectPostName(Integer integer) {
+        //查询缓存
+        String key = "";
+        Set set = redisTemplate.keys("DeptPost:*deptPostId=" + integer + ",*");
+        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
+        DeptPostEntity deptPost = new DeptPostEntity();
+        if (o == null || o.equals("")) {
+            //查询数据库
+            deptPost = deptPostDao.findDeptPostEntityByDeptPostId(integer);
+            redisTemplate.opsForValue().set("DeptPost:" + deptPost.toString(), deptPost);
+        } else {
+            deptPost = (DeptPostEntity) o;
+        }
+        if (deptPost != null) {
+            return deptPost.getPostName();
+        }
+        return null;
     }
 }

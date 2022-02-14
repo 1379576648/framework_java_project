@@ -5,9 +5,12 @@ import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author 112729
@@ -55,5 +58,15 @@ public class CardRecordController {
     @PostMapping("/deleteCard")
     public AjaxResponse deleteCard(@RequestBody Card card) {
         return AjaxResponse.success(checkingService.deleteCard(card));
+    }
+
+    /**
+     * 导入打卡记录
+     * @param file
+     * @return
+     */
+    @PostMapping(value="/importCardRecord/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public AjaxResponse importCardRecord(@PathVariable("name") String name, MultipartFile file) {
+        return AjaxResponse.success(checkingService.importCardRecord(name,file));
     }
 }

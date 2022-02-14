@@ -8,12 +8,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Map;
+
 /**
  * @author 13795
  */
 @FeignClient(value = "FRAMEWORK-ZUUL/8003/provider", fallbackFactory = AuditflowClinetServiceFallbackfactory.class)
 public interface AuditflowService {
-
+    // 全部改成map
     /**
      * 根据审批类型的加班/审批人查询待处理的审批
      * @param
@@ -21,7 +23,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectAuditflow")
-    Object selectAuditflowoneAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectAuditflowoneAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的加班/审批人查询已处理的审批
@@ -30,7 +32,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEnddAuditflow")
-    Object selectEnddAuditflow(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectEnddAuditflow(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的加班/审批人查询待处理的审批详情信息
@@ -39,7 +41,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDetailsAuditflow")
-    Object selectDetailsAuditflow(@RequestBody AuditflowDetailsVo auditflowDetailsVo);
+    Map<String,Object> selectDetailsAuditflow(@RequestBody AuditflowDetailsVo auditflowDetailsVo);
 
     /**
      * 根据员工名称查询其状态
@@ -48,7 +50,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectStaffState")
-    Object selectStaffState(@RequestBody Staff staff);
+    Map<String,Object> selectStaffState(@RequestBody Staff staff);
 
     /**
      * 根据审批明细表修改其状态 通过
@@ -57,7 +59,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/update_Approval_State")
-    Object updateApprovalState(@RequestBody Auditflowdetail auditflowdetail);
+    Map<String,Object> updateApprovalState(@RequestBody Auditflowdetail auditflowdetail);
 
     /**
      * 根据审批明细表修改其状态 驳回
@@ -66,7 +68,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/reject_Approval_State")
-    Object rejectApprovalState(@RequestBody Auditflowdetail auditflowdetail);
+    Map<String,Object> rejectApprovalState(@RequestBody Auditflowdetail auditflowdetail);
 
     /**
      * 根据审批编号查询对应的审批明细表状态
@@ -74,7 +76,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/queryDetail")
-    Object queryDetail(@RequestBody Auditflowdetail auditflowdetail);
+    Map<String,Object> queryDetail(@RequestBody Auditflowdetail auditflowdetail);
 
     /**
      * 根据审批类型的请假/审批人查询待处理的审批
@@ -83,7 +85,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectLeaveAll")
-    Object selectLeaveAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectLeaveAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的请假/审批人查询已处理的审批
@@ -92,7 +94,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEndLeaveAll")
-    Object selectEndLeaveAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectEndLeaveAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的请假/审批人查询已处理的详情信息
@@ -101,7 +103,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDetailsLeaves")
-    Object selectDetailsLeaves(@RequestBody LeaveDetailsVo leaveDetailsVo);
+    Map<String,Object> selectDetailsLeaves(@RequestBody LeaveDetailsVo leaveDetailsVo);
 
     /**
      * 根据审批类型的出差/审批人查询待处理的审批
@@ -110,7 +112,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectTravelAll")
-    Object selectTravelAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectTravelAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的出差/审批人查询已处理的审批
@@ -119,7 +121,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEndTravelAll")
-    Object selectEndTravelAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectEndTravelAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的出差/审批人查询已处理的详情信息
@@ -128,7 +130,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDetailsTrave")
-    Object selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo);
+    Map<String,Object> selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo);
 
     /**
      * 根据审批类型的补打卡/审批人查询待处理的审批
@@ -137,7 +139,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectCardAll")
-    Object selectCardAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectCardAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的补打卡/审批人查询已处理的审批
@@ -146,7 +148,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEndCardAll")
-    Object selectEndCardAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectEndCardAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的补打卡/审批人查询已处理的详情信息
@@ -155,7 +157,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDetailsCards")
-    Object selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo);
+    Map<String,Object> selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo);
 
     /**
      * 根据审批类型的离职/审批人查询待处理的审批
@@ -164,7 +166,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectQuitAll")
-    Object selectQuitAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectQuitAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的离职/审批人查询已处理的审批
@@ -173,7 +175,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEndQuitAll")
-    Object selectEndQuitAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectEndQuitAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的离职/审批人查询已处理的详情信息
@@ -182,7 +184,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDetailsQuit")
-    Object selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo);
+    Map<String,Object> selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo);
 
     /**
      * 根据审批类型的调薪/审批人查询待处理的审批
@@ -191,7 +193,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectSalaryAll")
-    Object selectSalaryAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectSalaryAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的调薪/审批人查询已处理的审批
@@ -200,7 +202,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEndSalaryAll")
-    Object selectEndSalaryAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectEndSalaryAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的调薪/审批人查询已处理的详情信息
@@ -209,7 +211,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDetailsSalary")
-    Object selectDetailsSalary(@RequestBody SalaryDetailsVo salaryDetailsVo);
+    Map<String,Object> selectDetailsSalary(@RequestBody SalaryDetailsVo salaryDetailsVo);
 
     /**
      * 根据审批类型的调动/审批人查询待处理的审批
@@ -218,7 +220,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectTransferAll")
-    Object selectTransferAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectTransferAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的调动/审批人查询已处理的审批
@@ -227,7 +229,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEndTransferAll")
-    Object selectEndTransferAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectEndTransferAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的调动/审批人查询已处理的详情信息
@@ -236,7 +238,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDetailsTransfer")
-    Object selectDetailsTransfer(@RequestBody TransferDetailsVo transferDetailsVo);
+    Map<String,Object> selectDetailsTransfer(@RequestBody TransferDetailsVo transferDetailsVo);
 
     /**
      * 根据审批类型的转正/审批人查询待处理的审批
@@ -245,7 +247,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectWorkerlAll")
-    Object selectWorkerlAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectWorkerlAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的转正/审批人查询已处理的审批
@@ -254,7 +256,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEndWorkerlAll")
-    Object selectEndWorkerlAll(@RequestBody Auditflowone auditflowone);
+    Map<String,Object> selectEndWorkerlAll(@RequestBody Auditflowone auditflowone);
 
     /**
      * 根据审批类型的转正/审批人查询已处理的详情信息
@@ -263,7 +265,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDetailsWorker")
-    Object selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo);
+    Map<String,Object> selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo);
 
     /**
      *  点击异动查询所有部门
@@ -271,14 +273,14 @@ public interface AuditflowService {
      * @return
      */
     @GetMapping("/selectDeptList")
-    Object selectDeptAll();
+    Map<String,Object> selectDeptAll();
 
     /**
      * 根据部门编号查询其部门经理
      * @return
      */
     @PostMapping("/selectDeptPostName")
-    Object selectDeptPostName(@RequestBody DeptPostVo deptPostVo);
+    Map<String,Object> selectDeptPostName(@RequestBody DeptPostVo deptPostVo);
 
     /**
      * 根据部门编号查询部门名称
@@ -286,14 +288,21 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDeptName")
-    Object selectDeptName(@RequestBody Dept dept);
+    Map<String,Object> selectDeptName(@RequestBody Dept dept);
 
     /**
      * 查询人事经理及总裁（总经理）
      * @return
      */
     @PostMapping("/selectpresident")
-    Object selectpresident();
+    Map<String,Object> selectpresident();
+
+    /**
+     * 查询人事经理及总裁（总经理）
+     * @return
+     */
+    @PostMapping("/selectStaffing")
+    Map<String,Object> selectStaffing();
 
     /**
      * 添加转正 3个审批人
@@ -301,7 +310,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitPositive3")
-    Object SubmitPositive3(WorkerVo workerVo);
+    Map<String,Object> SubmitPositive3(WorkerVo workerVo);
 
     /**
      * 添加转正 2个审批人
@@ -309,7 +318,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitPositive2")
-    Object SubmitPositive2(WorkerVo workerVo);
+    Map<String,Object> SubmitPositive2(WorkerVo workerVo);
 
     /**
      * 添加转正 1个审批人
@@ -317,7 +326,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitPositive1")
-    Object SubmitPositive1(WorkerVo workerVo);
+    Map<String,Object> SubmitPositive1(WorkerVo workerVo);
 
     /**
      * 根据员工名称是否有转正记录
@@ -325,7 +334,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectexaminerecord")
-    Object selectexaminerecord(WorkerVo workerVo);
+    Map<String,Object> selectexaminerecord(WorkerVo workerVo);
 
     /**
      * 根据员工名称是否有异动记录
@@ -333,7 +342,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectTransferRecord")
-    Object selectTransferRecord(Transfer8003Vo transferVo);
+    Map<String,Object> selectTransferRecord(Transfer8003Vo transferVo);
 
     /**
      * 添加调动 3个审批人
@@ -341,7 +350,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitTransfer3")
-    Object SubmitTransfer3(Transfer8003Vo transferVo);
+    Map<String,Object> SubmitTransfer3(Transfer8003Vo transferVo);
 
     /**
      * 添加调动 2个审批人
@@ -349,7 +358,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitTransfer2")
-    Object SubmitTransfer2(Transfer8003Vo transferVo);
+    Map<String,Object> SubmitTransfer2(Transfer8003Vo transferVo);
 
     /**
      * 添加调动 1个审批人
@@ -357,7 +366,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitTransfer1")
-    Object SubmitTransfer1(Transfer8003Vo transferVo);
+    Map<String,Object> SubmitTransfer1(Transfer8003Vo transferVo);
 
     /**
      * 添加调动 1个审批人
@@ -365,7 +374,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDeptPost")
-    Object selectDeptPost(Staff staff);
+    Map<String,Object> selectDeptPost(Staff staff);
 
     /**
      * 根据员工名称是否有调薪记录
@@ -373,7 +382,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectSalaryRecord")
-    Object selectSalaryRecord(SalaryVo salaryVo);
+    Map<String,Object> selectSalaryRecord(SalaryVo salaryVo);
 
     /**
      * 查询基本工资
@@ -381,7 +390,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectPay")
-    Object selectPay(Fixedwagf fixedwagf);
+    Map<String,Object> selectPay(Fixedwagf fixedwagf);
 
     /**
      * 添加调薪 3个审批人
@@ -389,7 +398,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitSalary3")
-    Object SubmitSalary3(SalaryVo salaryVo);
+    Map<String,Object> SubmitSalary3(SalaryVo salaryVo);
 
     /**
      * 添加调薪 2个审批人
@@ -397,7 +406,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitSalary2")
-    Object SubmitSalary2(SalaryVo salaryVo);
+    Map<String,Object> SubmitSalary2(SalaryVo salaryVo);
 
     /**
      * 添加调薪 1个审批人
@@ -405,7 +414,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/SubmitSalary1")
-    Object SubmitSalary1(SalaryVo salaryVo);
+    Map<String,Object> SubmitSalary1(SalaryVo salaryVo);
 
     /**
      * 根据员工名称是否有离职记录
@@ -413,7 +422,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectDimissionRecord")
-    Object selectDimissionRecord(QuitDetailsVo quitDetailsVo);
+    Map<String,Object> selectDimissionRecord(QuitDetailsVo quitDetailsVo);
 
     /**
      * 添加调薪 3个审批人
@@ -421,7 +430,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToLeave3")
-    Object submitToLeave3(QuitVo quitVo);
+    Map<String,Object> submitToLeave3(QuitVo quitVo);
 
     /**
      * 添加调薪 2个审批人
@@ -429,7 +438,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToLeave2")
-    Object submitToLeave2(QuitVo quitVo);
+    Map<String,Object> submitToLeave2(QuitVo quitVo);
 
     /**
      * 添加调薪 1个审批人
@@ -437,7 +446,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToLeave1")
-    Object submitToLeave1(QuitVo quitVo);
+    Map<String,Object> submitToLeave1(QuitVo quitVo);
 
     /**
      * 根据员工名称是否有加班记录
@@ -445,7 +454,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectOvertimeExamine")
-    Object selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
+    Map<String,Object> selectOvertimeExamine(OvertimeaskVo overtimeaskVo);
 
     /**
      * 添加加班 3个审批人
@@ -453,7 +462,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToOvertime3")
-    Object submitToOvertime3(OvertimeaskVo overtimeaskVo);
+    Map<String,Object> submitToOvertime3(OvertimeaskVo overtimeaskVo);
 
     /**
      * 添加加班 2个审批人
@@ -461,7 +470,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToOvertime2")
-    Object submitToOvertime2(OvertimeaskVo overtimeaskVo);
+    Map<String,Object> submitToOvertime2(OvertimeaskVo overtimeaskVo);
 
     /**
      * 添加加班 1个审批人
@@ -469,7 +478,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToOvertime1")
-    Object submitToOvertime1(OvertimeaskVo overtimeaskVo);
+    Map<String,Object> submitToOvertime1(OvertimeaskVo overtimeaskVo);
 
     /**
      * 根据员工名称是否有补打卡记录
@@ -477,7 +486,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectCardExamine")
-    Object selectCardExamine(CardDetailsVo cardDetailsVo);
+    Map<String,Object> selectCardExamine(CardDetailsVo cardDetailsVo);
 
     /**
      * 添加补打卡 3个审批人
@@ -485,7 +494,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToCard3")
-    Object submitToCard3(CardVo cardVo);
+    Map<String,Object> submitToCard3(CardVo cardVo);
 
     /**
      * 添加补打卡 2个审批人
@@ -493,7 +502,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToCard2")
-    Object submitToCard2(CardVo cardVo);
+    Map<String,Object> submitToCard2(CardVo cardVo);
 
     /**
      * 添加补打卡 1个审批人
@@ -501,7 +510,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToCard1")
-    Object submitToCard1(CardVo cardVo);
+    Map<String,Object> submitToCard1(CardVo cardVo);
 
     /**
      * 根据员工名称是否有出差记录
@@ -509,7 +518,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectEvectionExamine")
-    Object selectEvectionExamine(TravelDetailsVo travelDetailsVo);
+    Map<String,Object> selectEvectionExamine(TravelDetailsVo travelDetailsVo);
 
     /**
      * 添加出差 3个审批人
@@ -517,7 +526,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToTravel3")
-    Object submitToTravel3(TravelVo travelVo);
+    Map<String,Object> submitToTravel3(TravelVo travelVo);
 
     /**
      * 添加出差 2个审批人
@@ -525,7 +534,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToTravel2")
-    Object submitToTravel2(TravelVo travelVo);
+    Map<String,Object> submitToTravel2(TravelVo travelVo);
 
     /**
      * 添加出差 1个审批人
@@ -533,7 +542,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToTravel1")
-    Object submitToTravel1(TravelVo travelVo);
+    Map<String,Object> submitToTravel1(TravelVo travelVo);
 
     /**
      * 根据员工名称是否有出差记录
@@ -541,7 +550,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectLeaveExamine")
-    Object selectLeaveExamine(LeaveDetailsVo leaveDetailsVo);
+    Map<String,Object> selectLeaveExamine(LeaveDetailsVo leaveDetailsVo);
 
     /**
      * 添加请假 3个审批人
@@ -549,7 +558,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToAskForLeave3")
-    Object submitToAskForLeave3(LeaveVo leaveVo);
+    Map<String,Object> submitToAskForLeave3(LeaveVo leaveVo);
 
     /**
      * 添加请假 2个审批人
@@ -557,7 +566,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToAskForLeave2")
-    Object submitToAskForLeave2(LeaveVo leaveVo);
+    Map<String,Object> submitToAskForLeave2(LeaveVo leaveVo);
 
     /**
      * 添加请假 1个审批人
@@ -565,7 +574,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/submitToAskForLeave1")
-    Object submitToAskForLeave1(LeaveVo leaveVo);
+    Map<String,Object> submitToAskForLeave1(LeaveVo leaveVo);
 
     /**
      * 查询我的转正审批申请 待处理
@@ -573,7 +582,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectMyWorker")
-    Object selectMyWorker(Auditflowone auditflowone);
+    Map<String,Object> selectMyWorker(Auditflowone auditflowone);
 
     /**
      * 查询我的转正审批申请 已处理
@@ -581,7 +590,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectMyEndWorker")
-    Object selectMyEndWorker(Auditflowone auditflowone);
+    Map<String,Object> selectMyEndWorker(Auditflowone auditflowone);
 
     /**
      * 根据员工编号查询部门职位
@@ -589,7 +598,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/inquirePosition")
-    Object inquirePosition(Staff staff);
+    Map<String,Object> inquirePosition(Staff staff);
 
     /**
      * 撤销审批
@@ -597,7 +606,7 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/revocation")
-    Object revocation(@RequestBody Auditflow auditflow);
+    Map<String,Object> revocation(@RequestBody Auditflow auditflow);
 
     /**
      * 查询当天的加班审批记录
@@ -605,5 +614,5 @@ public interface AuditflowService {
      * @return
      */
     @PostMapping("/selectTodayOverTimeExamine")
-    Object selectTodayOverTimeExamine(@RequestBody Auditflow auditflow);
+    Map<String,Object> selectTodayOverTimeExamine(@RequestBody Auditflow auditflow);
 }

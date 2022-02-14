@@ -30,12 +30,16 @@ public class AjaxResponse {
         if (e.getCode() == CustomErrorType.USER_INPUT_ERROR.getCode()) {
             resultBean.setMessage(e.getMessage());
         } else if (e.getCode() == CustomErrorType.SYSTEM_ERROR.getCode()) {
-            resultBean.setMessage(e.getMessage() + ",系统出现异常，请联系管理员!");
+            resultBean.setMessage("系统出现异常，请联系管理员!");
         } else if (e.getCode() == CustomErrorType.PAGE_NOT_FOUND_ERROR.getCode()) {
             resultBean.setMessage("未能找到所请求的资源！");
         } else if (e.getCode() == CustomErrorType.ACCOUNT_ERROR.getCode()) {
             resultBean.setMessage(e.getMessage());
-        } else {
+        }  else if (e.getCode() == CustomErrorType.SIGNATURE_ERROR.getCode()) {
+            resultBean.setMessage(e.getMessage());
+        } else if (e.getCode() == CustomErrorType.OTHER_ERROR.getCode()) {
+            resultBean.setMessage(e.getMessage());
+        }else {
             resultBean.setMessage("系统出现未知异常，请联系管理员电话!");
         }
         return resultBean;

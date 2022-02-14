@@ -25,7 +25,7 @@ public interface RoleService  {
      * @param role
      * @return
      */
-    IPage<Role> selectRoleAll(Role role);
+    Object selectRoleAll(Role role);
 
     /***
      * 多选删除

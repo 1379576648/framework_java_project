@@ -6,6 +6,7 @@ import com.trkj.framework.entity.jpa.RegisterLogEntity;
 import com.trkj.framework.entity.jpa.StaffEntity;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.jpa.service.StaffService;
+import com.trkj.framework.util.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +21,9 @@ public class StaffController {
     @Autowired
     private MethodService methodService;
 
+    @Autowired
+    private JwtTokenUtil jwtTokenUtil;
+
     /***
      * 人脸登录
      * @param map
@@ -27,8 +31,8 @@ public class StaffController {
      * @throws Exception
      */
     @PostMapping("/register")
-    @HystrixCommand(fallbackMethod = "registerHystrix")
-    public Object register(@RequestBody Map<String, Object> map) throws Exception {
+    public Map<String,Object> register(@RequestBody Map<String, Object> map) throws Exception {
+        try{
         //初始化储藏
         Map<String, Object> map1 = new HashMap<>(2);
         //初始化状态码
@@ -49,19 +53,20 @@ public class StaffController {
             if (staff != null) {
                 //返回菜单列表
                 map1.put("menuList", staffService.menuList(staff.getStaffId()));
+                map1.put("token", jwtTokenUtil.generateToken(staff.getStaffName(),staff.getStaffId(),staffService.selectPostName(staff.getDeptPostId())));
             }
 
         }
         return map1;
+        }catch (Exception e) {
+            e.printStackTrace();
+            Map<String, Object> map1 = new HashMap<>(2);
+            map1.put("state", 300);
+            map1.put("info", "服务发生雪崩");
+            return map1;
+        }
     }
 
-    //备选方法
-    public Object registerHystrix(@RequestBody Map<String, Object> map) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
-    }
 
     /***
      * 使用手机号码以及密码进行登录
@@ -69,7 +74,7 @@ public class StaffController {
      * @return
      */
     @PostMapping("/login")
-    public Object login(@RequestBody Map<String, Object> map) throws InterruptedException {
+    public Map<String,Object> login(@RequestBody Map<String, Object> map) throws InterruptedException {
         try {
             //初始化储藏
             Map<String, Object> map1 = new HashMap<>(2);
@@ -82,6 +87,7 @@ public class StaffController {
                 if (staffEntity.getError() == null) {
                     Thread.sleep(1000);
                     map1.put("menuList", staffService.menuList(staffEntity.getStaffId()));
+                    map1.put("token", jwtTokenUtil.generateToken(staffEntity.getStaffName(),staffEntity.getStaffId(),staffService.selectPostName(staffEntity.getDeptPostId())));
                 } else {
                     map1.put("menuList", "");
                 }
@@ -91,6 +97,7 @@ public class StaffController {
             return map1;
 
         } catch (Exception e) {
+            e.printStackTrace();
             Map<String, Object> map1 = new HashMap<>(2);
             map1.put("state", 300);
             map1.put("info", "服务发生雪崩");

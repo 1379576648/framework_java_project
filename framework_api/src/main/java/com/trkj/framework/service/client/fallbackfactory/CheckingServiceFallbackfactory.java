@@ -5,6 +5,8 @@ import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.vo.AjaxResponse;
 import feign.hystrix.FallbackFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +51,22 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
+            public Object updateBeginOverTime(Overtimeask overtimeask) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateEndOverTime(Overtimeask overtimeask) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
             public Object selectLeaveRecordAll(Leave leave) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
@@ -65,6 +83,22 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
+            public Object updateBeginLeave(Leave leave) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateEndLeave(Leave leave) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
             public Object selectEvectionRecordAll(Travel travel) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
@@ -74,6 +108,22 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object deleteEvection(Travel travel) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateBeginTravel(Travel travel) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object updateEndTravel(Travel travel) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");
@@ -162,6 +212,14 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Object updateClasses(Classes classes) {
+                Map<String, Object> map = new HashMap<String, Object>();
+                map.put("state", 100);
+                map.put("info", "服务发生关闭");
+                return AjaxResponse.success(map);
+            }
+
+            @Override
+            public Object importCardRecord(String name,MultipartFile file) {
                 Map<String, Object> map = new HashMap<String, Object>();
                 map.put("state", 100);
                 map.put("info", "服务发生关闭");

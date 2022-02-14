@@ -1,28 +1,26 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.service.client.statistics.StatisticsClinetService;
+import com.trkj.framework.service.client.util.FuseUtil;
 import com.trkj.framework.vo.AjaxResponse;
 import feign.hystrix.FallbackFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 /**
  * @author TanWei
  */
 @Component
 public class StatisticsClinetServiceFallbackfactory implements FallbackFactory {
 
+    @Autowired
+    private FuseUtil fuseUtil;
     @Override
-    public Object create(Throwable cause) {
+    public Object create(Throwable throwable) {
         return new StatisticsClinetService() {
             @Override
             public Object querySex() {
-                Map<String, Object> objectMap = new HashMap<>();
-                objectMap.put("state", 100);
-                objectMap.put("info", "服务发生关闭");
-                return AjaxResponse.success(objectMap);
+                return AjaxResponse.success(fuseUtil.main(throwable));
             }
         };
     }

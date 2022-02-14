@@ -6,6 +6,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
@@ -21,6 +22,7 @@ import java.util.Date;
 @TableName("CLOCK_RECORD")
 @ApiModel(value="ClockRecord对象", description="打卡记录")
 @KeySequence(value = "CLOCK_RECORD_ID",clazz = Integer.class)
+@ToString
 public class ClockRecord implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -61,7 +63,6 @@ public class ClockRecord implements Serializable {
     @Version
     private Long revision;
 
-
     @ApiModelProperty(value = "逻辑删除")
     @TableId("IS_DELETED")
     @TableLogic
@@ -82,5 +83,7 @@ public class ClockRecord implements Serializable {
     @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
     private Integer pagesize;
+
+
 
 }

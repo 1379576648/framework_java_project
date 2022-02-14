@@ -10,6 +10,7 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -27,7 +28,7 @@ import java.util.Date;
 /***
  * value=自增序列名 clazz=实体类的数据类型
  */
-@KeySequence(value = "INS_ARCHIVE_ID",clazz = Integer.class)
+@KeySequence(value = "INSURED_ARCHIVE_ID",clazz = Integer.class)
 public class InsuredArchive implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -38,15 +39,43 @@ public class InsuredArchive implements Serializable {
 
     @ApiModelProperty(value = "社保基数 ")
     @TableField("INS_ARCHIVE_SOCIAL_NUMBER")
-    private Long insArchiveSocialNumber;
+    private Double insArchiveSocialNumber;
 
     @ApiModelProperty(value = "积金基数 ")
     @TableField("INS_ARCHIVE_FUND_NUMBER")
-    private Long insArchiveFundNumber;
+    private Double insArchiveFundNumber;
+
+
+    @ApiModelProperty(value = " 社保基数下限 ")
+    @TableField("INS_ARCHIVE_SOCIAL_MIN")
+    private Double insArchiveSocialMin;
+
+    @ApiModelProperty(value = " 社保基数上限 ")
+    @TableField("INS_ARCHIVE_SOCIAL_MAX")
+    private Double insArchiveSocialMax;
+
+
+    @ApiModelProperty(value = " 积金基数下限 ")
+    @TableField("INS_ARCHIVE_FUND_MIN")
+    private Double insArchiveFundMin;
+
+
+    @ApiModelProperty(value = " 积金基数下限 ")
+    @TableField("INS_ARCHIVE_FUND_MAX")
+    private Double insArchiveFundMax;
 
     @ApiModelProperty(value = " 养老保险基数 ")
     @TableField("INS_ARCHIVE_PR_NUMBER")
-    private Long insArchivePrNumber;
+    private Double insArchivePrNumber;
+
+    @ApiModelProperty(value = "养老保险上限")
+    @TableField("INS_ARCHIVE_PR_UPPER")
+    private Double insArchivePrUpper;
+
+    @ApiModelProperty(value = "养老保险下限")
+    @TableField("INS_ARCHIVE_PR_FLOOR")
+    private Double insArchivePrFloor;
+
 
     @ApiModelProperty(value = "养老保险个人缴纳比例")
     @TableField("INS_ARCHIVE_PR_PERSON_PROP")
@@ -66,7 +95,15 @@ public class InsuredArchive implements Serializable {
 
     @ApiModelProperty(value = "医疗保险基数 ")
     @TableField("INS_ARCHIVE_MD_NUMBER")
-    private Long insArchiveMdNumber;
+    private Double insArchiveMdNumber;
+
+    @ApiModelProperty(value = "医疗保险上限")
+    @TableField("INS_ARCHIVE_MD_UPPER")
+    private Double insArchiveMdUpper;
+
+    @ApiModelProperty(value = "医疗保险下限")
+    @TableField("INS_ARCHIVE_MD_FLOOR")
+    private Double insArchiveMdFloor;
 
     @ApiModelProperty(value = "医疗保险个人缴纳比例")
     @TableField("INS_ARCHIVE_MD_PERSON_PROP")
@@ -86,7 +123,16 @@ public class InsuredArchive implements Serializable {
 
     @ApiModelProperty(value = "失业保险基数 ")
     @TableField("INS_ARCHIVE_UN_NUMBER")
-    private Long insArchiveUnNumber;
+    private Double insArchiveUnNumber;
+
+
+    @ApiModelProperty(value = "失业保险上限")
+    @TableField("INS_ARCHIVE_UN_UPPER")
+    private Double insArchiveUnUpper;
+
+    @ApiModelProperty(value = "失业保险下限")
+    @TableField("INS_ARCHIVE_UN_FLOOR")
+    private Double insArchiveUnFloor;
 
     @ApiModelProperty(value = "失业保险个人缴纳比例")
     @TableField("INS_ARCHIVE_UN_PERSON_PROP")
@@ -106,7 +152,16 @@ public class InsuredArchive implements Serializable {
 
     @ApiModelProperty(value = "工伤保险基数 ")
     @TableField("INS_ARCHIVE_OC_NUMBER")
-    private Long insArchiveOcNumber;
+    private Double insArchiveOcNumber;
+
+
+    @ApiModelProperty(value = "工伤保险上限")
+    @TableField("INS_ARCHIVE_OC_UPPER")
+    private Double insArchiveOcUpper;
+
+    @ApiModelProperty(value = "工伤保险下限")
+    @TableField("INS_ARCHIVE_OC_FLOOR")
+    private Double insArchiveOcFloor;
 
     @ApiModelProperty(value = "工伤保险个人缴纳比例")
     @TableField("INS_ARCHIVE_OC_PERSON_PROP")
@@ -126,7 +181,17 @@ public class InsuredArchive implements Serializable {
 
     @ApiModelProperty(value = "生育保险基数 ")
     @TableField("INS_ARCHIVE_GI_NUMBER")
-    private Long insArchiveGiNumber;
+    private Double insArchiveGiNumber;
+
+
+    @ApiModelProperty(value = "生育保险上限")
+    @TableField("INS_ARCHIVE_GI_UPPER")
+    private Double insArchiveGiUpper;
+
+    @ApiModelProperty(value = "生育保险下限")
+    @TableField("INS_ARCHIVE_GI_FLOOR")
+    private Double insArchiveGiFloor;
+
 
     @ApiModelProperty(value = " 生育保险个人缴纳比例")
     @TableField("INS_ARCHIVE_GI_PERSON_PROP")
@@ -146,7 +211,15 @@ public class InsuredArchive implements Serializable {
 
     @ApiModelProperty(value = "积金基数 ")
     @TableField("INS_ARCHIVE_FU_NUMBER")
-    private Long insArchiveFuNumber;
+    private Double insArchiveFuNumber;
+
+    @ApiModelProperty(value = "积金上限")
+    @TableField("INS_ARCHIVE_FU_UPPER")
+    private Double insArchiveFuUpper;
+
+    @ApiModelProperty(value = "积金下限")
+    @TableField("INS_ARCHIVE_FU_FLOOR")
+    private Double insArchiveFuFloor;
 
     @ApiModelProperty(value = "积金个人缴纳比例")
     @TableField("INS_ARCHIVE_FU_PERSON_PROP")
@@ -185,10 +258,12 @@ public class InsuredArchive implements Serializable {
     private String insArchiveInsuredName;
 
     @ApiModelProperty(value = "参保月份 精确到年月")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     @TableField("INS_ARCHIVE_INSURED_MONTH")
     private Date insArchiveInsuredMonth;
 
     @ApiModelProperty(value = "计薪月份 精确到年月")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     @TableField("INS_ARCHIVE_SALARY_MONTH")
     private Date insArchiveSalaryMonth;
 
@@ -228,4 +303,31 @@ public class InsuredArchive implements Serializable {
     @TableLogic
     private Long isDeleted;
 
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currenPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pageSize;
+
+
+    @ApiModelProperty(value = "起始时间")
+    @TableField(exist = false)
+    private Date startTime;
+
+    @ApiModelProperty(value = "结束时间")
+    @TableField(exist = false)
+    private Date endTime;
+
+
+    @ApiModelProperty(value = "归档数量")
+    @TableField(exist = false)
+    private Integer quantity;
+
+
+    @ApiModelProperty(value = "列表部门")
+    @TableField(exist = false)
+    private List<String> listDept;
 }

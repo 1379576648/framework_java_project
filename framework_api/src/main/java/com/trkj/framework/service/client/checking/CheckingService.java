@@ -3,8 +3,11 @@ package com.trkj.framework.service.client.checking;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.CheckingServiceFallbackfactory;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.multipart.MultipartFile;
 
 @FeignClient(value = "FRAMEWORK-ZUUL/8004/provider", fallbackFactory = CheckingServiceFallbackfactory.class)
 public interface CheckingService {
@@ -46,7 +49,25 @@ public interface CheckingService {
     Object deleteOverTime(@RequestBody Overtimeask overtimeask);
 
     /**
-     * 根据员工名称查询加班记录
+     * 开始加班
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateBeginOverTime")
+    Object updateBeginOverTime(@RequestBody Overtimeask overtimeask);
+
+    /**
+     * 结束加班
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateEndOverTime")
+    Object updateEndOverTime(@RequestBody Overtimeask overtimeask);
+
+    /**
+     * 根据员工名称查询请假记录
      * @param
      * @param
      * @return
@@ -55,7 +76,7 @@ public interface CheckingService {
     Object selectLeaveRecordAll(@RequestBody Leave leave);
 
     /**
-     * 删除加班记录
+     * 删除请假记录
      * @param
      * @param
      * @return
@@ -64,7 +85,25 @@ public interface CheckingService {
     Object deleteLeave(@RequestBody Leave leave);
 
     /**
-     * 根据员工名称查询加班记录
+     * 开始请假
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateBeginLeave")
+    Object updateBeginLeave(@RequestBody Leave leave);
+
+    /**
+     * 结束请假
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateEndLeave")
+    Object updateEndLeave(@RequestBody Leave leave);
+
+    /**
+     * 根据员工名称查询出差记录
      * @param
      * @param
      * @return
@@ -73,13 +112,31 @@ public interface CheckingService {
     Object selectEvectionRecordAll(@RequestBody Travel travel);
 
     /**
-     * 删除加班记录
+     * 删除出差记录
      * @param
      * @param
      * @return
      */
     @PostMapping("/deleteEvection")
     Object deleteEvection(@RequestBody Travel travel);
+
+    /**
+     * 开始出差
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateBeginTravel")
+    Object updateBeginTravel(@RequestBody Travel travel);
+
+    /**
+     * 结束出差
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/updateEndTravel")
+    Object updateEndTravel(@RequestBody Travel travel);
 
     /**
      * 根据员工名称查询补打卡记录
@@ -179,4 +236,14 @@ public interface CheckingService {
      */
     @PostMapping("/updateClasses")
     Object updateClasses(@RequestBody Classes classes);
+
+    /**
+     * 导入打卡记录
+     * @param name
+     * @param file
+     * @return
+     */
+    @PostMapping(value="/importCardRecord/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
+    Object importCardRecord(@PathVariable("name") String name,MultipartFile file);
+
 }

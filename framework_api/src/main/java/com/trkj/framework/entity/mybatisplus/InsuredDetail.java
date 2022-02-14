@@ -9,7 +9,9 @@ import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -36,10 +38,6 @@ public class InsuredDetail implements Serializable {
     @TableId("INS_DETAIL_ID")
     private Integer insDetailId;
 
-    @ApiModelProperty(value = "公司名称")
-    @TableField("INS_DETAIL_COMPANY_NAME")
-    private String insDetailCompanyName;
-
     @ApiModelProperty(value = "员工名称")
     @TableField("INS_DETAIL_STAFF_NAME")
     private String insDetailStaffName;
@@ -48,11 +46,14 @@ public class InsuredDetail implements Serializable {
     @TableField("INS_DETAIL_INSURED_NAME")
     private String insDetailInsuredName;
 
+
     @ApiModelProperty(value = "参保月份 精确到年月")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     @TableField("INS_DETAIL_INSURED_MONTH")
     private Date insDetailInsuredMonth;
 
     @ApiModelProperty(value = "计薪月份 精确到年月")
+    @JsonFormat(pattern = "yyyy-MM", timezone = "GMT+8")
     @TableField("INS_DETAIL_SALARY_MONTH")
     private Date insDetailSalaryMonth;
 
@@ -87,9 +88,38 @@ public class InsuredDetail implements Serializable {
     @Version
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删")
-    @TableField("IS_DELETED")
-    @TableLogic
-    private Long isDeleted;
+
+    @ApiModelProperty(value = "员工")
+    @TableField(exist = false)
+    private Staff staff;
+
+    @ApiModelProperty(value = "部门")
+    @TableField(exist = false)
+    private Dept dept;
+
+    @ApiModelProperty(value = "部门编号列表")
+    @TableField(exist = false)
+    private List<Integer> deptIdList;
+
+    @ApiModelProperty(value = "员工状态")
+    @TableField(exist = false)
+    private Integer staffState;
+
+    @ApiModelProperty(value = "员工名称")
+    @TableField(exist = false)
+    private String  staffName;
+
+    @ApiModelProperty(value = "员工编号列表")
+    @TableField(exist = false)
+    private ArrayList<Integer> staffIdList;
+
+    @ApiModelProperty(value = "当前页")
+    @TableField(exist = false)
+    private Integer currenPage;
+
+    @ApiModelProperty(value = "页大小")
+    @TableField(exist = false)
+    private Integer pageSize;
+
 
 }

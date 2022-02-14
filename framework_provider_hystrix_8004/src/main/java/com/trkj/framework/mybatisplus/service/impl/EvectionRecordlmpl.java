@@ -9,7 +9,6 @@ import com.trkj.framework.mybatisplus.service.EvectionRecordService;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.Date;
 
 @Service
@@ -38,5 +37,41 @@ public class EvectionRecordlmpl implements EvectionRecordService {
         travel1.setTravelId(travelId);
         travel1.setUpdatedTime(new Date());
         return evectionRecordMapper.deleteById(travel1);
+    }
+
+    @Override
+    public String updateBeginTravel(Travel travel) {
+        Travel travel1 = new Travel();
+        travel1.setTravelId(travel.getTravelId());
+        travel1.setTravelActualTime(new Date());
+        travel1.setTravelCondition(1);
+        final var i = evectionRecordMapper.updateById(travel1);
+        if (i == 1) {
+            return "开始出差成功";
+        } else {
+            return "开始出差失败";
+        }
+    }
+
+    @Override
+    public String updateEndTravel(Travel travel) {
+        Travel travel1 = new Travel();
+        travel1.setTravelId(travel.getTravelId());
+        travel1.setTravelActualOvertime(new Date());
+        travel1.setTravelCondition(2);
+        // 实际开始请假时间
+        final var travelActualTime = travel.getTravelActualTime();
+        final var newDate = new Date();
+        //时间差的毫秒数
+        final var dateDiff = newDate.getTime() - travelActualTime.getTime();
+        //计算出小时数
+        final var hours = Math.floor(dateDiff / (3600 * 1000));
+        travel1.setTravelActualTokinaga((int) hours);
+        final var i = evectionRecordMapper.updateById(travel1);
+        if (i == 1) {
+            return "结束出差成功";
+        } else {
+            return "结束出差失败";
+        }
     }
 }

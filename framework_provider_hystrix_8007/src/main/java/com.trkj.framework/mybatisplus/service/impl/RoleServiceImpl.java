@@ -1,10 +1,8 @@
 package com.trkj.framework.mybatisplus.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.Query;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.mybatisplus.mapper.RoleMapper;
 import com.trkj.framework.mybatisplus.mapper.RoleMenuPowerMapper;
@@ -12,6 +10,7 @@ import com.trkj.framework.mybatisplus.mapper.RoleStaffMapper;
 import com.trkj.framework.mybatisplus.mapper.StaffMapper;
 import com.trkj.framework.mybatisplus.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -42,45 +41,52 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private StaffMapper staffMapper;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     /***
      * 分页查询所有的角色数据
      * @param role
      * @return
      */
     @Override
-    public IPage<Role> selectRoleAll(Role role) {
-        //创建分页
-        Page<Role> page = new Page<Role>(role.getCurrenPage(), role.getPageSize());
-        //创建条件构造器
-        QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
-        //判断角色名称是否为空
-        if (role.getRoleName() != null && !role.getRoleName().equals("")) {
-            //角色名称模糊查询
-            queryWrapper.like("ROLE_NAME", role.getRoleName());
+    public Object selectRoleAll(Role role) {
+        Object o = redisTemplate.opsForValue().get("Role:"+role.toString());
+        if (o == null || !o.equals("")) {
+            //创建分页
+            Page<Role> page = new Page<Role>(role.getCurrenPage(), role.getPageSize());
+            //创建条件构造器
+            QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
+            //判断角色名称是否为空
+            if (role.getRoleName() != null && !role.getRoleName().equals("")) {
+                //角色名称模糊查询
+                queryWrapper.like("ROLE_NAME", role.getRoleName());
+            }
+
+            //判断角色描述是否为空
+            if (role.getRoleDescribe() != null && !role.getRoleDescribe().equals("")) {
+                //角色描述模糊查询
+                queryWrapper.like("ROLE_DESCRIBE", role.getRoleDescribe());
+            }
+
+            //判断角色状态否未空
+            if (role.getRoleState() != null) {
+                //类型模糊查询
+                queryWrapper.like("ROLE_STATE", role.getRoleState());
+            }
+
+            //判断传入的时间是否为空
+            if (role.getStartTime() != null || role.getEndTime() != null) {
+                //登录时间范围查询
+                queryWrapper.between("CREATED_TIME", role.getStartTime(), role.getEndTime());
+            }
+            //按照ID降序
+            queryWrapper.orderByDesc("ROLE_ID");
+            IPage<Role> roleIPage = roleMapper.selectPage(page, queryWrapper);
+            redisTemplate.opsForValue().set("Role:" + role.toString(), roleIPage);
+            return roleIPage;
         }
-
-        //判断角色描述是否为空
-        if (role.getRoleDescribe() != null && !role.getRoleDescribe().equals("")) {
-            //角色描述模糊查询
-            queryWrapper.like("ROLE_DESCRIBE", role.getRoleDescribe());
-        }
-
-        //判断角色状态否未空
-        if (role.getRoleState() != null) {
-            //类型模糊查询
-            queryWrapper.like("ROLE_STATE", role.getRoleState());
-        }
-
-        //判断传入的时间是否为空
-        if (role.getStartTime() != null || role.getEndTime() != null) {
-            //登录时间范围查询
-            queryWrapper.between("CREATED_TIME", role.getStartTime(), role.getEndTime());
-        }
-
-
-        //按照ID降序
-        queryWrapper.orderByDesc("ROLE_ID");
-        return roleMapper.selectPage(page, queryWrapper);
+        return o;
     }
 
     /***
@@ -91,7 +97,6 @@ public class RoleServiceImpl implements RoleService {
     @Override
     @Transactional
     public String checkRoleDelete(ArrayList<Integer> list) {
-        String s = "成功";
         //循环传过来的集合
         for (int i = 0; i < list.size(); i++) {
             //通过角色编号查寻角色员工表的数据
@@ -112,13 +117,11 @@ public class RoleServiceImpl implements RoleService {
             }
 
             //通过角色编号删除角色表数据
-            if (roleMapper.deleteById(list.get(i)) >= 1) {
-                s = "成功";
-            } else {
+            if (roleMapper.deleteById(list.get(i)) <=0) {
                 return "删除角色数据失败";
             }
         }
-        return s;
+        return "成功";
     }
 
     /***
@@ -156,7 +159,7 @@ public class RoleServiceImpl implements RoleService {
         for (Integer id : role.getMenuList()) {
             RoleMenuPower roleMenuPower = new RoleMenuPower();
             //是否半选择
-            roleMenuPower.setIsChoice(util(role.getMoietyList(),id));
+            roleMenuPower.setIsChoice(util(role.getMoietyList(), id));
             //角色编号
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
@@ -186,7 +189,7 @@ public class RoleServiceImpl implements RoleService {
         for (Integer id : role.getMenuList()) {
             RoleMenuPower roleMenuPower = new RoleMenuPower();
             //是否半选择
-            roleMenuPower.setIsChoice(util(role.getMoietyList(),id));
+            roleMenuPower.setIsChoice(util(role.getMoietyList(), id));
             //角色编号
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
@@ -230,7 +233,6 @@ public class RoleServiceImpl implements RoleService {
         roleStaffQueryWrapper.eq("a.ROLE_ID", roleStaff.getRoleId());
         //逻辑删除
         roleStaffQueryWrapper.eq("b.IS_DELETED", 0);
-        roleStaffQueryWrapper.eq("a.IS_DELETED", 0);
 
         return roleStaffMapper.pageRoleStaff(iPage, roleStaffQueryWrapper);
     }
@@ -264,7 +266,7 @@ public class RoleServiceImpl implements RoleService {
     @Override
     public Object selectStaffInState(Staff staff) {
         //分页插件
-        Page<Staff> iPage = new Page<Staff>(staff.getCurrentPage(), staff.getPageSize());
+        Page<Staff> iPage = new Page<Staff>(staff.getCurrenPage(), staff.getPageSize());
         //条件构造器
         QueryWrapper<Staff> queryWrapper = new QueryWrapper<Staff>();
         //判断员工名称是否为空
@@ -329,7 +331,7 @@ public class RoleServiceImpl implements RoleService {
         for (Integer id : role.getMenuList()) {
             RoleMenuPower roleMenuPower = new RoleMenuPower();
             //是否半选择
-            roleMenuPower.setIsChoice(util(role.getMoietyList(),id));
+            roleMenuPower.setIsChoice(util(role.getMoietyList(), id));
             //角色编号
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
@@ -346,7 +348,7 @@ public class RoleServiceImpl implements RoleService {
     public Long util(ArrayList<Integer> list, Integer index) {
         Long id = 0L;
         for (Integer integer : list) {
-            System.out.println(integer+":"+index);
+            System.out.println(integer + ":" + index);
             if (integer.equals(index)) {
                 return 1L;
             }

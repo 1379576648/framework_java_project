@@ -97,4 +97,12 @@ public class DefScheme implements Serializable {
     private Long isDeleted;
 
 
+    @ApiModelProperty(value = "缴纳基数")
+    @TableField(exist = false)
+    private Double number;
+
+    @ApiModelProperty(value = "小计")
+    @TableField(exist = false)
+    private Double statistics;
+
 }

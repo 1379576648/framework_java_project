@@ -7,6 +7,7 @@ import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.mybatisplus.mapper.RegisterLogMapper;
 import com.trkj.framework.mybatisplus.service.RegisterLogService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -27,34 +28,43 @@ public class RegisterLogServiceImpl implements RegisterLogService {
     @Autowired
     private RegisterLogMapper registerLogMapper;
 
+    @Autowired
+    private RedisTemplate redisTemplate;
+
     /***
      * 登录日志分页查询
      * @param registerLog
      * @return
      */
     @Override
-    public IPage<RegisterLog> selectRegisterLogAll( RegisterLog registerLog) {
-        Page<RegisterLog> page = new Page<RegisterLog>(registerLog.getCurrenPage(),registerLog.getPageSize());
-        QueryWrapper<RegisterLog> queryWrapper = new QueryWrapper<>();
-        if (registerLog.getRegisterLogIpname()!=null&&!registerLog.getRegisterLogIpname().equals("")){
-            //登录所在地模糊查询
-            queryWrapper.like("REGISTER_LOG_IPNAME",registerLog.getRegisterLogIpname());
+    public Object selectRegisterLogAll(RegisterLog registerLog) {
+        Object o = redisTemplate.opsForValue().get("RegisterLogPage:" + registerLog.toString());
+        if (o == null || !o.equals("")) {
+            Page<RegisterLog> page = new Page<RegisterLog>(registerLog.getCurrenPage(), registerLog.getPageSize());
+            QueryWrapper<RegisterLog> queryWrapper = new QueryWrapper<>();
+            if (registerLog.getRegisterLogIpname() != null && !registerLog.getRegisterLogIpname().equals("")) {
+                //登录所在地模糊查询
+                queryWrapper.like("REGISTER_LOG_IPNAME", registerLog.getRegisterLogIpname());
+            }
+            if (registerLog.getRegisterLogPeople() != null && !registerLog.getRegisterLogPeople().equals("")) {
+                //用户名称模糊查询
+                queryWrapper.like("REGISTER_LOG_PEOPLE", registerLog.getRegisterLogPeople());
+            }
+            if (registerLog.getRegisterLogState() != null) {
+                //状态模糊查询
+                queryWrapper.like("REGISTER_LOG_STATE", registerLog.getRegisterLogState());
+            }
+            if (registerLog.getStartTime() != null || registerLog.getEndTime() != null) {
+                //登录时间范围查询
+                queryWrapper.between("CREATED_TIME", registerLog.getStartTime(), registerLog.getEndTime());
+            }
+            //按照ID降序
+            queryWrapper.orderByDesc("REGISTER_LOG_ID");
+            IPage<RegisterLog> registerLogIPage = registerLogMapper.selectPage(page, queryWrapper);
+            redisTemplate.opsForValue().set("RegisterLogPage:" + registerLog.toString(), registerLogIPage);
+            return registerLogIPage;
         }
-        if (registerLog.getRegisterLogPeople()!=null&&!registerLog.getRegisterLogPeople().equals("")){
-            //用户名称模糊查询
-            queryWrapper.like("REGISTER_LOG_PEOPLE",registerLog.getRegisterLogPeople());
-        }
-        if (registerLog.getRegisterLogState()!=null){
-            //状态模糊查询
-            queryWrapper.like("REGISTER_LOG_STATE",registerLog.getRegisterLogState());
-        }
-        if (registerLog.getStartTime()!=null||registerLog.getEndTime()!=null){
-            //登录时间范围查询
-            queryWrapper.between("CREATED_TIME",registerLog.getStartTime(),registerLog.getEndTime());
-        }
-        //按照ID降序
-        queryWrapper.orderByDesc("REGISTER_LOG_ID");
-        return registerLogMapper.selectPage(page,queryWrapper);
+        return o;
     }
 
     /***
@@ -65,12 +75,10 @@ public class RegisterLogServiceImpl implements RegisterLogService {
     @Override
     @Transactional
     public String checkDelete(ArrayList<Integer> list) {
-        for (int i = 0; i <list.size() ; i++) {
-            //通过ID删除表数据
-            if (registerLogMapper.deleteById(list.get(i))<=0){
-                return "删除登录日志数据失败";
-            }
+        if (registerLogMapper.deleteBatchIds(list) <= 0) {
+            return "删除失败";
         }
+        redisTemplate.delete(redisTemplate.keys("RegisterLogPage:*"));
         return "成功";
     }
 
@@ -82,24 +90,22 @@ public class RegisterLogServiceImpl implements RegisterLogService {
     @Override
     @Transactional
     public String emptyList(@RequestBody RegisterLog registerLog) {
-        String s="成功";
         //创建条件构造器
         QueryWrapper<RegisterLog> queryWrapper = new QueryWrapper<>();
-        if (registerLog.getStartTime()!=null||registerLog.getEndTime()!=null){
+        if (registerLog.getStartTime() != null || registerLog.getEndTime() != null) {
             //登录时间范围查询
-            queryWrapper.between("CREATED_TIME",registerLog.getStartTime(),registerLog.getEndTime());
+            queryWrapper.between("CREATED_TIME", registerLog.getStartTime(), registerLog.getEndTime());
         }
-        //通过时间查询范围的登录日志
-        List<RegisterLog> list = registerLogMapper.selectList(queryWrapper);
-        //遍历数据
-        for (RegisterLog registerLog1: list) {
-            //通过编号删除
-            if (registerLogMapper.deleteById(registerLog1.getRegisterLogId())>=1){
-                s="成功";
-            }else{
-                return "清除登录日志数据失败";
-            }
+        List<RegisterLog> registerLogs = registerLogMapper.selectList(queryWrapper);
+        for (RegisterLog registerLog1 :
+                registerLogs) {
+            //删除
+            redisTemplate.delete(redisTemplate.keys("RegisterLog:*registerLogId=" + registerLog1.getRegisterLogId() + "*"));
         }
-        return s;
+        if (registerLogMapper.delete(queryWrapper) <= 0) {
+            return "清除失败";
+        }
+        redisTemplate.delete(redisTemplate.keys("RegisterLogPage:*"));
+        return "成功";
     }
 }

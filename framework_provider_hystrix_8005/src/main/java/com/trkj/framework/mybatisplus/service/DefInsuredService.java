@@ -1,5 +1,6 @@
 package com.trkj.framework.mybatisplus.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trkj.framework.entity.mybatisplus.DefInsured;
 import com.trkj.framework.entity.mybatisplus.DefScheme;
@@ -24,7 +25,7 @@ public interface DefInsuredService  {
      * @param defInsured
      * @return
      */
-    Object selectDefInsured(DefInsured defInsured);
+    IPage<DefInsured> selectDefInsured(DefInsured defInsured);
 
 
     /***

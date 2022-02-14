@@ -40,12 +40,14 @@ public class JwtTokenUtil {
      * @param userName 用户
      * @return 令token牌
      */
-    public String generateToken(String userName,String userId) {
+    public String generateToken(String userName,Integer userId,String postName) {
         //初始化集合大小
         Map<String, Object> claims = new HashMap<>(2);
         claims.put("sub", "jwt");
         //用户名称
         claims.put("name",userName);
+        //职位名称
+        claims.put("postName",postName);
         //用户ID
         claims.put("id",userId);
         //生成创建时间
@@ -72,6 +74,26 @@ public class JwtTokenUtil {
         }
         return username;
     }
+
+    /**
+     * 从令牌中获取职位名称
+     *
+     * @param token 令牌
+     * @return 用户名
+     */
+    public String getUserPostNameFromToken(String token) {
+        String postName;
+        try {
+            //获取令牌的数据
+            Claims claims = getClaimsFromToken(token);
+            //获取职位名称
+            postName = claims.get("postName").toString();
+        } catch (Exception e) {
+            postName = null;
+        }
+        return postName;
+    }
+
     /**
      * 从令牌中获取用户ID
      *
@@ -103,8 +125,10 @@ public class JwtTokenUtil {
             Claims claims = getClaimsFromToken(token);
             //获取过期时间
             Date expiration = claims.getExpiration();
+            System.out.println(expiration.toLocaleString());
             log.info("过期时间为{}",expiration.toLocaleString());
             Date date=new Date();
+            System.out.println("现在时间:{},过期时间:{} ,{}"+date.toLocaleString()+expiration.toLocaleString()+expiration.before(date));
             log.info("现在时间:{},过期时间:{} ,{}",date.toLocaleString(),expiration.toLocaleString(),expiration.before(date));
             //返回是否过期
             return expiration.before(date);
@@ -216,6 +240,7 @@ public class JwtTokenUtil {
                     .setSigningKey(secret)
                     .parseClaimsJws(token).getBody();
         } catch (Exception e) {
+            e.printStackTrace();
             claims = null;
         }
         return claims;
