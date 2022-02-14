@@ -56,7 +56,12 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     @Autowired
     private WorkExperiencessMapper workExperiencessMapper;
 
-    @Autowired EducationssMapper educationssMapper;
+    @Autowired
+    private EducationssMapper educationssMapper;
+
+    @Autowired
+    private FixedwageMapper fixedwageMapper;
+
 
 
     /**
@@ -195,7 +200,14 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         WorkExperience workExperience = new WorkExperience();
         //教育经历
         Education education = new Education();
+        //固定工资
+        Fixedwagf fixedwagf = new Fixedwagf();
+
         String s = "成功";
+        //查询录用数据
+        EmploymentTable employmentTable = employmentTableMapper.selectById(hireVo.getResumeId());
+        System.out.println("查询录用数据");
+        System.out.println(employmentTable);
         //通过id查询简历数据
         Resume resume = resumeMapper.selectById(hireVo.getResumeId());
         System.out.println("查询简历数据");
@@ -225,9 +237,9 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         SimpleDateFormat df = new SimpleDateFormat("YYYY-MM-dd");
         Calendar c = Calendar.getInstance();
         System.out.println("1111111");
-        System.out.println(hireVo.getHiredate());
+        System.out.println(hireVo.getEmploymentHiredate());
         //员工入职日期
-        c.setTime(hireVo.getHiredate());
+        c.setTime(hireVo.getEmploymentHiredate());
 
         //加三个月
         c.add(Calendar.MONTH,3);
@@ -239,6 +251,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //只添加员工数据
             //姓名
             staff.setStaffName(hireVo.getResumeName());
+            //年龄
+            staff.setStaffAge(hireVo.getResumeAge());
             //部门
             staff.setDeptId(dept.getDeptId());
             //职位
@@ -248,7 +262,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //邮箱
             staff.setStaffEmail(hireVo.getResumeMailbox());
             //入职日期
-            staff.setStaffHiredate(hireVo.getHiredate());
+            staff.setStaffHiredate(hireVo.getEmploymentHiredate());
             //性别
             staff.setStaffSex(hireVo.getResumeSex());
             //学历
@@ -264,8 +278,19 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //添加到员工表
             int row = staffMapper.insert(staff);
 
+            //添加固定工资表
+            //试用期基本工资
+            fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
+            //正式基本工资
+            fixedwagf.setFixedwageOfficialmoney(hireVo.getEmploymentSalaryz());
+            //员工姓名
+            fixedwagf.setStaffName(hireVo.getResumeName());
+            //添加到固定工资表
+            int row4 = fixedwageMapper.insert(fixedwagf);
             if (row >= 1) {
                s="成功";
+            }else if(row4>=1){
+                s="成功";
             }else {
                 return "添加失败";
             }
@@ -274,6 +299,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //只添加员工和教育经历
             //姓名
             staff.setStaffName(hireVo.getResumeName());
+            //年龄
+            staff.setStaffAge(hireVo.getResumeAge());
             //部门
             staff.setDeptId(dept.getDeptId());
             //职位
@@ -283,7 +310,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //邮箱
             staff.setStaffEmail(hireVo.getResumeMailbox());
             //入职日期
-            staff.setStaffHiredate(hireVo.getHiredate());
+            staff.setStaffHiredate(hireVo.getEmploymentHiredate());
             //性别
             staff.setStaffSex(hireVo.getResumeSex());
             //学历
@@ -299,6 +326,16 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
 
             //添加到员工表
             int row = staffMapper.insert(staff);
+
+            //添加固定工资表
+            //试用期基本工资
+            fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
+            //正式基本工资
+            fixedwagf.setFixedwageOfficialmoney(hireVo.getEmploymentSalaryz());
+            //员工姓名
+            fixedwagf.setStaffName(hireVo.getResumeName());
+            //添加到固定工资表
+            int row4 = fixedwageMapper.insert(fixedwagf);
 
             //开始时间
             education.setEducationStartTime(hireVo.getEducationStartTime());
@@ -320,6 +357,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             if (row >= 1) {
                 s="成功";
             }else if(row3>=1){
+                s="成功";
+            }else if(row4>=1){
                 s="成功";
             }else {
                 return "添加失败";
@@ -330,6 +369,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //只添加员工和工作经历
             //姓名
             staff.setStaffName(hireVo.getResumeName());
+            //年龄
+            staff.setStaffAge(hireVo.getResumeAge());
             //部门
             staff.setDeptId(dept.getDeptId());
             //职位
@@ -339,7 +380,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //邮箱
             staff.setStaffEmail(hireVo.getResumeMailbox());
             //入职日期
-            staff.setStaffHiredate(hireVo.getHiredate());
+            staff.setStaffHiredate(hireVo.getEmploymentHiredate());
             //性别
             staff.setStaffSex(hireVo.getResumeSex());
             //学历
@@ -355,6 +396,16 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
 
             //添加到员工表
             int row = staffMapper.insert(staff);
+
+            //添加固定工资表
+            //试用期基本工资
+            fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
+            //正式基本工资
+            fixedwagf.setFixedwageOfficialmoney(hireVo.getEmploymentSalaryz());
+            //员工姓名
+            fixedwagf.setStaffName(hireVo.getResumeName());
+            //添加到固定工资表
+            int row4 = fixedwageMapper.insert(fixedwagf);
 
             //开始时间
             workExperience.setWorkStareTime(hireVo.getWorkStareTime());
@@ -381,6 +432,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
                 s="成功";
             }else if(row2>=1){
                 s="成功";
+            }else if(row4>=1){
+                s="成功";
             }else {
                 return "添加失败";
             }
@@ -389,6 +442,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //讲所有数据赋值到员工实体类中
             //姓名
             staff.setStaffName(hireVo.getResumeName());
+            //年龄
+            staff.setStaffAge(hireVo.getResumeAge());
             //部门
             staff.setDeptId(dept.getDeptId());
             //职位
@@ -398,7 +453,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //邮箱
             staff.setStaffEmail(hireVo.getResumeMailbox());
             //入职日期
-            staff.setStaffHiredate(hireVo.getHiredate());
+            staff.setStaffHiredate(hireVo.getEmploymentHiredate());
             //性别
             staff.setStaffSex(hireVo.getResumeSex());
             //学历
@@ -414,6 +469,16 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
 
             //添加到员工表
             int row = staffMapper.insert(staff);
+
+            //添加固定工资表
+            //试用期基本工资
+            fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
+            //正式基本工资
+            fixedwagf.setFixedwageOfficialmoney(hireVo.getEmploymentSalaryz());
+            //员工姓名
+            fixedwagf.setStaffName(hireVo.getResumeName());
+            //添加到固定工资表
+            int row4 = fixedwageMapper.insert(fixedwagf);
 
             //开始时间
             workExperience.setWorkStareTime(hireVo.getWorkStareTime());
@@ -457,6 +522,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             }else if(row2>=1){
                 s="成功";
             }else if(row3>=1){
+                s="成功";
+            }else if(row4>=1){
                 s="成功";
             }
             else {

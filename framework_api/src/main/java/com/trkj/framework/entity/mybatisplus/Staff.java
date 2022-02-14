@@ -143,7 +143,7 @@ public class Staff implements Serializable {
 
     @ApiModelProperty(value = "员工年龄")
     @TableField("STAFF_AGE")
-    private Long staffAge;
+    private String staffAge;
 
     @ApiModelProperty(value = "员工工龄")
     @TableField("WORK_AGE")
