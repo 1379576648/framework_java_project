@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.mybatisplus.service.SalaryService;
+import com.trkj.framework.util.Fuse8003Util;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,8 @@ import java.util.Map;
 public class SalaryController {
     @Autowired
     private SalaryService salaryService;
+    @Autowired
+    private Fuse8003Util fuse8003Util;
 
     /**
      * 根据审批类型的调薪/审批人查询待处理的审批
@@ -40,10 +43,7 @@ public class SalaryController {
     }
 
     public Object HystixGet1(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
@@ -63,10 +63,7 @@ public class SalaryController {
     }
 
     public Object HystixGet2(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
@@ -85,10 +82,7 @@ public class SalaryController {
     }
 
     public Object HystixGet3(@RequestBody SalaryDetailsVo salaryDetailsVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
@@ -107,10 +101,7 @@ public class SalaryController {
     }
 
     public Object selectSalaryRecordHystixGet(@RequestBody SalaryVo salaryVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
@@ -129,10 +120,7 @@ public class SalaryController {
     }
 
     public Object selectPayHystixGet(@RequestBody Fixedwagf fixedwagf) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
 
@@ -152,10 +140,7 @@ public class SalaryController {
     }
 
     public Object SubmitSalary3ExamineHystixGet(@RequestBody SalaryVo salaryVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
@@ -174,10 +159,7 @@ public class SalaryController {
     }
 
     public Object SubmitSalary2ExamineHystixGet(@RequestBody SalaryVo salaryVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
@@ -196,9 +178,6 @@ public class SalaryController {
     }
 
     public Object SubmitSalary1ExamineHystixGet(@RequestBody SalaryVo salaryVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 }

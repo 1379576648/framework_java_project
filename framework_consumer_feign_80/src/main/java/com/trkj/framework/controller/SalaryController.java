@@ -2,17 +2,21 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.service.client.examine.AuditflowService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class SalaryController {
     @Autowired
     private AuditflowService auditflowService;
-
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
     /**
      * 根据审批类型的调薪/审批人查询待处理的审批
      *
@@ -21,7 +25,8 @@ public class SalaryController {
      */
     @PostMapping("/selectSalaryAll")
     public AjaxResponse selectSalaryAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectSalaryAll(auditflowone));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectSalaryAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -32,7 +37,8 @@ public class SalaryController {
      */
     @PostMapping("/selectEndSalaryAll")
     public AjaxResponse selectEndSalaryAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectEndSalaryAll(auditflowone));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectEndSalaryAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -43,7 +49,7 @@ public class SalaryController {
      */
     @PostMapping("/selectDetailsSalary")
     public AjaxResponse selectDetailsSalary(@RequestBody SalaryDetailsVo salaryDetailsVo) {
-        return AjaxResponse.success(auditflowService.selectDetailsSalary(salaryDetailsVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectDetailsSalary(salaryDetailsVo); return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -52,8 +58,9 @@ public class SalaryController {
      * @return
      */
     @PostMapping("/selectSalaryRecord")
-    public AjaxResponse selectSalaryRecord(@RequestBody SalaryVo salaryVo){
-        return AjaxResponse.success(auditflowService.selectSalaryRecord(salaryVo));
+    public AjaxResponse selectSalaryRecord(@RequestBody SalaryVo salaryVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectSalaryRecord(salaryVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -63,7 +70,8 @@ public class SalaryController {
      */
     @PostMapping("/selectPay")
     public AjaxResponse selectPay(@RequestBody Fixedwagf fixedwagf){
-        return AjaxResponse.success(auditflowService.selectPay(fixedwagf));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectPay(fixedwagf);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -73,7 +81,8 @@ public class SalaryController {
      */
     @PostMapping("/SubmitSalary3")
     public AjaxResponse SubmitSalary3(@RequestBody SalaryVo salaryVo){
-        return AjaxResponse.success(auditflowService.SubmitSalary3(salaryVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.SubmitSalary3(salaryVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -83,7 +92,8 @@ public class SalaryController {
      */
     @PostMapping("/SubmitSalary2")
     public AjaxResponse SubmitSalary2(@RequestBody SalaryVo salaryVo){
-        return AjaxResponse.success(auditflowService.SubmitSalary2(salaryVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.SubmitSalary2(salaryVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -93,6 +103,7 @@ public class SalaryController {
      */
     @PostMapping("/SubmitSalary1")
     public AjaxResponse SubmitSalary1(@RequestBody SalaryVo salaryVo){
-        return AjaxResponse.success(auditflowService.SubmitSalary1(salaryVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.SubmitSalary1(salaryVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

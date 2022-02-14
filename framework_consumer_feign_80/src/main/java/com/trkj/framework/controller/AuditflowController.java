@@ -4,15 +4,20 @@ import com.trkj.framework.entity.mybatisplus.Auditflow;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.*;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 public class AuditflowController {
     @Autowired
     private AuditflowService auditflowService =null;
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
 
     /**
      * 根据审批类型的加班/审批人查询待处理的审批
@@ -21,7 +26,8 @@ public class AuditflowController {
      */
     @PostMapping("/selectAuditflow")
     public AjaxResponse selectAuditflowoneAll(@RequestBody Auditflowone auditflowone){
-        return AjaxResponse.success(auditflowService.selectAuditflowoneAll(auditflowone)) ;
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectAuditflowoneAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -31,7 +37,8 @@ public class AuditflowController {
      */
     @PostMapping("/selectEnddAuditflow")
     public AjaxResponse selectEnddAuditflow(@RequestBody Auditflowone auditflowone){
-        return AjaxResponse.success(auditflowService.selectEnddAuditflow(auditflowone)) ;
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectEnddAuditflow(auditflowone); ;
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -41,7 +48,8 @@ public class AuditflowController {
      */
     @PostMapping("/selectDetailsAuditflow")
     public AjaxResponse selectDetailsAuditflow(@RequestBody AuditflowDetailsVo auditflowDetailsVo){
-        return AjaxResponse.success(auditflowService.selectDetailsAuditflow(auditflowDetailsVo)) ;
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectDetailsAuditflow(auditflowDetailsVo); ;
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -51,7 +59,8 @@ public class AuditflowController {
      */
     @PostMapping("/selectStaffState")
     public AjaxResponse selectStaffState(@RequestBody Staff staff){
-        return AjaxResponse.success(auditflowService.selectStaffState(staff)) ;
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectStaffState(staff);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
 
@@ -62,7 +71,8 @@ public class AuditflowController {
      */
     @PostMapping("/update_Approval_State")
     public AjaxResponse updateApprovalState(@RequestBody Auditflowdetail auditflowdetail) {
-        return  AjaxResponse.success(auditflowService.updateApprovalState(auditflowdetail));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.updateApprovalState(auditflowdetail);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -72,7 +82,8 @@ public class AuditflowController {
      */
     @PostMapping("/reject_Approval_State")
     public AjaxResponse rejectApprovalState(@RequestBody Auditflowdetail auditflowdetail) {
-        return  AjaxResponse.success(auditflowService.rejectApprovalState(auditflowdetail));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.rejectApprovalState(auditflowdetail);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -82,7 +93,8 @@ public class AuditflowController {
      */
     @PostMapping("/queryDetail")
     public AjaxResponse queryDetail(@RequestBody Auditflowdetail auditflowdetail){
-        return  AjaxResponse.success(auditflowService.queryDetail(auditflowdetail));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.queryDetail(auditflowdetail);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -92,7 +104,8 @@ public class AuditflowController {
      */
     @PostMapping("/selectOvertimeExamine")
     public AjaxResponse selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo){
-        return AjaxResponse.success(auditflowService.selectOvertimeExamine(overtimeaskVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectOvertimeExamine(overtimeaskVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -102,7 +115,8 @@ public class AuditflowController {
      */
     @PostMapping("/submitToOvertime3")
     public AjaxResponse submitToOvertime3(@RequestBody OvertimeaskVo overtimeaskVo){
-        return AjaxResponse.success(auditflowService.submitToOvertime3(overtimeaskVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.submitToOvertime3(overtimeaskVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -112,7 +126,8 @@ public class AuditflowController {
      */
     @PostMapping("/submitToOvertime2")
     public AjaxResponse submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo){
-        return AjaxResponse.success(auditflowService.submitToOvertime2(overtimeaskVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.submitToOvertime2(overtimeaskVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -122,7 +137,8 @@ public class AuditflowController {
      */
     @PostMapping("/submitToOvertime1")
     public AjaxResponse submitToOvertime1(@RequestBody OvertimeaskVo overtimeaskVo){
-        return AjaxResponse.success(auditflowService.submitToOvertime1(overtimeaskVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.submitToOvertime1(overtimeaskVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -132,7 +148,8 @@ public class AuditflowController {
      */
     @PostMapping("/inquirePosition")
     public AjaxResponse inquirePosition(@RequestBody Staff staff){
-        return AjaxResponse.success(auditflowService.inquirePosition(staff));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.inquirePosition(staff);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -142,7 +159,8 @@ public class AuditflowController {
      */
     @PostMapping("/revocation")
     public AjaxResponse revocation(@RequestBody Auditflow auditflow){
-        return AjaxResponse.success(auditflowService.revocation(auditflow));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.revocation(auditflow);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -152,6 +170,7 @@ public class AuditflowController {
      */
     @PostMapping("/selectTodayOverTimeExamine")
     public AjaxResponse selectTodayOverTimeExamine(@RequestBody Auditflow auditflow){
-        return AjaxResponse.success(auditflowService.selectTodayOverTimeExamine(auditflow));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectTodayOverTimeExamine(auditflow);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

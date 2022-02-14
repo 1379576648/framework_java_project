@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Card;
 import com.trkj.framework.mybatisplus.service.CardService;
 import com.trkj.framework.mybatisplus.service.LeaveService;
+import com.trkj.framework.util.Fuse8003Util;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,8 @@ import java.util.Map;
 public class CardController {
     @Autowired
     private CardService cardService;
-
+    @Autowired
+    private Fuse8003Util fuse8003Util;
     /**
      * 根据审批类型的补打卡/审批人查询待处理的审批
      *
@@ -33,7 +35,7 @@ public class CardController {
      */
     @PostMapping("/selectCardAll")
     @HystrixCommand(fallbackMethod = "HystixGet1")
-    public Object selectCardAll(@RequestBody Auditflowone auditflowone) {
+    public Map<String, Object> selectCardAll(@RequestBody Auditflowone auditflowone) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -41,11 +43,8 @@ public class CardController {
         return map1;
     }
 
-    public Object HystixGet1(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet1(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -56,7 +55,7 @@ public class CardController {
      */
     @PostMapping("/selectEndCardAll")
     @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object selectEndCardAll(@RequestBody Auditflowone auditflowone) {
+    public Map<String, Object> selectEndCardAll(@RequestBody Auditflowone auditflowone) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -64,11 +63,8 @@ public class CardController {
         return map1;
     }
 
-    public Object HystixGet2(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet2(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -79,18 +75,15 @@ public class CardController {
      */
     @PostMapping("/selectDetailsCards")
     @HystrixCommand(fallbackMethod = "HystixGet3")
-    public Object selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo) {
+    public Map<String, Object> selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", cardService.selectDetailsCards(cardDetailsVo));
         return map1;
     }
 
-    public Object HystixGet3(@RequestBody CardDetailsVo cardDetailsVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet3(@RequestBody CardDetailsVo cardDetailsVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -101,18 +94,15 @@ public class CardController {
      */
     @PostMapping("/selectCardExamine")
     @HystrixCommand(fallbackMethod = "selectCardExamineHystixGet")
-    public Object selectCardExamine(@RequestBody CardDetailsVo cardDetailsVo) {
+    public Map<String, Object> selectCardExamine(@RequestBody CardDetailsVo cardDetailsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", cardService.selectCardExamine(cardDetailsVo));
         return map1;
     }
 
-    public Object selectCardExamineHystixGet(@RequestBody CardDetailsVo cardDetailsVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectCardExamineHystixGet(@RequestBody CardDetailsVo cardDetailsVo) {
+        return fuse8003Util.main();
     }
 
 
@@ -124,18 +114,15 @@ public class CardController {
      */
     @PostMapping("/submitToCard3")
     @HystrixCommand(fallbackMethod = "submitToCard3ExamineHystixGet")
-    public Object submitToCard3(@RequestBody CardVo cardVo) {
+    public Map<String, Object> submitToCard3(@RequestBody CardVo cardVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", cardService.submitToCard3(cardVo));
         return map1;
     }
 
-    public Object submitToCard3ExamineHystixGet(@RequestBody CardVo cardVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToCard3ExamineHystixGet(@RequestBody CardVo cardVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -146,18 +133,15 @@ public class CardController {
      */
     @PostMapping("/submitToCard2")
     @HystrixCommand(fallbackMethod = "submitToCard2ExamineHystixGet")
-    public Object submitToCard2(@RequestBody CardVo cardVo) {
+    public Map<String, Object> submitToCard2(@RequestBody CardVo cardVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", cardService.submitToCard2(cardVo));
         return map1;
     }
 
-    public Object submitToCard2ExamineHystixGet(@RequestBody CardVo cardVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToCard2ExamineHystixGet(@RequestBody CardVo cardVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -168,17 +152,14 @@ public class CardController {
      */
     @PostMapping("/submitToCard1")
     @HystrixCommand(fallbackMethod = "submitToCard1ExamineHystixGet")
-    public Object submitToCard1(@RequestBody CardVo cardVo) {
+    public Map<String, Object> submitToCard1(@RequestBody CardVo cardVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", cardService.submitToCard1(cardVo));
         return map1;
     }
 
-    public Object submitToCard1ExamineHystixGet(@RequestBody CardVo cardVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToCard1ExamineHystixGet(@RequestBody CardVo cardVo) {
+        return fuse8003Util.main();
     }
 }

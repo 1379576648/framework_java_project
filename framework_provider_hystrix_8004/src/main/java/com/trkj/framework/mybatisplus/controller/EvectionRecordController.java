@@ -5,6 +5,7 @@ import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.entity.mybatisplus.Leave;
 import com.trkj.framework.entity.mybatisplus.Travel;
 import com.trkj.framework.mybatisplus.service.EvectionRecordService;
+import com.trkj.framework.util.Fuse8004Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,10 @@ import java.util.Map;
 public class EvectionRecordController {
     @Autowired
     private EvectionRecordService evectionRecordService;
-
+    @Autowired
+    private Fuse8004Util fuse8004Util;
+    
+    
     /**
      * 根据员工名称查询出差记录
      *
@@ -31,7 +35,7 @@ public class EvectionRecordController {
      */
     @PostMapping("/selectEvectionRecordAll")
     @HystrixCommand(fallbackMethod = "selectEvectionRecordAllHystixGet")
-    public Object selectEvectionRecordAll(@RequestBody Travel travel) {
+    public Map<String, Object> selectEvectionRecordAll(@RequestBody Travel travel) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -39,11 +43,8 @@ public class EvectionRecordController {
         return map1;
     }
 
-    public Object selectEvectionRecordAllHystixGet(@RequestBody Travel travel) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectEvectionRecordAllHystixGet(@RequestBody Travel travel) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -54,7 +55,7 @@ public class EvectionRecordController {
      */
     @PostMapping("/deleteEvection")
     @HystrixCommand(fallbackMethod = "deleteEvectionHystixGet")
-    public Object deleteEvection(@RequestBody Travel travel) {
+    public Map<String, Object> deleteEvection(@RequestBody Travel travel) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -62,11 +63,8 @@ public class EvectionRecordController {
         return map1;
     }
 
-    public Object deleteEvectionHystixGet(@RequestBody Travel travel) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> deleteEvectionHystixGet(@RequestBody Travel travel) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -77,7 +75,7 @@ public class EvectionRecordController {
      */
     @PostMapping("/updateBeginTravel")
     @HystrixCommand(fallbackMethod = "updateBeginTravelHystixGet")
-    public Object updateBeginTravel(@RequestBody Travel travel) {
+    public Map<String, Object> updateBeginTravel(@RequestBody Travel travel) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -85,11 +83,8 @@ public class EvectionRecordController {
         return map1;
     }
 
-    public Object updateBeginTravelHystixGet(@RequestBody Travel travel) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> updateBeginTravelHystixGet(@RequestBody Travel travel) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -100,7 +95,7 @@ public class EvectionRecordController {
      */
     @PostMapping("/updateEndTravel")
     @HystrixCommand(fallbackMethod = "updateEndTravelHystixGet")
-    public Object updateEndTravel(@RequestBody Travel travel) {
+    public Map<String, Object> updateEndTravel(@RequestBody Travel travel) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -108,11 +103,8 @@ public class EvectionRecordController {
         return map1;
     }
 
-    public Object updateEndTravelHystixGet(@RequestBody Travel travel) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> updateEndTravelHystixGet(@RequestBody Travel travel) {
+        return fuse8004Util.main();
     }
 
 }
