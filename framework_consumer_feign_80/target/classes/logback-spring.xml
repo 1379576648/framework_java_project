@@ -161,16 +161,5 @@
             <appender-ref ref="WARN_FILE" />
         </root>
     </springProfile>
-    <!--生产环境:输出到文件-->
-    <springProfile name="test">
-
-        <root level="INFO">
-            <appender-ref ref="CONSOLE" />
-            <!--            <appender-ref ref="DEBUG_FILE" />-->
-            <appender-ref ref="INFO_FILE" />
-            <appender-ref ref="ERROR_FILE" />
-            <appender-ref ref="WARN_FILE" />
-        </root>
-    </springProfile>
 
 </configuration>

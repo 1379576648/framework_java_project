@@ -46,13 +46,8 @@ public class StaffServiceImpl implements StaffService {
     @Transactional
     public StaffEntity staffId(Map<String, Object> map) {
         //查询缓存数据
-        String key = "";
-        Set set = null;
-        set = redisTemplate.keys("Staff*staffId=" + Integer.parseInt(map.get("成功").toString()) + "*");
-        if (!set.isEmpty()) {
-            key = set.toArray()[0].toString();
-        }
-        Object o = redisTemplate.opsForValue().get(key);
+        Set set = redisTemplate.keys("Staff*staffId=" + Integer.parseInt(map.get("成功").toString()) + ",*");
+        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
         StaffEntity staffEntity = new StaffEntity();
         if (o == null || o.equals("")) {
             //查询数据库数据
@@ -103,15 +98,10 @@ public class StaffServiceImpl implements StaffService {
         StaffEntity entity = new StaffEntity();
         //系统当前时间
         Date date = new Date();
-        List<RegisterLogEntity> registerLogEntities = null;
+        List<RegisterLogEntity> registerLogEntities = new ArrayList<>();
         //查询缓存
-        String key = "";
-        Set set = null;
-        set = redisTemplate.keys("RegisterLogList:*registerLogPhone=" + Long.decode(map.get("phone").toString()) + "*");
-        if (!set.isEmpty()) {
-            key = set.toArray()[0].toString();
-        }
-        Object o = redisTemplate.opsForValue().get(key);
+        Set set  = redisTemplate.keys("RegisterLogList:*registerLogPhone=" + Long.decode(map.get("phone").toString()) + ",*");
+        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
         if (o == null || o.equals("")) {
             //查询数据库
             registerLogEntities = registerLogDao.selectRegisterNumber(Long.decode(map.get("phone").toString()));
@@ -124,13 +114,10 @@ public class StaffServiceImpl implements StaffService {
             entity.setError(30 - (date.getTime() - registerLogEntities.get(0).getCreatedTime().getTime()) / (1000 * 60));
             return entity;
         } else {
-            StaffEntity staffEntity = null;
+            StaffEntity staffEntity = new StaffEntity();
             //查询缓存
-            set = redisTemplate.keys("Staff:*staffPhone=" + Long.decode(map.get("phone").toString()) + "*staffPass=" + map.get("pass").toString() + "*");
-            if (!set.isEmpty()) {
-                key = set.toArray()[0].toString();
-            }
-            Object o1 = redisTemplate.opsForValue().get(key);
+            Set set1 = redisTemplate.keys("Staff:*staffPhone=" + Long.decode(map.get("phone").toString()) + "*staffPass=" + map.get("pass").toString() + ",*");
+            Object o1 = redisTemplate.opsForValue().get(!set1.isEmpty()?set1.toArray()[0].toString():"");
             if (o1 == null || o1.equals("")) {
                 //查询数据库
                 staffEntity = staffDao.findStaffByPhoneAndPass(Long.decode(map.get("phone").toString()), map.get("pass").toString());
@@ -180,15 +167,10 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Object menuList(Integer id) {
         //获取用户下所有的角色列表
-        String key = "";
-        Set set = null;
-        set = redisTemplate.keys("RoleStaffList:*roleStaffId" + id + "*");
-        if (!set.isEmpty()) {
-            key = set.toArray()[0].toString();
-        }
+        Set set  = redisTemplate.keys("RoleStaffList:*roleStaffId" + id + ",*");
         //查询缓存
-        Object o = redisTemplate.opsForValue().get(key);
-        List<RoleStaffEntity> roleStaffEntities = null;
+        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
+        List<RoleStaffEntity> roleStaffEntities = new ArrayList<>();
         if (o == null || o.equals("")) {
             //查询数据库
             roleStaffEntities = roleStaffDao.selectRoleStaff(id);
@@ -201,13 +183,10 @@ public class StaffServiceImpl implements StaffService {
         //迭代角色列表
         for (RoleStaffEntity roleStaffEntity : roleStaffEntities) {
             //获取所有角色下的菜单编号列表
-            List<RoleMenuPowerEntity> roleMenuPowerEntities = null;
+            List<RoleMenuPowerEntity> roleMenuPowerEntities = new ArrayList<>();
             //查询缓存
-            set = redisTemplate.keys("RoleMenuPowerList:*roleId=" + roleStaffEntity.getRoleId() + "*");
-            if (!set.isEmpty()) {
-                key = set.toArray()[0].toString();
-            }
-            Object o1 = redisTemplate.opsForValue().get(key);
+            Set set1 = redisTemplate.keys("RoleMenuPowerList:*roleId=" + roleStaffEntity.getRoleId() + ",*");
+            Object o1 = redisTemplate.opsForValue().get(!set1.isEmpty()?set1.toArray()[0].toString():"");
             if (o1 == null || o1.equals("")) {
                 //查询数据库
                 roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
@@ -218,13 +197,11 @@ public class StaffServiceImpl implements StaffService {
             //迭代菜单编号列表
             for (RoleMenuPowerEntity roleMenuPowerEntity : roleMenuPowerEntities) {
                 //通过菜单编号查询菜单
-                MenuPowerEntity menuPower = null;
+                MenuPowerEntity menuPower = new MenuPowerEntity();
                 //查询缓存
-                set = redisTemplate.keys("MenuPower:*menuPowerId=" + roleMenuPowerEntity.getMenuPowerId() + "*");
-                if (!set.isEmpty()) {
-                    key = set.toArray()[0].toString();
-                }
-                Object o2 = redisTemplate.opsForValue().get(key);
+                System.out.println( roleMenuPowerEntity.getMenuPowerId() +"周刘奇");
+                Set set2 = redisTemplate.keys("MenuPower:*menuPowerId=" + roleMenuPowerEntity.getMenuPowerId() + ",*");
+                Object o2 = redisTemplate.opsForValue().get(!set2.isEmpty()?set2.toArray()[0].toString():"");
                 if (o2 == null || o2.equals("")) {
                     //查询数据库
                     menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
@@ -238,7 +215,7 @@ public class StaffServiceImpl implements StaffService {
                 }
             }
         }
-
+        System.out.println(menuPowerEntities.toString());
         //储藏所有角色下的菜单列表 去重
         List<MenuPowerEntity> menuPowerEntities1 = menuPowerEntities.stream().distinct().collect(Collectors.toList());
         //排序
@@ -271,13 +248,9 @@ public class StaffServiceImpl implements StaffService {
     public String selectPostName(Integer integer) {
         //查询缓存
         String key = "";
-        Set set = null;
-        set = redisTemplate.keys("DeptPost:*deptPostId=" + integer + "*");
-        if (!set.isEmpty()) {
-            key = set.toArray()[0].toString();
-        }
-        Object o = redisTemplate.opsForValue().get(key);
-        DeptPostEntity deptPost = null;
+        Set set = redisTemplate.keys("DeptPost:*deptPostId=" + integer + ",*");
+        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
+        DeptPostEntity deptPost = new DeptPostEntity();
         if (o == null || o.equals("")) {
             //查询数据库
             deptPost = deptPostDao.findDeptPostEntityByDeptPostId(integer);
