@@ -246,6 +246,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         //将入职日期后三个月写入转正日期
         staff.setWorkerDate(c.getTime());
 
+        System.out.println(c.getTime());
+
         //如果工作经历和教育经历为空
         if(workExperiencess == null && educationss == null){
             //只添加员工数据

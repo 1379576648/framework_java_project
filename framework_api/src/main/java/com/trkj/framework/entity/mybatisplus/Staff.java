@@ -161,7 +161,7 @@ public class Staff implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "转正日期")
-    @TableField(exist = false)
+    @TableField("WORKER_DATE")
     private Date workerDate;
 
     @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")
