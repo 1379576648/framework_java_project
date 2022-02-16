@@ -7,6 +7,7 @@ import com.trkj.framework.entity.mybatisplus.RoleStaff;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import io.swagger.models.auth.In;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +33,7 @@ public interface RoleService  {
      * @param list
      * @return
      */
-    String checkRoleDelete(ArrayList<Integer> list);
+    String checkRoleDelete(ArrayList<Integer> list) throws ArithmeticException;
 
 
     /***
@@ -40,7 +41,7 @@ public interface RoleService  {
      * @param role
      * @return
      */
-    String addRole(Role role);
+    String addRole(Role role) throws ArithmeticException;
 
     /***
      * 通过前台的角色名称判断角色是否被使用
@@ -56,7 +57,7 @@ public interface RoleService  {
      * @param role
      * @return
      */
-    String updateRole(Role role);
+    String updateRole(Role role) throws ArithmeticException;
 
 
     /***
@@ -64,14 +65,14 @@ public interface RoleService  {
      * @param role
      * @return
      */
-    String allotMenu(Role role);
+    String allotMenu(Role role) throws ArithmeticException;
 
     /***
      * 分页查询所有的角色员工表数据
      * @param roleStaff
      * @return
      */
-    IPage<RoleStaff> selectRoleStaff (RoleStaff roleStaff);
+    Object selectRoleStaff (RoleStaff roleStaff);
 
 
     /***
@@ -94,5 +95,5 @@ public interface RoleService  {
      * @param roleStaff
      * @return
      */
-    String allotStaff(RoleStaff roleStaff);
+    String allotStaff(RoleStaff roleStaff) throws ArithmeticException;
 }

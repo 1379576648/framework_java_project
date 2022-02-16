@@ -16,7 +16,7 @@ public class Fuse8005Util {
     public Map<String,Object> main(){
         Map<String, Object> objectMap = new HashMap<>(2);
         objectMap.put("state", 300);
-        objectMap.put("info", "服务发生雪崩");
+        objectMap.put("info", "服务器异常，请稍后再试");
         return objectMap;
     }
 

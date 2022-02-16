@@ -50,7 +50,6 @@ public class InsuredArchiveServiceImpl implements InsuredArchiveService {
      */
     @Override
     public Object selectListInsuredArchive(InsuredArchive insuredArchive) {
-        int a=1/0;
         //分页插件
         Page<InsuredArchive> page = new Page<>(insuredArchive.getCurrenPage(), insuredArchive.getPageSize());
         //条件构造器

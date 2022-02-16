@@ -14,9 +14,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -41,8 +43,6 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private StaffMapper staffMapper;
 
-    @Autowired
-    private RedisTemplate redisTemplate;
 
     /***
      * 分页查询所有的角色数据
@@ -51,42 +51,37 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public Object selectRoleAll(Role role) {
-        Object o = redisTemplate.opsForValue().get("Role:"+role.toString());
-        if (o == null || !o.equals("")) {
-            //创建分页
-            Page<Role> page = new Page<Role>(role.getCurrenPage(), role.getPageSize());
-            //创建条件构造器
-            QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
-            //判断角色名称是否为空
-            if (role.getRoleName() != null && !role.getRoleName().equals("")) {
-                //角色名称模糊查询
-                queryWrapper.like("ROLE_NAME", role.getRoleName());
-            }
-
-            //判断角色描述是否为空
-            if (role.getRoleDescribe() != null && !role.getRoleDescribe().equals("")) {
-                //角色描述模糊查询
-                queryWrapper.like("ROLE_DESCRIBE", role.getRoleDescribe());
-            }
-
-            //判断角色状态否未空
-            if (role.getRoleState() != null) {
-                //类型模糊查询
-                queryWrapper.like("ROLE_STATE", role.getRoleState());
-            }
-
-            //判断传入的时间是否为空
-            if (role.getStartTime() != null || role.getEndTime() != null) {
-                //登录时间范围查询
-                queryWrapper.between("CREATED_TIME", role.getStartTime(), role.getEndTime());
-            }
-            //按照ID降序
-            queryWrapper.orderByDesc("ROLE_ID");
-            IPage<Role> roleIPage = roleMapper.selectPage(page, queryWrapper);
-            redisTemplate.opsForValue().set("Role:" + role.toString(), roleIPage);
-            return roleIPage;
+        //创建分页
+        Page<Role> page = new Page<Role>(role.getCurrenPage(), role.getPageSize());
+        //创建条件构造器
+        QueryWrapper<Role> queryWrapper = new QueryWrapper<Role>();
+        //判断角色名称是否为空
+        if (role.getRoleName() != null && !role.getRoleName().equals("")) {
+            //角色名称模糊查询
+            queryWrapper.like("ROLE_NAME", role.getRoleName());
         }
-        return o;
+
+        //判断角色描述是否为空
+        if (role.getRoleDescribe() != null && !role.getRoleDescribe().equals("")) {
+            //角色描述模糊查询
+            queryWrapper.like("ROLE_DESCRIBE", role.getRoleDescribe());
+        }
+
+        //判断角色状态否未空
+        if (role.getRoleState() != null) {
+            //类型模糊查询
+            queryWrapper.like("ROLE_STATE", role.getRoleState());
+        }
+
+        //判断传入的时间是否为空
+        if (role.getStartTime() != null || role.getEndTime() != null) {
+            //登录时间范围查询
+            queryWrapper.between("CREATED_TIME", role.getStartTime(), role.getEndTime());
+        }
+        //按照ID降序
+        queryWrapper.orderByDesc("ROLE_ID");
+        IPage<Role> roleIPage = roleMapper.selectPage(page, queryWrapper);
+        return roleIPage;
     }
 
     /***
@@ -95,30 +90,32 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    @Transactional
-    public String checkRoleDelete(ArrayList<Integer> list) {
+    @Transactional(rollbackFor = Exception.class)
+    public String checkRoleDelete(ArrayList<Integer> list) throws ArithmeticException {
         //循环传过来的集合
         for (int i = 0; i < list.size(); i++) {
             //通过角色编号查寻角色员工表的数据
-            List<RoleStaff> staffList = roleStaffMapper.selectList(new QueryWrapper<RoleStaff>().eq("ROLE_ID", list.get(i)));
+            List<RoleStaff> staffList = new ArrayList<>();
+            staffList = roleStaffMapper.selectList(new QueryWrapper<RoleStaff>().eq("ROLE_ID", list.get(i)));
             if (staffList.size() != 0) {
                 //通过员工编号删除角色员工表数据
                 if (roleStaffMapper.delete(new QueryWrapper<RoleStaff>().eq("ROLE_ID", list.get(i))) <= 0) {
-                    return "删除角色员工数据失败";
+                    throw new ArithmeticException("删除角色失败");
                 }
             }
             //通过角色编号查询角色权限表数据
-            List<RoleMenuPower> roleMenuPowers = roleMenuPowerMapper.selectList(new QueryWrapper<RoleMenuPower>().eq("ROLE_ID", list.get(i)));
+            List<RoleMenuPower> roleMenuPowers = new ArrayList<>();
+            roleMenuPowers = roleMenuPowerMapper.selectList(new QueryWrapper<RoleMenuPower>().eq("ROLE_ID", list.get(i)));
             if (roleMenuPowers.size() != 0) {
                 //通过角色编号删除角色权限表数据z
                 if (roleMenuPowerMapper.delete(new QueryWrapper<RoleMenuPower>().eq("ROLE_ID", list.get(i))) <= 0) {
-                    return "删除角色权限数据失败";
+                    throw new ArithmeticException("删除角色失败");
                 }
             }
 
             //通过角色编号删除角色表数据
-            if (roleMapper.deleteById(list.get(i)) <=0) {
-                return "删除角色数据失败";
+            if (roleMapper.deleteById(list.get(i)) <= 0) {
+                throw new ArithmeticException("删除角色失败");
             }
         }
         return "成功";
@@ -131,14 +128,14 @@ public class RoleServiceImpl implements RoleService {
      */
     @Override
     public String selectRoleRoleName(String name, String value) {
-        String s = "成功";
-        Role role = roleMapper.selectOne(new QueryWrapper<Role>().eq("ROLE_NAME", name));
+        Role role = new Role();
+        role = roleMapper.selectOne(new QueryWrapper<Role>().eq("ROLE_NAME", name));
         if (role != null) {
             if (!role.getRoleId().toString().equals(value)) {
                 return "角色[" + name + "]名称已被使用";
             }
         }
-        return s;
+        return "成功";
     }
 
     /***
@@ -147,11 +144,10 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    @Transactional
-    public String updateRole(Role role) {
-        String s = "成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String updateRole(Role role) throws ArithmeticException {
         if (roleMapper.updateById(role) <= 0) {
-            return "修改角色数据失败";
+            throw new ArithmeticException("修改角色失败");
         }
         //先删除角色菜单数据
         roleMenuPowerMapper.delete(new QueryWrapper<RoleMenuPower>().eq("ROLE_ID", role.getRoleId()));
@@ -164,13 +160,11 @@ public class RoleServiceImpl implements RoleService {
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
             roleMenuPower.setMenuPowerId(Long.valueOf(id));
-            if (roleMenuPowerMapper.insert(roleMenuPower) >= 1) {
-                s = "成功";
-            } else {
-                return "添加角色菜单数据失败";
+            if (roleMenuPowerMapper.insert(roleMenuPower) <= 0) {
+                throw new ArithmeticException("修改角色失败");
             }
         }
-        return s;
+        return "成功";
     }
 
     /**
@@ -180,9 +174,8 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    @Transactional
-    public String allotMenu(Role role) {
-        String s = "成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String allotMenu(Role role) throws ArithmeticException {
         //先删除角色菜单数据
         roleMenuPowerMapper.delete(new QueryWrapper<RoleMenuPower>().eq("ROLE_ID", role.getRoleId()));
         //循环菜单列表
@@ -194,13 +187,11 @@ public class RoleServiceImpl implements RoleService {
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
             roleMenuPower.setMenuPowerId(Long.valueOf(id));
-            if (roleMenuPowerMapper.insert(roleMenuPower) >= 1) {
-                s = "成功";
-            } else {
-                return "添加角色菜单数据失败";
+            if (roleMenuPowerMapper.insert(roleMenuPower) <= 0) {
+                throw new ArithmeticException("分配失败");
             }
         }
-        return s;
+        return "成功";
     }
 
     /***
@@ -210,10 +201,9 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    public IPage<RoleStaff> selectRoleStaff(RoleStaff roleStaff) {
+    public Object selectRoleStaff(RoleStaff roleStaff) {
         //分页插件
         Page<RoleStaff> iPage = new Page<RoleStaff>(roleStaff.getCurrenPage(), roleStaff.getPageSize());
-
         //条件构造器
         QueryWrapper<RoleStaff> roleStaffQueryWrapper = new QueryWrapper<RoleStaff>();
         //判断员工名称是否为空
@@ -233,8 +223,8 @@ public class RoleServiceImpl implements RoleService {
         roleStaffQueryWrapper.eq("a.ROLE_ID", roleStaff.getRoleId());
         //逻辑删除
         roleStaffQueryWrapper.eq("b.IS_DELETED", 0);
-
-        return roleStaffMapper.pageRoleStaff(iPage, roleStaffQueryWrapper);
+        IPage<RoleStaff> page = roleStaffMapper.pageRoleStaff(iPage, roleStaffQueryWrapper);
+        return page;
     }
 
     /***
@@ -243,18 +233,11 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    @Transactional
     public String cancelImpower(ArrayList<Integer> list) {
-        String s = "成功";
-        //循环传过来的集合
-        for (Integer integer : list) {
-            if (roleStaffMapper.deleteById(integer) >= 1) {
-                s = "成功";
-            } else {
-                return "取消授权失败";
-            }
+        if (roleStaffMapper.deleteBatchIds(list) <= 0) {
+            return "取消失败";
         }
-        return s;
+        return "成功";
     }
 
 
@@ -287,7 +270,8 @@ public class RoleServiceImpl implements RoleService {
         }
         //状态不等于离职 2
         queryWrapper.ne("STAFF_STATE", 2).select(Staff.class, i -> !"STAFF_PASS".equals(i.getColumn()));
-        return staffMapper.selectPage(iPage, queryWrapper);
+        IPage<Staff> staffIPage = staffMapper.selectPage(iPage, queryWrapper);
+        return staffIPage;
     }
 
     /***
@@ -296,22 +280,19 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    @Transactional
-    public String allotStaff(RoleStaff roleStaff) {
-        String s = "成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String allotStaff(RoleStaff roleStaff) throws ArithmeticException {
         for (Integer integer : roleStaff.getList()) {
             RoleStaff roleStaff1 = new RoleStaff();
             //角色编号
             roleStaff1.setRoleId(roleStaff.getRoleId());
             //员工编号
             roleStaff1.setStaffId(Long.valueOf(integer));
-            if (roleStaffMapper.insert(roleStaff1) >= 1) {
-                s = "成功";
-            } else {
-                return "授权失败";
+            if (roleStaffMapper.insert(roleStaff1) <= 0) {
+                throw new ArithmeticException("分配失败");
             }
         }
-        return s;
+        return "成功";
     }
 
 
@@ -321,11 +302,10 @@ public class RoleServiceImpl implements RoleService {
      * @return
      */
     @Override
-    @Transactional
-    public String addRole(Role role) {
-        String s = "成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String addRole(Role role) throws ArithmeticException {
         if (roleMapper.insert(role) <= 0) {
-            return "添加角色数据失败";
+            throw new ArithmeticException("添加角色失败");
         }
         //循环菜单列表
         for (Integer id : role.getMenuList()) {
@@ -336,19 +316,16 @@ public class RoleServiceImpl implements RoleService {
             roleMenuPower.setRoleId(Long.valueOf(role.getRoleId()));
             //菜单编号
             roleMenuPower.setMenuPowerId(Long.valueOf(id));
-            if (roleMenuPowerMapper.insert(roleMenuPower) >= 1) {
-                s = "成功";
-            } else {
-                return "添加角色菜单数据失败";
+            if (roleMenuPowerMapper.insert(roleMenuPower) <= 0) {
+                throw new ArithmeticException("添加角色失败");
             }
         }
-        return s;
+        return "成功";
     }
 
     public Long util(ArrayList<Integer> list, Integer index) {
         Long id = 0L;
         for (Integer integer : list) {
-            System.out.println(integer + ":" + index);
             if (integer.equals(index)) {
                 return 1L;
             }

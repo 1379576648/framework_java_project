@@ -10,6 +10,8 @@ import com.trkj.framework.util.Fuse8007Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Array;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -65,7 +67,11 @@ public class RoleController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", roleService.checkRoleDelete(list));
+        try {
+            map1.put("info", roleService.checkRoleDelete(list));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -86,7 +92,11 @@ public class RoleController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", roleService.addRole(role));
+        try {
+            map1.put("info", roleService.addRole(role));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -130,7 +140,11 @@ public class RoleController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", roleService.updateRole(role));
+        try {
+            map1.put("info", roleService.updateRole(role));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -146,7 +160,11 @@ public class RoleController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", roleService.allotMenu(role));
+        try {
+            map1.put("info", roleService.allotMenu(role));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -232,7 +250,11 @@ public class RoleController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", roleService.allotStaff(roleStaff));
+        try {
+            map1.put("info", roleService.allotStaff(roleStaff));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

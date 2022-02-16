@@ -1,10 +1,13 @@
 package com.trkj.framework.entity.jpa;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Data
 @Table(name = "DEPT_POST", schema = "POWER", catalog = "")
 public class DeptPostEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,61 +33,6 @@ public class DeptPostEntity {
     @Column(name = "IS_DELETED", nullable = false, precision = 0)
     private int isDeleted;
 
-    public int getDeptPostId() {
-        return deptPostId;
-    }
-
-    public void setDeptPostId(int deptPostId) {
-        this.deptPostId = deptPostId;
-    }
-
-    public int getDeptId() {
-        return deptId;
-    }
-
-    public void setDeptId(int deptId) {
-        this.deptId = deptId;
-    }
-
-    public String getPostName() {
-        return postName;
-    }
-
-    public void setPostName(String postName) {
-        this.postName = postName;
-    }
-
-    public int getRevision() {
-        return revision;
-    }
-
-    public void setRevision(int revision) {
-        this.revision = revision;
-    }
-
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public Date getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    public int getIsDeleted() {
-        return isDeleted;
-    }
-
-    public void setIsDeleted(int isDeleted) {
-        this.isDeleted = isDeleted;
-    }
 
     @Override
     public boolean equals(Object o) {

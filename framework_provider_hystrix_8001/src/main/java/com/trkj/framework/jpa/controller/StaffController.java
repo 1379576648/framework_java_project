@@ -62,7 +62,7 @@ public class StaffController {
             e.printStackTrace();
             Map<String, Object> map1 = new HashMap<>(2);
             map1.put("state", 300);
-            map1.put("info", "服务发生雪崩");
+            map1.put("info", "服务器异常，请稍后再试");
             return map1;
         }
     }
@@ -100,7 +100,7 @@ public class StaffController {
             e.printStackTrace();
             Map<String, Object> map1 = new HashMap<>(2);
             map1.put("state", 300);
-            map1.put("info", "服务发生雪崩");
+            map1.put("info", "服务器异常，请稍后再试");
             return map1;
         }
     }

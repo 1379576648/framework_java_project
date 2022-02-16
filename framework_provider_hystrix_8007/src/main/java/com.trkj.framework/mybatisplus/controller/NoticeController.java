@@ -59,7 +59,11 @@ public class NoticeController {
         //状态码
         map1.put("state",200);
         //返回结果
-        map1.put("info",noticeService.checkNoticeDelete(list));
+        try{
+            map1.put("info",noticeService.checkNoticeDelete(list));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 
@@ -99,7 +103,12 @@ public class NoticeController {
         //状态码
         map1.put("state",200);
         //返回结果
-        map1.put("info",noticeService.insertNotice(notice));
+        try {
+            map1.put("info",noticeService.insertNotice(notice));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
+
         return map1;
     }
     //备选方案
@@ -139,7 +148,11 @@ public class NoticeController {
         //状态码
         map1.put("state",200);
         //返回结果
-        map1.put("info",noticeService.updateNotice(notice));
+        try {
+            map1.put("info",noticeService.updateNotice(notice));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
     //备选方案

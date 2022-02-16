@@ -109,10 +109,10 @@ public class OperationAspect {
                         gzip.toString()
                 , gzip);
         operatLogMapper.insert(operatLog);
-        //删除缓存数据
-        redisTemplate.delete(redisTemplate.keys("OperatLogPage:*"));
-        //添加缓存
+
         redisTemplate.opsForValue().set("OperatLog:"+operatLog.toString(),operatLog);
+        redisTemplate.delete(redisTemplate.keys("OperatLogPage:*"));
+        redisTemplate.delete(redisTemplate.keys("OperatLogList:*"));
         log.info("结束记录操作日志》》》》》》》》》》》》》");
     }
 
