@@ -5,6 +5,7 @@ import com.trkj.framework.entity.mybatisplus.Auditflow;
 import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
+import com.trkj.framework.util.Fuse8003Util;
 import com.trkj.framework.vo.*;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ import java.util.Map;
 public class AuditflowController {
     @Autowired
     private AuditflowService auditflowService;
-
+    @Autowired
+    private Fuse8003Util fuse8003Util;
     /**
      * 根据审批类型的加班/审批人查询待处理的审批
      *
@@ -33,7 +35,7 @@ public class AuditflowController {
      */
     @PostMapping("/selectAuditflow")
     @HystrixCommand(fallbackMethod = "HystixGet1")
-    public Object selectAuditflowoneAll(@RequestBody Auditflowone auditflowone) {
+    public Map<String, Object> selectAuditflowoneAll(@RequestBody Auditflowone auditflowone) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -41,11 +43,8 @@ public class AuditflowController {
         return map1;
     }
 
-    public Object HystixGet1(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet1(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -56,7 +55,7 @@ public class AuditflowController {
      */
     @PostMapping("/selectEnddAuditflow")
     @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object selectEnddAuditflow(@RequestBody Auditflowone auditflowone) {
+    public Map<String, Object> selectEnddAuditflow(@RequestBody Auditflowone auditflowone) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -64,11 +63,8 @@ public class AuditflowController {
         return map1;
     }
 
-    public Object HystixGet2(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet2(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -79,18 +75,15 @@ public class AuditflowController {
      */
     @PostMapping("/selectDetailsAuditflow")
     @HystrixCommand(fallbackMethod = "HystixGet3")
-    public Object selectDetailsAuditflow(@RequestBody AuditflowDetailsVo auditflowDetailsVo) {
+    public Map<String, Object> selectDetailsAuditflow(@RequestBody AuditflowDetailsVo auditflowDetailsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.selectDetailsAuditflow(auditflowDetailsVo));
         return map1;
     }
 
-    public Object HystixGet3(@RequestBody AuditflowDetailsVo auditflowDetailsVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet3(@RequestBody AuditflowDetailsVo auditflowDetailsVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -101,18 +94,15 @@ public class AuditflowController {
      */
     @PostMapping("/selectStaffState")
     @HystrixCommand(fallbackMethod = "selectStaffStateHystixGet")
-    public Object selectStaffState(@RequestBody Staff staff) {
+    public Map<String, Object> selectStaffState(@RequestBody Staff staff) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.selectStaffState(staff));
         return map1;
     }
 
-    public Object selectStaffStateHystixGet(@RequestBody Staff staff) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectStaffStateHystixGet(@RequestBody Staff staff) {
+        return fuse8003Util.main();
     }
 
 
@@ -124,7 +114,7 @@ public class AuditflowController {
      */
     @PostMapping("/update_Approval_State")
     @HystrixCommand(fallbackMethod = "update_Approval_StateHystixGet")
-    public Object updateApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
+    public Map<String, Object> updateApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
         Map<String, Object> map1 = new HashMap<>(2);
         auditflowdetail1.setAuditflowdetaiState(2);
         auditflowdetail1.setAuditflowdetaiDate(new Date());
@@ -143,11 +133,8 @@ public class AuditflowController {
         return map1;
     }
 
-    public Object update_Approval_StateHystixGet(@RequestBody Auditflowdetail auditflowdetail1) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> update_Approval_StateHystixGet(@RequestBody Auditflowdetail auditflowdetail1) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -158,7 +145,7 @@ public class AuditflowController {
      */
     @PostMapping("/reject_Approval_State")
     @HystrixCommand(fallbackMethod = "reject_Approval_StateHystixGet")
-    public Object rejectApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
+    public Map<String, Object> rejectApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
         Map<String, Object> map1 = new HashMap<>(2);
         auditflowdetail1.setAuditflowdetaiState(3);
         auditflowdetail1.setAuditflowdetaiDate(new Date());
@@ -177,11 +164,8 @@ public class AuditflowController {
         return map1;
     }
 
-    public Object reject_Approval_StateHystixGet(@RequestBody Auditflowdetail auditflowdetail1) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> reject_Approval_StateHystixGet(@RequestBody Auditflowdetail auditflowdetail1) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -192,18 +176,15 @@ public class AuditflowController {
      */
     @PostMapping("/queryDetail")
     @HystrixCommand(fallbackMethod = "HystixGet5")
-    public Object queryDetail(@RequestBody Auditflowdetail auditflowdetail) {
+    public Map<String, Object> queryDetail(@RequestBody Auditflowdetail auditflowdetail) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.queryDetail(auditflowdetail));
         return map1;
     }
 
-    public Object HystixGet5(@RequestBody Auditflowdetail auditflowdetail) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet5(@RequestBody Auditflowdetail auditflowdetail) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -214,18 +195,15 @@ public class AuditflowController {
      */
     @PostMapping("/selectOvertimeExamine")
     @HystrixCommand(fallbackMethod = "selectOvertimeExamineHystixGet")
-    public Object selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo) {
+    public Map<String, Object> selectOvertimeExamine(@RequestBody OvertimeaskVo overtimeaskVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.selectOvertimeExamine(overtimeaskVo));
         return map1;
     }
 
-    public Object selectOvertimeExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectOvertimeExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -236,18 +214,15 @@ public class AuditflowController {
      */
     @PostMapping("/submitToOvertime3")
     @HystrixCommand(fallbackMethod = "submitToOvertime3ExamineHystixGet")
-    public Object submitToOvertime3(@RequestBody OvertimeaskVo overtimeaskVo) {
+    public Map<String, Object> submitToOvertime3(@RequestBody OvertimeaskVo overtimeaskVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.submitToOvertime3(overtimeaskVo));
         return map1;
     }
 
-    public Object submitToOvertime3ExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToOvertime3ExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -258,18 +233,15 @@ public class AuditflowController {
      */
     @PostMapping("/submitToOvertime2")
     @HystrixCommand(fallbackMethod = "submitToOvertime2ExamineHystixGet")
-    public Object submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo) {
+    public Map<String, Object> submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.submitToOvertime2(overtimeaskVo));
         return map1;
     }
 
-    public Object submitToOvertime2ExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToOvertime2ExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -280,18 +252,15 @@ public class AuditflowController {
      */
     @PostMapping("/submitToOvertime1")
     @HystrixCommand(fallbackMethod = "submitToOvertime1ExamineHystixGet")
-    public Object submitToOvertime1(@RequestBody OvertimeaskVo overtimeaskVo) {
+    public Map<String, Object> submitToOvertime1(@RequestBody OvertimeaskVo overtimeaskVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.submitToOvertime1(overtimeaskVo));
         return map1;
     }
 
-    public Object submitToOvertime1ExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToOvertime1ExamineHystixGet(@RequestBody OvertimeaskVo overtimeaskVo) {
+        return fuse8003Util.main();
     }
 
 
@@ -303,18 +272,15 @@ public class AuditflowController {
      */
     @PostMapping("/inquirePosition")
     @HystrixCommand(fallbackMethod = "inquirePositionExamineHystixGet")
-    public Object inquirePosition(@RequestBody Staff staff) {
+    public Map<String, Object> inquirePosition(@RequestBody Staff staff) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.inquirePosition(staff));
         return map1;
     }
 
-    public Object inquirePositionExamineHystixGet(@RequestBody Staff staff) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> inquirePositionExamineHystixGet(@RequestBody Staff staff) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -325,18 +291,15 @@ public class AuditflowController {
      */
     @PostMapping("/revocation")
     @HystrixCommand(fallbackMethod = "submitToOvertime1ExamineHystixGet")
-    public Object revocation(@RequestBody Auditflow auditflow) {
+    public Map<String, Object> revocation(@RequestBody Auditflow auditflow) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.revocation(auditflow));
         return map1;
     }
 
-    public Object submitToOvertime1ExamineHystixGet(@RequestBody Auditflow auditflow) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToOvertime1ExamineHystixGet(@RequestBody Auditflow auditflow) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -347,18 +310,15 @@ public class AuditflowController {
      */
     @PostMapping("/selectSalaryDetails")
     @HystrixCommand(fallbackMethod = "selectSalaryDetailsExamineHystixGet")
-    public Object selectSalaryDetails(@RequestBody SalaryVo salaryVo) {
+    public Map<String, Object> selectSalaryDetails(@RequestBody SalaryVo salaryVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.selectSalaryDetails(salaryVo));
         return map1;
     }
 
-    public Object selectSalaryDetailsExamineHystixGet(@RequestBody SalaryVo salaryVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectSalaryDetailsExamineHystixGet(@RequestBody SalaryVo salaryVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -369,18 +329,15 @@ public class AuditflowController {
      */
     @PostMapping("/selectTodayOverTimeExamine")
     @HystrixCommand(fallbackMethod = "selectTodayOverTimeExamineExamineHystixGet")
-    public Object selectTodayOverTimeExamine(@RequestBody Auditflow auditflow) {
+    public Map<String, Object> selectTodayOverTimeExamine(@RequestBody Auditflow auditflow) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", auditflowService.selectTodayOverTimeExamine(auditflow));
         return map1;
     }
 
-    public Object selectTodayOverTimeExamineExamineHystixGet(@RequestBody Auditflow auditflow) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectTodayOverTimeExamineExamineHystixGet(@RequestBody Auditflow auditflow) {
+        return fuse8003Util.main();
     }
 
 }

@@ -5,6 +5,7 @@ import com.trkj.framework.entity.mybatisplus.Classes;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.mybatisplus.service.CardRecordService;
 import com.trkj.framework.mybatisplus.service.ClassesService;
+import com.trkj.framework.util.Fuse8004Util;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,8 @@ import java.util.Map;
 public class ClassesController {
     @Autowired
     private ClassesService classesService;
-
+    @Autowired
+    private Fuse8004Util fuse8004Util;
     /**
      * 查询所有班次方案
      *
@@ -31,7 +33,7 @@ public class ClassesController {
      */
     @PostMapping("/selectClassesAll")
     @HystrixCommand(fallbackMethod = "selectClassesAllHystixGet")
-    public Object selectClassesAll(@RequestBody Classes classes) {
+    public Map<String, Object> selectClassesAll(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -39,11 +41,8 @@ public class ClassesController {
         return map1;
     }
 
-    public Object selectClassesAllHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectClassesAllHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -54,7 +53,7 @@ public class ClassesController {
      */
     @PostMapping("/submitFormClasses")
     @HystrixCommand(fallbackMethod = "submitFormClassesHystixGet")
-    public Object submitFormClasses(@RequestBody Classes classes) {
+    public Map<String, Object> submitFormClasses(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -62,11 +61,8 @@ public class ClassesController {
         return map1;
     }
 
-    public Object submitFormClassesHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitFormClassesHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -77,7 +73,7 @@ public class ClassesController {
      */
     @PostMapping("/inquireClasses")
     @HystrixCommand(fallbackMethod = "inquireClassesHystixGet")
-    public Object inquireClassesName(@RequestBody Classes classes) {
+    public Map<String, Object> inquireClassesName(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -85,11 +81,8 @@ public class ClassesController {
         return map1;
     }
 
-    public Object inquireClassesHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> inquireClassesHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -100,7 +93,7 @@ public class ClassesController {
      */
     @PostMapping("/deleteClasses")
     @HystrixCommand(fallbackMethod = "deleteClassesHystixGet")
-    public Object deleteClasses(@RequestBody Classes classes) {
+    public Map<String, Object> deleteClasses(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -108,11 +101,8 @@ public class ClassesController {
         return map1;
     }
 
-    public Object deleteClassesHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> deleteClassesHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -123,7 +113,7 @@ public class ClassesController {
      */
     @PostMapping("/selectClasses")
     @HystrixCommand(fallbackMethod = "selectClassesHystixGet")
-    public Object selectClasses(@RequestBody Classes classes) {
+    public Map<String, Object> selectClasses(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -131,11 +121,8 @@ public class ClassesController {
         return map1;
     }
 
-    public Object selectClassesHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectClassesHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -146,7 +133,7 @@ public class ClassesController {
      */
     @PostMapping("/updateClassesState")
     @HystrixCommand(fallbackMethod = "updateClassesStateHystixGet")
-    public Object updateClassesState(@RequestBody Classes classes) {
+    public Map<String, Object> updateClassesState(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -154,11 +141,8 @@ public class ClassesController {
         return map1;
     }
 
-    public Object updateClassesStateHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> updateClassesStateHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -169,7 +153,7 @@ public class ClassesController {
      */
     @PostMapping("/updateClassesStateTwo")
     @HystrixCommand(fallbackMethod = "updateClassesStateTwoHystixGet")
-    public Object updateClassesStateTwo(@RequestBody Classes classes) {
+    public Map<String, Object> updateClassesStateTwo(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -177,11 +161,8 @@ public class ClassesController {
         return map1;
     }
 
-    public Object updateClassesStateTwoHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> updateClassesStateTwoHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -192,7 +173,7 @@ public class ClassesController {
      */
     @PostMapping("/selectClassesByID")
     @HystrixCommand(fallbackMethod = "selectClassesByIDHystixGet")
-    public Object selectClassesByID(@RequestBody Classes classes) {
+    public Map<String, Object> selectClassesByID(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -200,11 +181,8 @@ public class ClassesController {
         return map1;
     }
 
-    public Object selectClassesByIDHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectClassesByIDHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -215,7 +193,7 @@ public class ClassesController {
      */
     @PostMapping("/updateClasses")
     @HystrixCommand(fallbackMethod = "updateClassesHystixGet")
-    public Object updateClasses(@RequestBody Classes classes) {
+    public Map<String, Object> updateClasses(@RequestBody Classes classes) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -223,10 +201,7 @@ public class ClassesController {
         return map1;
     }
 
-    public Object updateClassesHystixGet(@RequestBody Classes classes) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> updateClassesHystixGet(@RequestBody Classes classes) {
+        return fuse8004Util.main();
     }
 }

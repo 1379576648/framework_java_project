@@ -6,6 +6,7 @@ import cn.hutool.poi.excel.ExcelUtil;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.mybatisplus.service.CardRecordService;
+import com.trkj.framework.util.Fuse8004Util;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -28,6 +29,8 @@ import java.util.*;
 public class CardRecordController {
     @Autowired
     private CardRecordService cardRecordService;
+    @Autowired
+    private Fuse8004Util fuse8004Util;
 
     /**
      * 根据员工名称查询打卡记录
@@ -37,7 +40,7 @@ public class CardRecordController {
      */
     @PostMapping("/selectCardRecordAll")
     @HystrixCommand(fallbackMethod = "selectCardRecordAllHystixGet")
-    public Object selectCardRecordAll(@RequestBody ClockRecord cardRecord) {
+    public Map<String, Object> selectCardRecordAll(@RequestBody ClockRecord cardRecord) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -45,11 +48,8 @@ public class CardRecordController {
         return map1;
     }
 
-    public Object selectCardRecordAllHystixGet(@RequestBody ClockRecord cardRecord) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectCardRecordAllHystixGet(@RequestBody ClockRecord cardRecord) {
+        return fuse8004Util.main();
     }
 
     /**
@@ -60,7 +60,7 @@ public class CardRecordController {
      */
     @PostMapping("/deleteClock")
     @HystrixCommand(fallbackMethod = "deleteClockHystixGet")
-    public Object deleteClock(@RequestBody ClockRecord cardRecord) {
+    public Map<String, Object> deleteClock(@RequestBody ClockRecord cardRecord) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -68,15 +68,13 @@ public class CardRecordController {
         return map1;
     }
 
-    public Object deleteClockHystixGet(@RequestBody ClockRecord cardRecord) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> deleteClockHystixGet(@RequestBody ClockRecord cardRecord) {
+        return fuse8004Util.main();
     }
 
     @PostMapping("/importCardRecord/{name}")
-    public Object importCardRecord(@PathVariable("name") String name, MultipartFile file) throws Exception {
+    @HystrixCommand(fallbackMethod = "importCardRecordHystixGet")
+    public Map<String, Object> importCardRecord(@PathVariable("name") String name, MultipartFile file) throws Exception {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -138,5 +136,9 @@ public class CardRecordController {
             map1.put("info", cardRecordService.importCardRecord(cardRecord));
             return map1;
         }
+    }
+
+    public Map<String, Object> importCardRecordHystixGet(@PathVariable("name") String name, MultipartFile file) {
+        return fuse8004Util.main();
     }
 }

@@ -44,11 +44,20 @@ public class EmploymentTable implements Serializable {
     @TableField("REMARKS")
     private String remarks;
 
-    @TableField("HIREDATE")
-    private Date hiredate;
+    @TableField("EMPLOYMENT_HIREDATE")
+    private Date employmentHiredate;
 
     @TableField("WAIVE_REASON")
     private String waiveReason;
+
+    @ApiModelProperty(value = "试用工资")
+    @TableId("EMPLOYMENT_SALARY")
+    private Long employmentSalary;
+
+    @ApiModelProperty(value = "正式工资")
+    @TableId("EMPLOYMENT_SALARYZ")
+    private Long employmentSalaryz;
+
 
     @ApiModelProperty(value = "创建时间")
     @TableField("CREATED_TIME")

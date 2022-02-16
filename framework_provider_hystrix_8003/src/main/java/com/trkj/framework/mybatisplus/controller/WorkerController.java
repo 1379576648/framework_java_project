@@ -5,6 +5,7 @@ import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.service.WorkerService;
+import com.trkj.framework.util.Fuse8003Util;
 import com.trkj.framework.vo.*;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,8 @@ import java.util.Map;
 public class WorkerController {
     @Autowired
     private WorkerService workerService;
-
+    @Autowired
+    private Fuse8003Util fuse8003Util;
     /**
      * 根据审批类型的转正/审批人查询待处理的审批
      *
@@ -34,7 +36,7 @@ public class WorkerController {
      */
     @PostMapping("/selectWorkerlAll")
     @HystrixCommand(fallbackMethod = "HystixGet1")
-    public Object selectWorkerlAll(@RequestBody Auditflowone auditflowone) {
+    public Map<String, Object> selectWorkerlAll(@RequestBody Auditflowone auditflowone) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -42,11 +44,8 @@ public class WorkerController {
         return map1;
     }
 
-    public Object HystixGet1(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet1(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -57,7 +56,7 @@ public class WorkerController {
      */
     @PostMapping("/selectEndWorkerlAll")
     @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object selectEndWorkerlAll(@RequestBody Auditflowone auditflowone) {
+    public Map<String, Object> selectEndWorkerlAll(@RequestBody Auditflowone auditflowone) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -65,11 +64,8 @@ public class WorkerController {
         return map1;
     }
 
-    public Object HystixGet2(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet2(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -80,18 +76,15 @@ public class WorkerController {
      */
     @PostMapping("/selectDetailsWorker")
     @HystrixCommand(fallbackMethod = "HystixGet3")
-    public Object selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo) {
+    public Map<String, Object> selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectDetailsWorker(workerDetaIsVo));
         return map1;
     }
 
-    public Object HystixGet3(@RequestBody WorkerDetaIsVo workerDetaIsVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet3(@RequestBody WorkerDetaIsVo workerDetaIsVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -100,18 +93,15 @@ public class WorkerController {
      */
     @PostMapping("/selectDeptPostName")
     @HystrixCommand(fallbackMethod = "selectDeptPostNameHystixGet")
-    public Object selectDeptPostName(@RequestBody DeptPostVo deptPostVo){
+    public Map<String, Object> selectDeptPostName(@RequestBody DeptPostVo deptPostVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectDeptPostName(deptPostVo));
         return map1;
     }
 
-    public Object selectDeptPostNameHystixGet(@RequestBody DeptPostVo deptPostVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectDeptPostNameHystixGet(@RequestBody DeptPostVo deptPostVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -121,18 +111,15 @@ public class WorkerController {
      */
     @PostMapping("/selectDeptName")
     @HystrixCommand(fallbackMethod = "selectDeptNameHystixGet")
-    public Object selectDeptName(@RequestBody Dept dept){
+    public Map<String, Object> selectDeptName(@RequestBody Dept dept){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectDeptName(dept));
         return map1;
     }
 
-    public Object selectDeptNameHystixGet(@RequestBody Dept dept) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectDeptNameHystixGet(@RequestBody Dept dept) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -141,18 +128,15 @@ public class WorkerController {
      */
     @PostMapping("/selectpresident")
     @HystrixCommand(fallbackMethod = "selectpresidentHystixGet")
-    public Object selectpresident(){
+    public Map<String, Object> selectpresident(){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectpresident());
         return map1;
     }
 
-    public Object selectpresidentHystixGet() {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectpresidentHystixGet() {
+        return fuse8003Util.main();
     }
 
     /**
@@ -161,17 +145,14 @@ public class WorkerController {
      */
     @PostMapping("/selectStaffing")
     @HystrixCommand(fallbackMethod = "selectStaffingHystixGet")
-    public Object selectStaffing(){
+    public Map<String, Object> selectStaffing(){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectStaffing());
         return map1;
     }
-    public Object selectStaffingHystixGet() {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectStaffingHystixGet() {
+        return fuse8003Util.main();
     }
 
     /**
@@ -181,17 +162,14 @@ public class WorkerController {
      */
     @PostMapping("/SubmitPositive3")
     @HystrixCommand(fallbackMethod = "SubmitPositive3ExamineHystixGet")
-    public Object SubmitPositive3(@RequestBody WorkerVo workerVo){
+    public Map<String, Object> SubmitPositive3(@RequestBody WorkerVo workerVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.SubmitPositive3(workerVo));
         return map1;
     }
-    public Object SubmitPositive3ExamineHystixGet(@RequestBody WorkerVo workerVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> SubmitPositive3ExamineHystixGet(@RequestBody WorkerVo workerVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -201,17 +179,14 @@ public class WorkerController {
      */
     @PostMapping("/SubmitPositive2")
     @HystrixCommand(fallbackMethod = "SubmitPositive2ExamineHystixGet")
-    public Object SubmitPositive2(@RequestBody WorkerVo workerVo){
+    public Map<String, Object> SubmitPositive2(@RequestBody WorkerVo workerVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.SubmitPositive2(workerVo));
         return map1;
     }
-    public Object SubmitPositive2ExamineHystixGet(@RequestBody WorkerVo workerVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> SubmitPositive2ExamineHystixGet(@RequestBody WorkerVo workerVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -221,18 +196,15 @@ public class WorkerController {
      */
     @PostMapping("/SubmitPositive1")
     @HystrixCommand(fallbackMethod = "SubmitPositive1ExamineHystixGet")
-    public Object SubmitPositive1(@RequestBody WorkerVo workerVo){
+    public Map<String, Object> SubmitPositive1(@RequestBody WorkerVo workerVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.SubmitPositive1(workerVo));
         return map1;
     }
 
-    public Object SubmitPositive1ExamineHystixGet(@RequestBody WorkerVo workerVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> SubmitPositive1ExamineHystixGet(@RequestBody WorkerVo workerVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -242,18 +214,15 @@ public class WorkerController {
      */
     @PostMapping("/selectexaminerecord")
     @HystrixCommand(fallbackMethod = "selectexaminerecordExamineHystixGet")
-    public Object selectexaminerecord(@RequestBody WorkerVo workerVo){
+    public Map<String, Object> selectexaminerecord(@RequestBody WorkerVo workerVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectexaminerecord(workerVo));
         return map1;
     }
 
-    public Object selectexaminerecordExamineHystixGet(@RequestBody WorkerVo workerVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectexaminerecordExamineHystixGet(@RequestBody WorkerVo workerVo) {
+        return fuse8003Util.main();
     }
     /**
      * 查询我的审批申请 待处理
@@ -262,18 +231,15 @@ public class WorkerController {
      */
     @PostMapping("/selectMyWorker")
     @HystrixCommand(fallbackMethod = "selectMyWorkerExamineHystixGet")
-    public Object selectMyWorker(@RequestBody Auditflowone auditflowone){
+    public Map<String, Object> selectMyWorker(@RequestBody Auditflowone auditflowone){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectMyWorker(auditflowone));
         return map1;
     }
 
-    public Object selectMyWorkerExamineHystixGet(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectMyWorkerExamineHystixGet(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -283,18 +249,15 @@ public class WorkerController {
      */
     @PostMapping("/selectMyEndWorker")
     @HystrixCommand(fallbackMethod = "selectMyEndWorkerExamineHystixGet")
-    public Object selectMyEndWorker(@RequestBody Auditflowone auditflowone){
+    public Map<String, Object> selectMyEndWorker(@RequestBody Auditflowone auditflowone){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workerService.selectMyEndWorker(auditflowone));
         return map1;
     }
 
-    public Object selectMyEndWorkerExamineHystixGet(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectMyEndWorkerExamineHystixGet(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
 }

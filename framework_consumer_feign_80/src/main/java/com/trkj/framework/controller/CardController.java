@@ -2,11 +2,14 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Card;
 import com.trkj.framework.service.client.examine.AuditflowService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.Map;
 
 /**
  * @author 112729
@@ -15,7 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class CardController {
     @Autowired
     private AuditflowService auditflowService;
-
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
     /**
      * 根据审批类型的补打卡/审批人查询待处理的审批
      *
@@ -24,7 +28,8 @@ public class CardController {
      */
     @PostMapping("/selectCardAll")
     public AjaxResponse selectCardAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectCardAll(auditflowone));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectCardAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -35,7 +40,8 @@ public class CardController {
      */
     @PostMapping("/selectEndCardAll")
     public AjaxResponse selectEndCardAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectEndCardAll(auditflowone));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectEndCardAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -46,7 +52,8 @@ public class CardController {
      */
     @PostMapping("/selectDetailsCards")
     public AjaxResponse selectDetailsCards(@RequestBody CardDetailsVo cardDetailsVo) {
-        return AjaxResponse.success(auditflowService.selectDetailsCards(cardDetailsVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectDetailsCards(cardDetailsVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -56,7 +63,8 @@ public class CardController {
      */
     @PostMapping("/selectCardExamine")
     public AjaxResponse selectCardExamine(@RequestBody CardDetailsVo cardDetailsVo){
-        return AjaxResponse.success(auditflowService.selectCardExamine(cardDetailsVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.selectCardExamine(cardDetailsVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -66,7 +74,8 @@ public class CardController {
      */
     @PostMapping("/submitToCard3")
     public AjaxResponse submitToCard3(@RequestBody CardVo cardVo){
-        return AjaxResponse.success(auditflowService.submitToCard3(cardVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.submitToCard3(cardVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -76,7 +85,8 @@ public class CardController {
      */
     @PostMapping("/submitToCard2")
     public AjaxResponse submitToCard2(@RequestBody CardVo cardVo){
-        return AjaxResponse.success(auditflowService.submitToCard2(cardVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.submitToCard2(cardVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -86,6 +96,7 @@ public class CardController {
      */
     @PostMapping("/submitToCard1")
     public AjaxResponse submitToCard1(@RequestBody CardVo cardVo){
-        return AjaxResponse.success(auditflowService.submitToCard1(cardVo));
+        Map<String,Object> map = (Map<String, Object>)auditflowService.submitToCard1(cardVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

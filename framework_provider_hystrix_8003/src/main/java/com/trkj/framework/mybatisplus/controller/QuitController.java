@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Quit;
 import com.trkj.framework.mybatisplus.service.QuitService;
+import com.trkj.framework.util.Fuse8003Util;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,8 @@ import java.util.Map;
 public class QuitController {
     @Autowired
     private QuitService quitService;
-
+    @Autowired
+    private Fuse8003Util fuse8003Util;
     /**
      * 根据审批类型的离职/审批人查询待处理的审批
      *
@@ -31,7 +33,7 @@ public class QuitController {
      */
     @PostMapping("/selectQuitAll")
     @HystrixCommand(fallbackMethod = "HystixGet1")
-    public Object selectQuitAll(@RequestBody Auditflowone auditflowone) {
+    public Map<String, Object> selectQuitAll(@RequestBody Auditflowone auditflowone) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -39,11 +41,8 @@ public class QuitController {
         return map1;
     }
 
-    public Object HystixGet1(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet1(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -54,7 +53,7 @@ public class QuitController {
      */
     @PostMapping("/selectEndQuitAll")
     @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object selectEndQuitAll(@RequestBody Auditflowone auditflowone) {
+    public Map<String, Object> selectEndQuitAll(@RequestBody Auditflowone auditflowone) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
@@ -62,11 +61,8 @@ public class QuitController {
         return map1;
     }
 
-    public Object HystixGet2(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet2(@RequestBody Auditflowone auditflowone) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -77,18 +73,15 @@ public class QuitController {
      */
     @PostMapping("/selectDetailsQuit")
     @HystrixCommand(fallbackMethod = "HystixGet3")
-    public Object selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo) {
+    public Map<String, Object> selectDetailsQuit(@RequestBody QuitDetailsVo quitDetailsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", quitService.selectDetailsQuit(quitDetailsVo));
         return map1;
     }
 
-    public Object HystixGet3(@RequestBody QuitDetailsVo quitDetailsVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> HystixGet3(@RequestBody QuitDetailsVo quitDetailsVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -99,18 +92,15 @@ public class QuitController {
      */
     @PostMapping("/selectDimissionRecord")
     @HystrixCommand(fallbackMethod = "selectDimissionRecordHystixGet")
-    public Object selectDimissionRecord(@RequestBody QuitDetailsVo quitDetailsVo) {
+    public Map<String, Object> selectDimissionRecord(@RequestBody QuitDetailsVo quitDetailsVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", quitService.selectDimissionRecord(quitDetailsVo));
         return map1;
     }
 
-    public Object selectDimissionRecordHystixGet(@RequestBody QuitDetailsVo quitDetailsVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> selectDimissionRecordHystixGet(@RequestBody QuitDetailsVo quitDetailsVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -121,18 +111,15 @@ public class QuitController {
      */
     @PostMapping("/submitToLeave3")
     @HystrixCommand(fallbackMethod = "submitToLeave3ExamineHystixGet")
-    public Object submitToLeave3(@RequestBody QuitVo quitVo) {
+    public Map<String, Object> submitToLeave3(@RequestBody QuitVo quitVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", quitService.submitToLeave3(quitVo));
         return map1;
     }
 
-    public Object submitToLeave3ExamineHystixGet(@RequestBody QuitVo quitVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToLeave3ExamineHystixGet(@RequestBody QuitVo quitVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -143,18 +130,15 @@ public class QuitController {
      */
     @PostMapping("/submitToLeave2")
     @HystrixCommand(fallbackMethod = "submitToLeave2ExamineHystixGet")
-    public Object submitToLeave2(@RequestBody QuitVo quitVo) {
+    public Map<String, Object> submitToLeave2(@RequestBody QuitVo quitVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", quitService.submitToLeave2(quitVo));
         return map1;
     }
 
-    public Object submitToLeave2ExamineHystixGet(@RequestBody QuitVo quitVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToLeave2ExamineHystixGet(@RequestBody QuitVo quitVo) {
+        return fuse8003Util.main();
     }
 
     /**
@@ -165,17 +149,14 @@ public class QuitController {
      */
     @PostMapping("/submitToLeave1")
     @HystrixCommand(fallbackMethod = "submitToLeave1ExamineHystixGet")
-    public Object submitToLeave1(@RequestBody QuitVo quitVo) {
+    public Map<String, Object> submitToLeave1(@RequestBody QuitVo quitVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", quitService.submitToLeave1(quitVo));
         return map1;
     }
 
-    public Object submitToLeave1ExamineHystixGet(@RequestBody QuitVo quitVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public Map<String, Object> submitToLeave1ExamineHystixGet(@RequestBody QuitVo quitVo) {
+        return fuse8003Util.main();
     }
 }

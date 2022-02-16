@@ -24,6 +24,14 @@ public class HireVo {
     @TableField("EMPLOYMENT_STATE")
     private Long employmentState;
 
+    @ApiModelProperty(value = "试用工资")
+    @TableId("EMPLOYMENT_SALARY")
+    private Integer employmentSalary;
+
+    @ApiModelProperty(value = "正式工资")
+    @TableId("EMPLOYMENT_SALARYZ")
+    private Integer employmentSalaryz;
+
     @ApiModelProperty(value = "编号")
     @TableField("RESUME_ID")
     private Integer resumeId;
@@ -33,8 +41,8 @@ public class HireVo {
     private String remarks;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
-    @TableField("HIREDATE")
-    private Date hiredate;
+    @TableField("EMPLOYMENT_HIREDATE")
+    private Date employmentHiredate;
 
     @TableField("WAIVE_REASON")
     private String waiveReason;
@@ -42,6 +50,10 @@ public class HireVo {
     @ApiModelProperty(value = "名字")
     @TableField("RESUME_NAME")
     private String resumeName;
+
+    @ApiModelProperty(value = "年龄")
+    @TableField("RESUME_AGE")
+    private String resumeAge;
 
     @ApiModelProperty(value = "性别")
     @TableField("RESUME_SEX")

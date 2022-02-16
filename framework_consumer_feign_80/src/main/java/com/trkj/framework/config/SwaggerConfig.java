@@ -1,6 +1,5 @@
 package com.trkj.framework.config;
 
-import com.trkj.framework.filter.TokenInterceptor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +22,8 @@ import javax.annotation.Resource;
 @Slf4j
 public class SwaggerConfig implements WebMvcConfigurer {
 
-    @Resource
-    private TokenInterceptor tokenInterceptor ;
+//    @Resource
+//    private TokenInterceptor tokenInterceptor ;
 
     @Bean
     public Docket createRestApi() {
@@ -50,10 +49,10 @@ public class SwaggerConfig implements WebMvcConfigurer {
      * 注册拦截器
      * @param registry
      */
-    @Override
-    public void addInterceptors(InterceptorRegistry registry) {
-        log.debug("注册TokenInterceptor");
-        registry.addInterceptor(tokenInterceptor).addPathPatterns("/**");
-    }
+//    @Override
+//    public void addInterceptors(InterceptorRegistry registry) {
+//        log.debug("注册TokenInterceptor");
+//        registry.addInterceptor(tokenInterceptor).addPathPatterns("/**");
+//    }
 
 }

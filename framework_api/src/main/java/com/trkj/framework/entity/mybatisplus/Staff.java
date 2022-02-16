@@ -143,7 +143,7 @@ public class Staff implements Serializable {
 
     @ApiModelProperty(value = "员工年龄")
     @TableField("STAFF_AGE")
-    private Long staffAge;
+    private String staffAge;
 
     @ApiModelProperty(value = "员工工龄")
     @TableField("WORK_AGE")
@@ -161,7 +161,7 @@ public class Staff implements Serializable {
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "转正日期")
-    @TableField(exist = false)
+    @TableField("WORKER_DATE")
     private Date workerDate;
 
     @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")

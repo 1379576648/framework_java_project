@@ -2,16 +2,21 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Travel;
 import com.trkj.framework.service.client.examine.AuditflowService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class TraveController {
     @Autowired
     private AuditflowService auditflowService;
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
 
     /**
      * 根据审批类型的出差/审批人查询待处理的审批
@@ -21,7 +26,8 @@ public class TraveController {
      */
     @PostMapping("/selectTravelAll")
     public AjaxResponse selectTravelAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectTravelAll(auditflowone));
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectTravelAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -32,7 +38,8 @@ public class TraveController {
      */
     @PostMapping("/selectEndTravelAll")
     public AjaxResponse selectEndTravelAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectEndTravelAll(auditflowone));
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectEndTravelAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -43,46 +50,55 @@ public class TraveController {
      */
     @PostMapping("/selectDetailsTrave")
     public AjaxResponse selectDetailsTrave(@RequestBody TravelDetailsVo travelDetailsVo) {
-        return AjaxResponse.success(auditflowService.selectDetailsTrave(travelDetailsVo));
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectDetailsTrave(travelDetailsVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 根据员工名称是否有出差记录
+     *
      * @param travelDetailsVo
      * @return
      */
     @PostMapping("/selectEvectionExamine")
-    public AjaxResponse selectEvectionExamine(@RequestBody TravelDetailsVo travelDetailsVo){
-        return AjaxResponse.success(auditflowService.selectEvectionExamine(travelDetailsVo));
+    public AjaxResponse selectEvectionExamine(@RequestBody TravelDetailsVo travelDetailsVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectEvectionExamine(travelDetailsVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 添加出差 三个审批人
+     *
      * @param travelVo
      * @return
      */
     @PostMapping("/submitToTravel3")
-    public AjaxResponse submitToTravel3(@RequestBody TravelVo travelVo){
-        return AjaxResponse.success(auditflowService.submitToTravel3(travelVo));
+    public AjaxResponse submitToTravel3(@RequestBody TravelVo travelVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.submitToTravel3(travelVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 添加出差 两个审批人
+     *
      * @param travelVo
      * @return
      */
     @PostMapping("/submitToTravel2")
-    public AjaxResponse submitToTravel2(@RequestBody TravelVo travelVo){
-        return AjaxResponse.success(auditflowService.submitToTravel2(travelVo));
+    public AjaxResponse submitToTravel2(@RequestBody TravelVo travelVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.submitToTravel2(travelVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 添加出差 一个审批人
+     *
      * @param travelVo
      * @return
      */
     @PostMapping("/submitToTravel1")
-    public AjaxResponse submitToTravel1(@RequestBody TravelVo travelVo){
-        return AjaxResponse.success(auditflowService.submitToTravel1(travelVo));
+    public AjaxResponse submitToTravel1(@RequestBody TravelVo travelVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.submitToTravel1(travelVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }
