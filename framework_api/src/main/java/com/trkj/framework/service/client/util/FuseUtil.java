@@ -17,7 +17,7 @@ public class FuseUtil {
         throwable.printStackTrace();
         Map<String, Object> objectMap = new HashMap<>(2);
             objectMap.put("state", 100);
-            objectMap.put("info", "服务发生关闭");
+            objectMap.put("info", "系统繁忙，请稍后再试");
         return objectMap;
     }
 

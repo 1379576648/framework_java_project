@@ -168,7 +168,11 @@ public class MenuPowerController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", menuPowerService.menuPowerDelete(integer));
+        try {
+            map1.put("info", menuPowerService.menuPowerDelete(integer));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -190,7 +194,11 @@ public class MenuPowerController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", menuPowerService.menuPowerAdd(menuPower));
+        try {
+            map1.put("info", menuPowerService.menuPowerAdd(menuPower));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

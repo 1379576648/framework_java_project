@@ -147,7 +147,11 @@ public class DefInsuredController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", defInsuredService.addDefInsured(objectMap));
+        try {
+            map1.put("info", defInsuredService.addDefInsured(objectMap));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -169,7 +173,11 @@ public class DefInsuredController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", defInsuredService.updateDefInsured(objectMap));
+        try {
+            map1.put("info", defInsuredService.updateDefInsured(objectMap));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -271,7 +279,11 @@ public class DefInsuredController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", defInsuredService.insuredSubmit(map));
+        try{
+            map1.put("info", defInsuredService.insuredSubmit(map));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

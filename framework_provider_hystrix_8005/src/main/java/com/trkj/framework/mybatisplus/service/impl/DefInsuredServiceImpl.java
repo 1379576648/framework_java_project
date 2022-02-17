@@ -82,7 +82,6 @@ public class DefInsuredServiceImpl implements DefInsuredService {
      * @return
      */
     @Override
-    @Transactional
     public String deleteDefInsured(Integer integer) {
         //查询方案是否被使用
         List<InsuredScheme> list = insuredSchemeMapper.selectList(new QueryWrapper<InsuredScheme>().eq("DEF_INSURED_ID", integer));
@@ -103,7 +102,6 @@ public class DefInsuredServiceImpl implements DefInsuredService {
      * @return
      */
     @Override
-    @Transactional
     public String updateDefInsuredState(Integer integer) {
         //通过编号查询数据
         DefInsured defInsured = defInsuredMapper.selectById(integer);
@@ -121,7 +119,7 @@ public class DefInsuredServiceImpl implements DefInsuredService {
 
         //修改数据
         if (defInsuredMapper.updateById(defInsured) <= 0) {
-            return "修改社保方案状态失败";
+            return "修改失败";
         }
 
         return "成功";
@@ -155,17 +153,17 @@ public class DefInsuredServiceImpl implements DefInsuredService {
      * @return
      */
     @Override
-    @Transactional
-    public String addDefInsured(Map<String, Object> objectMap) {
+    @Transactional(rollbackFor = Exception.class)
+    public String addDefInsured(Map<String, Object> objectMap)  throws ArithmeticException{
         DefInsured defInsured = JSONObject.parseObject(JSONObject.toJSONString(objectMap.get("defInsured")), DefInsured.class);
         if (defInsuredMapper.insert(defInsured) <= 0) {
-            return "添加社保方案失败";
+            throw new ArithmeticException("添加社保方案失败");
         }
         List<DefScheme> defSchemeList = JSONObject.parseArray(JSONObject.toJSONString(objectMap.get("defSchemeList")), DefScheme.class);
         for (int i = 0; i < defSchemeList.size(); i++) {
             defSchemeList.get(i).setDefInsuredId(Long.valueOf(defInsured.getDefInsuredId()));
             if (defSchemeMapper.insert(defSchemeList.get(i)) <= 0) {
-                return "添加社保方案项目表失败";
+                throw new ArithmeticException("添加社保方案失败");
             }
         }
         return "成功";
@@ -177,8 +175,8 @@ public class DefInsuredServiceImpl implements DefInsuredService {
      * @return
      */
     @Override
-    @Transactional
-    public String updateDefInsured(Map<String, Object> objectMap) {
+    @Transactional(rollbackFor = Exception.class)
+    public String updateDefInsured(Map<String, Object> objectMap)  throws ArithmeticException{
         DefInsured defInsured = JSONObject.parseObject(JSONObject.toJSONString(objectMap.get("defInsured")), DefInsured.class);
         //删除社保方案项目
         defSchemeMapper.delete(new QueryWrapper<DefScheme>().eq("DEF_INSURED_ID", defInsured.getDefInsuredId()));
@@ -187,11 +185,11 @@ public class DefInsuredServiceImpl implements DefInsuredService {
         for (int i = 0; i < defSchemeList.size(); i++) {
             defSchemeList.get(i).setDefInsuredId(Long.valueOf(defInsured.getDefInsuredId()));
             if (defSchemeMapper.insert(defSchemeList.get(i)) <= 0) {
-                return "添加社保方案项目表失败";
+                throw new ArithmeticException("修改社保方案失败");
             }
         }
         if (defInsuredMapper.updateById(defInsured) <= 0) {
-            return "修改社保方案失败";
+            throw new ArithmeticException("修改社保方案失败");
         }
         return "成功";
     }
@@ -259,8 +257,8 @@ public class DefInsuredServiceImpl implements DefInsuredService {
      * @return
      */
     @Override
-    @Transactional
-    public String insuredSubmit(@RequestBody Map<String, Object> map) {
+    @Transactional(rollbackFor = Exception.class)
+    public String insuredSubmit(@RequestBody Map<String, Object> map) throws ArithmeticException {
         List<Staff> staffList = JSONObject.parseArray(JSONObject.toJSONString(map.get("selectStaffList")), Staff.class);
         InsuredPayment insuredPayment = JSONObject.parseObject(JSONObject.toJSONString(map.get("payment")), InsuredPayment.class);
         Long schemeId = Long.valueOf(map.get("scheme_id").toString());
@@ -272,11 +270,11 @@ public class DefInsuredServiceImpl implements DefInsuredService {
             insuredScheme.setStaffId(Long.valueOf(staffList.get(i).getStaffId()));
             insuredScheme.setDefInsuredId(schemeId);
             if (insuredSchemeMapper.insert(insuredScheme) <= 0) {
-                return "提交失败";
+                throw new ArithmeticException("提交失败");
             }
             DefInsured defInsured = defInsuredMapper.selectById(schemeId);
             if (defInsured == null) {
-                return "提交失败";
+                throw new ArithmeticException("提交失败");
             }
             //查询所有的参保方案项目
             List<DefScheme> defSchemeList = defSchemeMapper.selectList(new QueryWrapper<DefScheme>().eq("DEF_INSURED_ID", schemeId));
@@ -493,7 +491,7 @@ public class DefInsuredServiceImpl implements DefInsuredService {
             insuredDetail.setInsDetailFundFirmPay((double) Math.round(insuredDetail.getInsDetailFundFirmPay() * 100) / 100);
             insuredDetail.setInsDetailFundPersonPay((double) Math.round(insuredDetail.getInsDetailFundPersonPay() * 100) / 100);
             if (insuredDetailMapper.insert(insuredDetail) <= 0) {
-                return "提交失败";
+                throw new ArithmeticException("提交失败");
             }
             insuredLog.setInsLogSocialInsuredMonth(insuredPayment.getInMonth());
             insuredLog.setInsLogSocialSalaryMonth(insuredPayment.getTime());
@@ -509,7 +507,7 @@ public class DefInsuredServiceImpl implements DefInsuredService {
             insuredPayment1.setInsuredPaymentInsuredMonth(insuredPayment.getInMonth());
             insuredPayment1.setInsuredPaymentSalaryMonth(insuredPayment.getTime());
             if (insuredPaymentMapper.insert(insuredPayment1) <= 0) {
-                return "提交失败";
+                throw new ArithmeticException("提交失败");
             }
             //参保日志
             insuredLog.setInsLogUpdateObject(map.get("staffName").toString());
@@ -517,12 +515,12 @@ public class DefInsuredServiceImpl implements DefInsuredService {
             insuredLog.setInsLogExplain("提交社保公积金");
             insuredLog.setInsLogColor("rgb(49, 222, 0)");
             if (insuredLogMapper.insert(insuredLog) <= 0) {
-                return "提交失败";
+                throw new ArithmeticException("提交失败");
             }
             //修改参保方案的人数
             defInsured.setDefInsuredNumber(defInsured.getDefInsuredNumber() + 1);
             if (defInsuredMapper.updateById(defInsured) <= 0) {
-                return "提交失败";
+                throw new ArithmeticException("提交失败");
             }
         }
 
