@@ -1,10 +1,13 @@
 package com.trkj.framework.entity.jpa;
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Data
 @Table(name = "ROLE_STAFF", schema = "POWER", catalog = "")
 public class RoleStaffEntity {
     @Id
@@ -28,53 +31,6 @@ public class RoleStaffEntity {
     @ManyToOne
     private RoleEntity role;
 
-    public int getRoleStaffId() {
-        return roleStaffId;
-    }
-
-    public void setRoleStaffId(int roleStaffId) {
-        this.roleStaffId = roleStaffId;
-    }
-
-    public int getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(int roleId) {
-        this.roleId = roleId;
-    }
-
-    public int getStaffId() {
-        return staffId;
-    }
-
-    public void setStaffId(int staffId) {
-        this.staffId = staffId;
-    }
-
-    public Date getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public Date getUpdatedTime() {
-        return updatedTime;
-    }
-
-    public void setUpdatedTime(Date updatedTime) {
-        this.updatedTime = updatedTime;
-    }
-
-    public int getRevision() {
-        return revision;
-    }
-
-    public void setRevision(int revision) {
-        this.revision = revision;
-    }
 
 
     @Override

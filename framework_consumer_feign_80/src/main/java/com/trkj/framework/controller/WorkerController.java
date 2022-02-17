@@ -3,6 +3,7 @@ package com.trkj.framework.controller;
 import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.examine.AuditflowService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.*;
 import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,10 +11,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Map;
+
 @RestController
 public class WorkerController {
     @Autowired
     private AuditflowService auditflowService;
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
 
     /**
      * 根据审批类型的转正/审批人查询待处理的审批
@@ -23,7 +28,8 @@ public class WorkerController {
      */
     @PostMapping("/selectWorkerlAll")
     public AjaxResponse selectWorkerlAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectWorkerlAll(auditflowone));
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectWorkerlAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -34,7 +40,8 @@ public class WorkerController {
      */
     @PostMapping("/selectEndWorkerlAll")
     public AjaxResponse selectEndWorkerlAll(@RequestBody Auditflowone auditflowone) {
-        return AjaxResponse.success(auditflowService.selectEndWorkerlAll(auditflowone));
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectEndWorkerlAll(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -45,95 +52,125 @@ public class WorkerController {
      */
     @PostMapping("/selectDetailsWorker")
     public AjaxResponse selectDetailsWorker(@RequestBody WorkerDetaIsVo workerDetaIsVo) {
-        return AjaxResponse.success(auditflowService.selectDetailsWorker(workerDetaIsVo));
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectDetailsWorker(workerDetaIsVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 根据部门编号查询其部门经理
+     *
      * @return
      */
     @PostMapping("/selectDeptPostName")
-    public AjaxResponse selectDeptPostName(@RequestBody DeptPostVo deptPostVo){
-        return AjaxResponse.success(auditflowService.selectDeptPostName(deptPostVo));
+    public AjaxResponse selectDeptPostName(@RequestBody DeptPostVo deptPostVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectDeptPostName(deptPostVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 根据部门编号查询部门名称
+     *
      * @param
      * @return
      */
     @PostMapping("/selectDeptName")
-    public AjaxResponse selectDeptName(@RequestBody Dept selectDeptName){
-        return AjaxResponse.success(auditflowService.selectDeptName(selectDeptName));
+    public AjaxResponse selectDeptName(@RequestBody Dept selectDeptName) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectDeptName(selectDeptName);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 查询人事经理及总裁（总经理）
+     *
      * @return
      */
     @PostMapping("/selectpresident")
-    public AjaxResponse selectpresident(){
-        return AjaxResponse.success(auditflowService.selectpresident());
+    public AjaxResponse selectpresident() {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectpresident();
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询人事经理
+     *
+     * @return
+     */
+    @PostMapping("/selectStaffing")
+    public AjaxResponse selectStaffing() {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectStaffing();
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 添加转正 三个审批人
+     *
      * @param workerVo
      * @return
      */
     @PostMapping("/SubmitPositive3")
-    public AjaxResponse SubmitPositive3(@RequestBody WorkerVo workerVo){
-        return AjaxResponse.success(auditflowService.SubmitPositive3(workerVo));
+    public AjaxResponse SubmitPositive3(@RequestBody WorkerVo workerVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.SubmitPositive3(workerVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 添加转正 两个审批人
+     *
      * @param workerVo
      * @return
      */
     @PostMapping("/SubmitPositive2")
-    public AjaxResponse SubmitPositive2(@RequestBody WorkerVo workerVo){
-        return AjaxResponse.success(auditflowService.SubmitPositive2(workerVo));
+    public AjaxResponse SubmitPositive2(@RequestBody WorkerVo workerVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.SubmitPositive2(workerVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 添加转正 两个审批人
+     *
      * @param workerVo
      * @return
      */
     @PostMapping("/SubmitPositive1")
-    public AjaxResponse SubmitPositive1(@RequestBody WorkerVo workerVo){
-        return AjaxResponse.success(auditflowService.SubmitPositive1(workerVo));
+    public AjaxResponse SubmitPositive1(@RequestBody WorkerVo workerVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.SubmitPositive1(workerVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 根据员工名称是否有转正记录
+     *
      * @param workerVo
      * @return
      */
     @PostMapping("/selectexaminerecord")
-    public AjaxResponse selectexaminerecord(@RequestBody WorkerVo workerVo){
-        return AjaxResponse.success(auditflowService.selectexaminerecord(workerVo));
+    public AjaxResponse selectexaminerecord(@RequestBody WorkerVo workerVo) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectexaminerecord(workerVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 查询我的转正审批申请 待处理
+     *
      * @param auditflowone
      * @return
      */
     @PostMapping("/selectMyWorker")
-    public AjaxResponse selectMyWorker(@RequestBody Auditflowone auditflowone){
-        return AjaxResponse.success(auditflowService.selectMyWorker(auditflowone));
+    public AjaxResponse selectMyWorker(@RequestBody Auditflowone auditflowone) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectMyWorker(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
      * 查询我的转正审批申请 待处理
+     *
      * @param auditflowone
      * @return
      */
     @PostMapping("/selectMyEndWorker")
-    public AjaxResponse selectMyEndWorker(@RequestBody Auditflowone auditflowone){
-        return AjaxResponse.success(auditflowService.selectMyEndWorker(auditflowone));
+    public AjaxResponse selectMyEndWorker(@RequestBody Auditflowone auditflowone) {
+        Map<String, Object> map = (Map<String, Object>) auditflowService.selectMyEndWorker(auditflowone);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
 }

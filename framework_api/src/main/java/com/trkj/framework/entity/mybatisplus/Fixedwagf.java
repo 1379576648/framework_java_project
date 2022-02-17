@@ -25,11 +25,15 @@ public class Fixedwagf {
 
     @ApiModelProperty(value = "试用期基本工资")
     @TableId("FIXEDWAGE_PERIODMONEY")
-    private Integer fixedwageperiodmoney;
+    private Integer fixedwagePeriodmoney;
 
     @ApiModelProperty(value = "员工编号")
     @TableId("STAFF_ID")
     private Integer staffid;
+
+    @ApiModelProperty(value = "员工姓名")
+    @TableId("STAFF_NAME")
+    private String staffName;
 
     @ApiModelProperty(value = "正式期基本工资")
     @TableId("FIXEDWAGE_OFFICIALMONEY")

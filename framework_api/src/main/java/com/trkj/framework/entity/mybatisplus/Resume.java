@@ -44,6 +44,10 @@ public class Resume implements Serializable {
     @TableField("RESUME_SEX")
     private String resumeSex;
 
+    @ApiModelProperty(value = "年龄")
+    @TableField("RESUME_AGE")
+    private String resumeAge;
+
     @ApiModelProperty(value = "手机号码")
     @TableField("RESUME_PHONE")
     private Long resumePhone;

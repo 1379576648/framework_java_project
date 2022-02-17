@@ -6,6 +6,8 @@ import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.GET;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +19,7 @@ public class RegisterController {
     private RegisterClinetService registerClinetService = null;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+
     /***
      * 人脸识别登录
      * @param map

@@ -20,7 +20,7 @@ public interface RegisterClinetService {
      * @return
      */
     @PostMapping("/register")
-    public Object register(@RequestBody Map<String, Object> map);
+    public Map<String,Object> register(@RequestBody Map<String, Object> map);
 
     /***
      * 账号密码登录
@@ -28,5 +28,5 @@ public interface RegisterClinetService {
      * @return
      */
     @PostMapping("/login")
-    public Object login(@RequestBody Map<String,Object> map);
+    public Map<String,Object> login(@RequestBody Map<String,Object> map);
 }

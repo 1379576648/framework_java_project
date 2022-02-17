@@ -1,26 +1,21 @@
 package com.trkj.framework.mybatisplus.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 
 import com.trkj.framework.entity.mybatisplus.MenuPower;
 import com.trkj.framework.entity.mybatisplus.RoleMenuPower;
 import com.trkj.framework.mybatisplus.mapper.MenuPowerMapper;
 import com.trkj.framework.mybatisplus.mapper.RoleMenuPowerMapper;
 import com.trkj.framework.mybatisplus.service.MenuPowerService;
-import com.trkj.framework.util.Menu;
-import com.trkj.framework.util.MenuChild;
-import io.swagger.models.auth.In;
+import com.trkj.framework.util.MenuChildUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -38,11 +33,12 @@ public class MenuPowerServiceImpl implements MenuPowerService {
     @Autowired
     private RoleMenuPowerMapper roleMenuPowerMapper;
 
+
     /***
      * 获取菜单子菜单类
      */
     @Autowired
-    private MenuChild getChild;
+    private MenuChildUtil getChild;
 
     //子菜单
     List<Integer> childListList = new ArrayList<Integer>();
@@ -133,7 +129,6 @@ public class MenuPowerServiceImpl implements MenuPowerService {
 
         //通过菜单顺序排序
         queryWrapper.orderByAsc("MENU_POWER_ORDER");
-
         List<MenuPower> menuPowers = menuPowerMapper.selectList(queryWrapper);
         /***
          * 根节点
@@ -163,7 +158,6 @@ public class MenuPowerServiceImpl implements MenuPowerService {
      */
     @Override
     public Object menuPowerAddSingle(MenuPower menuPower) {
-        String s = "成功";
         List<MenuPower> menuPowers = menuPowerMapper.selectList(
                 new QueryWrapper<MenuPower>()
                         .eq("MENU_POWER_PID", 0)
@@ -182,7 +176,7 @@ public class MenuPowerServiceImpl implements MenuPowerService {
         if (menuPowerMapper.insert(menuPower) <= 0) {
             return "新增菜单失败";
         }
-        return s;
+        return "成功";
     }
 
     /***
@@ -193,9 +187,10 @@ public class MenuPowerServiceImpl implements MenuPowerService {
     @Override
     public Object menuPowerInPid(Integer integer) {
         if (integer == 0) {
-            return null;
+            return "失败";
         } else {
-            return menuPowerMapper.selectOne(new QueryWrapper<MenuPower>().eq("MENU_POWER_ID", integer));
+            MenuPower menuPower = menuPowerMapper.selectOne(new QueryWrapper<MenuPower>().eq("MENU_POWER_ID", integer));
+            return menuPower;
         }
     }
 
@@ -205,13 +200,11 @@ public class MenuPowerServiceImpl implements MenuPowerService {
      * @return
      */
     @Override
-    @Transactional
     public String menuPowerUpdate(MenuPower menuPower) {
-        String s = "成功";
         if (menuPowerMapper.updateById(menuPower) <= 0) {
-            return "修改菜单数据失败";
+            return "修改菜单失败";
         }
-        return s;
+        return "成功";
     }
 
     /***
@@ -220,8 +213,8 @@ public class MenuPowerServiceImpl implements MenuPowerService {
      * @return
      */
     @Override
-    public String menuPowerDelete(Integer integer) {
-        String s = "成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String menuPowerDelete(Integer integer) throws ArithmeticException{
         //查询所有的菜单
         List<MenuPower> menuPowerList = menuPowerMapper.selectList(new QueryWrapper<MenuPower>().orderByAsc("MENU_POWER_ORDER"));
         /* 获取根节点下的所有子节点 使用getChild方法*/
@@ -229,14 +222,14 @@ public class MenuPowerServiceImpl implements MenuPowerService {
         childListList = new ArrayList<>();
         List<Integer> powerList = getChild(childList);
         if (menuPowerMapper.deleteById(integer) <= 0) {
-            return "删除菜单数据失败";
+            throw new ArithmeticException("删除菜单失败");
         }
         for (Integer integer1 : powerList) {
             if (menuPowerMapper.deleteById(integer1) <= 0) {
-                return "删除菜单数据失败";
+                throw new ArithmeticException("删除菜单失败");
             }
         }
-        return s;
+        return "成功";
     }
 
 
@@ -246,17 +239,16 @@ public class MenuPowerServiceImpl implements MenuPowerService {
      * @return
      */
     @Override
-    @Transactional
-    public String menuPowerAdd(MenuPower menuPower) {
-        String s="成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String menuPowerAdd(MenuPower menuPower) throws ArithmeticException {
         //通过菜单编号查询父菜单的列表
-        List<MenuPower> menuPowerList = menuPowerMapper.selectList(new QueryWrapper<MenuPower>().eq("MENU_POWER_PID",menuPower.getMenuPowerPid()).orderByDesc("MENU_POWER_ORDER"));
-        if (menuPowerList.size()<=0){
+        List<MenuPower> menuPowerList = menuPowerMapper.selectList(new QueryWrapper<MenuPower>().eq("MENU_POWER_PID", menuPower.getMenuPowerPid()).orderByDesc("MENU_POWER_ORDER"));
+        if (menuPowerList.size() <= 0) {
             //设置菜单的序号
             menuPower.setMenuPowerOrder(1L);
-        }else{
+        } else {
             //设置菜单的序号
-            menuPower.setMenuPowerOrder(menuPowerList.get(0).getMenuPowerOrder()+1);
+            menuPower.setMenuPowerOrder(menuPowerList.get(0).getMenuPowerOrder() + 1);
         }
         //新建一个实体类
         MenuPower menuPower1 = new MenuPower();
@@ -265,19 +257,19 @@ public class MenuPowerServiceImpl implements MenuPowerService {
         //设置菜单编号
         menuPower1.setMenuPowerId(Math.toIntExact(menuPower.getMenuPowerPid()));
         //修改父菜单为有叶子
-        if (menuPowerMapper.updateById(menuPower1)<=0){
-            return "修改父菜单数据失败";
+        if (menuPowerMapper.updateById(menuPower1) <= 0) {
+            throw new ArithmeticException("新增菜单失败");
         }
         //修改角色菜单表数据为半选状态
         RoleMenuPower roleMenuPower = new RoleMenuPower();
         roleMenuPower.setIsChoice(1L);
-        roleMenuPowerMapper.update(roleMenuPower,new QueryWrapper<RoleMenuPower>().eq("MENU_POWER_ID",menuPower.getMenuPowerPid()));
+        roleMenuPowerMapper.update(roleMenuPower, new QueryWrapper<RoleMenuPower>().eq("MENU_POWER_ID", menuPower.getMenuPowerPid()));
         //设置是否有叶子
         menuPower.setMenuPowerLeaf(1L);
-        if (menuPowerMapper.insert(menuPower)<=0){
-            return "添加菜单数据失败";
+        if (menuPowerMapper.insert(menuPower) <= 0) {
+            throw new ArithmeticException("新增菜单失败");
         }
-        return s;
+        return "成功";
     }
 
 

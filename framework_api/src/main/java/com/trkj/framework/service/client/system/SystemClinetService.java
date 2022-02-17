@@ -9,6 +9,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author 13795
@@ -22,7 +23,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/selectRegisterLogAll")
-    public Object selectRegisterLogAll(@RequestBody  RegisterLog registerLog);
+    public Map<String,Object> selectRegisterLogAll(@RequestBody  RegisterLog registerLog);
 
     /***
      * 登录日志复选删除
@@ -30,7 +31,7 @@ public interface SystemClinetService {
      * @return
      */
     @DeleteMapping("/checkRegisterLogDelete")
-    public Object checkDelete(@RequestBody ArrayList<Integer> list);
+    public Map<String,Object> checkDelete(@RequestBody ArrayList<Integer> list);
 
     /***
      * 登录日志清空数据
@@ -38,7 +39,31 @@ public interface SystemClinetService {
      * @return
      */
     @DeleteMapping("/emptyRegisterLogList")
-    public Object emptyList(@RequestBody RegisterLog registerLog);
+    public Map<String,Object> emptyList(@RequestBody RegisterLog registerLog);
+
+    /***
+     *  操作日志分页查询
+     * @param operatLog
+     * @return
+     */
+    @PostMapping("/selectOperatLogAll")
+    public Map<String,Object> selectOperatLogAll(@RequestBody  OperatLog operatLog);
+
+    /***
+     * 操作日志复选删除
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/checkOperatLogDelete")
+    public Map<String,Object> checkOperatLogDelete(@RequestBody ArrayList<Integer> list);
+
+    /***
+     * 操作日志清空数据
+     * @param operatLog
+     * @return
+     */
+    @DeleteMapping("/emptyOperatLogList")
+    public Map<String,Object> emptyOperatLogList(@RequestBody OperatLog operatLog);
 
     /***
      *分页查询所有公告数据
@@ -46,7 +71,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/selectNoticeAll")
-    public Object selectNoticeAll(@RequestBody Notice notice);
+    public Map<String,Object> selectNoticeAll(@RequestBody Notice notice);
 
     /***
      * 公告复选删除
@@ -54,7 +79,7 @@ public interface SystemClinetService {
      * @return
      */
     @DeleteMapping("/checkNoticeDelete")
-    public Object checkNoticeDelete(@RequestBody ArrayList<Integer> list);
+    public Map<String,Object> checkNoticeDelete(@RequestBody ArrayList<Integer> list);
 
     /***
      * 查询所有的部门列表
@@ -69,7 +94,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/insertNotice")
-    public Object insertNotice(@RequestBody Notice notice);
+    public Map<String,Object> insertNotice(@RequestBody Notice notice);
 
 
     /***
@@ -78,7 +103,7 @@ public interface SystemClinetService {
      * @return
      */
     @GetMapping("/selectPossessDeptList")
-    public Object selectPossessDeptList(@RequestParam("id") Integer id);
+    public Map<String,Object> selectPossessDeptList(@RequestParam("id") Integer id);
 
 
     /***
@@ -87,7 +112,7 @@ public interface SystemClinetService {
      * @return
      */
     @PutMapping("/updateNotice")
-    public Object updateNotice(@RequestBody Notice notice);
+    public Map<String,Object> updateNotice(@RequestBody Notice notice);
 
 
     /***
@@ -96,7 +121,7 @@ public interface SystemClinetService {
      * @return
      */
     @GetMapping("/peropleNoticeViewed")
-    public Object peropleNoticeViewed (@RequestParam("id") Integer id);
+    public Map<String,Object> peropleNoticeViewed (@RequestParam("id") Integer id);
 
     /***
      * 未看公告人员
@@ -104,7 +129,7 @@ public interface SystemClinetService {
      * @return
      */
     @GetMapping("/unseenNoticePerson")
-    public Object unseenNoticePerson (@RequestParam("id") Integer id);
+    public Map<String,Object> unseenNoticePerson (@RequestParam("id") Integer id);
 
     /**
      * 分页查询所有的角色数据
@@ -121,14 +146,14 @@ public interface SystemClinetService {
      * @return
      */
     @DeleteMapping("/checkRoleDelete")
-    public Object checkRoleDelete(@RequestBody ArrayList<Integer> list);
+    public Map<String,Object> checkRoleDelete(@RequestBody ArrayList<Integer> list);
 
     /***
      * 查询所有的菜单列表
      * @return
      */
     @GetMapping("/menuPowerList")
-    public Object menuPowerList();
+    public Map<String,Object> menuPowerList();
 
     /***
      * 添加角色
@@ -136,7 +161,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/addRole")
-    public Object addRole(@RequestBody Role role);
+    public Map<String,Object> addRole(@RequestBody Role role);
 
     /***
      * 通过前台的角色名称查询角色是否被使用
@@ -144,7 +169,7 @@ public interface SystemClinetService {
      * @return
      */
     @GetMapping("/selectRoleRoleName/{name}/{value}")
-    public Object selectRoleRoleName(@PathVariable(name = "name") String name,@PathVariable(name = "value") String value);
+    public Map<String,Object> selectRoleRoleName(@PathVariable(name = "name") String name,@PathVariable(name = "value") String value);
 
 
     /****
@@ -153,7 +178,7 @@ public interface SystemClinetService {
      * @return
      */
     @GetMapping("/menuPowerListInRoleId/{id}")
-    public Object menuPowerListInRoleId(@PathVariable(name = "id") Integer integer);
+    public Map<String,Object> menuPowerListInRoleId(@PathVariable(name = "id") Integer integer);
 
     /**
      * 修改角色
@@ -161,7 +186,7 @@ public interface SystemClinetService {
      * @return
      */
     @PutMapping("/updateRole")
-    public Object updateRole(@RequestBody Role role);
+    public Map<String,Object> updateRole(@RequestBody Role role);
 
     /**
      *分配权限
@@ -169,7 +194,7 @@ public interface SystemClinetService {
      * @return
      */
     @PutMapping("/allotMenu")
-    public Object allotMenu(@RequestBody Role role);
+    public Map<String,Object> allotMenu(@RequestBody Role role);
 
     /****
      * 分页查询所有的角色员工表数据
@@ -177,7 +202,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/selectRoleStaff")
-    public Object selectRoleStaff(@RequestBody RoleStaff roleStaff);
+    public Map<String,Object> selectRoleStaff(@RequestBody RoleStaff roleStaff);
 
 
     /***
@@ -186,7 +211,7 @@ public interface SystemClinetService {
      * @return
      */
     @DeleteMapping("/cancelImpower")
-    public Object cancelImpower(@RequestBody ArrayList<Integer> list);
+    public Map<String,Object> cancelImpower(@RequestBody ArrayList<Integer> list);
 
     /***
      * 查询所有在职的员工
@@ -194,7 +219,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/selectStaffInState")
-    public Object selectStaffInState(@RequestBody Staff staff);
+    public Map<String,Object> selectStaffInState(@RequestBody Staff staff);
 
     /***
      * 角色给用户
@@ -202,7 +227,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/allotStaff")
-    public Object allotStaff(@RequestBody RoleStaff roleStaff);
+    public Map<String,Object> allotStaff(@RequestBody RoleStaff roleStaff);
 
     /***
      * 通过条件查询菜单
@@ -210,7 +235,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/menuPowerInCondition")
-    public Object menuPowerInCondition(@RequestBody MenuPower menuPower);
+    public Map<String,Object> menuPowerInCondition(@RequestBody MenuPower menuPower);
 
 
     /***
@@ -236,7 +261,7 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/menuPowerUpdate")
-    public Object menuPowerUpdate(@RequestBody MenuPower menuPower);
+    public Map<String,Object> menuPowerUpdate(@RequestBody MenuPower menuPower);
 
     /***
      * 通过菜单编号进行删除数据
@@ -244,7 +269,7 @@ public interface SystemClinetService {
      * @return
      */
     @DeleteMapping("/menuPowerDelete/{id}")
-    public Object menuPowerDelete(@PathVariable("id") Integer id);
+    public Map<String,Object> menuPowerDelete(@PathVariable("id") Integer id);
 
 
     /***
@@ -253,5 +278,5 @@ public interface SystemClinetService {
      * @return
      */
     @PostMapping("/menuPowerAdd")
-    public Object menuPowerAdd(@RequestBody MenuPower menuPower);
+    public Map<String,Object> menuPowerAdd(@RequestBody MenuPower menuPower);
 }

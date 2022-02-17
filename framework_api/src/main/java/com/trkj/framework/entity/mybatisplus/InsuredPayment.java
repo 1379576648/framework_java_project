@@ -80,10 +80,6 @@ public class InsuredPayment implements Serializable {
     @Version
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删")
-    @TableField("IS_DELETED")
-    @TableLogic
-    private Long isDeleted;
 
     @ApiModelProperty(value = "社保基数")
     @TableField(exist = false)

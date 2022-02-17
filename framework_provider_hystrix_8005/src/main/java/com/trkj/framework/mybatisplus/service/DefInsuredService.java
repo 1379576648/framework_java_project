@@ -1,5 +1,6 @@
 package com.trkj.framework.mybatisplus.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trkj.framework.entity.mybatisplus.DefInsured;
 import com.trkj.framework.entity.mybatisplus.DefScheme;
@@ -24,7 +25,7 @@ public interface DefInsuredService  {
      * @param defInsured
      * @return
      */
-    Object selectDefInsured(DefInsured defInsured);
+    IPage<DefInsured> selectDefInsured(DefInsured defInsured);
 
 
     /***
@@ -62,14 +63,14 @@ public interface DefInsuredService  {
      * @param objectMap
      * @return
      */
-    String addDefInsured(Map<String,Object> objectMap);
+    String addDefInsured(Map<String,Object> objectMap) throws ArithmeticException;
 
     /***
      * 修改社保方案
      * @param objectMap
      * @return
      */
-    String updateDefInsured(Map<String,Object> objectMap);
+    String updateDefInsured(Map<String,Object> objectMap) throws ArithmeticException;
 
     /***
      * 查询方案名称
@@ -102,5 +103,5 @@ public interface DefInsuredService  {
      * @param map
      * @return
      */
-    String insuredSubmit(@RequestBody Map<String,Object> map);
+    String insuredSubmit(@RequestBody Map<String,Object> map) throws ArithmeticException;
 }

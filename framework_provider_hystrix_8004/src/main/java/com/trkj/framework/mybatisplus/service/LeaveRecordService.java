@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.entity.mybatisplus.Leave;
+import com.trkj.framework.entity.mybatisplus.Overtimeask;
 
 public interface LeaveRecordService {
     /**
@@ -18,4 +19,19 @@ public interface LeaveRecordService {
      * @return
      */
     Integer deleteLeave(Leave leave);
+
+    /**
+     * 开始请假
+     * @param leave
+     * @return
+     */
+    String updateBeginLeave(Leave leave);
+
+    /**
+     * 结束请假
+     * @param leave
+     * @return
+     */
+    String updateEndLeave(Leave leave);
+
 }

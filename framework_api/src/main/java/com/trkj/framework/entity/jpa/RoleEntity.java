@@ -1,11 +1,14 @@
 package com.trkj.framework.entity.jpa;
 
+import lombok.Data;
+
 import javax.persistence.*;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
 @Entity
+@Data
 @Table(name = "ROLE", schema = "POWER", catalog = "")
 public class RoleEntity {
     @Id

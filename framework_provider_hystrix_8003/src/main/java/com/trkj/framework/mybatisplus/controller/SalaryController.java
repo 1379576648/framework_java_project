@@ -3,11 +3,13 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.mybatisplus.service.SalaryService;
+import com.trkj.framework.util.Fuse8003Util;
 import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,6 +23,8 @@ import java.util.Map;
 public class SalaryController {
     @Autowired
     private SalaryService salaryService;
+    @Autowired
+    private Fuse8003Util fuse8003Util;
 
     /**
      * 根据审批类型的调薪/审批人查询待处理的审批
@@ -39,10 +43,7 @@ public class SalaryController {
     }
 
     public Object HystixGet1(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
@@ -62,10 +63,7 @@ public class SalaryController {
     }
 
     public Object HystixGet2(@RequestBody Auditflowone auditflowone) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
@@ -84,63 +82,95 @@ public class SalaryController {
     }
 
     public Object HystixGet3(@RequestBody SalaryDetailsVo salaryDetailsVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 
     /**
      * 根据员工名称是否有调薪记录
+     *
      * @param salaryVo
      * @return
      */
     @PostMapping("/selectSalaryRecord")
-    public Object selectTransferRecord(@RequestBody SalaryVo salaryVo){
+    @HystrixCommand(fallbackMethod = "selectSalaryRecordHystixGet")
+    public Object selectTransferRecord(@RequestBody SalaryVo salaryVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", salaryService.selectSalaryRecord(salaryVo));
         return map1;
     }
 
+    public Object selectSalaryRecordHystixGet(@RequestBody SalaryVo salaryVo) {
+        return fuse8003Util.main();
+    }
+
     /**
      * 根据员工ID查询其基本工资
+     *
      * @param fixedwagf
      * @return
      */
     @PostMapping("/selectPay")
-    public Integer selectPay(@RequestBody Fixedwagf fixedwagf){
-        return salaryService.selectPay(fixedwagf);
+    @HystrixCommand(fallbackMethod = "selectPayHystixGet")
+    public Object selectPay(@RequestBody Fixedwagf fixedwagf) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", salaryService.selectPay(fixedwagf));
+        return map1;
     }
+
+    public Object selectPayHystixGet(@RequestBody Fixedwagf fixedwagf) {
+        return fuse8003Util.main();
+    }
+
 
     /**
      * 添加调薪 添加三个审批人
+     *
      * @param salaryVo
      * @return
      */
     @PostMapping("/SubmitSalary3")
-    public int SubmitSalary3(@RequestBody SalaryVo salaryVo){
-        return  salaryService.SubmitSalary3(salaryVo);
+    @HystrixCommand(fallbackMethod = "SubmitSalary3ExamineHystixGet")
+    public Object SubmitSalary3(@RequestBody SalaryVo salaryVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", salaryService.SubmitSalary3(salaryVo));
+        return map1;
+    }
+
+    public Object SubmitSalary3ExamineHystixGet(@RequestBody SalaryVo salaryVo) {
+        return fuse8003Util.main();
     }
 
     /**
      * 添加调薪 添加两个审批人
+     *
      * @param salaryVo
      * @return
      */
     @PostMapping("/SubmitSalary2")
-    public int SubmitSalary2(@RequestBody SalaryVo salaryVo){
-        return  salaryService.SubmitSalary2(salaryVo);
+    @HystrixCommand(fallbackMethod = "SubmitSalary2ExamineHystixGet")
+    public Object SubmitSalary2(@RequestBody SalaryVo salaryVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", salaryService.SubmitSalary2(salaryVo));
+        return map1;
+    }
+
+    public Object SubmitSalary2ExamineHystixGet(@RequestBody SalaryVo salaryVo) {
+        return fuse8003Util.main();
     }
 
     /**
      * 添加调薪 添加一个审批人
+     *
      * @param salaryVo
      * @return
      */
     @PostMapping("/SubmitSalary1")
     @HystrixCommand(fallbackMethod = "SubmitSalary1ExamineHystixGet")
-    public Object submitToCard1(@RequestBody SalaryVo salaryVo){
+    public Object submitToCard1(@RequestBody SalaryVo salaryVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", salaryService.SubmitSalary1(salaryVo));
@@ -148,9 +178,6 @@ public class SalaryController {
     }
 
     public Object SubmitSalary1ExamineHystixGet(@RequestBody SalaryVo salaryVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+        return fuse8003Util.main();
     }
 }

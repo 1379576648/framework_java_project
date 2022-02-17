@@ -83,11 +83,15 @@ public class Overtimeask implements Serializable {
 
     @ApiModelProperty(value = "实际加班总小时")
     @TableField("OVERTIMASK_ACTUAL_TOKINAGA")
-    private Long overtimeaskActualTokinaga;
+    private Integer overtimeaskActualTokinaga;
 
     @ApiModelProperty(value = "状态 0:不同意 1:同意")
     @TableField("OVERTIMEASK_STATE")
     private Long overtimeaskState;
+
+    @ApiModelProperty(value = "加班状态 0：未开始 1：已完成 ")
+    @TableField("OVERTIMEASK_CONDITION")
+    private Long overtimeaskCondition;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
