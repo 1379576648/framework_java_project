@@ -6,12 +6,15 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.mybatisplus.mapper.*;
 import com.trkj.framework.mybatisplus.service.NoticeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * <p>
@@ -22,6 +25,7 @@ import java.util.List;
  * @since 2021-12-29
  */
 @Service
+@Slf4j
 public class NoticeServiceImpl implements NoticeService {
 
     @Autowired
@@ -48,7 +52,7 @@ public class NoticeServiceImpl implements NoticeService {
      * @return
      */
     @Override
-    public IPage<Notice> selectNoticeAll(Notice notice) {
+    public Object selectNoticeAll(Notice notice) {
         //创建分页
         Page<Notice> page = new Page<Notice>(notice.getCurrenPage(), notice.getPageSize());
 
@@ -78,11 +82,10 @@ public class NoticeServiceImpl implements NoticeService {
             //登录时间范围查询
             queryWrapper.between("CREATED_TIME", notice.getStartTime(), notice.getEndTime());
         }
-
-
         //按照ID降序
         queryWrapper.orderByDesc("NOTICE_ID");
-        return noticeMapper.selectPage(page, queryWrapper);
+        IPage<Notice> noticeIPage = noticeMapper.selectPage(page, queryWrapper);
+        return noticeIPage;
     }
 
     /**
@@ -92,28 +95,25 @@ public class NoticeServiceImpl implements NoticeService {
      * @return
      */
     @Override
-    @Transactional
-    public String checkNoticeDelete(ArrayList<Integer> list) {
-        String s = "成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String checkNoticeDelete(ArrayList<Integer> list) throws ArithmeticException {
         //循环传过来的集合
         for (int i = 0; i < list.size(); i++) {
             //通过公告编号删除公告部门表数据
             if (noticeDeptMapper.delete(new QueryWrapper<NoticeDept>().eq("NOTICE_ID", list.get(i))) <= 0) {
-                return "删除公告部门数据失败";
+                throw new ArithmeticException("删除公告失败");
             }
             //通过公告编号删除公告员工表数据
             if (noticeStaffMapper.delete(new QueryWrapper<NoticeStaff>().eq("NOTICE_ID", list.get(i))) <= 0) {
-                return "删除公告员工数据失败";
+                throw new ArithmeticException("删除公告失败");
             }
             //通过id进行删除公告数据
-            if (noticeMapper.delete(new QueryWrapper<Notice>().eq("NOTICE_ID", list.get(i))) >= 1) {
-                s = "成功";
-            } else {
-                return "删除公告数据失败";
+            if (noticeMapper.delete(new QueryWrapper<Notice>().eq("NOTICE_ID", list.get(i))) <= 0) {
+                throw new ArithmeticException("删除公告失败");
             }
 
         }
-        return s;
+        return "成功";
     }
 
     /***
@@ -135,14 +135,13 @@ public class NoticeServiceImpl implements NoticeService {
      * @return
      */
     @Override
-    @Transactional
-    public String insertNotice(Notice notice) {
-        String s = "成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String insertNotice(Notice notice) throws ArithmeticException {
         //通过id查询部门职位数据
         DeptPost deptPost = deptPostMapper.selectOne(new QueryWrapper<DeptPost>().eq("DEPT_POST_ID", notice.getDeptPostId()));
         //如果部门职位实体类不为空
         if (deptPost == null) {
-            return "查无[" + notice.getDeptPostId() + "]部门职位编号";
+            throw new ArithmeticException("查无[" + notice.getDeptPostId() + "]部门职位编号");
         }
         //讲部门职位实体类的职位名称赋值到公告实体类中
         notice.setNoticePost(deptPost.getPostName());
@@ -150,7 +149,8 @@ public class NoticeServiceImpl implements NoticeService {
         int row = noticeMapper.insert(notice);
         //如果添加公告成功
         if (row <= 0) {
-            return "添加公告失败";
+            log.error("添加公告失败");
+            throw new ArithmeticException("添加公告失败");
         }
         //迭代前台传过来的部门列表数据
         for (String name : notice.getDeptNameList()) {
@@ -158,7 +158,7 @@ public class NoticeServiceImpl implements NoticeService {
             Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_NAME", name));
             //如果部门信息不为空
             if (dept == null) {
-                return "查无[" + name + "]部门名称";
+                throw new ArithmeticException("查无[" + name + "]部门名称");
             }
             //添加到公告部门表中
             NoticeDept noticeDept = new NoticeDept();
@@ -166,7 +166,8 @@ public class NoticeServiceImpl implements NoticeService {
             noticeDept.setNoticeId(notice.getNoticeId());
             //如果添加公告部门数据失败
             if (noticeDeptMapper.insert(noticeDept) <= 0) {
-                return "添加公告部门数据失败";
+                log.error("添加公告部门数据失败");
+                throw new ArithmeticException("添加公告失败");
             }
             //查询这个部门下的所有的员工
             List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>()
@@ -184,15 +185,14 @@ public class NoticeServiceImpl implements NoticeService {
                     noticeStaff.setStaffId(staff.getStaffId());
                     //公告员工状态 未读
                     noticeStaff.setNoticeState(0L);
-                    if (noticeStaffMapper.insert(noticeStaff) >= 1) {
-                        s = "成功";
-                    } else {
-                        return "添加公告员工数据失败";
+                    if (noticeStaffMapper.insert(noticeStaff) <= 0) {
+                        log.error("添加公告员工数据失败");
+                        throw new ArithmeticException("添加公告失败");
                     }
                 }
             }
         }
-        return s;
+        return "成功";
     }
 
     /***
@@ -202,11 +202,11 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Dept> selectPossessDeptList(Integer integer) {
-        QueryWrapper<NoticeDept> queryWrapper = new QueryWrapper<NoticeDept>();
         List<Dept> deptList = new ArrayList<>();
-        //公告编号
-        queryWrapper.eq("NOTICE_ID", integer);
-        List<NoticeDept> deptPosts = noticeDeptMapper.selectList(queryWrapper);
+            QueryWrapper<NoticeDept> queryWrapper = new QueryWrapper<NoticeDept>();
+            //公告编号
+            queryWrapper.eq("NOTICE_ID", integer);
+            List<NoticeDept> deptPosts = noticeDeptMapper.selectList(queryWrapper);
         //如果公告部门表有绑定的部门
         for (NoticeDept noticeDept : deptPosts) {
             Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_ID", noticeDept.getDeptId()));
@@ -221,17 +221,16 @@ public class NoticeServiceImpl implements NoticeService {
      * @return
      */
     @Override
-    @Transactional
-    public String updateNotice(Notice notice) {
-        String s = "成功";
+    @Transactional(rollbackFor = Exception.class)
+    public String updateNotice(Notice notice) throws ArithmeticException {
         //修改公告表
         int row = noticeMapper.update(notice, new QueryWrapper<Notice>().eq("NOTICE_ID", notice.getNoticeId()));
         if (row <= 0) {
-            return "修改公告失败";
+            throw new ArithmeticException("修改公告失败");
         }
         //先删除公告部门表数据
         if (noticeDeptMapper.delete(new QueryWrapper<NoticeDept>().eq("NOTICE_ID", notice.getNoticeId())) <= 0) {
-            return "删除公告部门数据失败";
+            throw new ArithmeticException("修改公告失败");
         }
         //先删除公告员工表数据
         noticeStaffMapper.delete(new QueryWrapper<NoticeStaff>().eq("NOTICE_ID", notice.getNoticeId()));
@@ -246,12 +245,12 @@ public class NoticeServiceImpl implements NoticeService {
             noticeDept.setNoticeId(notice.getNoticeId());
             //如果公告部门数据添加成功
             if (noticeDeptMapper.insert(noticeDept) <= 0) {
-                return "添加公告部门数据失败";
+                throw new ArithmeticException("修改公告失败");
             }
             //查询这个部门下的所有的员工
             List<Staff> staffList = staffMapper.selectList(new QueryWrapper<Staff>()
                     .eq("DEPT_ID", dept.getDeptId())
-                    .select(Staff.class,i->!"STAFF_PASS".equals(i.getColumn())));
+                    .select(Staff.class, i -> !"STAFF_PASS".equals(i.getColumn())));
             //如果该部门下有员工
             for (Staff staff : staffList) {
                 //除去发布人
@@ -263,15 +262,13 @@ public class NoticeServiceImpl implements NoticeService {
                     noticeStaff.setStaffId(staff.getStaffId());
                     //公告员工状态 未读
                     noticeStaff.setNoticeState(0L);
-                    if (noticeStaffMapper.insert(noticeStaff) >= 1) {
-                        s = "成功";
-                    } else {
-                        return "添加公告员工数据失败";
+                    if (noticeStaffMapper.insert(noticeStaff) <= 0) {
+                        throw new ArithmeticException("修改公告失败");
                     }
                 }
             }
         }
-        return s;
+        return "成功";
     }
 
     /***
@@ -281,20 +278,21 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Staff> peropleNoticeViewed(Integer integer) {
+        List<NoticeStaff> noticeStaffList = new ArrayList<>();
         //定义一个集合储藏数据
         List<Staff> staffList = new ArrayList<>();
-        //通过公告编号查看公告员工表的数据
-        QueryWrapper<NoticeStaff> queryWrapper = new QueryWrapper<NoticeStaff>();
-        //通过公告编号查询公告员工表数据
-        queryWrapper.eq("NOTICE_ID", integer);
-        //公告员工表数据状态 未看
-        queryWrapper.eq("NOTICE_STATE", 1);
-        List<NoticeStaff> noticeStaffList = noticeStaffMapper.selectList(queryWrapper);
+            //通过公告编号查看公告员工表的数据
+            QueryWrapper<NoticeStaff> queryWrapper = new QueryWrapper<NoticeStaff>();
+            //通过公告编号查询公告员工表数据
+            queryWrapper.eq("NOTICE_ID", integer);
+            //公告员工表数据状态 未看
+            queryWrapper.eq("NOTICE_STATE", 1);
+            noticeStaffList = noticeStaffMapper.selectList(queryWrapper);
         for (NoticeStaff noticeStaff : noticeStaffList) {
             //通过员工编号查询数据
             Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>()
                     .eq("STAFF_ID", noticeStaff.getStaffId())
-                    .select(Staff.class,i->!"STAFF_PASS".equals(i.getColumn())));
+                    .select(Staff.class, i -> !"STAFF_PASS".equals(i.getColumn())));
             //如果查到员工数据
             if (staff != null) {
                 staffList.add(staff);
@@ -310,20 +308,21 @@ public class NoticeServiceImpl implements NoticeService {
      */
     @Override
     public List<Staff> unseenNoticePerson(Integer integer) {
+        List<NoticeStaff> noticeStaffList = new ArrayList<>();
         //定义一个集合储藏数据
         List<Staff> staffList = new ArrayList<>();
-        //通过公告编号查看公告员工表的数据
-        QueryWrapper<NoticeStaff> queryWrapper = new QueryWrapper<NoticeStaff>();
-        //通过公告编号查询公告员工表数据
-        queryWrapper.eq("NOTICE_ID", integer);
-        //公告员工表数据状态 未看
-        queryWrapper.eq("NOTICE_STATE", 0);
-        List<NoticeStaff> noticeStaffList = noticeStaffMapper.selectList(queryWrapper);
+            //通过公告编号查看公告员工表的数据
+            QueryWrapper<NoticeStaff> queryWrapper = new QueryWrapper<NoticeStaff>();
+            //通过公告编号查询公告员工表数据
+            queryWrapper.eq("NOTICE_ID", integer);
+            //公告员工表数据状态 未看
+            queryWrapper.eq("NOTICE_STATE", 0);
+            noticeStaffList = noticeStaffMapper.selectList(queryWrapper);
         for (NoticeStaff noticeStaff : noticeStaffList) {
             //通过员工编号查询数据
             Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>()
                     .eq("STAFF_ID", noticeStaff.getStaffId())
-                    .select(Staff.class,i->!"STAFF_PASS".equals(i.getColumn())));
+                    .select(Staff.class, i -> !"STAFF_PASS".equals(i.getColumn())));
             //如果查到员工数据
             if (staff != null) {
                 staffList.add(staff);

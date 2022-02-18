@@ -115,12 +115,12 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
      * @return
      */
     @Override
-    @Transactional
-    public String deleteInsuredDetail(InsuredDetail insuredDetail) {
+    @Transactional(rollbackFor = Exception.class)
+    public String deleteInsuredDetail(InsuredDetail insuredDetail) throws ArithmeticException {
         for (int i = 0; i < insuredDetail.getStaffIdList().size(); i++) {
             Staff staff = staffMapper.selectById(insuredDetail.getStaffIdList().get(i));
             if (staff == null) {
-                return "删除失败";
+                throw new ArithmeticException("删除失败");
             }
             InsuredLog insuredLog = new InsuredLog();
             //当前月
@@ -140,35 +140,35 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
             insuredLog.setInsLogExplain("删除社保公积金");
             InsuredScheme insuredScheme = insuredSchemeMapper.selectOne(new QueryWrapper<InsuredScheme>().eq("INSURED_SCHEME_ID", insuredPayment.getInsuredSchemeId()));
             if (insuredScheme==null){
-                return "删除失败";
+                throw new ArithmeticException("删除失败");
             }
             DefInsured defInsured = defInsuredMapper.selectById(insuredScheme.getDefInsuredId());
             if (defInsured==null){
-                return "删除失败";
+                throw new ArithmeticException("删除失败");
             }
 
             insuredLog.setInsLogInsuredName(defInsured.getDefInsuredName());
             insuredLog.setInsLogFundNumber(insuredPayment.getInsuredPaymentFundNumber());
             insuredLog.setInsLogSocialNumber(insuredPayment.getInsuredPaymentSocialNumber());
             if (insuredLogMapper.insert(insuredLog) <= 0) {
-                return "删除失败";
+                throw new ArithmeticException("删除失败");
             }
             //修改参保方案的人数
             defInsured.setDefInsuredNumber(defInsured.getDefInsuredNumber() - 1);
             if (defInsuredMapper.updateById(defInsured) <= 0) {
-                return "提交失败";
+                throw new ArithmeticException("删除失败");
             }
             //删除参保方案表
             if (insuredSchemeMapper.delete(new QueryWrapper<InsuredScheme>().eq("STAFF_ID", staff.getStaffId())) <= 0) {
-                return "删除失败";
+                throw new ArithmeticException("删除失败");
             }
             //删除参保缴纳表
             if (insuredPaymentMapper.delete(new QueryWrapper<InsuredPayment>().eq("STAFF_ID", staff.getStaffId())) <= 0) {
-                return "删除失败";
+                throw new ArithmeticException("删除失败");
             }
             //删除参保明细表
             if (insuredDetailMapper.delete(new QueryWrapper<InsuredDetail>().eq("INS_DETAIL_STAFF_NAME", staff.getStaffName())) <= 0) {
-                return "删除失败";
+                throw new ArithmeticException("删除失败");
             }
         }
         return "成功";
@@ -179,7 +179,8 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
      * @return
      */
     @Override
-    public String pigeonhole() {
+    @Transactional(rollbackFor = Exception.class)
+    public String pigeonhole() throws ArithmeticException{
         //当前月
         int year = new Date().getYear() + 1900;
         int month = new Date().getMonth() + 1;
@@ -203,7 +204,7 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
             insuredArchive.setInsArchiveSalaryMonth(insuredDetails.get(i).getInsDetailSalaryMonth());
             Staff staff = staffMapper.selectOne(new QueryWrapper<Staff>().eq("STAFF_NAME", insuredDetails.get(i).getInsDetailStaffName()));
             if (staff == null) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             insuredLog.setInsLogIdTheInsured(staff.getStaffName());
             insuredLog.setInsLogUpdateObject("自动");
@@ -212,16 +213,16 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
             insuredLog.setInsLogInsuredName(insuredDetails.get(i).getInsDetailInsuredName());
             Dept dept = deptMapper.selectById(staff.getDeptId());
             if (dept == null) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             DeptPost deptPost = deptPostMapper.selectById(staff.getDeptPostId());
             if (deptPost == null) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             InsuredPayment insuredPayment = insuredPaymentMapper.selectOne(
                     new QueryWrapper<InsuredPayment>().eq("INS_DETAIL_ID", insuredDetails.get(i).getInsDetailId()));
             if (insuredPayment == null) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             insuredArchive.setInsArchiveDeptName(dept.getDeptName());
             insuredArchive.setInsArchivePostName(deptPost.getPostName());
@@ -231,7 +232,7 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
             InsuredScheme insuredScheme = insuredSchemeMapper.selectOne(
                     new QueryWrapper<InsuredScheme>().eq("INSURED_SCHEME_ID", insuredPayment.getInsuredSchemeId()));
             if (insuredScheme == null) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             insuredLog.setInsLogSocialNumber(insuredPayment.getInsuredPaymentSocialNumber());
             insuredLog.setInsLogFundNumber(insuredPayment.getInsuredPaymentFundNumber());
@@ -410,21 +411,21 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
 
             //添加归档表
             if (insuredArchiveMapper.insert(insuredArchive) <= 0) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
 
             //删除参保方案表
             if (insuredSchemeMapper.delete(
                     new QueryWrapper<InsuredScheme>().eq("INSURED_SCHEME_ID", insuredPayment.getInsuredSchemeId())) <= 0) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             //添加下个月参保方案表的数据
             if (insuredSchemeMapper.insert(insuredScheme) <= 0) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             //删除参保明细表
             if (insuredDetailMapper.deleteById(insuredDetails.get(i).getInsDetailId()) <= 0) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             //添加下一个月的参保明细表数据
             Calendar cal = Calendar.getInstance();
@@ -433,12 +434,12 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
             insuredDetails.get(i).setInsDetailInsuredMonth(cal.getTime());
             insuredDetails.get(i).setInsDetailSalaryMonth(cal.getTime());
             if (insuredDetailMapper.insert(insuredDetails.get(i)) <= 0) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
 
             //删除参保缴纳表
             if (insuredPaymentMapper.deleteById(insuredPayment.getInsuredPaymentId()) <= 0) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             //添加下一个月的参保缴纳表数据
             insuredLog.setInsLogSocialInsuredMonth(cal.getTime());
@@ -450,10 +451,10 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
             insuredPayment.setInsuredSchemeId(insuredPayment.getInsuredSchemeId());
             insuredPayment.setInsDetailId(insuredPayment.getInsDetailId());
             if (insuredPaymentMapper.insert(insuredPayment) <= 0) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
             if (insuredLogMapper.insert(insuredLog) <= 0) {
-                return "归档失败";
+                throw new ArithmeticException("归档失败");
             }
 
         }

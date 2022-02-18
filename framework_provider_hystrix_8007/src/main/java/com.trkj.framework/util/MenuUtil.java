@@ -23,7 +23,6 @@ public class MenuUtil {
         List<MenuPower> childList = new ArrayList<MenuPower>();
         for (MenuPower menuPower: allMenu) {
             if (menuPower.getChildren().size()<=0){
-                System.out.println("1111111");
                 childList.add(menuPower);
             }else{
                 getChild(menuPower.getChildren());

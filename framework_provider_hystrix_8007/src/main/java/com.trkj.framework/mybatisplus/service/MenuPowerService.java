@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trkj.framework.entity.mybatisplus.MenuPower;
 import io.swagger.models.auth.In;
+import org.checkerframework.checker.units.qual.A;
 
 /**
  * <p>
@@ -61,7 +62,7 @@ public interface MenuPowerService  {
      * @param integer
      * @return
      */
-    String menuPowerDelete(Integer integer);
+    String menuPowerDelete(Integer integer) throws ArithmeticException;
 
 
     /***
@@ -69,5 +70,5 @@ public interface MenuPowerService  {
      * @param menuPower
      * @return
      */
-    String menuPowerAdd(MenuPower menuPower);
+    String menuPowerAdd(MenuPower menuPower)throws ArithmeticException;
 }

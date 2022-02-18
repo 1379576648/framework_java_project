@@ -33,13 +33,13 @@ public interface InsuredDetailService {
      * @param insuredDetail
      * @return
      */
-    String deleteInsuredDetail(InsuredDetail insuredDetail);
+    String deleteInsuredDetail(InsuredDetail insuredDetail) throws ArithmeticException;
 
     /****
      * 归档
      * @return
      */
-    String pigeonhole();
+    String pigeonhole() throws ArithmeticException;
 
 
     /****

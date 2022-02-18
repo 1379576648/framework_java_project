@@ -6,6 +6,7 @@ import com.trkj.framework.entity.mybatisplus.InsuredArchive;
 import com.trkj.framework.entity.mybatisplus.InsuredDetail;
 import com.trkj.framework.mybatisplus.service.InsuredDetailService;
 import com.trkj.framework.util.Fuse8005Util;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -62,7 +63,11 @@ public class InsuredDetailController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", insuredDetailServicel.deleteInsuredDetail(insuredDetail));
+        try{
+            map1.put("info", insuredDetailServicel.deleteInsuredDetail(insuredDetail));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
     //备选方案
@@ -84,7 +89,11 @@ public class InsuredDetailController {
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", insuredDetailServicel.pigeonhole());
+        try {
+            map1.put("info", insuredDetailServicel.pigeonhole());
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

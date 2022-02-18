@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 @FeignClient(value = "FRAMEWORK-ZUUL/8004/provider", fallbackFactory = CheckingServiceFallbackfactory.class)
 public interface CheckingService {
 
@@ -19,7 +21,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/selectCardRecordAll")
-    Object selectCardRecordAll(@RequestBody ClockRecord cardRecord);
+    Map<String,Object> selectCardRecordAll(@RequestBody ClockRecord cardRecord);
 
     /**
      * 根据员工名称查询加班记录
@@ -28,7 +30,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/selectOverTimeRecordAll")
-    Object selectOverTimeRecordAll(@RequestBody Overtimeask overtimeask);
+    Map<String,Object> selectOverTimeRecordAll(@RequestBody Overtimeask overtimeask);
 
     /**
      * 删除打卡记录
@@ -37,7 +39,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/deleteClock")
-    Object deleteClock(@RequestBody ClockRecord cardRecord);
+    Map<String,Object> deleteClock(@RequestBody ClockRecord cardRecord);
 
     /**
      * 删除加班记录
@@ -46,7 +48,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/deleteOverTime")
-    Object deleteOverTime(@RequestBody Overtimeask overtimeask);
+    Map<String,Object> deleteOverTime(@RequestBody Overtimeask overtimeask);
 
     /**
      * 开始加班
@@ -55,7 +57,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateBeginOverTime")
-    Object updateBeginOverTime(@RequestBody Overtimeask overtimeask);
+    Map<String,Object> updateBeginOverTime(@RequestBody Overtimeask overtimeask);
 
     /**
      * 结束加班
@@ -64,7 +66,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateEndOverTime")
-    Object updateEndOverTime(@RequestBody Overtimeask overtimeask);
+    Map<String,Object> updateEndOverTime(@RequestBody Overtimeask overtimeask);
 
     /**
      * 根据员工名称查询请假记录
@@ -73,7 +75,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/selectLeaveRecordAll")
-    Object selectLeaveRecordAll(@RequestBody Leave leave);
+    Map<String,Object> selectLeaveRecordAll(@RequestBody Leave leave);
 
     /**
      * 删除请假记录
@@ -82,7 +84,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/deleteLeave")
-    Object deleteLeave(@RequestBody Leave leave);
+    Map<String,Object> deleteLeave(@RequestBody Leave leave);
 
     /**
      * 开始请假
@@ -91,7 +93,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateBeginLeave")
-    Object updateBeginLeave(@RequestBody Leave leave);
+    Map<String,Object> updateBeginLeave(@RequestBody Leave leave);
 
     /**
      * 结束请假
@@ -100,7 +102,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateEndLeave")
-    Object updateEndLeave(@RequestBody Leave leave);
+    Map<String,Object> updateEndLeave(@RequestBody Leave leave);
 
     /**
      * 根据员工名称查询出差记录
@@ -109,7 +111,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/selectEvectionRecordAll")
-    Object selectEvectionRecordAll(@RequestBody Travel travel);
+    Map<String,Object> selectEvectionRecordAll(@RequestBody Travel travel);
 
     /**
      * 删除出差记录
@@ -118,7 +120,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/deleteEvection")
-    Object deleteEvection(@RequestBody Travel travel);
+    Map<String,Object> deleteEvection(@RequestBody Travel travel);
 
     /**
      * 开始出差
@@ -127,7 +129,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateBeginTravel")
-    Object updateBeginTravel(@RequestBody Travel travel);
+    Map<String,Object> updateBeginTravel(@RequestBody Travel travel);
 
     /**
      * 结束出差
@@ -136,7 +138,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateEndTravel")
-    Object updateEndTravel(@RequestBody Travel travel);
+    Map<String,Object> updateEndTravel(@RequestBody Travel travel);
 
     /**
      * 根据员工名称查询补打卡记录
@@ -145,7 +147,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/selectReissueCardRecordAll")
-    Object selectReissueCardRecordAll(@RequestBody Card card);
+    Map<String,Object> selectReissueCardRecordAll(@RequestBody Card card);
 
     /**
      * 删除补打卡记录
@@ -154,7 +156,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/deleteCard")
-    Object deleteCard(@RequestBody Card card);
+    Map<String,Object> deleteCard(@RequestBody Card card);
 
     /**
      * 查询所有班次方案
@@ -163,7 +165,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/selectClassesAll")
-    Object selectClassesAll(@RequestBody Classes classes);
+    Map<String,Object> selectClassesAll(@RequestBody Classes classes);
 
     /**
      * 查询所有加班方案
@@ -172,7 +174,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/submitFormClasses")
-    Object submitFormClasses(@RequestBody Classes classes);
+    Map<String,Object> submitFormClasses(@RequestBody Classes classes);
 
     /**
      * 查询所有加班方案
@@ -181,7 +183,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/inquireClasses")
-    Object inquireClasses(@RequestBody Classes classes);
+    Map<String,Object> inquireClasses(@RequestBody Classes classes);
 
     /**
      * 删除班次方案
@@ -190,7 +192,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/deleteClasses")
-    Object deleteClasses(@RequestBody Classes classes);
+    Map<String,Object> deleteClasses(@RequestBody Classes classes);
 
     /**
      * 查询所有班次方案1
@@ -199,7 +201,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/selectClasses")
-    Object selectClasses(@RequestBody Classes classes);
+    Map<String,Object> selectClasses(@RequestBody Classes classes);
 
     /**
      * 修改班次方案状态(启用)
@@ -208,7 +210,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateClassesState")
-    Object updateClassesState(@RequestBody Classes classes);
+    Map<String,Object> updateClassesState(@RequestBody Classes classes);
 
     /**
      * 修改班次方案状态(禁用)
@@ -217,7 +219,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateClassesStateTwo")
-    Object updateClassesStateTwo(@RequestBody Classes classes);
+    Map<String,Object> updateClassesStateTwo(@RequestBody Classes classes);
 
     /**
      * 根据班次编号去查询班次方案
@@ -226,7 +228,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/selectClassesByID")
-    Object selectClassesByID(@RequestBody Classes classes);
+    Map<String,Object> selectClassesByID(@RequestBody Classes classes);
 
     /**
      * 修改班次方案
@@ -235,7 +237,7 @@ public interface CheckingService {
      * @return
      */
     @PostMapping("/updateClasses")
-    Object updateClasses(@RequestBody Classes classes);
+    Map<String,Object> updateClasses(@RequestBody Classes classes);
 
     /**
      * 导入打卡记录
@@ -244,6 +246,6 @@ public interface CheckingService {
      * @return
      */
     @PostMapping(value="/importCardRecord/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
-    Object importCardRecord(@PathVariable("name") String name,MultipartFile file);
+    Map<String,Object> importCardRecord(@PathVariable("name") String name,MultipartFile file);
 
 }

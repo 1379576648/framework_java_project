@@ -55,7 +55,7 @@ public interface AuditflowService {
      * @param
      * @return
      */
-    int updateApprovalState(Auditflowdetail auditflowdetail);
+    int updateApprovalState(Auditflowdetail auditflowdetail) throws ArithmeticException;
 
     /**
      * 根据审批明细表ID修改其状态 驳回

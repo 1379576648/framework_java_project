@@ -18,7 +18,7 @@ import java.util.Map;
 /**
  * 加班 前端控制器
  *
- * @author 劉祁
+ * @author
  * @since 2021-12-27
  */
 @RestController
@@ -27,6 +27,7 @@ public class AuditflowController {
     private AuditflowService auditflowService;
     @Autowired
     private Fuse8003Util fuse8003Util;
+
     /**
      * 根据审批类型的加班/审批人查询待处理的审批
      *
@@ -119,17 +120,22 @@ public class AuditflowController {
         auditflowdetail1.setAuditflowdetaiState(2);
         auditflowdetail1.setAuditflowdetaiDate(new Date());
         auditflowdetail1.setAuditflowdetaiRemarks(auditflowdetail1.getAuditflowdetaiRemarks());
-        final var i = auditflowService.updateApprovalState(auditflowdetail1);
-        int i1;
-        if (i == 1) {
-            i1 = 666;
-        } else if (i == 100) {
-            i1 = 100;
-        } else {
-            i1 = 999;
+        try {
+            final var i = auditflowService.updateApprovalState(auditflowdetail1);
+            int i1;
+            if (i == 1) {
+                i1 = 666;
+            } else if (i == 100) {
+                i1 = 100;
+            } else {
+                i1 = 999;
+            }
+            map1.put("state", 200);
+            map1.put("info", i1);
+        } catch (ArithmeticException e) {
+            map1.put("state", 200);
+            map1.put("info", e.getMessage());
         }
-        map1.put("state", 200);
-        map1.put("info", i1);
         return map1;
     }
 

@@ -23,14 +23,14 @@ public interface NoticeService  {
      * @param registerLog
      * @return
      */
-    IPage<Notice> selectNoticeAll(Notice registerLog);
+    Object selectNoticeAll(Notice registerLog);
 
     /***
      * 多选删除
      * @param list
      * @return
      */
-     String checkNoticeDelete(ArrayList<Integer> list);
+     String checkNoticeDelete(ArrayList<Integer> list) throws ArithmeticException;
 
     /***
      * 查询所有部门列表
@@ -44,7 +44,7 @@ public interface NoticeService  {
      * @param notice
      * @return
      */
-     String  insertNotice(Notice notice);
+     String  insertNotice(Notice notice) throws ArithmeticException;
 
     /***
      * 查询当前公告绑定的部门
@@ -58,7 +58,7 @@ public interface NoticeService  {
      * @param notice
      * @return
      */
-     String updateNotice(Notice notice);
+     String updateNotice(Notice notice) throws ArithmeticException;
 
 
     /***
