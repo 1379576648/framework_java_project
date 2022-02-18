@@ -47,20 +47,20 @@ public interface SalaryService {
      * @param salaryVo
      * @return
      */
-    int SubmitSalary3(SalaryVo salaryVo);
+    int SubmitSalary3(SalaryVo salaryVo)throws ArithmeticException;
 
     /**
      * 添加调薪 添加两个审批人
      * @param salaryVo
      * @return
      */
-    int SubmitSalary2(SalaryVo salaryVo);
+    int SubmitSalary2(SalaryVo salaryVo)throws ArithmeticException;
 
     /**
      * 添加调薪 添加一个审批人
      * @param salaryVo
      * @return
      */
-    Integer SubmitSalary1(SalaryVo salaryVo);
+    Integer SubmitSalary1(SalaryVo salaryVo)throws ArithmeticException;
 
 }

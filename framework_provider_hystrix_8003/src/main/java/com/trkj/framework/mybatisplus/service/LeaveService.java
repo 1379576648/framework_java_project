@@ -18,14 +18,16 @@ import java.util.List;
  */
 public interface LeaveService {
     /**
-     *  根据审批类型的加班/审批人查询待处理的审批
+     * 根据审批类型的加班/审批人查询待处理的审批
+     *
      * @param
      * @return
      */
     IPage<Auditflowone> selectLeaveAll(Auditflowone auditflowone);
 
     /**
-     *  根据审批类型的加班/审批人查询已处理的审批
+     * 根据审批类型的加班/审批人查询已处理的审批
+     *
      * @param
      * @return
      */
@@ -33,6 +35,7 @@ public interface LeaveService {
 
     /**
      * 根据审批类型的加班/审批人查询已处理的详情信息
+     *
      * @param
      * @return
      */
@@ -40,6 +43,7 @@ public interface LeaveService {
 
     /**
      * 根据员工名称是否有补打卡记录
+     *
      * @param leaveDetailsVo
      * @return
      */
@@ -48,22 +52,25 @@ public interface LeaveService {
 
     /**
      * 添加请假 添加三个审批人
+     *
      * @param leaveVo
      * @return
      */
-    int submitToAskForLeave3(LeaveVo leaveVo);
+    int submitToAskForLeave3(LeaveVo leaveVo) throws ArithmeticException;
 
     /**
      * 添加请假 添加两个审批人
+     *
      * @param leaveVo
      * @return
      */
-    int submitToAskForLeave2(LeaveVo leaveVo);
+    int submitToAskForLeave2(LeaveVo leaveVo) throws ArithmeticException;
 
     /**
      * 添加请假 添加一个审批人
+     *
      * @param leaveVo
      * @return
      */
-    Integer submitToAskForLeave1(LeaveVo leaveVo);
+    Integer submitToAskForLeave1(LeaveVo leaveVo) throws ArithmeticException;
 }

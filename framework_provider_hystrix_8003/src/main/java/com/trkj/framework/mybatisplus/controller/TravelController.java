@@ -25,6 +25,7 @@ public class TravelController {
     private TraveService traveService;
     @Autowired
     private Fuse8003Util fuse8003Util;
+
     /**
      * 根据审批类型的出差/审批人查询待处理的审批
      *
@@ -114,7 +115,11 @@ public class TravelController {
     public Map<String, Object> submitToTravel3(@RequestBody TravelVo travelVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", traveService.submitToTravel3(travelVo));
+        try {
+            map1.put("info", traveService.submitToTravel3(travelVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -133,7 +138,11 @@ public class TravelController {
     public Map<String, Object> submitToTravel2(@RequestBody TravelVo travelVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", traveService.submitToTravel2(travelVo));
+        try {
+            map1.put("info", traveService.submitToTravel2(travelVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -152,7 +161,11 @@ public class TravelController {
     public Map<String, Object> submitToTravel1(@RequestBody TravelVo travelVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", traveService.submitToTravel1(travelVo));
+        try {
+            map1.put("info", traveService.submitToTravel1(travelVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

@@ -143,8 +143,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int updateApprovalState(Auditflowdetail auditflowdetail) {
-
+    public int updateApprovalState(Auditflowdetail auditflowdetail) throws ArithmeticException {
         // 获取下一个审批人
         final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
         // 获取审批类型
@@ -199,10 +198,10 @@ public class AuditflowServiceImpl implements AuditflowService {
                             final var insert = newsMapper.insert(news);
                             return insert;
                         } else {
-                            return 999;
+                            throw new ArithmeticException("999");
                         }
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                     // 如果等于调岗,则先根据审批主表编号去查询调动表中的数据
                 } else if ("调动".equals(auditflowType)) {
@@ -262,16 +261,16 @@ public class AuditflowServiceImpl implements AuditflowService {
                                     final var insert = newsMapper.insert(news);
                                     return insert;
                                 } else {
-                                    return 999;
+                                    throw new ArithmeticException("999");
                                 }
                             } else {
-                                return 999;
+                                throw new ArithmeticException("999");
                             }
                         } else {
-                            return 999;
+                            throw new ArithmeticException("999");
                         }
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                     // 如果等于调薪,则先根据审批主表编号去查询调薪表中的记录（调薪后基本工资）
                 } else if ("调薪".equals(auditflowType)) {
@@ -304,7 +303,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                         final var insert = newsMapper.insert(news);
                         return insert;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                     // 如果等于离职
                 } else if ("离职".equals(auditflowType)) {
@@ -334,10 +333,10 @@ public class AuditflowServiceImpl implements AuditflowService {
                             final var insert = newsMapper.insert(news);
                             return insert;
                         } else {
-                            return 999;
+                            throw new ArithmeticException("999");
                         }
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                     // 如果类型等于加班
                 } else if ("加班".equals(auditflowType)) {
@@ -363,7 +362,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (i8 == 1 && insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                     // 如果类型等于出差
                 } else if ("出差".equals(auditflowType)) {
@@ -390,7 +389,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (i9 == 1 && insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                     // 如果类型等于请假
                 } else if ("请假".equals(auditflowType)) {
@@ -417,15 +416,13 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (i0 == 1 && insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("补打卡".equals(auditflowType)) {
                     // 根据审批编号去查询补打卡记录表数据
                     QueryWrapper<Card> card = new QueryWrapper<>();
                     card.eq("AUDITFLOW_ID", auditflowId);
                     final var cards = cardMapper.selectList(card);
-                    System.out.println("补打卡数据：");
-                    System.out.println(cards);
                     // 修改补打卡中的状态为同意
                     Card card1 = new Card();
                     card1.setCardId(cards.get(0).getCardId());
@@ -445,65 +442,51 @@ public class AuditflowServiceImpl implements AuditflowService {
                         // 发消息成功后，则根据补打卡表中的员工名称及创建时间去打卡记录表中的查询有无记录
                         QueryWrapper<ClockRecord> clockRecord = new QueryWrapper<>();
                         clockRecord.eq("STAFF_NAME", cards.get(0).getStaffName());
-                        System.out.println("补打卡创建时间：");
                         SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
                         String CreatedTime1 = df.format(cards.get(0).getCreatedTime());
-                        System.out.println(CreatedTime1);
                         clockRecord.apply("TO_CHAR(CREATED_TIME,'yyyy-mm-dd' ) like {0}", CreatedTime1);
                         final var clockRecords = clockRecordMapper.selectList(clockRecord);
-                        System.out.println(clockRecords);
-                        try {
-                            if (clockRecords.size() != 0) {
-                                try {
-                                    // 查到打卡记录表中有数据，则根据补打卡表中的补打卡类型（未签退、未签到）去修改打卡记录中的数据
-                                    if ("未签到".equals(cards.get(0).getCardType())) {
-                                        ClockRecord clockRecord1 = new ClockRecord();
-                                        clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
-                                        clockRecord1.setMornClock(cards.get(0).getCardDate());
-                                        final var i3 = clockRecordMapper.updateById(clockRecord1);
-                                        if (i3 == 1 && insert == 1) {
-                                            return 1;
-                                        } else {
-                                            return 999;
-                                        }
-                                    } else if ("未签退".equals(cards.get(0).getCardType())) {
-                                        ClockRecord clockRecord1 = new ClockRecord();
-                                        clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
-                                        clockRecord1.setAfternoonClock(cards.get(0).getCardDate());
-                                        final var i4 = clockRecordMapper.updateById(clockRecord1);
-                                        if (i4 == 1 && insert == 1) {
-                                            return 1;
-                                        } else {
-                                            return 999;
-                                        }
-                                    } else {
-                                        return 999;
-                                    }
-                                } catch (Exception e) {
-                                    System.out.println("222222222222222222222222222222222222");
-                                    //手动强制回滚事务，这里一定要第一时间处理
-                                    TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-                                    // 如果查到打卡记录表中没有匹配数据
-                                    return 100;
+                        if (clockRecords.size() != 0) {
+                            // 查到打卡记录表中有数据，则根据补打卡表中的补打卡类型（未签退、未签到）去修改打卡记录中的数据
+                            if ("未签到".equals(cards.get(0).getCardType())) {
+                                ClockRecord clockRecord1 = new ClockRecord();
+                                clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
+                                clockRecord1.setMornClock(cards.get(0).getCardDate());
+                                final var i3 = clockRecordMapper.updateById(clockRecord1);
+                                if (i3 == 1 && insert == 1) {
+                                    return 1;
+                                } else {
+                                    throw new ArithmeticException("999");
                                 }
+                            } else if ("未签退".equals(cards.get(0).getCardType())) {
+                                ClockRecord clockRecord1 = new ClockRecord();
+                                clockRecord1.setClockRecordId(clockRecords.get(0).getClockRecordId());
+                                clockRecord1.setAfternoonClock(cards.get(0).getCardDate());
+                                final var i4 = clockRecordMapper.updateById(clockRecord1);
+                                if (i4 == 1 && insert == 1) {
+                                    return 1;
+                                } else {
+                                    throw new ArithmeticException("999");
+                                }
+                            } else {
+                                throw new ArithmeticException("999");
                             }
-                        } catch (Exception e) {
-                            System.out.println("11111111111111111111111111111111111111111111111111");
-                            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+                        } else {
+                            throw new ArithmeticException("100");
                         }
+
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else {
-                    return 999;
+                    throw new ArithmeticException("999");
                 }
             } else {
-                return 999;
+                throw new ArithmeticException("999");
             }
         } else {
-            return 999;
+            throw new ArithmeticException("999");
         }
-        return 0;
     }
 
 
@@ -515,7 +498,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int rejectApprovalState(Auditflowdetail auditflowdetail) {
+    public int rejectApprovalState(Auditflowdetail auditflowdetail) throws ArithmeticException {
         // 获取第二个审批人
         final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
         // 获取第三个审批人
@@ -605,62 +588,62 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调动".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TransferNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调薪".equals(auditflowType)) {
                     final var insert = newsMapper.insert(SalaryNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("离职".equals(auditflowType)) {
                     final var insert = newsMapper.insert(QuitNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("加班".equals(auditflowType)) {
                     final var insert = newsMapper.insert(overtimeNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("补打卡".equals(auditflowType)) {
                     final var insert = newsMapper.insert(CardNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("出差".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TravelNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("请假".equals(auditflowType)) {
                     final var insert = newsMapper.insert(LeaveNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else {
-                    return 999;
+                    throw new ArithmeticException("999");
                 }
             } else {
-                return 999;
+                throw new ArithmeticException("999");
             }
             // 如果第二个审批人和第三个审批人都为空 则代表目前是最后一个审批人
         } else if (auditflowdetailId2 == null && auditflowdetailId3 == null) {
@@ -676,62 +659,62 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调动".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TransferNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调薪".equals(auditflowType)) {
                     final var insert = newsMapper.insert(SalaryNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("离职".equals(auditflowType)) {
                     final var insert = newsMapper.insert(QuitNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("加班".equals(auditflowType)) {
                     final var insert = newsMapper.insert(overtimeNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("补打卡".equals(auditflowType)) {
                     final var insert = newsMapper.insert(CardNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("出差".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TravelNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("请假".equals(auditflowType)) {
                     final var insert = newsMapper.insert(LeaveNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else {
-                    return 999;
+                    throw new ArithmeticException("999");
                 }
             } else {
-                return 999;
+                throw new ArithmeticException("999");
             }
             // 如果其中一个审批人为空，则代表是目前是第二个审批人
         } else if (auditflowdetailId2 == null || auditflowdetailId3 == null) {
@@ -750,65 +733,65 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调动".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TransferNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调薪".equals(auditflowType)) {
                     final var insert = newsMapper.insert(SalaryNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("离职".equals(auditflowType)) {
                     final var insert = newsMapper.insert(QuitNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("加班".equals(auditflowType)) {
                     final var insert = newsMapper.insert(overtimeNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("补打卡".equals(auditflowType)) {
                     final var insert = newsMapper.insert(CardNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("出差".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TravelNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("请假".equals(auditflowType)) {
                     final var insert = newsMapper.insert(LeaveNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else {
-                    return 999;
+                    throw new ArithmeticException("999");
                 }
             } else {
-                return 999;
+                throw new ArithmeticException("999");
             }
         } else {
-            return 999;
+            throw new ArithmeticException("999");
         }
     }
 
@@ -852,7 +835,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToOvertime3(OvertimeaskVo overtimeaskVo) {
+    public int submitToOvertime3(OvertimeaskVo overtimeaskVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -917,13 +900,13 @@ public class AuditflowServiceImpl implements AuditflowService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -935,7 +918,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToOvertime2(OvertimeaskVo overtimeaskVo) {
+    public int submitToOvertime2(OvertimeaskVo overtimeaskVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -993,13 +976,13 @@ public class AuditflowServiceImpl implements AuditflowService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -1011,7 +994,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer submitToOvertime1(OvertimeaskVo overtimeaskVo) {
+    public Integer submitToOvertime1(OvertimeaskVo overtimeaskVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -1060,10 +1043,10 @@ public class AuditflowServiceImpl implements AuditflowService {
             if (i1 == 1 && i4 == 1) {
                 return 1111;
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 

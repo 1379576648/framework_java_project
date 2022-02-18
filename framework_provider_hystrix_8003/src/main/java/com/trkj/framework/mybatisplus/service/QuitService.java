@@ -40,19 +40,19 @@ public interface QuitService {
      * @param quitVo
      * @return
      */
-    int submitToLeave3(QuitVo quitVo);
+    int submitToLeave3(QuitVo quitVo)throws ArithmeticException;
 
     /**
      * 添加调薪 添加两个审批人
      * @param quitVo
      * @return
      */
-    int submitToLeave2(QuitVo quitVo);
+    int submitToLeave2(QuitVo quitVo)throws ArithmeticException;
 
     /**
      * 添加调薪 添加一个审批人
      * @param quitVo
      * @return
      */
-    Integer submitToLeave1(QuitVo quitVo);
+    Integer submitToLeave1(QuitVo quitVo)throws ArithmeticException;
 }

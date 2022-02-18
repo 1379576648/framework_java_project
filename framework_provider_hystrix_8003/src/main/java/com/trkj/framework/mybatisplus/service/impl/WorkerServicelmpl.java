@@ -75,7 +75,7 @@ public class WorkerServicelmpl implements WorkerService {
     @Override
     public List<WorkerDetaIsVo> selectDetailsWorker(WorkerDetaIsVo workerDetaIsVo) {
         QueryWrapper<WorkerDetaIsVo> queryWrapper = new QueryWrapper<>();
-        if (workerDetaIsVo.getStaffName2()!=null){
+        if (workerDetaIsVo.getStaffName2() != null) {
             queryWrapper.eq("b.STAFF_NAME", workerDetaIsVo.getStaffName2());
         }
         queryWrapper.eq("a.AUDITFLOW_ID", workerDetaIsVo.getAuditflowId());
@@ -121,7 +121,7 @@ public class WorkerServicelmpl implements WorkerService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int SubmitPositive3(WorkerVo workerVo) {
+    public int SubmitPositive3(WorkerVo workerVo) throws ArithmeticException {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -182,13 +182,13 @@ public class WorkerServicelmpl implements WorkerService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -200,7 +200,7 @@ public class WorkerServicelmpl implements WorkerService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int SubmitPositive2(WorkerVo workerVo) {
+    public int SubmitPositive2(WorkerVo workerVo) throws ArithmeticException {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -254,13 +254,13 @@ public class WorkerServicelmpl implements WorkerService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -272,7 +272,7 @@ public class WorkerServicelmpl implements WorkerService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer SubmitPositive1(WorkerVo workerVo) {
+    public Integer SubmitPositive1(WorkerVo workerVo) throws ArithmeticException {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -315,10 +315,10 @@ public class WorkerServicelmpl implements WorkerService {
             if (i2 == 1 && i4 == 1) {
                 return 1111;
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 

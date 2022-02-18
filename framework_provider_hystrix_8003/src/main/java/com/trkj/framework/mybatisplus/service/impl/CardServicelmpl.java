@@ -100,7 +100,7 @@ public class CardServicelmpl implements CardService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToCard3(CardVo cardVo) {
+    public int submitToCard3(CardVo cardVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -159,13 +159,13 @@ public class CardServicelmpl implements CardService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -177,7 +177,7 @@ public class CardServicelmpl implements CardService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToCard2(CardVo cardVo) {
+    public int submitToCard2(CardVo cardVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -227,13 +227,13 @@ public class CardServicelmpl implements CardService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -245,7 +245,7 @@ public class CardServicelmpl implements CardService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer submitToCard1(CardVo cardVo) {
+    public Integer submitToCard1(CardVo cardVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -286,7 +286,7 @@ public class CardServicelmpl implements CardService {
         if (i == 1 && i1 == 1 && i4 == 1) {
             return 1111;
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 

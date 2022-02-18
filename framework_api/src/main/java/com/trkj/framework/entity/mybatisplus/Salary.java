@@ -58,6 +58,11 @@ public class Salary {
     @TableId("TAKE_EFFECT_DATE")
     private Date takeEffectDate;
 
+    @ApiModelProperty(value = "调薪原因")
+    @TableId("SALARY_TYPE")
+    private String salaryType;
+
+
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

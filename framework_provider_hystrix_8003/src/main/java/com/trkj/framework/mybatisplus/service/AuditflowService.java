@@ -23,14 +23,16 @@ import java.util.List;
 public interface AuditflowService {
 
     /**
-     *  根据审批类型的加班/审批人查询待处理的审批
+     * 根据审批类型的加班/审批人查询待处理的审批
+     *
      * @param
      * @return
      */
     IPage<Auditflowone> selectAuditflowoneAll(Auditflowone auditflowone);
 
     /**
-     *  根据审批类型的加班/审批人查询已处理的审批
+     * 根据审批类型的加班/审批人查询已处理的审批
+     *
      * @param
      * @return
      */
@@ -38,6 +40,7 @@ public interface AuditflowService {
 
     /**
      * 根据审批类型的加班/审批人查询已处理的详情信息
+     *
      * @param auditflowDetailsVo
      * @return
      */
@@ -45,6 +48,7 @@ public interface AuditflowService {
 
     /**
      * 根据员工名称查询员工状态
+     *
      * @param staff
      * @return
      */
@@ -52,20 +56,23 @@ public interface AuditflowService {
 
     /**
      * 根据审批明细表ID修改其状态 通过
+     *
      * @param
      * @return
      */
-    int updateApprovalState(Auditflowdetail auditflowdetail);
+    int updateApprovalState(Auditflowdetail auditflowdetail) throws ArithmeticException;
 
     /**
      * 根据审批明细表ID修改其状态 驳回
+     *
      * @param
      * @return
      */
-    int rejectApprovalState(Auditflowdetail auditflowdetail);
+    int rejectApprovalState(Auditflowdetail auditflowdetail) throws ArithmeticException;
 
     /**
-     *根据审批编号查询对应的审批明细表编号
+     * 根据审批编号查询对应的审批明细表编号
+     *
      * @param auditflowdetail
      * @return
      */
@@ -73,6 +80,7 @@ public interface AuditflowService {
 
     /**
      * 根据员工名称是否有加班记录
+     *
      * @param overtimeaskVo
      * @return
      */
@@ -81,27 +89,31 @@ public interface AuditflowService {
 
     /**
      * 添加加班 添加三个审批人
+     *
      * @param overtimeaskVo
      * @return
      */
-    int submitToOvertime3(OvertimeaskVo overtimeaskVo);
+    int submitToOvertime3(OvertimeaskVo overtimeaskVo) throws ArithmeticException;
 
     /**
      * 添加加班 添加两个审批人
+     *
      * @param overtimeaskVo
      * @return
      */
-    int submitToOvertime2(OvertimeaskVo overtimeaskVo);
+    int submitToOvertime2(OvertimeaskVo overtimeaskVo) throws ArithmeticException;
 
     /**
      * 添加加班 添加两个审批人
+     *
      * @param overtimeaskVo
      * @return
      */
-    Integer submitToOvertime1(OvertimeaskVo overtimeaskVo);
+    Integer submitToOvertime1(OvertimeaskVo overtimeaskVo) throws ArithmeticException;
 
     /**
      * 根据员工编号查询部门职位
+     *
      * @param staff
      * @return
      */
@@ -109,6 +121,7 @@ public interface AuditflowService {
 
     /**
      * 撤销审批
+     *
      * @param auditflow
      * @return
      */
@@ -116,15 +129,17 @@ public interface AuditflowService {
 
     /**
      * 查询调薪审批详情
+     *
      * @param salaryVo
      * @return
      */
-    List<SalaryVo>selectSalaryDetails(SalaryVo salaryVo);
+    List<SalaryVo> selectSalaryDetails(SalaryVo salaryVo);
 
     /**
      * 查询当天的加班审批记录
+     *
      * @param auditflow
      * @return
      */
-    List<Auditflow>selectTodayOverTimeExamine(Auditflow auditflow);
+    List<Auditflow> selectTodayOverTimeExamine(Auditflow auditflow);
 }

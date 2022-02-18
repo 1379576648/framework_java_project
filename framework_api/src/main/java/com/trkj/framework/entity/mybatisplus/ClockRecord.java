@@ -48,6 +48,10 @@ public class ClockRecord implements Serializable {
     @TableId("AFTERNOON_CLOCK")
     private Date afternoonClock;
 
+    @ApiModelProperty(value = "考勤状态")
+    @TableId("CHECK_STATE")
+    private String checkState;
+
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

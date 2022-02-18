@@ -15,7 +15,6 @@ import java.util.Map;
  */
 @FeignClient(value = "FRAMEWORK-ZUUL/8003/provider", fallbackFactory = AuditflowClinetServiceFallbackfactory.class)
 public interface AuditflowService {
-    // 全部改成map
     /**
      * 根据审批类型的加班/审批人查询待处理的审批
      * @param

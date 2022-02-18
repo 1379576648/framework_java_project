@@ -36,7 +36,7 @@ public class Card implements Serializable {
     @TableId("CARD_TYPE")
     private String cardType;
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "补打卡时间")
     @TableId("CARD_DATE")
     private Date cardDate;

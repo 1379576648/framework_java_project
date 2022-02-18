@@ -133,7 +133,7 @@ public class LeaveServicelmpl implements LeaveService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToAskForLeave3(LeaveVo leaveVo) {
+    public int submitToAskForLeave3(LeaveVo leaveVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -198,13 +198,13 @@ public class LeaveServicelmpl implements LeaveService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -216,7 +216,7 @@ public class LeaveServicelmpl implements LeaveService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToAskForLeave2(LeaveVo leaveVo) {
+    public int submitToAskForLeave2(LeaveVo leaveVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -274,13 +274,13 @@ public class LeaveServicelmpl implements LeaveService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -292,7 +292,7 @@ public class LeaveServicelmpl implements LeaveService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer submitToAskForLeave1(LeaveVo leaveVo) {
+    public Integer submitToAskForLeave1(LeaveVo leaveVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -340,10 +340,10 @@ public class LeaveServicelmpl implements LeaveService {
             if (i1 == 1 && i4 == 1) {
                 return 1111;
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
