@@ -135,7 +135,11 @@ public class SalaryController {
     public Object SubmitSalary3(@RequestBody SalaryVo salaryVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", salaryService.SubmitSalary3(salaryVo));
+        try {
+            map1.put("info", salaryService.SubmitSalary3(salaryVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 
@@ -154,7 +158,11 @@ public class SalaryController {
     public Object SubmitSalary2(@RequestBody SalaryVo salaryVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", salaryService.SubmitSalary2(salaryVo));
+        try {
+            map1.put("info", salaryService.SubmitSalary2(salaryVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 
@@ -173,7 +181,11 @@ public class SalaryController {
     public Object submitToCard1(@RequestBody SalaryVo salaryVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", salaryService.SubmitSalary1(salaryVo));
+        try {
+            map1.put("info", salaryService.SubmitSalary1(salaryVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 

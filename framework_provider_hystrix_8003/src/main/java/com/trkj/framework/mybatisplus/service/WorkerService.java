@@ -69,21 +69,21 @@ public interface WorkerService {
      * @param workerVo
      * @return
      */
-    int SubmitPositive3(WorkerVo workerVo);
+    int SubmitPositive3(WorkerVo workerVo)throws ArithmeticException;
 
     /**
      * 添加转正 添加两个审批人
      * @param workerVo
      * @return
      */
-    int SubmitPositive2(WorkerVo workerVo);
+    int SubmitPositive2(WorkerVo workerVo)throws ArithmeticException;
 
     /**
      * 添加转正 添加一个审批人
      * @param workerVo
      * @return
      */
-    Integer SubmitPositive1(WorkerVo workerVo);
+    Integer SubmitPositive1(WorkerVo workerVo)throws ArithmeticException;
 
     /**
      * 根据员工名称是否有转正记录

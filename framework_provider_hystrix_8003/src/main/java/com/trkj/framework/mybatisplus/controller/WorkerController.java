@@ -165,7 +165,11 @@ public class WorkerController {
     public Map<String, Object> SubmitPositive3(@RequestBody WorkerVo workerVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", workerService.SubmitPositive3(workerVo));
+        try {
+            map1.put("info", workerService.SubmitPositive3(workerVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
     public Map<String, Object> SubmitPositive3ExamineHystixGet(@RequestBody WorkerVo workerVo) {
@@ -182,7 +186,11 @@ public class WorkerController {
     public Map<String, Object> SubmitPositive2(@RequestBody WorkerVo workerVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", workerService.SubmitPositive2(workerVo));
+        try {
+            map1.put("info", workerService.SubmitPositive2(workerVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
     public Map<String, Object> SubmitPositive2ExamineHystixGet(@RequestBody WorkerVo workerVo) {
@@ -199,7 +207,11 @@ public class WorkerController {
     public Map<String, Object> SubmitPositive1(@RequestBody WorkerVo workerVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", workerService.SubmitPositive1(workerVo));
+        try {
+            map1.put("info", workerService.SubmitPositive1(workerVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 

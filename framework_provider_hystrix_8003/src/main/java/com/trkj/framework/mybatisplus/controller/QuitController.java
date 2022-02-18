@@ -111,10 +111,14 @@ public class QuitController {
      */
     @PostMapping("/submitToLeave3")
     @HystrixCommand(fallbackMethod = "submitToLeave3ExamineHystixGet")
-    public Map<String, Object> submitToLeave3(@RequestBody QuitVo quitVo) {
+    public Map<String, Object> submitToLeave3(@RequestBody QuitVo quitVo) throws ArithmeticException{
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", quitService.submitToLeave3(quitVo));
+        try {
+            map1.put("info", quitService.submitToLeave3(quitVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 
@@ -130,10 +134,14 @@ public class QuitController {
      */
     @PostMapping("/submitToLeave2")
     @HystrixCommand(fallbackMethod = "submitToLeave2ExamineHystixGet")
-    public Map<String, Object> submitToLeave2(@RequestBody QuitVo quitVo) {
+    public Map<String, Object> submitToLeave2(@RequestBody QuitVo quitVo) throws ArithmeticException{
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", quitService.submitToLeave2(quitVo));
+        try {
+            map1.put("info", quitService.submitToLeave2(quitVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 
@@ -149,10 +157,14 @@ public class QuitController {
      */
     @PostMapping("/submitToLeave1")
     @HystrixCommand(fallbackMethod = "submitToLeave1ExamineHystixGet")
-    public Map<String, Object> submitToLeave1(@RequestBody QuitVo quitVo) {
+    public Map<String, Object> submitToLeave1(@RequestBody QuitVo quitVo) throws ArithmeticException{
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", quitService.submitToLeave1(quitVo));
+        try {
+            map1.put("info", quitService.submitToLeave1(quitVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 

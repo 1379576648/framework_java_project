@@ -72,6 +72,13 @@ public class CardRecordController {
         return fuse8004Util.main();
     }
 
+    /**
+     * 导入打卡记录
+     * @param name
+     * @param file
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/importCardRecord/{name}")
     @HystrixCommand(fallbackMethod = "importCardRecordHystixGet")
     public Map<String, Object> importCardRecord(@PathVariable("name") String name, MultipartFile file) throws Exception {
@@ -122,7 +129,6 @@ public class CardRecordController {
         } else {
             List<ClockRecord> cardRecord = CollUtil.newArrayList();
             for (List<Object> row : list) {
-                System.out.println(row.get(2).toString());
                 ClockRecord clockRecords = new ClockRecord();
                 clockRecords.setStaffName(row.get(0).toString());
                 clockRecords.setDeptName(row.get(1).toString());
@@ -131,6 +137,7 @@ public class CardRecordController {
                 Date d2 = sdf2.parse(row.get(3).toString());
                 clockRecords.setMornClock(d1);
                 clockRecords.setAfternoonClock(d2);
+                clockRecords.setCheckState(row.get(4).toString());
                 cardRecord.add(clockRecords);
             }
             map1.put("info", cardRecordService.importCardRecord(cardRecord));

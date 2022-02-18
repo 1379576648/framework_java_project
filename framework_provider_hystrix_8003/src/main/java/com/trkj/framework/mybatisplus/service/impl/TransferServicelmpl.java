@@ -120,7 +120,7 @@ public class TransferServicelmpl implements Transfer8003Service {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int SubmitTransfer3(Transfer8003Vo transferVo) {
+    public int SubmitTransfer3(Transfer8003Vo transferVo)throws ArithmeticException {
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -183,13 +183,13 @@ public class TransferServicelmpl implements Transfer8003Service {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                      throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 
@@ -201,7 +201,7 @@ public class TransferServicelmpl implements Transfer8003Service {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int SubmitTransfer2(Transfer8003Vo transferVo) {
+    public int SubmitTransfer2(Transfer8003Vo transferVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -256,13 +256,13 @@ public class TransferServicelmpl implements Transfer8003Service {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                      throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 
@@ -274,7 +274,7 @@ public class TransferServicelmpl implements Transfer8003Service {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer SubmitTransfer1(Transfer8003Vo transferVo) {
+    public Integer SubmitTransfer1(Transfer8003Vo transferVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -320,10 +320,10 @@ public class TransferServicelmpl implements Transfer8003Service {
             if (i1 == 1 && i4 == 1) {
                 return 1111;
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 

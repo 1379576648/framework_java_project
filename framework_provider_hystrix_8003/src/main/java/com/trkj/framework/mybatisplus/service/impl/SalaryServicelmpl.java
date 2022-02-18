@@ -122,7 +122,7 @@ public class SalaryServicelmpl implements SalaryService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int SubmitSalary3(SalaryVo salaryVo) {
+    public int SubmitSalary3(SalaryVo salaryVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -185,25 +185,25 @@ public class SalaryServicelmpl implements SalaryService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                      throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 
     /**
-     * 添加调薪 添加三个审批人
+     * 添加调薪 添加两个审批人
      *
      * @param salaryVo
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int SubmitSalary2(SalaryVo salaryVo) {
+    public int SubmitSalary2(SalaryVo salaryVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -258,13 +258,13 @@ public class SalaryServicelmpl implements SalaryService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                      throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 
@@ -276,7 +276,7 @@ public class SalaryServicelmpl implements SalaryService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer SubmitSalary1(SalaryVo salaryVo) {
+    public Integer SubmitSalary1(SalaryVo salaryVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -323,10 +323,10 @@ public class SalaryServicelmpl implements SalaryService {
             if (i1 == 1 && i4 == 1) {
                 return 1111;
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 }

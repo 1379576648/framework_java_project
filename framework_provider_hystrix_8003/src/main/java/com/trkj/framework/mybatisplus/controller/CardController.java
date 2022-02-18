@@ -27,6 +27,7 @@ public class CardController {
     private CardService cardService;
     @Autowired
     private Fuse8003Util fuse8003Util;
+
     /**
      * 根据审批类型的补打卡/审批人查询待处理的审批
      *
@@ -117,7 +118,11 @@ public class CardController {
     public Map<String, Object> submitToCard3(@RequestBody CardVo cardVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", cardService.submitToCard3(cardVo));
+        try {
+            map1.put("info", cardService.submitToCard3(cardVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -136,7 +141,11 @@ public class CardController {
     public Map<String, Object> submitToCard2(@RequestBody CardVo cardVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", cardService.submitToCard2(cardVo));
+        try {
+            map1.put("info", cardService.submitToCard2(cardVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -155,7 +164,11 @@ public class CardController {
     public Map<String, Object> submitToCard1(@RequestBody CardVo cardVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", cardService.submitToCard1(cardVo));
+        try {
+            map1.put("info", cardService.submitToCard1(cardVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

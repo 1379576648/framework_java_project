@@ -471,9 +471,9 @@ public class AuditflowServiceImpl implements AuditflowService {
                             } else {
                                 throw new ArithmeticException("999");
                             }
-                        }else{
+                        } else {
                             throw new ArithmeticException("100");
-                        } 
+                        }
 
                     } else {
                         throw new ArithmeticException("999");
@@ -498,7 +498,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int rejectApprovalState(Auditflowdetail auditflowdetail) {
+    public int rejectApprovalState(Auditflowdetail auditflowdetail) throws ArithmeticException {
         // 获取第二个审批人
         final var auditflowdetailId2 = auditflowdetail.getAuditflowdetailId2();
         // 获取第三个审批人
@@ -588,62 +588,62 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调动".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TransferNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调薪".equals(auditflowType)) {
                     final var insert = newsMapper.insert(SalaryNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("离职".equals(auditflowType)) {
                     final var insert = newsMapper.insert(QuitNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("加班".equals(auditflowType)) {
                     final var insert = newsMapper.insert(overtimeNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("补打卡".equals(auditflowType)) {
                     final var insert = newsMapper.insert(CardNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("出差".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TravelNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("请假".equals(auditflowType)) {
                     final var insert = newsMapper.insert(LeaveNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else {
-                    return 999;
+                    throw new ArithmeticException("999");
                 }
             } else {
-                return 999;
+                throw new ArithmeticException("999");
             }
             // 如果第二个审批人和第三个审批人都为空 则代表目前是最后一个审批人
         } else if (auditflowdetailId2 == null && auditflowdetailId3 == null) {
@@ -659,62 +659,62 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调动".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TransferNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调薪".equals(auditflowType)) {
                     final var insert = newsMapper.insert(SalaryNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("离职".equals(auditflowType)) {
                     final var insert = newsMapper.insert(QuitNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("加班".equals(auditflowType)) {
                     final var insert = newsMapper.insert(overtimeNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("补打卡".equals(auditflowType)) {
                     final var insert = newsMapper.insert(CardNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("出差".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TravelNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("请假".equals(auditflowType)) {
                     final var insert = newsMapper.insert(LeaveNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else {
-                    return 999;
+                    throw new ArithmeticException("999");
                 }
             } else {
-                return 999;
+                throw new ArithmeticException("999");
             }
             // 如果其中一个审批人为空，则代表是目前是第二个审批人
         } else if (auditflowdetailId2 == null || auditflowdetailId3 == null) {
@@ -733,65 +733,65 @@ public class AuditflowServiceImpl implements AuditflowService {
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调动".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TransferNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("调薪".equals(auditflowType)) {
                     final var insert = newsMapper.insert(SalaryNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("离职".equals(auditflowType)) {
                     final var insert = newsMapper.insert(QuitNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("加班".equals(auditflowType)) {
                     final var insert = newsMapper.insert(overtimeNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("补打卡".equals(auditflowType)) {
                     final var insert = newsMapper.insert(CardNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("出差".equals(auditflowType)) {
                     final var insert = newsMapper.insert(TravelNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else if ("请假".equals(auditflowType)) {
                     final var insert = newsMapper.insert(LeaveNews);
                     if (insert == 1) {
                         return 1;
                     } else {
-                        return 999;
+                        throw new ArithmeticException("999");
                     }
                 } else {
-                    return 999;
+                    throw new ArithmeticException("999");
                 }
             } else {
-                return 999;
+                throw new ArithmeticException("999");
             }
         } else {
-            return 999;
+            throw new ArithmeticException("999");
         }
     }
 
@@ -835,7 +835,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToOvertime3(OvertimeaskVo overtimeaskVo) {
+    public int submitToOvertime3(OvertimeaskVo overtimeaskVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -900,13 +900,13 @@ public class AuditflowServiceImpl implements AuditflowService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -918,7 +918,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToOvertime2(OvertimeaskVo overtimeaskVo) {
+    public int submitToOvertime2(OvertimeaskVo overtimeaskVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -976,13 +976,13 @@ public class AuditflowServiceImpl implements AuditflowService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -994,7 +994,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer submitToOvertime1(OvertimeaskVo overtimeaskVo) {
+    public Integer submitToOvertime1(OvertimeaskVo overtimeaskVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -1043,10 +1043,10 @@ public class AuditflowServiceImpl implements AuditflowService {
             if (i1 == 1 && i4 == 1) {
                 return 1111;
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 

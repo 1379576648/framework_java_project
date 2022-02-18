@@ -153,20 +153,24 @@ public class AuditflowController {
     @HystrixCommand(fallbackMethod = "reject_Approval_StateHystixGet")
     public Map<String, Object> rejectApprovalState(@RequestBody Auditflowdetail auditflowdetail1) {
         Map<String, Object> map1 = new HashMap<>(2);
-        auditflowdetail1.setAuditflowdetaiState(3);
-        auditflowdetail1.setAuditflowdetaiDate(new Date());
-        auditflowdetail1.setAuditflowdetaiRemarks(auditflowdetail1.getAuditflowdetaiRemarks());
-        final var i = auditflowService.rejectApprovalState(auditflowdetail1);
-        int i1;
-        if (i == 1) {
-            i1 = 666;
-        } else if (i == 100) {
-            i1 = 100;
-        } else {
-            i1 = 999;
-        }
         map1.put("state", 200);
-        map1.put("info", i1);
+        try {
+            auditflowdetail1.setAuditflowdetaiState(3);
+            auditflowdetail1.setAuditflowdetaiDate(new Date());
+            auditflowdetail1.setAuditflowdetaiRemarks(auditflowdetail1.getAuditflowdetaiRemarks());
+            final var i = auditflowService.rejectApprovalState(auditflowdetail1);
+            int i1;
+            if (i == 1) {
+                i1 = 666;
+            } else if (i == 100) {
+                i1 = 100;
+            } else {
+                i1 = 999;
+            }
+            map1.put("info", i1);
+        }catch(ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -223,7 +227,11 @@ public class AuditflowController {
     public Map<String, Object> submitToOvertime3(@RequestBody OvertimeaskVo overtimeaskVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", auditflowService.submitToOvertime3(overtimeaskVo));
+        try {
+            map1.put("info", auditflowService.submitToOvertime3(overtimeaskVo));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -242,7 +250,11 @@ public class AuditflowController {
     public Map<String, Object> submitToOvertime2(@RequestBody OvertimeaskVo overtimeaskVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", auditflowService.submitToOvertime2(overtimeaskVo));
+        try {
+            map1.put("info", auditflowService.submitToOvertime2(overtimeaskVo));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -261,7 +273,11 @@ public class AuditflowController {
     public Map<String, Object> submitToOvertime1(@RequestBody OvertimeaskVo overtimeaskVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", auditflowService.submitToOvertime1(overtimeaskVo));
+        try {
+            map1.put("info", auditflowService.submitToOvertime1(overtimeaskVo));
+        }catch (ArithmeticException e){
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

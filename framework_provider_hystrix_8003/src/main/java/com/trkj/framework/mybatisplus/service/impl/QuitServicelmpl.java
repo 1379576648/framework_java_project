@@ -107,7 +107,7 @@ public class QuitServicelmpl implements QuitService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToLeave3(QuitVo quitVo) {
+    public int submitToLeave3(QuitVo quitVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -168,13 +168,13 @@ public class QuitServicelmpl implements QuitService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                    throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+            throw new ArithmeticException("0");
         }
     }
 
@@ -186,7 +186,7 @@ public class QuitServicelmpl implements QuitService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToLeave2(QuitVo quitVo) {
+    public int submitToLeave2(QuitVo quitVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -240,13 +240,13 @@ public class QuitServicelmpl implements QuitService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                      throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 
@@ -258,7 +258,7 @@ public class QuitServicelmpl implements QuitService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer submitToLeave1(QuitVo quitVo) {
+    public Integer submitToLeave1(QuitVo quitVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -302,10 +302,10 @@ public class QuitServicelmpl implements QuitService {
             if (i1 == 1 &&i4 == 1) {
                 return 1111;
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 }
