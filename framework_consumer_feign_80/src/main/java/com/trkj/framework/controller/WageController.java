@@ -2,10 +2,12 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.Salary;
+import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.service.client.wage.WageClientService;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
+import com.trkj.framework.vo.WorkSchemeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -57,4 +59,26 @@ public class WageController {
     public AjaxResponse selectSalary(@RequestBody WageVo wageVo){
         return AjaxResponse.success(wageClientService.selectSalary(wageVo));
     }
+
+    /**
+     * 查询加班方案
+     * @param workSchemeVo
+     * @return
+     */
+    @PostMapping("/selectWorkScheme")
+    public AjaxResponse selectWorkScheme(@RequestBody WorkSchemeVo workSchemeVo){
+        return AjaxResponse.success(wageClientService.selectWorkScheme(workSchemeVo));
+    }
+
+    /**
+     * 添加加班方案
+     * @param workScheme
+     * @return
+     */
+    @PostMapping("/insertWorkScheme")
+    public AjaxResponse insertWorkScheme(@RequestBody WorkScheme workScheme){
+        return AjaxResponse.success(wageClientService.insertWorkScheme(workScheme));
+    }
+
+
 }
