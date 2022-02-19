@@ -283,8 +283,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //添加固定工资表
             //试用期基本工资
             fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
-            //正式基本工资
-            fixedwagf.setFixedwageOfficialmoney(hireVo.getEmploymentSalaryz());
+            //试用期固定工资
+            fixedwagf.setFixedwagePeriodpostmoney(hireVo.getEmploymentSalaryz());
             //员工姓名
             fixedwagf.setStaffName(hireVo.getResumeName());
             //添加到固定工资表
@@ -332,8 +332,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //添加固定工资表
             //试用期基本工资
             fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
-            //正式基本工资
-            fixedwagf.setFixedwageOfficialmoney(hireVo.getEmploymentSalaryz());
+            //试用期固定工资
+            fixedwagf.setFixedwagePeriodpostmoney(hireVo.getEmploymentSalaryz());
             //员工姓名
             fixedwagf.setStaffName(hireVo.getResumeName());
             //添加到固定工资表
@@ -402,8 +402,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //添加固定工资表
             //试用期基本工资
             fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
-            //正式基本工资
-            fixedwagf.setFixedwageOfficialmoney(hireVo.getEmploymentSalaryz());
+            //试用期固定工资
+            fixedwagf.setFixedwagePeriodpostmoney(hireVo.getEmploymentSalaryz());
             //员工姓名
             fixedwagf.setStaffName(hireVo.getResumeName());
             //添加到固定工资表
@@ -475,8 +475,8 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //添加固定工资表
             //试用期基本工资
             fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
-            //正式基本工资
-            fixedwagf.setFixedwageOfficialmoney(hireVo.getEmploymentSalaryz());
+            //试用期固定工资
+            fixedwagf.setFixedwagePeriodpostmoney(hireVo.getEmploymentSalaryz());
             //员工姓名
             fixedwagf.setStaffName(hireVo.getResumeName());
             //添加到固定工资表

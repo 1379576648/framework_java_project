@@ -26,6 +26,7 @@ public class LeaveController {
     private LeaveService leaveService;
     @Autowired
     private Fuse8003Util fuse8003Util;
+
     /**
      * 根据审批类型的请假/审批人查询待处理的审批
      *
@@ -115,7 +116,11 @@ public class LeaveController {
     public Map<String, Object> submitToAskForLeave3(@RequestBody LeaveVo leaveVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", leaveService.submitToAskForLeave3(leaveVo));
+        try {
+            map1.put("info", leaveService.submitToAskForLeave3(leaveVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -134,7 +139,11 @@ public class LeaveController {
     public Map<String, Object> submitToAskForLeave2(@RequestBody LeaveVo leaveVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", leaveService.submitToAskForLeave2(leaveVo));
+        try {
+            map1.put("info", leaveService.submitToAskForLeave2(leaveVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -153,7 +162,11 @@ public class LeaveController {
     public Map<String, Object> submitToAskForLeave1(@RequestBody LeaveVo leaveVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", leaveService.submitToAskForLeave1(leaveVo));
+        try {
+            map1.put("info", leaveService.submitToAskForLeave1(leaveVo));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

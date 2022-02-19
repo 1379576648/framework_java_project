@@ -49,19 +49,19 @@ public interface TraveService {
      * @param travelVo
      * @return
      */
-    int submitToTravel3(TravelVo travelVo);
+    int submitToTravel3(TravelVo travelVo)throws ArithmeticException;
 
     /**
      * 添加出差 添加两个审批人
      * @param travelVo
      * @return
      */
-    int submitToTravel2(TravelVo travelVo);
+    int submitToTravel2(TravelVo travelVo)throws ArithmeticException;
 
     /**
      * 添加出差 添加一个审批人
      * @param travelVo
      * @return
      */
-    Integer submitToTravel1(TravelVo travelVo);
+    Integer submitToTravel1(TravelVo travelVo)throws ArithmeticException;
 }

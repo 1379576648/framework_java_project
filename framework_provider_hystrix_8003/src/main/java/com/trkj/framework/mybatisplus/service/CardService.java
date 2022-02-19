@@ -15,14 +15,16 @@ import java.util.List;
  */
 public interface CardService {
     /**
-     *  根据审批类型的补打卡/审批人查询待处理的审批
+     * 根据审批类型的补打卡/审批人查询待处理的审批
+     *
      * @param
      * @return
      */
     IPage<Auditflowone> selectCardAll(Auditflowone auditflowone);
 
     /**
-     *  根据审批类型的补打卡/审批人查询已处理的审批
+     * 根据审批类型的补打卡/审批人查询已处理的审批
+     *
      * @param
      * @return
      */
@@ -30,6 +32,7 @@ public interface CardService {
 
     /**
      * 根据审批类型的补打卡/审批人查询已处理的详情信息
+     *
      * @param
      * @return
      */
@@ -37,6 +40,7 @@ public interface CardService {
 
     /**
      * 根据员工名称是否有补打卡记录
+     *
      * @param cardDetailsVo
      * @return
      */
@@ -44,22 +48,25 @@ public interface CardService {
 
     /**
      * 添加补打卡 添加三个审批人
+     *
      * @param cardVo
      * @return
      */
-    int submitToCard3(CardVo cardVo);
+    int submitToCard3(CardVo cardVo) throws ArithmeticException;
 
     /**
      * 添加补打卡 添加两个审批人
+     *
      * @param cardVo
      * @return
      */
-    int submitToCard2(CardVo cardVo);
+    int submitToCard2(CardVo cardVo) throws ArithmeticException;
 
     /**
      * 添加补打卡 添加一个审批人
+     *
      * @param cardVo
      * @return
      */
-    Integer submitToCard1(CardVo cardVo);
+    Integer submitToCard1(CardVo cardVo) throws ArithmeticException;
 }

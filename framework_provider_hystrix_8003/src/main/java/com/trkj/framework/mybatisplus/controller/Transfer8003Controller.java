@@ -138,7 +138,11 @@ public class Transfer8003Controller {
     public Map<String, Object> SubmitTransfer3(@RequestBody Transfer8003Vo transferVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", transferService.SubmitTransfer3(transferVo));
+        try {
+            map1.put("info", transferService.SubmitTransfer3(transferVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 
@@ -157,7 +161,11 @@ public class Transfer8003Controller {
     public Map<String, Object> SubmitTransfer2(@RequestBody Transfer8003Vo transferVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", transferService.SubmitTransfer2(transferVo));
+        try {
+            map1.put("info", transferService.SubmitTransfer2(transferVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 
@@ -176,7 +184,11 @@ public class Transfer8003Controller {
     public Map<String, Object> SubmitTransfer1(@RequestBody Transfer8003Vo transferVo) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
-        map1.put("info", transferService.SubmitTransfer1(transferVo));
+        try {
+            map1.put("info", transferService.SubmitTransfer1(transferVo));
+        }catch (ArithmeticException e){
+            map1.put("info",e.getMessage());
+        }
         return map1;
     }
 

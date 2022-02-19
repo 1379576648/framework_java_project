@@ -119,7 +119,7 @@ public class TraveServicelmpl implements TraveService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToTravel3(TravelVo travelVo) {
+    public int submitToTravel3(TravelVo travelVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -188,13 +188,13 @@ public class TraveServicelmpl implements TraveService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                      throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 
@@ -206,7 +206,7 @@ public class TraveServicelmpl implements TraveService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public int submitToTravel2(TravelVo travelVo) {
+    public int submitToTravel2(TravelVo travelVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -266,13 +266,13 @@ public class TraveServicelmpl implements TraveService {
                 if (i4 == 1) {
                     return 1111;
                 } else {
-                    return 0;
+                      throw new ArithmeticException("0");
                 }
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 
@@ -284,7 +284,7 @@ public class TraveServicelmpl implements TraveService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer submitToTravel1(TravelVo travelVo) {
+    public Integer submitToTravel1(TravelVo travelVo) throws ArithmeticException{
         // 添加审批主表
         Auditflow auditflow = new Auditflow();
         //审批主表-标题
@@ -335,10 +335,10 @@ public class TraveServicelmpl implements TraveService {
             if (i1 == 1 && i4 == 1) {
                 return 1111;
             } else {
-                return 0;
+                  throw new ArithmeticException("0");
             }
         } else {
-            return 0;
+              throw new ArithmeticException("0");
         }
     }
 }

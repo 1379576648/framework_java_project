@@ -21,7 +21,7 @@ public class Fixedwagf {
 
     @ApiModelProperty(value = "固定工资编号")
     @TableId("FIXEDWAGE_ID")
-    private Integer fixedwangerId;
+    private Integer fixedwageId;
 
     @ApiModelProperty(value = "试用期基本工资")
     @TableId("FIXEDWAGE_PERIODMONEY")
@@ -41,15 +41,15 @@ public class Fixedwagf {
 
     @ApiModelProperty(value = "试用期岗位工资")
     @TableId("FIXEDWAGE_PERIODPOSTMONEY")
-    private Integer fixedwageperiodpostmoney;
+    private Integer fixedwagePeriodpostmoney;
 
     @ApiModelProperty(value = "正式期岗位工资")
     @TableId("FIXEDWAGE_OFFLCIALPOSTMONEY")
-    private Integer fixedwageofflcialpostmoney;
+    private Integer fixedwageOfflcialpostmoney;
 
     @ApiModelProperty(value = "备注")
     @TableId("FIXEDWAGE_REMARK")
-    private String fixedwageremark;
+    private String fixedwageRemark;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
