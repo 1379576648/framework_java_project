@@ -21,6 +21,6 @@ public interface WorkSchemeMapper extends BaseMapper<WorkScheme> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT w.WORKSCHEME_ID,w.WORKSCHEME_NAME,w.WORKSCHEME_HOLIDAYRATIO,w.WORKSCHEME_DAYOFFRATIO,w.WORKSCHEME_WORKRATIO,d.DEPT_NAME,w.WORKSCHEME_REMARK,w.WORKSCHEME_STATE FROM WORKSCHEME w LEFT JOIN DEPT d on d.DEPT_NAME=w.DEPT_NAME ${ew.customSqlSegment}")
+    @Select("SELECT w.WORKSCHEME_ID,w.WORKSCHEME_NAME,w.WORKSCHEME_HOLIDAYRATIO,w.WORKSCHEME_DAYOFFRATIO,w.WORKSCHEME_WORKRATIO,d.DEPT_NAME,w.WORKSCHEME_REMARK,w.WORKSCHEME_STATE,w.IS_DELETED FROM WORKSCHEME w LEFT JOIN DEPT d on d.DEPT_NAME=w.DEPT_NAME ${ew.customSqlSegment}")
     IPage<WorkSchemeVo> selectWorkScheme(Page<WorkSchemeVo> page, @Param(Constants.WRAPPER)QueryWrapper<WorkSchemeVo> queryWrapper);
 }

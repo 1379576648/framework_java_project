@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.vo.WorkSchemeVo;
 
+import java.util.ArrayList;
+
 public interface WorkSchemeService {
 
     /**
@@ -26,4 +28,18 @@ public interface WorkSchemeService {
      * @return
      */
     int updateWorkSchemeState(WorkScheme workScheme);
+
+    /**
+     * 修改状态为启用
+     * @param workScheme
+     * @return
+     */
+    int updateWorkSchemeStateTwo(WorkScheme workScheme);
+
+    /**
+     * 删除加班方案
+     * @param list
+     * @return
+     */
+    String deleteWorkScheme(ArrayList<Integer> list);
 }

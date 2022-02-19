@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+
 @Service
 public class WorkSchemeServiceImpI implements WorkSchemeService {
 
@@ -32,6 +34,8 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
         if(workSchemeVo.getWorkSchemeName()!=null){
             queryWrapper.like("w.WORKSCHEME_NAME",workSchemeVo.getWorkSchemeName());
         }
+        queryWrapper.eq("d.DEPT_NAME",workSchemeVo.getDeptName());
+        queryWrapper.eq("w.IS_DELETED",0);
         return workSchemeMapper.selectWorkScheme(page,queryWrapper);
     }
 
@@ -60,5 +64,41 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
         }else {
             return 100;
         }
+    }
+
+    /**
+     * 修改状态为启用
+     * @param workScheme
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateWorkSchemeStateTwo(WorkScheme workScheme) {
+        final var i = workSchemeMapper.updateById(workScheme);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 删除加班方案
+     * @param list
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String deleteWorkScheme(ArrayList<Integer> list) {
+        String s = "成功";
+        for(int i =0;i<list.size();i++){
+            //通过奖励编号删除奖励
+            if(workSchemeMapper.delete(new QueryWrapper<WorkScheme>().eq("WORKSCHEME_ID",list.get(i)))<=0){
+                return "删除加班方案失败";
+            }else if(workSchemeMapper.delete(new QueryWrapper<WorkScheme>().eq("WORKSCHEME_ID",list.get(i)))>=1){
+                return "删除加班方案成功";
+            }
+        }
+        return s;
     }
 }

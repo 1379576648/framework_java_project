@@ -13,6 +13,8 @@ import feign.hystrix.FallbackFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+
 @Component
 public class WageClientServiceFallbackfactory implements FallbackFactory {
 
@@ -94,6 +96,26 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object updateWorkSchemeState(WorkScheme workScheme) {
+                return AjaxResponse.success(fuseUtil.main(throwable));
+            }
+
+            /**
+             * 修改状态为启用
+             * @param workScheme
+             * @return
+             */
+            @Override
+            public Object updateWorkSchemeStateTwo(WorkScheme workScheme) {
+                return AjaxResponse.success(fuseUtil.main(throwable));
+            }
+
+            /**
+             * 删除加班方案
+             * @param list
+             * @return
+             */
+            @Override
+            public Object deleteWorkScheme(ArrayList<Integer> list) {
                 return AjaxResponse.success(fuseUtil.main(throwable));
             }
         };

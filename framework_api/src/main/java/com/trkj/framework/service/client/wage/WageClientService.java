@@ -8,9 +8,12 @@ import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
 import com.trkj.framework.vo.WorkSchemeVo;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+
+import java.util.ArrayList;
 
 @FeignClient(value = "FRAMEWORK-ZUUL/8006/provider", fallbackFactory = WageClientServiceFallbackfactory.class)
 public interface WageClientService {
@@ -70,4 +73,20 @@ public interface WageClientService {
      */
     @PutMapping("/updateWorkSchemeState")
     Object updateWorkSchemeState(@RequestBody WorkScheme workScheme);
+
+    /**
+     * 修改状态为启用
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkSchemeStateTwo")
+    Object updateWorkSchemeStateTwo(@RequestBody WorkScheme workScheme);
+
+    /**
+     * 删除加班方案
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteWorkScheme")
+    Object deleteWorkScheme(@RequestBody ArrayList<Integer> list);
 }

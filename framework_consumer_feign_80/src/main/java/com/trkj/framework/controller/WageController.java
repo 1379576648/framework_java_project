@@ -9,10 +9,9 @@ import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
 import com.trkj.framework.vo.WorkSchemeVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @RestController
 public class WageController {
@@ -90,5 +89,23 @@ public class WageController {
         return AjaxResponse.success(wageClientService.updateWorkSchemeState(workScheme));
     }
 
+    /**
+     * 修改状态为启用
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkSchemeStateTwo")
+    public AjaxResponse updateWorkSchemeStateTwo(@RequestBody WorkScheme workScheme){
+        return AjaxResponse.success(wageClientService.updateWorkSchemeStateTwo(workScheme));
+    }
 
+    /**
+     * 删除加班方案
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteWorkScheme")
+    public AjaxResponse deleteWorkScheme(@RequestBody ArrayList<Integer> list){
+        return AjaxResponse.success(wageClientService.deleteWorkScheme(list));
+    }
 }

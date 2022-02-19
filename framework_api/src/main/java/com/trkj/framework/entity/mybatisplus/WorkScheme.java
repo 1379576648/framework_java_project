@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
 
+import java.io.Serializable;
 import java.util.Date;
 
 @Data
@@ -16,7 +17,7 @@ import java.util.Date;
 @TableName("WORKSCHEME")
 @ApiModel(value = "workscheme对象", description = "加班方案")
 @KeySequence(value = "WORKSCHEME_ID", clazz = Integer.class)
-public class WorkScheme {
+public class WorkScheme implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "加班方案编号")
@@ -66,8 +67,9 @@ public class WorkScheme {
     @TableId("REVISION")
     private Long revision;
 
-    @ApiModelProperty(value = "逻辑删除")
-    @TableId("IS_DELETED")
-    private Integer isdeleted;
+    @ApiModelProperty(value = "逻辑删除 0:未删 1:已删 ")
+    @TableLogic
+    @TableField("IS_DELETED")
+    private Long isDeleted;
 
 }
