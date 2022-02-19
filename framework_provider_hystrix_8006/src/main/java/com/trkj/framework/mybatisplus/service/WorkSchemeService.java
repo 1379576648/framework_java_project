@@ -19,4 +19,11 @@ public interface WorkSchemeService {
      * @return
      */
     int insertWorkScheme(WorkScheme workScheme);
+
+    /**
+     * 修改状态为禁用
+     * @param workScheme
+     * @return
+     */
+    int updateWorkSchemeState(WorkScheme workScheme);
 }

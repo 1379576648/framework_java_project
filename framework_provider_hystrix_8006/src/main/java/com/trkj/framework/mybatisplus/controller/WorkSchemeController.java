@@ -2,12 +2,13 @@ package com.trkj.framework.mybatisplus.controller;
 
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.mybatisplus.service.WorkSchemeService;
 import com.trkj.framework.vo.WorkSchemeVo;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -60,5 +61,21 @@ public class WorkSchemeController {
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
         return map1;
+    }
+
+    /**
+     * 修改状态为禁用
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkSchemeState")
+    public int updateWorkSchemeState(@RequestBody WorkScheme workScheme){
+        workScheme.setWorkschemeState(1);
+        final var i = workSchemeService.updateWorkSchemeState(workScheme);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
     }
 }

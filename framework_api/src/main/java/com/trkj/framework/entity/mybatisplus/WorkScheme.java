@@ -41,7 +41,7 @@ public class WorkScheme {
 
     @ApiModelProperty(value = "状态")
     @TableId("WORKSCHEME_STATE")
-    private Integer workSchemeState;
+    private Integer workschemeState;
 
     @ApiModelProperty(value = "备注")
     @TableId("WORKSCHEME_REMARK")

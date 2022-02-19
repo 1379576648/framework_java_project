@@ -8,6 +8,7 @@ import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.mybatisplus.mapper.WorkSchemeMapper;
 import com.trkj.framework.mybatisplus.service.WorkSchemeService;
 import com.trkj.framework.vo.WorkSchemeVo;
+import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,5 +44,21 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
     @Transactional(rollbackFor = Exception.class)
     public int insertWorkScheme(WorkScheme workScheme) {
         return workSchemeMapper.insert(workScheme);
+    }
+
+    /**
+     * 修改状态为禁用
+     * @param workScheme
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateWorkSchemeState(WorkScheme workScheme) {
+        final var i = workSchemeMapper.updateById(workScheme);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
     }
 }

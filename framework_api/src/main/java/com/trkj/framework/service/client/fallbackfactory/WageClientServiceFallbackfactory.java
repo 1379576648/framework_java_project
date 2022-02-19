@@ -86,6 +86,16 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             public Object insertWorkScheme(WorkScheme workScheme) {
                 return AjaxResponse.success(fuseUtil.main(throwable));
             }
+
+            /**
+             * 修改状态为禁用
+             * @param workScheme
+             * @return
+             */
+            @Override
+            public Object updateWorkSchemeState(WorkScheme workScheme) {
+                return AjaxResponse.success(fuseUtil.main(throwable));
+            }
         };
     }
 }

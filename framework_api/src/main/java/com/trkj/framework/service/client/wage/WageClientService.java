@@ -62,4 +62,12 @@ public interface WageClientService {
      */
     @PostMapping("/insertWorkScheme")
     Object insertWorkScheme(@RequestBody WorkScheme workScheme);
+
+    /**
+     * 修改状态为禁用
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkSchemeState")
+    Object updateWorkSchemeState(@RequestBody WorkScheme workScheme);
 }

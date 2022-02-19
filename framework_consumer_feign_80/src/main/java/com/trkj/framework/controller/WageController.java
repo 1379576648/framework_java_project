@@ -80,5 +80,15 @@ public class WageController {
         return AjaxResponse.success(wageClientService.insertWorkScheme(workScheme));
     }
 
+    /**
+     * 修改状态为禁用
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkSchemeState")
+    public AjaxResponse updateWorkSchemeState(@RequestBody WorkScheme workScheme){
+        return AjaxResponse.success(wageClientService.updateWorkSchemeState(workScheme));
+    }
+
 
 }
