@@ -284,7 +284,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //试用期基本工资
             fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
             //试用期固定工资
-            fixedwagf.setFixedwageOfflcialpostmoney(hireVo.getEmploymentSalaryz());
+            fixedwagf.setFixedwagePeriodpostmoney(hireVo.getEmploymentSalaryz());
             //员工姓名
             fixedwagf.setStaffName(hireVo.getResumeName());
             //添加到固定工资表
@@ -333,7 +333,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //试用期基本工资
             fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
             //试用期固定工资
-            fixedwagf.setFixedwageOfflcialpostmoney(hireVo.getEmploymentSalaryz());
+            fixedwagf.setFixedwagePeriodpostmoney(hireVo.getEmploymentSalaryz());
             //员工姓名
             fixedwagf.setStaffName(hireVo.getResumeName());
             //添加到固定工资表
@@ -403,7 +403,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //试用期基本工资
             fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
             //试用期固定工资
-            fixedwagf.setFixedwageOfflcialpostmoney(hireVo.getEmploymentSalaryz());
+            fixedwagf.setFixedwagePeriodpostmoney(hireVo.getEmploymentSalaryz());
             //员工姓名
             fixedwagf.setStaffName(hireVo.getResumeName());
             //添加到固定工资表
@@ -476,7 +476,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //试用期基本工资
             fixedwagf.setFixedwagePeriodmoney(hireVo.getEmploymentSalary());
             //试用期固定工资
-            fixedwagf.setFixedwageOfflcialpostmoney(hireVo.getEmploymentSalaryz());
+            fixedwagf.setFixedwagePeriodpostmoney(hireVo.getEmploymentSalaryz());
             //员工姓名
             fixedwagf.setStaffName(hireVo.getResumeName());
             //添加到固定工资表
