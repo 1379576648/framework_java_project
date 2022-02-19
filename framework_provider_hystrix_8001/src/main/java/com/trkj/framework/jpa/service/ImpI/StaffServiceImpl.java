@@ -71,9 +71,6 @@ public class StaffServiceImpl implements StaffService {
             //乐观锁
             registerLog.setRevision(1);
             registerLogDao.save(registerLog);
-            redisTemplate.opsForValue().set("JpaRegisterLog:"+registerLog.toString(),registerLog);
-            redisTemplate.delete(redisTemplate.keys("JpaRegisterLogPage:*"));
-            redisTemplate.delete(redisTemplate.keys("JpaRegisterLogList:*"));
         }
         return staffEntity;
     }
@@ -90,22 +87,14 @@ public class StaffServiceImpl implements StaffService {
         //系统当前时间
         Date date = new Date();
         List<RegisterLogEntity> registerLogEntities = new ArrayList<>();
-        //查询缓存
-        Set set  = redisTemplate.keys("JpaRegisterLogList:registerLogPhone=" + Long.decode(map.get("phone").toString()));
-        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
-        if (o == null || o.equals("")) {
-            //查询数据库
-            registerLogEntities = registerLogDao.selectRegisterNumber(Long.decode(map.get("phone").toString()));
-            redisTemplate.opsForValue().set("JpaRegisterLogList:registerLogPhone=" + Long.decode(map.get("phone").toString()), registerLogEntities);
-        } else {
-            registerLogEntities = (List<RegisterLogEntity>) o;
-        }
+        //查询数据库
+        registerLogEntities = registerLogDao.selectRegisterNumber(Long.decode(map.get("phone").toString()));
         if (registerLogEntities.size() >= 3) {
             //返回需要等待的时间
             entity.setError(30 - (date.getTime() - registerLogEntities.get(0).getCreatedTime().getTime()) / (1000 * 60));
             return entity;
         } else {
-            StaffEntity staffEntity  = staffDao.findStaffByPhoneAndPass(Long.decode(map.get("phone").toString()), map.get("pass").toString());
+            StaffEntity staffEntity = staffDao.findStaffByPhoneAndPass(Long.decode(map.get("phone").toString()), map.get("pass").toString());
             RegisterLogEntity registerLog = new RegisterLogEntity();
             //登录类型
             registerLog.setRegisterLogGenre(1);
@@ -136,9 +125,6 @@ public class StaffServiceImpl implements StaffService {
             //乐观锁
             registerLog.setRevision(1);
             registerLogDao.save(registerLog);
-            redisTemplate.opsForValue().set("JpaRegisterLog:"+registerLog.toString(),registerLog);
-            redisTemplate.delete(redisTemplate.keys("JpaRegisterLogPage:*"));
-            redisTemplate.delete(redisTemplate.keys("JpaRegisterLogList:*"));
             return staffEntity;
         }
     }
@@ -150,54 +136,28 @@ public class StaffServiceImpl implements StaffService {
     @Override
     public Object menuList(Integer id) {
         //获取用户下所有的角色列表
-        Set set  = redisTemplate.keys("JpaRoleStaffList:e.roleId=d.roleId,staffId=" + id );
-        //查询缓存
-        Object o = redisTemplate.opsForValue().get(!set.isEmpty()?set.toArray()[0].toString():"");
         List<RoleStaffEntity> roleStaffEntities = new ArrayList<>();
-        if (o == null || o.equals("")) {
-            //查询数据库
-            roleStaffEntities = roleStaffDao.selectRoleStaff(id);
-            redisTemplate.opsForValue().set("JpaRoleStaffList:e.roleId=d.roleId,staffId=" + id , roleStaffEntities);
-        } else {
-            roleStaffEntities = (List<RoleStaffEntity>) o;
-        }
+        //查询数据库
+        roleStaffEntities = roleStaffDao.selectRoleStaff(id);
         //储藏所有角色下的菜单列表 没有去重
         List<MenuPowerEntity> menuPowerEntities = new ArrayList<>();
         //迭代角色列表
         for (RoleStaffEntity roleStaffEntity : roleStaffEntities) {
             //获取所有角色下的菜单编号列表
             List<RoleMenuPowerEntity> roleMenuPowerEntities = new ArrayList<>();
-            //查询缓存
-            Set set1 = redisTemplate.keys("JpaRoleMenuPowerList:roleId=" + roleStaffEntity.getRoleId());
-            Object o1 = redisTemplate.opsForValue().get(!set1.isEmpty()?set1.toArray()[0].toString():"");
-            if (o1 == null || o1.equals("")) {
-                //查询数据库
-                roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
-                redisTemplate.opsForValue().set("JpaRoleMenuPowerList:roleId=" + roleStaffEntity.getRoleId(), roleMenuPowerEntities);
-            } else {
-                roleMenuPowerEntities = (List<RoleMenuPowerEntity>) o1;
-            }
+            //查询数据库
+            roleMenuPowerEntities = roleMenuPowerDao.selectRoleMenuPower(roleStaffEntity.getRoleId());
             //迭代菜单编号列表
             for (RoleMenuPowerEntity roleMenuPowerEntity : roleMenuPowerEntities) {
                 //通过菜单编号查询菜单
                 MenuPowerEntity menuPower = new MenuPowerEntity();
-                //查询缓存
-                Set set2 = redisTemplate.keys("JpaMenuPower:*menuPowerId=" + roleMenuPowerEntity.getMenuPowerId()+",*");
-                Object o2 = redisTemplate.opsForValue().get(!set2.isEmpty()?set2.toArray()[0].toString():"");
-                if (o2 == null || o2.equals("")) {
-                    //查询数据库
-                    menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
-                    redisTemplate.opsForValue().set("JpaMenuPower:"+menuPower.toString(), menuPower);
-                } else {
-                    menuPower = (MenuPowerEntity) o2;
-                }
+                //查询数据库
+                menuPower = menuPowerDao.selectMenuPower(roleMenuPowerEntity.getMenuPowerId());
                 //将查询的菜单列表添加到集合中
                 if (menuPower != null) {
                     menuPowerEntities.add(menuPower);
                 }
             }
-            redisTemplate.delete(redisTemplate.keys("JpaMenuPowerPage:*"));
-            redisTemplate.delete(redisTemplate.keys("JpaMenuPowerList:*"));
         }
         //储藏所有角色下的菜单列表 去重
         List<MenuPowerEntity> menuPowerEntities1 = menuPowerEntities.stream().distinct().collect(Collectors.toList());
@@ -229,7 +189,7 @@ public class StaffServiceImpl implements StaffService {
      */
     @Override
     public String selectPostName(Integer integer) {
-        DeptPostEntity deptPost= deptPostDao.findDeptPostEntityByDeptPostId(integer);
+        DeptPostEntity deptPost = deptPostDao.findDeptPostEntityByDeptPostId(integer);
         //判断
         if (deptPost != null) {
             return deptPost.getPostName();

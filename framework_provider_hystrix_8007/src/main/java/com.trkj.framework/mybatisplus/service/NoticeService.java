@@ -17,7 +17,7 @@ import java.util.List;
  * @author 劉祁
  * @since 2021-12-29
  */
-public interface NoticeService  {
+public interface NoticeService {
     /***
      * 分页查询所有公告数据
      * @param registerLog
@@ -26,17 +26,17 @@ public interface NoticeService  {
     Object selectNoticeAll(Notice registerLog);
 
     /***
-     * 多选删除
+     *多选删除
      * @param list
      * @return
      */
-     String checkNoticeDelete(ArrayList<Integer> list) throws ArithmeticException;
+    String checkNoticeDelete(ArrayList<Integer> list) throws ArithmeticException;
 
     /***
      * 查询所有部门列表
      * @return
      */
-     List<Dept> selectDeptList();
+    List<Dept> selectDeptList();
 
 
     /***
@@ -44,21 +44,21 @@ public interface NoticeService  {
      * @param notice
      * @return
      */
-     String  insertNotice(Notice notice) throws ArithmeticException;
+    String insertNotice(Notice notice) throws ArithmeticException;
 
     /***
      * 查询当前公告绑定的部门
      * @param integer
      * @return
      */
-     List<Dept> selectPossessDeptList(Integer integer);
+    List<Dept> selectPossessDeptList(Integer integer);
 
     /***
      * 修改公告
      * @param notice
      * @return
      */
-     String updateNotice(Notice notice) throws ArithmeticException;
+    String updateNotice(Notice notice) throws ArithmeticException;
 
 
     /***
@@ -66,12 +66,12 @@ public interface NoticeService  {
      * @param integer
      * @return
      */
-     List<Staff> peropleNoticeViewed(Integer integer);
+    List<Staff> peropleNoticeViewed(Integer integer);
 
     /***
      * 未看公告人员
      * @param integer
      * @return
      */
-     List<Staff> unseenNoticePerson(Integer integer);
+    List<Staff> unseenNoticePerson(Integer integer);
 }

@@ -43,6 +43,10 @@ public class MenuPowerServiceImpl implements MenuPowerService {
     //子菜单
     List<Integer> childListList = new ArrayList<Integer>();
 
+
+    //父菜单
+    List<Integer> getChildListList = new ArrayList<Integer>();
+
     /**
      * 获取数据库级联菜单列表
      *
@@ -214,9 +218,28 @@ public class MenuPowerServiceImpl implements MenuPowerService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public String menuPowerDelete(Integer integer) throws ArithmeticException{
+    public String menuPowerDelete(Integer integer) throws ArithmeticException {
         //查询所有的菜单
         List<MenuPower> menuPowerList = menuPowerMapper.selectList(new QueryWrapper<MenuPower>().orderByAsc("MENU_POWER_ORDER"));
+        //查询删除菜单的父菜单
+        MenuPower menuPower = menuPowerMapper.selectById(integer);
+        if (menuPower != null) {
+            MenuPower menuPower1 = menuPowerMapper.selectById(menuPower.getMenuPowerPid());
+            List<MenuPower> menuPowerList1 = menuPowerMapper.selectList(new QueryWrapper<MenuPower>().eq("MENU_POWER_PID", menuPower1.getMenuPowerId()));
+            //去除当前需要删除的菜单
+            for (int i = 0; i < menuPowerList1.size(); i++) {
+                if (menuPowerList1.get(i).getMenuPowerId().equals(integer)) {
+                    menuPowerList1.remove(menuPowerList1.get(i));
+                }
+            }
+            if (menuPowerList1.size() <= 0) {
+                //修改父菜单为没有子菜单
+                menuPower1.setMenuPowerLeaf(1L);
+                if (menuPowerMapper.updateById(menuPower1) <= 0) {
+                    throw new ArithmeticException("删除菜单失败");
+                }
+            }
+        }
         /* 获取根节点下的所有子节点 使用getChild方法*/
         List<MenuPower> childList = getChild.getChild(integer, menuPowerList);
         childListList = new ArrayList<>();
@@ -241,6 +264,7 @@ public class MenuPowerServiceImpl implements MenuPowerService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public String menuPowerAdd(MenuPower menuPower) throws ArithmeticException {
+        getChildListList = new ArrayList<>();
         //通过菜单编号查询父菜单的列表
         List<MenuPower> menuPowerList = menuPowerMapper.selectList(new QueryWrapper<MenuPower>().eq("MENU_POWER_PID", menuPower.getMenuPowerPid()).orderByDesc("MENU_POWER_ORDER"));
         if (menuPowerList.size() <= 0) {
@@ -260,10 +284,15 @@ public class MenuPowerServiceImpl implements MenuPowerService {
         if (menuPowerMapper.updateById(menuPower1) <= 0) {
             throw new ArithmeticException("新增菜单失败");
         }
-        //修改角色菜单表数据为半选状态
-        RoleMenuPower roleMenuPower = new RoleMenuPower();
-        roleMenuPower.setIsChoice(1L);
-        roleMenuPowerMapper.update(roleMenuPower, new QueryWrapper<RoleMenuPower>().eq("MENU_POWER_ID", menuPower.getMenuPowerPid()));
+        //查询所有的菜单
+        List<MenuPower> menuPowerList1 = menuPowerMapper.selectList(new QueryWrapper<MenuPower>().orderByAsc("MENU_POWER_ORDER"));
+        List<Integer> list = parentMenuId(menuPowerList1, Integer.parseInt(menuPower.getMenuPowerPid().toString()));
+        for (Integer integer : list) {
+            //修改角色菜单表数据为半选状态
+            RoleMenuPower roleMenuPower = new RoleMenuPower();
+            roleMenuPower.setIsChoice(1L);
+            roleMenuPowerMapper.update(roleMenuPower, new QueryWrapper<RoleMenuPower>().eq("MENU_POWER_ID", integer));
+        }
         //设置是否有叶子
         menuPower.setMenuPowerLeaf(1L);
         if (menuPowerMapper.insert(menuPower) <= 0) {
@@ -284,5 +313,16 @@ public class MenuPowerServiceImpl implements MenuPowerService {
             }
         }
         return childListList;
+    }
+
+    //梯归找出所有的的父菜单
+    public List<Integer> parentMenuId(List<MenuPower> menuPowers, Integer integer) {
+        for (int i = 0; i < menuPowers.size(); i++) {
+            if (menuPowers.get(i).getMenuPowerId().equals(integer)) {
+                getChildListList.add(menuPowers.get(i).getMenuPowerId());
+                parentMenuId(menuPowers, Integer.parseInt(menuPowers.get(i).getMenuPowerPid().toString()));
+            }
+        }
+        return getChildListList;
     }
 }
