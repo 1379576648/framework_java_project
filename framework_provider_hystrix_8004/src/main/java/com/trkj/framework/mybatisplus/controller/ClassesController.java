@@ -25,6 +25,7 @@ public class ClassesController {
     private ClassesService classesService;
     @Autowired
     private Fuse8004Util fuse8004Util;
+
     /**
      * 查询所有班次方案
      *
@@ -57,7 +58,11 @@ public class ClassesController {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
-        map1.put("info", classesService.submitFormClasses(classes));
+        try {
+            map1.put("info", classesService.submitFormClasses(classes));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -97,7 +102,11 @@ public class ClassesController {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
-        map1.put("info", classesService.deleteClasses(classes));
+        try {
+            map1.put("info", classesService.deleteClasses(classes));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -137,7 +146,11 @@ public class ClassesController {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
-        map1.put("info", classesService.updateClassesState(classes));
+        try {
+            map1.put("info", classesService.updateClassesState(classes));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -157,7 +170,11 @@ public class ClassesController {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
-        map1.put("info", classesService.updateClassesStateTwo(classes));
+        try {
+            map1.put("info", classesService.updateClassesStateTwo(classes));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -197,7 +214,11 @@ public class ClassesController {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
-        map1.put("info", classesService.updateClasses(classes));
+        try {
+            map1.put("info", classesService.updateClasses(classes));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 

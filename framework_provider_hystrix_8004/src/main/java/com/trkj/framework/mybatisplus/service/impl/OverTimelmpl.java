@@ -57,6 +57,11 @@ public class OverTimelmpl implements OverTimeService {
         return overTimeMapper.deleteById(overtimeask1);
     }
 
+    /**
+     * 开始加班
+     * @param overtimeask
+     * @return
+     */
     @Override
     public String updateBeginOverTime(Overtimeask overtimeask) {
         Overtimeask overtimeask1 = new Overtimeask();
@@ -71,6 +76,11 @@ public class OverTimelmpl implements OverTimeService {
         }
     }
 
+    /**
+     * 结束加班
+     * @param overtimeask
+     * @return
+     */
     @Override
     public String updateEndOverTime(Overtimeask overtimeask) {
         Overtimeask overtimeask1 = new Overtimeask();

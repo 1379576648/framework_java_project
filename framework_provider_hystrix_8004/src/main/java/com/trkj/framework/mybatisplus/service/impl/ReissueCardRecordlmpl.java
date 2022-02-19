@@ -18,6 +18,11 @@ public class ReissueCardRecordlmpl implements ReissueCardRecordService {
     @Autowired
     private ReissueCardManager reissueCardManager;
 
+    /**
+     * 根据员工名称查询补打卡记录
+     * @param card
+     * @return
+     */
     @Override
     public IPage<Card> selectReissueCardRecordAll(Card card) {
         Page<Card> page = new Page<>(card.getCurrentPage(), card.getPagesize());
@@ -31,6 +36,11 @@ public class ReissueCardRecordlmpl implements ReissueCardRecordService {
         return reissueCardManager.selectPage(page,queryWrapper);
     }
 
+    /**
+     * 删除补打卡记录
+     * @param card
+     * @return
+     */
     @Override
     public Integer deleteCard(Card card) {
         final var cardId = card.getCardId();

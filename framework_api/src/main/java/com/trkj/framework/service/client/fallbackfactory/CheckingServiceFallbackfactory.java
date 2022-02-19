@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -150,6 +151,11 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
 
             @Override
             public Map<String, Object> importCardRecord(String name, MultipartFile file) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String, Object> selectCardRecordAllByName(ClockRecord cardRecord) {
                 return fuseUtil.main(throwable);
             }
         };

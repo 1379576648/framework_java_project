@@ -13,4 +13,4 @@ jwt:
   # HeaderKEY
   header: JWTDemo
   # 过期时间(这里设定为豪秒)
-  expire: 60000
+  expire: 5000
