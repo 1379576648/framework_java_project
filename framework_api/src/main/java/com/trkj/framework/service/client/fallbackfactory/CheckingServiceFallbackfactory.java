@@ -150,12 +150,17 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
             }
 
             @Override
-            public Map<String, Object> importCardRecord(String name, MultipartFile file) {
+            public Map<String, Object> importCardRecord(MultipartFile file) {
                 return fuseUtil.main(throwable);
             }
 
             @Override
             public Map<String, Object> selectCardRecordAllByName(ClockRecord cardRecord) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String, Object> selectStaffNameAll(Staff staff) {
                 return fuseUtil.main(throwable);
             }
         };
