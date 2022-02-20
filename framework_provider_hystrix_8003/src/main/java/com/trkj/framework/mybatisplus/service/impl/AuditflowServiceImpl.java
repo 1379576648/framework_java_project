@@ -283,7 +283,7 @@ public class AuditflowServiceImpl implements AuditflowService {
                     final var fixedwafID = auditflowdetailMapper.selectFixedwagfID(queryWrapper10);
                     // 拿到固定工资表编号，则根据其和调薪后基本工资去修改员工工资
                     Fixedwagf fixedwagf = new Fixedwagf();
-                    fixedwagf.setFixedwangerId(fixedwafID);
+                    fixedwagf.setFixedwageId(fixedwafID);
                     fixedwagf.setFixedwageOfficialmoney(salarys.get(0).getAfterSalary());
                     final var i4 = fixedwagfMapper.updateById(fixedwagf);
                     // 修改调薪表中的状态为同意 根据审批主表编号及审批申请人名称

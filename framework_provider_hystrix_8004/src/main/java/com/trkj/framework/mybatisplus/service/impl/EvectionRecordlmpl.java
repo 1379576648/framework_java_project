@@ -16,6 +16,11 @@ public class EvectionRecordlmpl implements EvectionRecordService {
     @Autowired
     private EvectionRecordMapper evectionRecordMapper;
 
+    /**
+     * 根据员工名称查询出差记录
+     * @param travel
+     * @return
+     */
     @Override
     public IPage<Travel> selectEvectionRecordAll(Travel travel) {
         Page<Travel> page = new Page<>(travel.getCurrentPage(), travel.getPagesize());
@@ -29,6 +34,11 @@ public class EvectionRecordlmpl implements EvectionRecordService {
         return evectionRecordMapper.selectPage(page,queryWrapper);
     }
 
+    /**
+     * 删除出差记录
+     * @param travel
+     * @return
+     */
     @Override
     public Integer deleteEvection(Travel travel) {
         final var travelId = travel.getTravelId();
@@ -39,6 +49,11 @@ public class EvectionRecordlmpl implements EvectionRecordService {
         return evectionRecordMapper.deleteById(travel1);
     }
 
+    /**
+     * 开始请假
+     * @param travel
+     * @return
+     */
     @Override
     public String updateBeginTravel(Travel travel) {
         Travel travel1 = new Travel();
@@ -53,6 +68,11 @@ public class EvectionRecordlmpl implements EvectionRecordService {
         }
     }
 
+    /**
+     * 结束请假
+     * @param travel
+     * @return
+     */
     @Override
     public String updateEndTravel(Travel travel) {
         Travel travel1 = new Travel();

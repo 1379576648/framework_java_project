@@ -3,20 +3,21 @@ package com.trkj.framework.mybatisplus.controller;
 import cn.hutool.core.collection.CollUtil;
 import cn.hutool.poi.excel.ExcelReader;
 import cn.hutool.poi.excel.ExcelUtil;
+import cn.hutool.poi.excel.ExcelWriter;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.mybatisplus.service.CardRecordService;
 import com.trkj.framework.util.Fuse8004Util;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.ServletOutputStream;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -64,7 +65,11 @@ public class CardRecordController {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
-        map1.put("info", cardRecordService.deleteClock(cardRecord));
+        try {
+            map1.put("info", cardRecordService.deleteClock(cardRecord));
+        } catch (ArithmeticException e) {
+            map1.put("info", e.getMessage());
+        }
         return map1;
     }
 
@@ -74,6 +79,7 @@ public class CardRecordController {
 
     /**
      * 导入打卡记录
+     *
      * @param name
      * @param file
      * @return
@@ -146,6 +152,20 @@ public class CardRecordController {
     }
 
     public Map<String, Object> importCardRecordHystixGet(@PathVariable("name") String name, MultipartFile file) {
+        return fuse8004Util.main();
+    }
+
+    @PostMapping("/selectCardRecordAllByName")
+    @HystrixCommand(fallbackMethod = "selectCardRecordAllByNameHystixGet")
+    public Map<String, Object> selectCardRecordAllByName(@RequestBody ClockRecord cardRecord) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", cardRecordService.selectCardRecordAllByName(cardRecord));
+        return map1;
+    }
+
+    public Map<String, Object> selectCardRecordAllByNameHystixGet(@RequestBody ClockRecord cardRecord) {
         return fuse8004Util.main();
     }
 }

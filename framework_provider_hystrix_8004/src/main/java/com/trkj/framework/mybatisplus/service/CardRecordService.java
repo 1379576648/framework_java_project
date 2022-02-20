@@ -16,6 +16,7 @@ public interface CardRecordService {
 
     /**
      * 根据员工名称查询打卡记录
+     *
      * @param cardRecord
      * @return
      */
@@ -23,13 +24,15 @@ public interface CardRecordService {
 
     /**
      * 删除打卡记录
+     *
      * @param clockRecord
      * @return
      */
-    Integer deleteClock(ClockRecord clockRecord);
+    Integer deleteClock(ClockRecord clockRecord) throws ArithmeticException;
 
     /**
      * 导入打卡记录
+     *
      * @param list
      * @return
      */
@@ -37,10 +40,17 @@ public interface CardRecordService {
 
     /**
      * 获取Excel表中的数据去数据库中查有无相同数据
+     *
      * @param objects
      * @return
      */
     Integer selcetCardRecord(List<Object> objects);
 
-
+    /**
+     * 根据员工名称查询打卡记录2
+     *
+     * @param
+     * @return
+     */
+    List<ClockRecord> selectCardRecordAllByName(ClockRecord clockRecord);
 }
