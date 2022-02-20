@@ -89,4 +89,20 @@ public interface WageClientService {
      */
     @DeleteMapping("/deleteWorkScheme")
     Object deleteWorkScheme(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据id查询加班方案
+     * @param workScheme
+     * @return
+     */
+    @PostMapping("/selectWorkSchemeAll")
+    Object selectWorkSchemeAll(@RequestBody WorkScheme workScheme);
+
+    /**
+     * 修改加班方案
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkScheme")
+    Object updateWorkScheme(@RequestBody WorkScheme workScheme);
 }

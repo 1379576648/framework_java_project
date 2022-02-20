@@ -41,7 +41,7 @@ public class WorkSchemeVo {
 
     @ApiModelProperty(value = "备注")
     @TableId("WORKSCHEME_REMARK")
-    private Integer workSchemeRemark;
+    private String workschemeRemark;
 
     @ApiModelProperty(value = "适用对象")
     @TableId("DEPT_NAME")
