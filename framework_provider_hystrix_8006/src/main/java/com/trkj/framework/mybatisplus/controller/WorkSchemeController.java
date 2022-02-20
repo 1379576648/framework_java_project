@@ -117,4 +117,54 @@ public class WorkSchemeController {
         return map1;
     }
 
+    /**
+     * 根据id查询加班方案
+     * @param workScheme
+     * @return
+     */
+    @PostMapping("/selectWorkSchemeAll")
+    @HystrixCommand(fallbackMethod = "HystixGet4")
+    public Object selectWorkSchemeAll(@RequestBody WorkScheme workScheme){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workSchemeService.selectWorkSchemeAll(workScheme));
+        System.out.println(workScheme);
+        return map1;
+    }
+
+    // 备选方案
+    public Object HystixGet4(@RequestBody WorkScheme workScheme){
+        Map<String,Object> map1 = new HashMap<>(2);
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 修改加班方案
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkScheme")
+    public Object updateWorkScheme(@RequestBody WorkScheme workScheme){
+        //方案名称
+        workScheme.setWorkschemeName(workScheme.getWorkschemeName());
+        //工作日加班工资
+        workScheme.setWorkschemeWorkratio(workScheme.getWorkschemeWorkratio());
+        //节假日加班工资
+        workScheme.setWorkschemeHolidayratio(workScheme.getWorkschemeHolidayratio());
+        //休息日加班工资
+        workScheme.setWorkschemeDayoffratio(workScheme.getWorkschemeDayoffratio());
+        //适用对象
+        workScheme.setDeptName(workScheme.getDeptName());
+        //备注
+        workScheme.setWorkschemeRemark(workScheme.getWorkschemeRemark());
+        final var i = workSchemeService.updateWorkScheme(workScheme);
+        if (i==999){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
 }

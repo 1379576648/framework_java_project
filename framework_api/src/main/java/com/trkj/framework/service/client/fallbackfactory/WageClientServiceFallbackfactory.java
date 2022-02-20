@@ -118,6 +118,26 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             public Object deleteWorkScheme(ArrayList<Integer> list) {
                 return AjaxResponse.success(fuseUtil.main(throwable));
             }
+
+            /**
+             * 根据id查询加班方案
+             * @param workScheme
+             * @return
+             */
+            @Override
+            public Object selectWorkSchemeAll(WorkScheme workScheme) {
+                return AjaxResponse.success(fuseUtil.main(throwable));
+            }
+
+            /**
+             * 修改加班方案
+             * @param workScheme
+             * @return
+             */
+            @Override
+            public Object updateWorkScheme(WorkScheme workScheme) {
+                return AjaxResponse.success(fuseUtil.main(throwable));
+            }
         };
     }
 }

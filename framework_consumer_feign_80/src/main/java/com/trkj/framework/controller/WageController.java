@@ -108,4 +108,24 @@ public class WageController {
     public AjaxResponse deleteWorkScheme(@RequestBody ArrayList<Integer> list){
         return AjaxResponse.success(wageClientService.deleteWorkScheme(list));
     }
+
+    /**
+     * 根据id查询加班方案
+     * @param workScheme
+     * @return
+     */
+    @PostMapping("/selectWorkSchemeAll")
+    public AjaxResponse selectWorkSchemeAll(@RequestBody WorkScheme workScheme){
+        return AjaxResponse.success(wageClientService.selectWorkSchemeAll(workScheme));
+    }
+
+    /**
+     * 修改加班方案
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkScheme")
+    public AjaxResponse updateWorkScheme(@RequestBody WorkScheme workScheme){
+        return AjaxResponse.success(wageClientService.updateWorkScheme(workScheme));
+    }
 }

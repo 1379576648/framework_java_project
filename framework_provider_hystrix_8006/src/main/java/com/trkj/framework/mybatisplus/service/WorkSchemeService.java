@@ -5,6 +5,7 @@ import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.vo.WorkSchemeVo;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public interface WorkSchemeService {
 
@@ -42,4 +43,18 @@ public interface WorkSchemeService {
      * @return
      */
     String deleteWorkScheme(ArrayList<Integer> list);
+
+    /**
+     * 根据id查询加班方案
+     * @param workScheme
+     * @return
+     */
+    List<WorkScheme> selectWorkSchemeAll(WorkScheme workScheme);
+
+    /**
+     * 修改加班方案
+     * @param workScheme
+     * @return
+     */
+    int updateWorkScheme(WorkScheme workScheme);
 }
