@@ -141,7 +141,7 @@ public class WorkSchemeController {
      */
     @PostMapping("/selectWorkSchemeAll")
     @HystrixCommand(fallbackMethod = "hystixGet4")
-    public Object selectWorkSchemeAll(@RequestBody WorkScheme workScheme){
+    public Map<String, Object> selectWorkSchemeAll(@RequestBody WorkScheme workScheme){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", workSchemeService.selectWorkSchemeAll(workScheme));
@@ -149,7 +149,7 @@ public class WorkSchemeController {
     }
 
     // 备选方案
-    public Object hystixGet4(@RequestBody WorkScheme workScheme){
+    public Map<String, Object> hystixGet4(@RequestBody WorkScheme workScheme){
         return fuse8006Util.main();
     }
 
@@ -159,25 +159,19 @@ public class WorkSchemeController {
      * @return
      */
     @PutMapping("/updateWorkScheme")
-    public Object updateWorkScheme(@RequestBody WorkScheme workScheme){
-        //方案名称
-        workScheme.setWorkschemeName(workScheme.getWorkschemeName());
-        //工作日加班工资
-        workScheme.setWorkschemeWorkratio(workScheme.getWorkschemeWorkratio());
-        //节假日加班工资
-        workScheme.setWorkschemeHolidayratio(workScheme.getWorkschemeHolidayratio());
-        //休息日加班工资
-        workScheme.setWorkschemeDayoffratio(workScheme.getWorkschemeDayoffratio());
-        //适用对象
-        workScheme.setDeptName(workScheme.getDeptName());
-        //备注
-        workScheme.setWorkschemeRemark(workScheme.getWorkschemeRemark());
-        final var i = workSchemeService.updateWorkScheme(workScheme);
-        if (i==999){
-            return 666;
-        }else {
-            return 100;
-        }
+    @HystrixCommand(fallbackMethod = "hystixGet5")
+    public Map<String, Object> updateWorkScheme(@RequestBody WorkScheme workScheme){
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        //返回结果
+        map1.put("info", workSchemeService.updateWorkScheme(workScheme));
+        return map1;
+    }
+
+    // 备选方案
+    public Map<String, Object> hystixGet5(@RequestBody WorkScheme workScheme){
+        return fuse8006Util.main();
     }
 
 }

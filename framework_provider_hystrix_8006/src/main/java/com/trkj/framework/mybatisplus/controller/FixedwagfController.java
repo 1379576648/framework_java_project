@@ -50,7 +50,7 @@ public class FixedwagfController {
      */
     @PutMapping("/updateFixedwage")
     @HystrixCommand(fallbackMethod = "updateFixedwageHystix")
-    public Object updateFixedwage(@RequestBody Fixedwagf fixedwagf){
+    public Map<String,Object> updateFixedwage(@RequestBody Fixedwagf fixedwagf){
         Map<String, Object> map1 = new HashMap(2);
         //状态码
         map1.put("state",200);

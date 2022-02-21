@@ -136,6 +136,17 @@ public class StaffController {
     }
 
     /**
+     * 根据部门查询部门职位
+     * @param transferTwoVo
+     * @return
+     */
+    @PostMapping("/selectPostName")
+    public AjaxResponse selectPostName(@RequestBody TransferTwoVo transferTwoVo){
+        Map<String, Object> map = hireClientService.selectPostName(transferTwoVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
      * 添加工作经历
      *
      * @param workExperience
@@ -306,24 +317,12 @@ public class StaffController {
     /**
      * 修改调动后的部门
      *
-     * @param dept
+     * @param staff
      * @return
      */
     @PutMapping("/updateDeptName")
-    public AjaxResponse updateDeptName(@RequestBody Dept dept) {
-        Map<String,Object> map = (Map<String, Object>)  hireClientService.updateDeptName(dept);
-        return AjaxResponse.success(carryTokenUtil.main(map));
-    }
-
-    /**
-     * 修改调动后的职位
-     *
-     * @param deptPost
-     * @return
-     */
-    @PutMapping("/updateDeptPostName")
-    public AjaxResponse updateDeptPostName(@RequestBody DeptPost deptPost) {
-        Map<String,Object> map = (Map<String, Object>)  hireClientService.updateDeptPostName(deptPost);
+    public AjaxResponse updateDeptName(@RequestBody Staff staff) {
+        Map<String,Object> map = (Map<String, Object>)  hireClientService.updateDeptName(staff);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 

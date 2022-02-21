@@ -25,22 +25,6 @@ public class DeptPostServiceImpl implements DeptPostService {
     @Autowired
     private DeptPostMapper deptPostMapper;
 
-    /**
-     * 修改调动后的职位
-     * @param deptPost
-     * @return
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int updateDeptPostName(DeptPost deptPost) {
-        final var i = deptPostMapper.updateById(deptPost);
-        if (i>=1){
-            return 666;
-        }else {
-            return 100;
-        }
-    }
-
 
 
 }

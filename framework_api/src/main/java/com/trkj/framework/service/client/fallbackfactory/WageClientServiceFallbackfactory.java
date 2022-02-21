@@ -123,9 +123,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectWorkSchemeAll(WorkScheme workScheme) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
-            }
+            public Map<String,Object> selectWorkSchemeAll(WorkScheme workScheme) {
+                return fuseUtil.main(throwable);            }
 
             /**
              * 修改加班方案
@@ -133,9 +132,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateWorkScheme(WorkScheme workScheme) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
-            }
+            public Map<String,Object> updateWorkScheme(WorkScheme workScheme) {
+                return fuseUtil.main(throwable);            }
 
             /**
              * 查询考勤扣款方案
@@ -143,9 +141,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectAttendandce(AttendandceVo attendandceVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
-            }
+            public Map<String,Object> selectAttendandce(AttendandceVo attendandceVo) {
+                return fuseUtil.main(throwable);            }
         };
     }
 }

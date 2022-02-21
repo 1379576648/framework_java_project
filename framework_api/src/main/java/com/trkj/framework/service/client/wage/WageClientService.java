@@ -91,7 +91,6 @@ public interface WageClientService {
      */
     @DeleteMapping("/deleteWorkScheme")
     Map<String,Object> deleteWorkScheme(@RequestBody ArrayList<Integer> list);
-    Map<String,Object> deleteWorkScheme(@RequestBody ArrayList<Integer> list);
 
     /**
      * 根据id查询加班方案

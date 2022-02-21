@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.xml.ws.Action;
 import java.util.List;
+import java.util.Queue;
 
 /**
  * <p>
@@ -68,15 +69,6 @@ public class TransferServiceImpl implements TransferService {
     }
 
     /**
-     * 查询所有的职位名称
-     * @return
-     */
-    @Override
-    public List<DeptPost> selectJob() {
-        return transferMapper.selectJob();
-    }
-
-    /**
      * 根据名称查询部门名称和职位名称
      * @param transferTwoVo
      * @return
@@ -109,6 +101,18 @@ public class TransferServiceImpl implements TransferService {
     @Transactional(rollbackFor = Exception.class)
     public int insertTransfer(Transfer transfer) {
         return transferMapper.insert(transfer);
+    }
+
+    /**
+     * 根据部门查询部门职位
+     * @param transferTwoVo
+     * @return
+     */
+    @Override
+    public List<TransferTwoVo> selectPostName(TransferTwoVo transferTwoVo) {
+        QueryWrapper<TransferTwoVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("d.DEPT_NAME",transferTwoVo.getDeptName());
+        return transferMapper.selectPostName(queryWrapper);
     }
 
 }

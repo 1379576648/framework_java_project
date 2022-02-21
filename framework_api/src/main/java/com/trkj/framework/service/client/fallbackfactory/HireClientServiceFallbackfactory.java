@@ -188,6 +188,16 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
             }
 
             /**
+             * 根据部门查询部门职位
+             * @param transferTwoVo
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectPostName(TransferTwoVo transferTwoVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
              * 根据id查询工作经历
              * @param workVo
              * @return
@@ -408,23 +418,14 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
 
             /**
              * 修改调动后的部门
-             * @param dept
+             * @param staff
              * @return
              */
             @Override
-            public Map<String,Object> updateDeptName(Dept dept) {
+            public Map<String,Object> updateDeptName(Staff staff) {
                  return fuseUtil.main(throwable);
             }
 
-            /**
-             * 修改调动后的职位
-             * @param deptPost
-             * @return
-             */
-            @Override
-            public Map<String,Object> updateDeptPostName(DeptPost deptPost) {
-                 return fuseUtil.main(throwable);
-            }
 
             /**
              * 查询奖励和惩罚

@@ -152,6 +152,14 @@ public interface HireClientService {
     Map<String,Object> selectTransferByName(@RequestBody TransferTwoVo transferTwoVo);
 
     /**
+     * 根据部门查询部门职位
+     * @param transferTwoVo
+     * @return
+     */
+    @PostMapping("/selectPostName")
+    Map<String, Object> selectPostName(@RequestBody TransferTwoVo transferTwoVo);
+
+    /**
      * 根据id查询工作经历
      * @param workVo
      * @return
@@ -329,19 +337,11 @@ public interface HireClientService {
 
     /**
      * 修改调动后的部门
-     * @param dept
+     * @param staff
      * @return
      */
     @PutMapping("/updateDeptName")
-    Map<String,Object> updateDeptName(@RequestBody Dept dept);
-
-    /**
-     * 修改调动后的职位
-     * @param deptPost
-     * @return
-     */
-    @PutMapping("/updateDeptPostName")
-    Map<String,Object> updateDeptPostName(@RequestBody DeptPost deptPost);
+    Map<String,Object> updateDeptName(@RequestBody Staff staff);
 
     /**
      * 查询奖励和惩罚
