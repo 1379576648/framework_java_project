@@ -7,6 +7,8 @@ import feign.hystrix.FallbackFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import java.util.Map;
+
 /**
  * @author TanWei
  */
@@ -19,8 +21,8 @@ public class StatisticsClinetServiceFallbackfactory implements FallbackFactory {
     public Object create(Throwable throwable) {
         return new StatisticsClinetService() {
             @Override
-            public Object querySex() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> querySex() {
+              return   fuseUtil.main(throwable);
             }
         };
     }

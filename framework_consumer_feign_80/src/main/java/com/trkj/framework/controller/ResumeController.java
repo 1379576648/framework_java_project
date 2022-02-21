@@ -1,6 +1,7 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.ResumeVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ public class ResumeController {
     @Autowired
     private NewresumeClinetService newresumeClinetService=null;
 
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
 
     /**
      * 新简历
@@ -25,7 +28,8 @@ public class ResumeController {
      */
     @PostMapping("/selectResume")
     private Object queryResume(@RequestBody ResumeVo resumeVo){
-        return AjaxResponse.success(newresumeClinetService.queryResume(resumeVo));
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryResume(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
 
@@ -36,7 +40,8 @@ public class ResumeController {
      */
     @PostMapping("/selectAllresume")
     private Object queryAll(@RequestBody ResumeVo resumeVo){
-        return AjaxResponse.success(newresumeClinetService.queryAll(resumeVo));
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryAll(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
 
@@ -47,7 +52,8 @@ public class ResumeController {
      */
     @PostMapping("/selectCandidate")
     private Object queryCandidate(@RequestBody ResumeVo resumeVo){
-        return AjaxResponse.success(newresumeClinetService.queryCandidate(resumeVo));
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryCandidate(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
 
@@ -58,7 +64,8 @@ public class ResumeController {
      */
     @PostMapping("/selectEliminate")
     private Object queryEliminate(@RequestBody ResumeVo resumeVo){
-        return AjaxResponse.success(newresumeClinetService.queryEliminate(resumeVo));
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryEliminate(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -68,7 +75,8 @@ public class ResumeController {
      */
     @PostMapping("/selectInterviewCandidate")
     private Object queryInterviewCandidate(@RequestBody ResumeVo resumeVo) {
-        return AjaxResponse.success(newresumeClinetService.queryInterviewCandidate(resumeVo));
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryInterviewCandidate(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -78,7 +86,8 @@ public class ResumeController {
      */
     @PostMapping("/selectInvite")
     private Object queryInvite(@RequestBody ResumeVo resumeVo) {
-        return AjaxResponse.success(newresumeClinetService.queryInvite(resumeVo));
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryInvite(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**

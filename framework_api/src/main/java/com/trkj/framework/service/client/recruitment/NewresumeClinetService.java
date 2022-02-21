@@ -9,6 +9,8 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.util.Map;
+
 /**
  * @author TanWei
  */
@@ -20,7 +22,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectResume")
-    Object queryResume(@RequestBody ResumeVo resumeVo);
+    Map<String,Object> queryResume(@RequestBody ResumeVo resumeVo);
 
 
     /**
@@ -29,7 +31,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectAllresume")
-    Object queryAll(@RequestBody ResumeVo resumeVo);
+    Map<String,Object> queryAll(@RequestBody ResumeVo resumeVo);
 
     /**
      * 候选人
@@ -37,7 +39,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectCandidate")
-    Object queryCandidate(@RequestBody ResumeVo resumeVo);
+    Map<String,Object> queryCandidate(@RequestBody ResumeVo resumeVo);
 
     /**
      * 淘汰库
@@ -45,7 +47,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectEliminate")
-    Object queryEliminate(@RequestBody ResumeVo resumeVo);
+    Map<String,Object> queryEliminate(@RequestBody ResumeVo resumeVo);
 
     /**
      * 招聘计划查询
@@ -53,7 +55,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectRecruitment")
-    Object queryRecruitment(@RequestBody RecruitmentVo recruitmentVo);
+    Map<String,Object> queryRecruitment(@RequestBody RecruitmentVo recruitmentVo);
 
     /**
      * 面试通过查询
@@ -61,7 +63,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectInterviewPass")
-    Object queryInterviewPass(@RequestBody InterviewVo interviewVo);
+    Map<String,Object> queryInterviewPass(@RequestBody InterviewVo interviewVo);
 
 
     /**
@@ -70,7 +72,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectInterviewCandidate")
-    Object queryInterviewCandidate(@RequestBody ResumeVo resumeVo);
+    Map<String,Object> queryInterviewCandidate(@RequestBody ResumeVo resumeVo);
 
     /**
      * 已邀约
@@ -78,7 +80,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectInvite")
-    Object queryInvite(@RequestBody ResumeVo resumeVo);
+    Map<String,Object> queryInvite(@RequestBody ResumeVo resumeVo);
 
     /**
      * 添加录用数据
@@ -86,7 +88,7 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/EmployStaff")
-    Object employStaff(@RequestBody Employment employment);
+    Map<String,Object> employStaff(@RequestBody Employment employment);
 
     /**
      * 已邀约

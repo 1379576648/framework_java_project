@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.trkj.framework.entity.mybatisplus.Worker;
@@ -134,4 +135,11 @@ public interface StaffService {
      * @return
      */
     List<Staff> countStateSix();
+
+    /**
+     * 修改调动后的部门
+     * @param staff
+     * @return
+     */
+    int updateDeptName(Staff staff);
 }

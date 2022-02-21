@@ -23,21 +23,7 @@ public class DeptServiceImpl implements DeptService {
     @Autowired
     private DeptMapper deptMapper;
 
-    /**
-     * 修改调动后的部门
-     * @param dept
-     * @return
-     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public int updateDeptName(Dept dept) {
-        final var i = deptMapper.updateById(dept);
-        if (i>=1){
-            return 999;
-        }else {
-            return 100;
-        }
-    }
+
 
 
 

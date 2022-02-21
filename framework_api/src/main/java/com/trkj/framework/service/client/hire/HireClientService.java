@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * @author 13795
@@ -23,7 +24,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping ("/selectpage")
-    Object selecthirepage(@RequestBody HireVo hireVo);
+    Map<String,Object> selecthirepage(@RequestBody HireVo hireVo);
 
     /**
      * 查询已经淘汰的员工
@@ -31,7 +32,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectabandon")
-    Object selectabandon(@RequestBody HireVo hireVo);
+    Map<String,Object> selectabandon(@RequestBody HireVo hireVo);
 
     /**
      * 查询工作经历
@@ -39,7 +40,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectwork")
-    Object selectwork(@RequestBody WorkVo workVo);
+    Map<String,Object> selectwork(@RequestBody WorkVo workVo);
 
     /**
      * 查询转正
@@ -47,7 +48,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectpost")
-    Object selectpost(@RequestBody FullVo fullVo);
+    Map<String,Object> selectpost(@RequestBody FullVo fullVo);
 
     /**
      * 新增员工
@@ -55,7 +56,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/insertStaff")
-    Object insertStaff(@RequestBody HireVo hireVo);
+    Map<String,Object> insertStaff(@RequestBody HireVo hireVo);
 
     /**
      * 修改录用状态
@@ -63,7 +64,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateEmploymentState")
-    Object updateEmploymentState(@RequestBody EmploymentTable employmentTable);
+    Map<String,Object> updateEmploymentState(@RequestBody EmploymentTable employmentTable);
 
     /**
      * 修改录用状态为已淘汰以及放弃原因
@@ -71,7 +72,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateEmploymentStateAndWaiveReasonInt")
-    Object updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentTable);
+    Map<String,Object> updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentTable);
 
     /**
      * 查询员工花名册
@@ -79,7 +80,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectStaff")
-    Object selectStaff(@RequestBody StaffVo staffVo);
+    Map<String,Object> selectStaff(@RequestBody StaffVo staffVo);
 
     /**
      * 根据id查询员工信息
@@ -87,7 +88,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectStaffAll")
-    Object selectStaffAll(@RequestBody StaffVo staffVo);
+    Map<String,Object> selectStaffAll(@RequestBody StaffVo staffVo);
 
     /**
      * 查询历史花名册
@@ -95,7 +96,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectQuit")
-    Object selectQuit(@RequestBody StaffQuitVo staffQuitVo);
+    Map<String,Object> selectQuit(@RequestBody StaffQuitVo staffQuitVo);
 
     /**
      * 查询调动
@@ -103,7 +104,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectTransfer")
-    Object selectTransfer(@RequestBody TransferVo transferVo);
+    Map<String,Object> selectTransfer(@RequestBody TransferVo transferVo);
 
     /**
      * 修改员工信息
@@ -111,7 +112,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateStaff")
-    Object updateStaff(@RequestBody Staff staff);
+    Map<String,Object> updateStaff(@RequestBody Staff staff);
 
     /**
      * 修改员工信息2
@@ -119,28 +120,28 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateStaffTwo")
-    Object updateStaffTwo(@RequestBody Staff staff);
+    Map<String,Object> updateStaffTwo(@RequestBody Staff staff);
 
     /**
      * 查询所有的员工名称
      * @return
      */
      @PostMapping("/selectStaffName")
-    Object selectStaffName();
+    Map<String,Object> selectStaffName();
 
     /**
      * 查询所有的部门名称
      * @return
      */
     @PostMapping("/selectSect")
-    Object selectSect();
+    Map<String,Object> selectSect();
 
     /**
      * 查询所有的职位名称
      * @return
      */
     @PostMapping("/selectJob")
-    Object selectJob();
+    Map<String,Object> selectJob();
 
     /**
      * 根据名称查询部门名称和职位名称
@@ -148,7 +149,15 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectTransferByName")
-    Object selectTransferByName(@RequestBody TransferTwoVo transferTwoVo);
+    Map<String,Object> selectTransferByName(@RequestBody TransferTwoVo transferTwoVo);
+
+    /**
+     * 根据部门查询部门职位
+     * @param transferTwoVo
+     * @return
+     */
+    @PostMapping("/selectPostName")
+    Map<String, Object> selectPostName(@RequestBody TransferTwoVo transferTwoVo);
 
     /**
      * 根据id查询工作经历
@@ -156,7 +165,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectWorkAll")
-    Object selectWorkAll(@RequestBody WorkVo workVo);
+    Map<String,Object> selectWorkAll(@RequestBody WorkVo workVo);
 
     /**
      * 根据id查询奖励
@@ -164,7 +173,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectGloryAll")
-    Object selectGloryAll(@RequestBody WorkVo workVo);
+    Map<String,Object> selectGloryAll(@RequestBody WorkVo workVo);
 
     /**
      * 根据id查询惩罚
@@ -172,7 +181,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectPunishAll")
-    Object selectPunishAll(@RequestBody WorkVo workVo);
+    Map<String,Object> selectPunishAll(@RequestBody WorkVo workVo);
 
     /**
      * 根据id查询教育经历
@@ -180,7 +189,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectEducationAll")
-    Object selectEducationAll(@RequestBody WorkVo workVo);
+    Map<String,Object> selectEducationAll(@RequestBody WorkVo workVo);
 
     /**
      * 添加工作经历
@@ -188,7 +197,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/insertWorkExperience")
-    Object insertWorkExperience(@RequestBody WorkExperience workExperience);
+    Map<String,Object> insertWorkExperience(@RequestBody WorkExperience workExperience);
 
     /**
      * 根据工作经历id查询工作经历
@@ -196,7 +205,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectWorkOne")
-    Object selectWorkOne(@RequestBody WorkVo workVo);
+    Map<String,Object> selectWorkOne(@RequestBody WorkVo workVo);
 
     /**
      * 修改工作经历
@@ -204,7 +213,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateWork")
-    Object updateWork(@RequestBody WorkExperience workExperience);
+    Map<String,Object> updateWork(@RequestBody WorkExperience workExperience);
 
     /**
      * 删除工作经历
@@ -212,7 +221,7 @@ public interface HireClientService {
      * @return
      */
     @DeleteMapping("/deleteWork")
-    Object deleteWork(@RequestBody ArrayList<Integer> list);
+    Map<String,Object> deleteWork(@RequestBody ArrayList<Integer> list);
 
     /**
      * 根据奖励id查询奖励
@@ -220,7 +229,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectGloryOne")
-    Object selectGloryOne(@RequestBody WorkVo workVo);
+    Map<String,Object> selectGloryOne(@RequestBody WorkVo workVo);
 
     /**
      * 添加奖励
@@ -228,7 +237,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/insertGlory")
-    Object insertGlory(@RequestBody Glory glory);
+    Map<String,Object> insertGlory(@RequestBody Glory glory);
 
     /**
      * 修改奖励
@@ -236,7 +245,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateGlory")
-    Object updateGlory(@RequestBody Glory glory);
+    Map<String,Object> updateGlory(@RequestBody Glory glory);
 
     /**
      * 删除奖励
@@ -244,7 +253,7 @@ public interface HireClientService {
      * @return
      */
     @DeleteMapping("/deleteGlory")
-    Object deleteGlory(@RequestBody ArrayList<Integer> list);
+    Map<String,Object> deleteGlory(@RequestBody ArrayList<Integer> list);
 
     /**
      * 根据惩罚id查询惩罚
@@ -252,7 +261,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectPunishOne")
-    Object selectPunishOne(@RequestBody WorkVo workVo);
+    Map<String,Object> selectPunishOne(@RequestBody WorkVo workVo);
 
     /**
      * 添加惩罚
@@ -260,7 +269,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/insertPunish")
-    Object insertPunish(@RequestBody Punish punish);
+    Map<String,Object> insertPunish(@RequestBody Punish punish);
 
     /**
      * 修改惩罚
@@ -268,7 +277,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updatePunish")
-    Object updatePunish(@RequestBody Punish punish);
+    Map<String,Object> updatePunish(@RequestBody Punish punish);
 
     /**
      * 删除惩罚
@@ -276,7 +285,7 @@ public interface HireClientService {
      * @return
      */
     @DeleteMapping("/deletePunish")
-    Object deletePunish(@RequestBody ArrayList<Integer> list);
+    Map<String,Object> deletePunish(@RequestBody ArrayList<Integer> list);
 
     /**
      * 根据教育经历id查询教育经历
@@ -284,7 +293,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectEducationOne")
-    Object selectEducationOne(@RequestBody WorkVo workVo);
+    Map<String,Object> selectEducationOne(@RequestBody WorkVo workVo);
 
     /**
      * 添加教育经历
@@ -292,7 +301,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/insertEducation")
-    Object insertEducation(@RequestBody Education education);
+    Map<String,Object> insertEducation(@RequestBody Education education);
 
     /**
      * 修改教育经历
@@ -300,7 +309,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateEducation")
-    Object updateEducation(@RequestBody Education education);
+    Map<String,Object> updateEducation(@RequestBody Education education);
 
     /**
      * 删除教育经历
@@ -308,7 +317,7 @@ public interface HireClientService {
      * @return
      */
     @DeleteMapping("/deleteEducation")
-    Object deleteEducation(@RequestBody ArrayList<Integer> list);
+    Map<String,Object> deleteEducation(@RequestBody ArrayList<Integer> list);
 
     /**
      * 根据员工姓名查询调动记录
@@ -316,7 +325,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectTransferAlls")
-    Object selectTransferAlls(@RequestBody Transfer transfer);
+    Map<String,Object> selectTransferAlls(@RequestBody Transfer transfer);
 
     /**
      * 添加调动记录
@@ -324,23 +333,15 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/insertTransfer")
-    Object insertTransfer(@RequestBody Transfer transfer);
+    Map<String,Object> insertTransfer(@RequestBody Transfer transfer);
 
     /**
      * 修改调动后的部门
-     * @param dept
+     * @param staff
      * @return
      */
     @PutMapping("/updateDeptName")
-    Object updateDeptName(@RequestBody Dept dept);
-
-    /**
-     * 修改调动后的职位
-     * @param deptPost
-     * @return
-     */
-    @PutMapping("/updateDeptPostName")
-    Object updateDeptPostName(@RequestBody DeptPost deptPost);
+    Map<String,Object> updateDeptName(@RequestBody Staff staff);
 
     /**
      * 查询奖励和惩罚
@@ -348,7 +349,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectPunishGlory")
-    Object selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo);
+    Map<String,Object> selectPunishGlory(@RequestBody PunishGloryVo punishGloryVo);
 
     /**
      * 添加转正
@@ -356,7 +357,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/insertWorker")
-    Object insertWorker(@RequestBody FullVo fullVo);
+    Map<String,Object> insertWorker(@RequestBody FullVo fullVo);
 
     /**
      * 修改员工状态为正式
@@ -364,7 +365,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateStaffState")
-    Object updateStaffState(@RequestBody Staff staff);
+    Map<String,Object> updateStaffState(@RequestBody Staff staff);
 
     /**
      * 添加离职
@@ -372,7 +373,7 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/insertQuit")
-    Object insertQuit(@RequestBody Quit quit);
+    Map<String,Object> insertQuit(@RequestBody Quit quit);
 
     /**
      * 修改员工状态为离职
@@ -380,7 +381,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateStaffStateTwo")
-    Object updateStaffStateTwo(@RequestBody Staff staff);
+    Map<String,Object> updateStaffStateTwo(@RequestBody Staff staff);
 
     /**
      * 修改转正日期
@@ -388,7 +389,7 @@ public interface HireClientService {
      * @return
      */
     @PutMapping("/updateWorkerDate")
-    Object updateWorkerDate(@RequestBody Staff staff);
+    Map<String,Object> updateWorkerDate(@RequestBody Staff staff);
 
     /**
      * 快转正名单
@@ -396,14 +397,14 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectQuick")
-    Object selectQuick(@RequestBody FullVo fullVo);
+    Map<String,Object> selectQuick(@RequestBody FullVo fullVo);
 
     /**
      * 统计快要转正名单
      * @return
      */
     @PostMapping("/countByStaffState")
-    Object countByStaffState();
+    Map<String,Object> countByStaffState();
 
     /**
      * 转正已生效
@@ -411,48 +412,48 @@ public interface HireClientService {
      * @return
      */
     @PostMapping("/selectStateOne")
-    Object selectStateOne(@RequestBody FullVo fullVo);
+    Map<String,Object> selectStateOne(@RequestBody FullVo fullVo);
 
     /**
      * 统计转正已生效
      * @return
      */
     @PostMapping("/countStateOne")
-    Object countStateOne();
+    Map<String,Object> countStateOne();
 
     /**
      * 统计试用期人员
      * @return
      */
     @PostMapping("/countStateTwo")
-    Object countStateTwo();
+    Map<String,Object> countStateTwo();
 
     /**
      * 本月离职
      * @return
      */
     @PostMapping("/countStateThree")
-    Object countStateThree();
+    Map<String,Object> countStateThree();
 
     /**
      * 正式
      * @return
      */
     @PostMapping("/countStateFour")
-    Object countStateFour();
+    Map<String,Object> countStateFour();
 
     /**
      * 试用
      * @return
      */
     @PostMapping("/countStateFive")
-    Object countStateFive();
+    Map<String,Object> countStateFive();
 
     /**
      * 本月新入职
      * @return
      */
     @PostMapping("/countStateSix")
-    Object countStateSix();
+    Map<String,Object> countStateSix();
 }
 

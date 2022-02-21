@@ -5,6 +5,7 @@ import com.trkj.framework.entity.mybatisplus.Glory;
 import com.trkj.framework.entity.mybatisplus.Punish;
 import com.trkj.framework.mybatisplus.service.GloryService;
 import com.trkj.framework.mybatisplus.service.PunishService;
+import com.trkj.framework.util.Fuse8008Util;
 import com.trkj.framework.vo.WorkVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,27 +29,25 @@ public class PunishController {
     @Autowired
     private PunishService punishService;
 
+    @Autowired
+    private Fuse8008Util fuse8008Util;
     /**
      * 根据惩罚id查询惩罚
      * @param workVo
      * @return
      */
     @PostMapping("/selectPunishOne")
-    @HystrixCommand(fallbackMethod = "HystixGet")
-    public Object selectPunishOne(@RequestBody WorkVo workVo){
+    @HystrixCommand(fallbackMethod = "hystixGet")
+    public Map<String, Object> selectPunishOne(@RequestBody WorkVo workVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", punishService.selectPunishOne(workVo));
-        System.out.println(workVo);
         return map1;
     }
 
-    // 备选方案
-    public Object HystixGet(@RequestBody WorkVo workVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet(@RequestBody WorkVo workVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -57,17 +56,19 @@ public class PunishController {
      * @return
      */
     @PostMapping("/insertPunish")
-    @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object insertPunish(@RequestBody Punish punish){
-        return punishService.insertPunish(punish);
+    @HystrixCommand(fallbackMethod = "hystixGet2")
+    public Map<String, Object> insertPunish(@RequestBody Punish punish){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",punishService.insertPunish(punish));
+        return map1;
     }
 
     //备选方案
-    public Object HystixGet2(@RequestBody Punish punish){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public Map<String,Object> hystixGet2(@RequestBody Punish punish) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -76,34 +77,28 @@ public class PunishController {
      * @return
      */
     @PutMapping("/updatePunish")
-    public Object updatePunish(@RequestBody Punish punishId){
-        //惩罚类型
-        punishId.setPunishType(punishId.getPunishType());
-        //惩罚原因
-        punishId.setPunishCause(punishId.getPunishCause());
-        //惩罚单位
-        punishId.setPunishUnit(punishId.getPunishUnit());
-        //是否撤销
-        punishId.setIsRevocation(punishId.getIsRevocation());
-        //备注
-        punishId.setPunishRemark(punishId.getPunishRemark());
-        final var i = punishService.updatePunish(punishId);
-        if (i==999){
-            return 666;
-        }else {
-            return 100;
-        }
+    @HystrixCommand(fallbackMethod = "updatePunishHystrix")
+    public Map<String, Object> updatePunish(@RequestBody Punish punishId){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",punishService.updatePunish(punishId));
+        return map1;
 
     }
-
+    //备选方案
+    public Map<String,Object> updatePunishHystrix(@RequestBody Punish punishId) {
+        return fuse8008Util.main();
+    }
     /**
      * 删除惩罚
      * @param list
      * @return
      */
     @DeleteMapping("/deletePunish")
-    @HystrixCommand(fallbackMethod = "HystixGet3")
-    public Object deletePunish(@RequestBody ArrayList<Integer> list){
+    @HystrixCommand(fallbackMethod = "hystixGet3")
+    public Map<String ,Object> deletePunish(@RequestBody ArrayList<Integer> list){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
@@ -113,11 +108,8 @@ public class PunishController {
     }
 
     //备选方案
-    public Object HystixGet3(@RequestBody ArrayList<Integer> list){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public Map<String,Object> hystixGet3(@RequestBody ArrayList<Integer> list) {
+        return fuse8008Util.main();
     }
 
 }

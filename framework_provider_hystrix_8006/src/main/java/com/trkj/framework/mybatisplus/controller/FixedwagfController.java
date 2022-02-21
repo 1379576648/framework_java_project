@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.mybatisplus.service.FixedwagfService;
+import com.trkj.framework.util.Fuse8006Util;
 import com.trkj.framework.vo.FixedwageVo;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ public class FixedwagfController {
     @Autowired
     private FixedwagfService fixedwageService;
 
+    @Autowired
+    private Fuse8006Util fuse8006Util;
     /**
      * 查询固定工资
      * @param fixedwageVo
@@ -27,7 +30,7 @@ public class FixedwagfController {
      */
     @PostMapping("/selectFixedwage")
     @HystrixCommand(fallbackMethod = "HystixGet")
-    public Object selectFixedwage(@RequestBody FixedwageVo fixedwageVo){
+    public Map<String,Object> selectFixedwage(@RequestBody FixedwageVo fixedwageVo){
         Map<String, Object> map1 = new HashMap(2);
         //状态码
         map1.put("state",200);
@@ -36,11 +39,8 @@ public class FixedwagfController {
     }
 
     // 备选方案
-    public Object HystixGet(@RequestBody FixedwageVo fixedwageVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public Map<String,Object> HystixGet(@RequestBody FixedwageVo fixedwageVo){
+        return fuse8006Util.main();
     }
 
     /**
@@ -49,22 +49,16 @@ public class FixedwagfController {
      * @return
      */
     @PutMapping("/updateFixedwage")
-    public Object updateFixedwage(@RequestBody Fixedwagf fixedwagf){
-        //试用期基本工资
-        fixedwagf.setFixedwagePeriodmoney(fixedwagf.getFixedwagePeriodmoney());
-        //正式基本工资
-        fixedwagf.setFixedwageOfficialmoney(fixedwagf.getFixedwageOfficialmoney());
-        //试用期固定工资
-        fixedwagf.setFixedwagePeriodpostmoney(fixedwagf.getFixedwagePeriodpostmoney());
-        //正式固定工资
-        fixedwagf.setFixedwageOfflcialpostmoney(fixedwagf.getFixedwageOfflcialpostmoney());
-        //备注
-        fixedwagf.setFixedwageRemark(fixedwagf.getFixedwageRemark());
-        final var i = fixedwageService.updateFixedwage(fixedwagf);
-        if (i==999){
-            return 666;
-        }else {
-            return 100;
-        }
+    @HystrixCommand(fallbackMethod = "updateFixedwageHystix")
+    public Map<String,Object> updateFixedwage(@RequestBody Fixedwagf fixedwagf){
+        Map<String, Object> map1 = new HashMap(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",fixedwageService.updateFixedwage(fixedwagf));
+        return map1;
+    }
+    // 备选方案
+    public Map<String,Object> updateFixedwageHystix(@RequestBody Fixedwagf fixedwagf){
+        return fuse8006Util.main();
     }
 }

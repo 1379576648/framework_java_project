@@ -64,7 +64,7 @@ public class GloryServiceImpl implements GloryService {
     public int updateGlory(Glory glory) {
         final var i = gloryMapper.updateById(glory);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

@@ -55,6 +55,9 @@ e_INSURED_PAYMENT_SALARY_MONTH
     <select id="pageStaff" resultMap="BaseResultMap">
         select
         <include refid="Base_Column_List2"/>
+        from(
+        select
+        <include refid="Base_Column_List2"/>
         from ( select
         <include refid="Base_Column_List"/>
         from STAFF a left join DEPT b on a.DEPT_ID=b.DEPT_ID
@@ -62,10 +65,9 @@ e_INSURED_PAYMENT_SALARY_MONTH
         left join (SELECT STAFF_ID, INSURED_PAYMENT_INSURED_MONTH, INSURED_PAYMENT_SALARY_MONTH FROM INSURED_PAYMENT  WHERE to_char(INSURED_PAYMENT_INSURED_MONTH, 'YYYY-MM') = to_char(sysdate, 'YYYY-MM') ) e on e.STAFF_ID=a.STAFF_ID
         left join (select * from INSURED_ARCHIVE  WHERE to_char(INS_ARCHIVE_INSURED_MONTH, 'YYYY-MM') = to_char(sysdate, 'YYYY-MM') ) d ON d.INS_ARCHIVE_STAFF_NAME = a.STAFF_NAME
         where to_char(d.INS_ARCHIVE_INSURED_MONTH,'YYYY-MM') != to_char(sysdate, 'YYYY-MM')
-           and a.STAFF_STATE=1
            and a.IS_DELETED=0
            or d.INS_ARCHIVE_INSURED_MONTH is null
               order by  a.CREATED_TIME desc)
-          ${ew.customSqlSegment}
+          ${ew.customSqlSegment}) where A_STAFF_STATE !=2
     </select>
 </mapper>

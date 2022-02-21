@@ -3,7 +3,9 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.mybatisplus.service.AttendandceService;
+import com.trkj.framework.util.Fuse8006Util;
 import com.trkj.framework.vo.AttendandceVo;
+import com.trkj.framework.vo.FixedwageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
@@ -14,6 +16,8 @@ public class AttendandceController {
 
     @Autowired
     private AttendandceService attendandceService;
+    @Autowired
+    private Fuse8006Util fuse8006Util;
 
     /**
      * 查询考勤扣款方案
@@ -22,7 +26,7 @@ public class AttendandceController {
      */
     @PostMapping("/selectAttendandce")
     @HystrixCommand(fallbackMethod = "HystixGet")
-    public Object selectAttendandce(@RequestBody AttendandceVo attendandceVo){
+    public Map<String,Object> selectAttendandce(@RequestBody AttendandceVo attendandceVo){
         Map<String, Object> map1 = new HashMap(2);
         //状态码
         map1.put("state",200);
@@ -30,12 +34,8 @@ public class AttendandceController {
         return map1;
     }
 
-    //备选方案
-    public Object HystixGet(@RequestBody AttendandceVo attendandceVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public Map<String,Object> HystixGet(@RequestBody AttendandceVo attendandceVo){
+        return fuse8006Util.main();
     }
 
 //    /**
