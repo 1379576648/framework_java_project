@@ -45,7 +45,7 @@ public class FixedwagfServiceImpI implements FixedwagfService {
     public int updateFixedwage(Fixedwagf fixedwagf) {
         final var i = fixedwageMapper.updateById(fixedwagf);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

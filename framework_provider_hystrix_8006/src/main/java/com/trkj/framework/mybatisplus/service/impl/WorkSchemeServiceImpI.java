@@ -60,7 +60,7 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
     public int updateWorkSchemeState(WorkScheme workScheme) {
         final var i = workSchemeMapper.updateById(workScheme);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -76,7 +76,7 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
     public int updateWorkSchemeStateTwo(WorkScheme workScheme) {
         final var i = workSchemeMapper.updateById(workScheme);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

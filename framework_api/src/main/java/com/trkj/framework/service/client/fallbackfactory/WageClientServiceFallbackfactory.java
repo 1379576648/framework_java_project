@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @Component
 public class WageClientServiceFallbackfactory implements FallbackFactory {
@@ -35,8 +36,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectFixedwage(FixedwageVo fixedwageVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectFixedwage(FixedwageVo fixedwageVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -45,8 +46,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateFixedwage(Fixedwagf fixedwagf) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateFixedwage(Fixedwagf fixedwagf) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -55,8 +56,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertSalary(Salary salary) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertSalary(Salary salary) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -65,8 +66,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectSalary(WageVo wageVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectSalary(WageVo wageVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -75,8 +76,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectWorkScheme(WorkSchemeVo workSchemeVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectWorkScheme(WorkSchemeVo workSchemeVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -85,8 +86,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertWorkScheme(WorkScheme workScheme) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertWorkScheme(WorkScheme workScheme) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -95,8 +96,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateWorkSchemeState(WorkScheme workScheme) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateWorkSchemeState(WorkScheme workScheme) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -105,8 +106,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateWorkSchemeStateTwo(WorkScheme workScheme) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateWorkSchemeStateTwo(WorkScheme workScheme) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -115,8 +116,8 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object deleteWorkScheme(ArrayList<Integer> list) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deleteWorkScheme(ArrayList<Integer> list) {
+                return fuseUtil.main(throwable);
             }
         };
     }

@@ -64,7 +64,7 @@ public class PunishServiceImpl implements PunishService {
     public int updatePunish(Punish punish) {
         final var i = punishMapper.updateById(punish);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

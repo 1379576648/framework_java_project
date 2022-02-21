@@ -21,9 +21,8 @@ public interface StaffDao extends CrudRepository<StaffEntity,Integer> {
     /***
      * 通过手机号码以及密码查询用户信息
      * @param phone
-     * @param pass
      * @return
      */
-    @Query("select a from  StaffEntity  a where a.staffPhone=?1 and a.staffPass=?2 and a.staffState!=2")
-     public StaffEntity findStaffByPhoneAndPass(Long phone,String pass);
+    @Query("select a from  StaffEntity  a where a.staffPhone=?1")
+     public StaffEntity findStaffByPhoneAndPass(Long phone);
 }

@@ -47,13 +47,19 @@ public class StaffController {
             //存入到map
             map.put("成功", map2.get("成功"));
             StaffEntity staff = staffService.staffId(map);
-            //返回员工信息
-            map1.put("succeed", staff);
+            map1.put("succeed", "账号或密码有误");
             //如果员工不为空
             if (staff != null) {
                 //返回菜单列表
+                if (staff.getStaffState().equals(2)){
+                    map1.put("succeed", "离职用户,请联系管理员");
+                }else{
+                    map1.put("succeed", "成功");
+                }
                 map1.put("menuList", staffService.menuList(staff.getStaffId()));
                 map1.put("token", jwtTokenUtil.generateToken(staff.getStaffName(),staff.getStaffId(),staffService.selectPostName(staff.getDeptPostId())));
+                map1.put("info",staff);
+
             }
 
         }
@@ -82,17 +88,22 @@ public class StaffController {
             map1.put("state", 200);
             StaffEntity staffEntity = staffService.findStaffByPhoneAndPass(map);
             //成功结果
-            map1.put("succeed", staffEntity);
+            map1.put("succeed", "账号或密码有误");
             if (staffEntity != null) {
                 if (staffEntity.getError() == null) {
+                    if (staffEntity.getStaffState().equals(2)){
+                        map1.put("succeed", "离职用户,请联系管理员");
+                    }else{
+                        map1.put("succeed", "成功");
+                    }
                     Thread.sleep(1000);
                     map1.put("menuList", staffService.menuList(staffEntity.getStaffId()));
                     map1.put("token", jwtTokenUtil.generateToken(staffEntity.getStaffName(),staffEntity.getStaffId(),staffService.selectPostName(staffEntity.getDeptPostId())));
-                } else {
-                    map1.put("menuList", "");
+                    map1.put("info",staffEntity);
+                }else{
+                    map1.put("succeed", "成功");
+                    map1.put("info",staffEntity);
                 }
-            } else {
-                map1.put("menuList", "");
             }
             return map1;
 

@@ -33,7 +33,7 @@ public class DeptServiceImpl implements DeptService {
     public int updateDeptName(Dept dept) {
         final var i = deptMapper.updateById(dept);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

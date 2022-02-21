@@ -107,7 +107,7 @@ public class StaffServiceImpl implements StaffService {
     public int updateStaff(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -123,7 +123,7 @@ public class StaffServiceImpl implements StaffService {
     public int updateStaffTwo(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -139,7 +139,7 @@ public class StaffServiceImpl implements StaffService {
     public int updateStaffState(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -171,7 +171,7 @@ public class StaffServiceImpl implements StaffService {
     public int updateWorkerDate(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

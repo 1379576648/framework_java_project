@@ -35,7 +35,7 @@ public class DeptPostServiceImpl implements DeptPostService {
     public int updateDeptPostName(DeptPost deptPost) {
         final var i = deptPostMapper.updateById(deptPost);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

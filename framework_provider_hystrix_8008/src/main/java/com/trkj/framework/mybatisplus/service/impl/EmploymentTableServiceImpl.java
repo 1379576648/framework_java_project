@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.mybatisplus.mapper.*;
 import com.trkj.framework.mybatisplus.service.EmploymentTableService;
+import com.trkj.framework.util.ZipUtil;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.WorkVo;
@@ -61,6 +62,9 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
 
     @Autowired
     private FixedwageMapper fixedwageMapper;
+
+    @Autowired
+    private ZipUtil zipUtil;
 
 
 
@@ -245,7 +249,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
         c.add(Calendar.MONTH,3);
         //将入职日期后三个月写入转正日期
         staff.setWorkerDate(c.getTime());
-
+        staff.setStaffPass(zipUtil.zip("123456"));
         System.out.println(c.getTime());
 
         //如果工作经历和教育经历为空
@@ -547,7 +551,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     public int updateEmploymentState(EmploymentTable employmentTable) {
         final var i = employmentTableMapper.updateById(employmentTable);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -563,7 +567,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
     public int updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable) {
         final var i = employmentTableMapper.updateById(employmentTable);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

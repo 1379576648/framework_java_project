@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @FeignClient(value = "FRAMEWORK-ZUUL/8006/provider", fallbackFactory = WageClientServiceFallbackfactory.class)
 public interface WageClientService {
@@ -24,7 +25,7 @@ public interface WageClientService {
      * @return
      */
     @PostMapping("/selectFixedwage")
-    Object selectFixedwage(@RequestBody FixedwageVo fixedwageVo);
+    Map<String,Object> selectFixedwage(@RequestBody FixedwageVo fixedwageVo);
 
     /**
      * 修改固定工资
@@ -32,7 +33,7 @@ public interface WageClientService {
      * @return
      */
     @PutMapping("/updateFixedwage")
-    Object updateFixedwage(@RequestBody Fixedwagf fixedwagf);
+    Map<String,Object> updateFixedwage(@RequestBody Fixedwagf fixedwagf);
 
     /**
      * 添加调薪
@@ -40,7 +41,7 @@ public interface WageClientService {
      * @return
      */
     @PostMapping("/insertSalary")
-    Object insertSalary(@RequestBody Salary salary);
+    Map<String,Object> insertSalary(@RequestBody Salary salary);
 
     /**
      * 查询调薪
@@ -48,7 +49,7 @@ public interface WageClientService {
      * @return
      */
     @PostMapping("/selectSalary")
-    Object selectSalary(@RequestBody WageVo wageVo);
+    Map<String,Object> selectSalary(@RequestBody WageVo wageVo);
 
     /**
      * 查询加班方案
@@ -56,7 +57,7 @@ public interface WageClientService {
      * @return
      */
     @PostMapping("/selectWorkScheme")
-    Object selectWorkScheme(@RequestBody WorkSchemeVo workSchemeVo);
+    Map<String,Object> selectWorkScheme(@RequestBody WorkSchemeVo workSchemeVo);
 
     /**
      * 添加加班方案
@@ -64,7 +65,7 @@ public interface WageClientService {
      * @return
      */
     @PostMapping("/insertWorkScheme")
-    Object insertWorkScheme(@RequestBody WorkScheme workScheme);
+    Map<String,Object> insertWorkScheme(@RequestBody WorkScheme workScheme);
 
     /**
      * 修改状态为禁用
@@ -72,7 +73,7 @@ public interface WageClientService {
      * @return
      */
     @PutMapping("/updateWorkSchemeState")
-    Object updateWorkSchemeState(@RequestBody WorkScheme workScheme);
+    Map<String,Object> updateWorkSchemeState(@RequestBody WorkScheme workScheme);
 
     /**
      * 修改状态为启用
@@ -80,7 +81,7 @@ public interface WageClientService {
      * @return
      */
     @PutMapping("/updateWorkSchemeStateTwo")
-    Object updateWorkSchemeStateTwo(@RequestBody WorkScheme workScheme);
+    Map<String,Object> updateWorkSchemeStateTwo(@RequestBody WorkScheme workScheme);
 
     /**
      * 删除加班方案
@@ -88,5 +89,5 @@ public interface WageClientService {
      * @return
      */
     @DeleteMapping("/deleteWorkScheme")
-    Object deleteWorkScheme(@RequestBody ArrayList<Integer> list);
+    Map<String,Object> deleteWorkScheme(@RequestBody ArrayList<Integer> list);
 }

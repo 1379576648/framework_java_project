@@ -4,6 +4,7 @@ import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.service.client.wage.WageClientService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
@@ -12,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 @RestController
 public class WageController {
@@ -19,6 +21,8 @@ public class WageController {
     @Autowired
     private WageClientService wageClientService = null;
 
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
     /**
      * 查询固定工资
      * @param fixedwageVo
@@ -26,7 +30,8 @@ public class WageController {
      */
     @PostMapping("/selectFixedwage")
     public AjaxResponse selectFixedwage(@RequestBody FixedwageVo fixedwageVo){
-        return AjaxResponse.success(wageClientService.selectFixedwage(fixedwageVo));
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectFixedwage(fixedwageVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -36,7 +41,8 @@ public class WageController {
      */
     @PutMapping("/updateFixedwage")
     public AjaxResponse updateFixedwage(@RequestBody Fixedwagf fixedwagf){
-        return AjaxResponse.success(wageClientService.updateFixedwage(fixedwagf));
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateFixedwage(fixedwagf);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -46,7 +52,8 @@ public class WageController {
      */
     @PostMapping("/insertSalary")
     public AjaxResponse insertSalary(@RequestBody Salary salary){
-        return AjaxResponse.success(wageClientService.insertSalary(salary));
+        Map<String, Object> map = (Map<String, Object>) wageClientService.insertSalary(salary);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -56,7 +63,8 @@ public class WageController {
      */
     @PostMapping("/selectSalary")
     public AjaxResponse selectSalary(@RequestBody WageVo wageVo){
-        return AjaxResponse.success(wageClientService.selectSalary(wageVo));
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectSalary(wageVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -66,7 +74,8 @@ public class WageController {
      */
     @PostMapping("/selectWorkScheme")
     public AjaxResponse selectWorkScheme(@RequestBody WorkSchemeVo workSchemeVo){
-        return AjaxResponse.success(wageClientService.selectWorkScheme(workSchemeVo));
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectWorkScheme(workSchemeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -76,7 +85,8 @@ public class WageController {
      */
     @PostMapping("/insertWorkScheme")
     public AjaxResponse insertWorkScheme(@RequestBody WorkScheme workScheme){
-        return AjaxResponse.success(wageClientService.insertWorkScheme(workScheme));
+        Map<String, Object> map = (Map<String, Object>) wageClientService.insertWorkScheme(workScheme);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -86,7 +96,8 @@ public class WageController {
      */
     @PutMapping("/updateWorkSchemeState")
     public AjaxResponse updateWorkSchemeState(@RequestBody WorkScheme workScheme){
-        return AjaxResponse.success(wageClientService.updateWorkSchemeState(workScheme));
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateWorkSchemeState(workScheme);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -96,7 +107,8 @@ public class WageController {
      */
     @PutMapping("/updateWorkSchemeStateTwo")
     public AjaxResponse updateWorkSchemeStateTwo(@RequestBody WorkScheme workScheme){
-        return AjaxResponse.success(wageClientService.updateWorkSchemeStateTwo(workScheme));
+        Map<String, Object> map = (Map<String, Object>)wageClientService.updateWorkSchemeStateTwo(workScheme);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -106,6 +118,7 @@ public class WageController {
      */
     @DeleteMapping("/deleteWorkScheme")
     public AjaxResponse deleteWorkScheme(@RequestBody ArrayList<Integer> list){
-        return AjaxResponse.success(wageClientService.deleteWorkScheme(list));
+        Map<String, Object> map = (Map<String, Object>) wageClientService.deleteWorkScheme(list);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

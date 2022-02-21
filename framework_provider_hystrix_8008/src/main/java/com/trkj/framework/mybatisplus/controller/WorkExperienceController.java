@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.WorkExperience;
 import com.trkj.framework.mybatisplus.service.WorkExperienceService;
+import com.trkj.framework.util.Fuse8008Util;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -16,71 +17,73 @@ public class WorkExperienceController {
     @Autowired
     private WorkExperienceService workExperienceService;
 
+
+    @Autowired
+    private Fuse8008Util fuse8008Util;
+
     /**
      * 添加工作经历
+     *
      * @param workExperience
      * @return
      */
     @PostMapping("/insertWorkExperience")
-    @HystrixCommand(fallbackMethod = "HystixGet")
-    public Object insertWorkExperience(@RequestBody WorkExperience workExperience){
-        return workExperienceService.insertWorkExperience(workExperience);
+    @HystrixCommand(fallbackMethod = "hystixGet")
+    public Map<String, Object> insertWorkExperience(@RequestBody WorkExperience workExperience) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        //返回结果
+        map1.put("info",workExperienceService.insertWorkExperience(workExperience));
+        return map1;
     }
 
     //备选方案
-    public Object HystixGet(@RequestBody WorkExperience workExperience){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public Map<String, Object> hystixGet(@RequestBody WorkExperience workExperience) {
+        return fuse8008Util.main();
     }
 
     /**
      * 修改工作经历
+     *
      * @param workExperienceId
      * @return
      */
     @PutMapping("/updateWork")
-    public Object updateWork(@RequestBody WorkExperience workExperienceId){
-        //开始时间
-        workExperienceId.setWorkStareTime(workExperienceId.getWorkStareTime());
-        //结束时间
-        workExperienceId.setWorkEndTime(workExperienceId.getWorkEndTime());
-        //任职公司
-        workExperienceId.setCompanyName(workExperienceId.getCompanyName());
-        //职位名称
-        workExperienceId.setPositionName(workExperienceId.getPositionName());
-        //离职原因
-        workExperienceId.setPositionDescribe(workExperienceId.getPositionDescribe());
-        final var i = workExperienceService.updateWork(workExperienceId);
-        if (i==999){
-            return 666;
-        }else {
-            return 100;
-        }
-    }
-
-    /**
-     * 删除工作经历
-     * @param list
-     * @return
-     */
-    @DeleteMapping("/deleteWork")
-    @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object deleteWork(@RequestBody ArrayList<Integer> list){
-        Map<String ,Object> map1 = new HashMap<>(2);
+    @HystrixCommand(fallbackMethod = "updateWorkHystix")
+    public Map<String, Object> updateWork(@RequestBody WorkExperience workExperienceId) {
+        Map<String, Object> map1 = new HashMap<>(2);
         //状态码
-        map1.put("state",200);
+        map1.put("state", 200);
         //返回结果
-        map1.put("info",workExperienceService.deleteWork(list));
+        map1.put("info", workExperienceService.updateWork(workExperienceId));
         return map1;
     }
 
     //备选方案
-    public Object HystixGet2(@RequestBody ArrayList<Integer> list){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
+    public Map<String, Object> updateWorkHystix(@RequestBody WorkExperience workExperienceId) {
+        return fuse8008Util.main();
+    }
+
+    /**
+     * 删除工作经历
+     *
+     * @param list
+     * @return
+     */
+    @DeleteMapping("/deleteWork")
+    @HystrixCommand(fallbackMethod = "hystixGet2")
+    public Map<String, Object> deleteWork(@RequestBody ArrayList<Integer> list) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        //返回结果
+        map1.put("info", workExperienceService.deleteWork(list));
         return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> hystixGet2(@RequestBody ArrayList<Integer> list) {
+        return fuse8008Util.main();
     }
 }
