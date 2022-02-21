@@ -1,6 +1,5 @@
 package com.trkj.framework.vo;
 
-
 import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModelProperty;
@@ -13,35 +12,42 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class WorkSchemeVo {
+public class AttendandceVo {
+    @ApiModelProperty(value = "考勤扣款方案编号")
+    @TableId("ATTENDANDCE_ID")
+    private Integer attendandceId;
 
-    @ApiModelProperty(value = "加班方案编号")
-    @TableId("WORKSCHEME_ID")
-    private Integer workschemeId;
+    @ApiModelProperty(value = "考勤扣款方案名称")
+    @TableId("ATTENDANDCE_NAME")
+    private String attendandceName;
 
-    @ApiModelProperty(value = "加班方案名称")
-    @TableId("WORKSCHEME_NAME")
-    private String workSchemeName;
+    @ApiModelProperty(value = "迟到一次金额")
+    @TableId("ATTENDANDCE_LITEMONEY")
+    private Integer attendandceLitemoney;
 
-    @ApiModelProperty(value = "节假日加班比例")
-    @TableId("WORKSCHEME_HOLIDAYRATIO")
-    private Integer workSchemeHolidayratio;
+    @ApiModelProperty(value = "早退一次金额")
+    @TableId("ATTENDANDCE_LEAVEMONEY")
+    private Integer attendandceLeavemoney;
 
-    @ApiModelProperty(value = "休息日加班比例")
-    @TableId("WORKSCHEME_DAYOFFRATIO")
-    private Integer workSchemeDayoffratio;
+    @ApiModelProperty(value = "未签到一次金额")
+    @TableId("ATTENDANDCE_DIDNOTMONEY")
+    private Integer attendandceDidnotmoney;
 
-    @ApiModelProperty(value = "工作日加班比例")
-    @TableId("WORKSCHEME_WORKRATIO")
-    private Integer workSchemeWorkratio;
+    @ApiModelProperty(value = "未签退一次金额")
+    @TableId("ATTENDANDCE_DIDBACKMONEY")
+    private Integer attendandceDidbackmoney;
+
+    @ApiModelProperty(value = "旷工一次金额")
+    @TableId("ATTENDANDCE_ABSCNTMONEY")
+    private Integer attendandceAbscntmoney;
 
     @ApiModelProperty(value = "状态")
-    @TableId("WORKSCHEME_STATE")
-    private Integer workSchemeState;
+    @TableId("ATTENDANDCE_STATE")
+    private Integer attendandceState;
 
     @ApiModelProperty(value = "备注")
-    @TableId("WORKSCHEME_REMARK")
-    private String workschemeRemark;
+    @TableId("ATTENDANDCE_REMARK")
+    private String attendandceRemark;
 
     @ApiModelProperty(value = "适用对象")
     @TableId("DEPT_NAME")
@@ -87,4 +93,5 @@ public class WorkSchemeVo {
     @TableLogic
     @TableField("IS_DELETED")
     private Long isDeleted;
+
 }

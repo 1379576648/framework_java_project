@@ -5,10 +5,7 @@ import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.service.client.util.FuseUtil;
 import com.trkj.framework.service.client.wage.WageClientService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.FixedwageVo;
-import com.trkj.framework.vo.WageVo;
-import com.trkj.framework.vo.WorkSchemeVo;
+import com.trkj.framework.vo.*;
 import feign.hystrix.FallbackFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -136,6 +133,16 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Object updateWorkScheme(WorkScheme workScheme) {
+                return AjaxResponse.success(fuseUtil.main(throwable));
+            }
+
+            /**
+             * 查询考勤扣款方案
+             * @param attendandceVo
+             * @return
+             */
+            @Override
+            public Object selectAttendandce(AttendandceVo attendandceVo) {
                 return AjaxResponse.success(fuseUtil.main(throwable));
             }
         };

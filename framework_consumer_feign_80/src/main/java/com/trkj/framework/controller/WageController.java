@@ -4,10 +4,7 @@ import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.service.client.wage.WageClientService;
-import com.trkj.framework.vo.AjaxResponse;
-import com.trkj.framework.vo.FixedwageVo;
-import com.trkj.framework.vo.WageVo;
-import com.trkj.framework.vo.WorkSchemeVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -127,5 +124,15 @@ public class WageController {
     @PutMapping("/updateWorkScheme")
     public AjaxResponse updateWorkScheme(@RequestBody WorkScheme workScheme){
         return AjaxResponse.success(wageClientService.updateWorkScheme(workScheme));
+    }
+
+    /**
+     * 查询考勤扣款方案
+     * @param attendandceVo
+     * @return
+     */
+    @PostMapping("/selectAttendandce")
+    public AjaxResponse selectAttendandce(@RequestBody AttendandceVo attendandceVo){
+        return AjaxResponse.success(wageClientService.selectAttendandce(attendandceVo));
     }
 }

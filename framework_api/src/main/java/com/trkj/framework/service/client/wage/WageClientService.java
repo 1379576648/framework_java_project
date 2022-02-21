@@ -4,6 +4,7 @@ import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.service.client.fallbackfactory.WageClientServiceFallbackfactory;
+import com.trkj.framework.vo.AttendandceVo;
 import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
 import com.trkj.framework.vo.WorkSchemeVo;
@@ -105,4 +106,12 @@ public interface WageClientService {
      */
     @PutMapping("/updateWorkScheme")
     Object updateWorkScheme(@RequestBody WorkScheme workScheme);
+
+    /**
+     * 查询考勤扣款方案
+     * @param attendandceVo
+     * @return
+     */
+    @PostMapping("/selectAttendandce")
+    Object selectAttendandce(@RequestBody AttendandceVo attendandceVo);
 }
