@@ -109,11 +109,11 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
 
             /**
              * 删除加班方案
-             * @param list
+             * @param id
              * @return
              */
             @Override
-            public Map<String,Object> deleteWorkScheme(ArrayList<Integer> list) {
+            public Map<String,Object> deleteWorkScheme(Integer id) {
                 return fuseUtil.main(throwable);
             }
 

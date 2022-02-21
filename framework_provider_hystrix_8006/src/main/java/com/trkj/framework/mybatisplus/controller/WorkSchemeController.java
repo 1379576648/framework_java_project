@@ -115,22 +115,22 @@ public class WorkSchemeController {
     /**
      * 删除加班方案
      *
-     * @param list
+     * @param id
      * @return
      */
-    @DeleteMapping("/deleteWorkScheme")
+    @DeleteMapping("/deleteWorkScheme/{id}")
     @HystrixCommand(fallbackMethod = "hystixGet3")
-    public Map<String, Object> deleteWorkScheme(@RequestBody ArrayList<Integer> list) {
+    public Map<String, Object> deleteWorkScheme(@PathVariable("id") Integer id) {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state", 200);
         //返回结果
-        map1.put("info", workSchemeService.deleteWorkScheme(list));
+        map1.put("info", workSchemeService.deleteWorkScheme(id));
         return map1;
     }
 
     //备选方案
-    public Map<String, Object> hystixGet3(@RequestBody ArrayList<Integer> list) {
+    public Map<String, Object> hystixGet3(@PathVariable("id") Integer id) {
         return fuse8006Util.main();
     }
 
