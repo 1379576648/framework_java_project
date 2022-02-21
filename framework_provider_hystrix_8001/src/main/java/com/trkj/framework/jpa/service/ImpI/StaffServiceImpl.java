@@ -4,6 +4,7 @@ import com.trkj.framework.entity.jpa.*;
 import com.trkj.framework.jpa.dao.*;
 import com.trkj.framework.jpa.service.StaffService;
 import com.trkj.framework.util.MenuChild;
+import com.trkj.framework.util.UnzipUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,9 @@ public class StaffServiceImpl implements StaffService {
 
     @Autowired
     private RedisTemplate redisTemplate;
+
+    @Autowired
+    private UnzipUtil unzipUtil;
 
     /***
      * 通过id查询用户信息
@@ -94,7 +98,12 @@ public class StaffServiceImpl implements StaffService {
             entity.setError(30 - (date.getTime() - registerLogEntities.get(0).getCreatedTime().getTime()) / (1000 * 60));
             return entity;
         } else {
-            StaffEntity staffEntity = staffDao.findStaffByPhoneAndPass(Long.decode(map.get("phone").toString()), map.get("pass").toString());
+            StaffEntity staffEntity = staffDao.findStaffByPhoneAndPass(Long.decode(map.get("phone").toString()));
+            if (staffEntity != null) {
+                if (!unzipUtil.unzip(staffEntity.getStaffPass()).equals(map.get("pass").toString())) {
+                    staffEntity = null;
+                }
+            }
             RegisterLogEntity registerLog = new RegisterLogEntity();
             //登录类型
             registerLog.setRegisterLogGenre(1);

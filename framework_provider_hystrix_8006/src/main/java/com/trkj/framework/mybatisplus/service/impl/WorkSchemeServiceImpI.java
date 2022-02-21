@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 public class WorkSchemeServiceImpI implements WorkSchemeService {
@@ -34,7 +35,7 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
         if(workSchemeVo.getWorkSchemeName()!=null){
             queryWrapper.like("w.WORKSCHEME_NAME",workSchemeVo.getWorkSchemeName());
         }
-        queryWrapper.eq("d.DEPT_NAME",workSchemeVo.getDeptName());
+        //queryWrapper.eq("d.DEPT_NAME",workSchemeVo.getDeptName());
         queryWrapper.eq("w.IS_DELETED",0);
         return workSchemeMapper.selectWorkScheme(page,queryWrapper);
     }
@@ -60,7 +61,7 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
     public int updateWorkSchemeState(WorkScheme workScheme) {
         final var i = workSchemeMapper.updateById(workScheme);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -76,7 +77,7 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
     public int updateWorkSchemeStateTwo(WorkScheme workScheme) {
         final var i = workSchemeMapper.updateById(workScheme);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -100,5 +101,33 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
             }
         }
         return s;
+    }
+
+    /**
+     * 根据id查询加班方案
+     * @param workScheme
+     * @return
+     */
+    @Override
+    public List<WorkScheme> selectWorkSchemeAll(WorkScheme workScheme) {
+        QueryWrapper<WorkScheme> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("WORKSCHEME_ID",workScheme.getWorkSchemeId());
+        return workSchemeMapper.selectWorkSchemeAll(queryWrapper);
+    }
+
+    /**
+     * 修改加班方案
+     * @param workScheme
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateWorkScheme(WorkScheme workScheme) {
+        final var i = workSchemeMapper.updateById(workScheme);
+        if (i>=1){
+            return 999;
+        }else {
+            return 100;
+        }
     }
 }

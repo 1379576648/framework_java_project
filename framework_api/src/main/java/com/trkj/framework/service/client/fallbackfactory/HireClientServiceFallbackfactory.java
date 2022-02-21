@@ -25,8 +25,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selecthirepage(HireVo hireVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selecthirepage(HireVo hireVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -35,8 +35,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectabandon(HireVo hireVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectabandon(HireVo hireVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -45,8 +45,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectwork(WorkVo workVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectwork(WorkVo workVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -55,8 +55,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectpost(FullVo fullVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectpost(FullVo fullVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -66,8 +66,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              */
 
             @Override
-            public Object insertStaff(HireVo hireVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertStaff(HireVo hireVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -76,8 +76,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateEmploymentState(EmploymentTable employmentTable) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateEmploymentState(EmploymentTable employmentTable) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -86,8 +86,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateEmploymentStateAndWaiveReasonInt(EmploymentTable employmentTable) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -96,8 +96,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectStaff(StaffVo staffVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectStaff(StaffVo staffVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -106,8 +106,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectStaffAll(StaffVo staffVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectStaffAll(StaffVo staffVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -116,8 +116,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectQuit(StaffQuitVo staffQuitVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectQuit(StaffQuitVo staffQuitVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -126,8 +126,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectTransfer(TransferVo transferVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectTransfer(TransferVo transferVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -136,8 +136,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateStaff(Staff staff) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateStaff(Staff staff) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -146,8 +146,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateStaffTwo(Staff staff) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateStaffTwo(Staff staff) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -155,8 +155,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectStaffName() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectStaffName() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -164,8 +164,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectSect() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectSect() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -173,8 +173,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectJob() {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectJob() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -183,8 +183,18 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectTransferByName(TransferTwoVo transferTwoVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectTransferByName(TransferTwoVo transferTwoVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 根据部门查询部门职位
+             * @param transferTwoVo
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectPostName(TransferTwoVo transferTwoVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -193,8 +203,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectWorkAll(WorkVo workVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectWorkAll(WorkVo workVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -203,8 +213,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectGloryAll(WorkVo workVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectGloryAll(WorkVo workVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -213,8 +223,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectPunishAll(WorkVo workVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectPunishAll(WorkVo workVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -223,8 +233,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectEducationAll(WorkVo workVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectEducationAll(WorkVo workVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -233,8 +243,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertWorkExperience(WorkExperience workExperience) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertWorkExperience(WorkExperience workExperience) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -243,8 +253,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectWorkOne(WorkVo workVo) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectWorkOne(WorkVo workVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -253,8 +263,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateWork(WorkExperience workExperience) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateWork(WorkExperience workExperience) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -263,8 +273,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object deleteWork(ArrayList<Integer> list) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deleteWork(ArrayList<Integer> list) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -273,7 +283,7 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectGloryOne(WorkVo workVo) { return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectGloryOne(WorkVo workVo) { return fuseUtil.main(throwable);
             }
 
             /**
@@ -282,8 +292,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertGlory(Glory glory) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertGlory(Glory glory) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -292,8 +302,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateGlory(Glory glory) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateGlory(Glory glory) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -302,8 +312,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object deleteGlory(ArrayList<Integer> list) {
-                return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deleteGlory(ArrayList<Integer> list) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -312,8 +322,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectPunishOne(WorkVo workVo) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectPunishOne(WorkVo workVo) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -322,8 +332,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertPunish(Punish punish) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertPunish(Punish punish) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -332,8 +342,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updatePunish(Punish punish) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updatePunish(Punish punish) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -342,8 +352,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object deletePunish(ArrayList<Integer> list) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deletePunish(ArrayList<Integer> list) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -352,8 +362,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectEducationOne(WorkVo workVo) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectEducationOne(WorkVo workVo) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -362,8 +372,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertEducation(Education education) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertEducation(Education education) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -372,8 +382,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateEducation(Education education) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateEducation(Education education) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -382,8 +392,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object deleteEducation(ArrayList<Integer> list) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> deleteEducation(ArrayList<Integer> list) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -392,8 +402,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectTransferAlls(Transfer transfer) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectTransferAlls(Transfer transfer) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -402,29 +412,20 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertTransfer(Transfer transfer) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertTransfer(Transfer transfer) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
              * 修改调动后的部门
-             * @param dept
+             * @param staff
              * @return
              */
             @Override
-            public Object updateDeptName(Dept dept) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateDeptName(Staff staff) {
+                 return fuseUtil.main(throwable);
             }
 
-            /**
-             * 修改调动后的职位
-             * @param deptPost
-             * @return
-             */
-            @Override
-            public Object updateDeptPostName(DeptPost deptPost) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
-            }
 
             /**
              * 查询奖励和惩罚
@@ -432,8 +433,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectPunishGlory(PunishGloryVo punishGloryVo) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectPunishGlory(PunishGloryVo punishGloryVo) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -442,8 +443,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertWorker(FullVo fullVo) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertWorker(FullVo fullVo) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -452,8 +453,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateStaffState(Staff staff) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateStaffState(Staff staff) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -462,8 +463,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object insertQuit(Quit quit) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> insertQuit(Quit quit) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -472,8 +473,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateStaffStateTwo(Staff staff) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateStaffStateTwo(Staff staff) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -482,8 +483,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object updateWorkerDate(Staff staff) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> updateWorkerDate(Staff staff) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -492,8 +493,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectQuick(FullVo fullVo) {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> selectQuick(FullVo fullVo) {
+                 return fuseUtil.main(throwable);
             }
 
             /**
@@ -501,8 +502,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object countByStaffState() {
-                 return AjaxResponse.success(fuseUtil.main(throwable));
+            public Map<String,Object> countByStaffState() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -511,11 +512,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object selectStateOne(FullVo fullVo) {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("state", 100);
-                map.put("info", "服务发生关闭");
-                return AjaxResponse.success(map);
+            public Map<String,Object> selectStateOne(FullVo fullVo) {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -523,11 +521,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object countStateOne() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("state", 100);
-                map.put("info", "服务发生关闭");
-                return AjaxResponse.success(map);
+            public Map<String,Object> countStateOne() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -535,11 +530,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object countStateTwo() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("state", 100);
-                map.put("info", "服务发生关闭");
-                return AjaxResponse.success(map);
+            public Map<String,Object> countStateTwo() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -547,11 +539,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object countStateThree() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("state", 100);
-                map.put("info", "服务发生关闭");
-                return AjaxResponse.success(map);
+            public Map<String,Object> countStateThree() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -559,11 +548,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object countStateFour() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("state", 100);
-                map.put("info", "服务发生关闭");
-                return AjaxResponse.success(map);
+            public Map<String,Object> countStateFour() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -571,11 +557,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object countStateFive() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("state", 100);
-                map.put("info", "服务发生关闭");
-                return AjaxResponse.success(map);
+            public Map<String,Object> countStateFive() {
+                return fuseUtil.main(throwable);
             }
 
             /**
@@ -583,11 +566,8 @@ public class HireClientServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object countStateSix() {
-                Map<String, Object> map = new HashMap<String, Object>();
-                map.put("state", 100);
-                map.put("info", "服务发生关闭");
-                return AjaxResponse.success(map);
+            public Map<String,Object> countStateSix() {
+                return fuseUtil.main(throwable);
             }
 
         };

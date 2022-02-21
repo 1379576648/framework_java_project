@@ -2,6 +2,7 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.service.client.hire.HireClientService;
+import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.*;
 import org.apache.ibatis.annotations.Param;
 import org.aspectj.weaver.loadtime.Aj;
@@ -9,10 +10,14 @@ import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 public class HireController {
     @Autowired
     private HireClientService hireClientService =null;
+    @Autowired
+    private CarryTokenUtil carryTokenUtil;
 
     /**
      * 查询已录用待入职的员工
@@ -21,7 +26,8 @@ public class HireController {
      */
     @PostMapping("/selectpage")
     public AjaxResponse selecthirepage(@RequestBody HireVo hireVo) {
-        return AjaxResponse.success(hireClientService.selecthirepage(hireVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selecthirepage(hireVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -32,7 +38,8 @@ public class HireController {
 
     @PostMapping("/selectabandon")
     public AjaxResponse selectabandon(@RequestBody HireVo hireVo){
-        return AjaxResponse.success(hireClientService.selectabandon(hireVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectabandon(hireVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
 
     }
 
@@ -43,7 +50,8 @@ public class HireController {
      */
     @PostMapping("/selectwork")
     public AjaxResponse selectwork(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectwork(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectwork(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -53,7 +61,8 @@ public class HireController {
      */
     @PostMapping("/selectWorkAll")
     public AjaxResponse selectWorkAll(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectWorkAll(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectWorkAll(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -63,7 +72,8 @@ public class HireController {
      */
     @PostMapping("/selectGloryAll")
     public AjaxResponse selectGloryAll(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectGloryAll(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectGloryAll(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -73,7 +83,8 @@ public class HireController {
      */
     @PostMapping("/selectPunishAll")
     public AjaxResponse selectPunishAll(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectPunishAll(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectPunishAll(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -83,7 +94,8 @@ public class HireController {
      */
     @PostMapping("/selectEducationAll")
     public AjaxResponse selectEducationAll(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectEducationAll(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectEducationAll(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -94,8 +106,8 @@ public class HireController {
 
     @PostMapping("/selectpost")
     public AjaxResponse selectpost(@RequestBody FullVo fullVo){
-        return AjaxResponse.success(hireClientService.selectpost(fullVo));
-
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectpost(fullVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -105,7 +117,8 @@ public class HireController {
      */
     @PostMapping("/insertStaff")
     public AjaxResponse insertStaff(@RequestBody HireVo hireVo){
-        return AjaxResponse.success(hireClientService.insertStaff(hireVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.insertStaff(hireVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -115,7 +128,8 @@ public class HireController {
      */
     @PutMapping("/updateEmploymentState")
     public AjaxResponse updateEmploymentState(@RequestBody EmploymentTable employmentTable){
-        return AjaxResponse.success(hireClientService.updateEmploymentState(employmentTable));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.updateEmploymentState(employmentTable);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -125,7 +139,8 @@ public class HireController {
      */
     @PutMapping("/updateEmploymentStateAndWaiveReasonInt")
     public AjaxResponse updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentTable){
-        return AjaxResponse.success(hireClientService.updateEmploymentStateAndWaiveReasonInt(employmentTable));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.updateEmploymentStateAndWaiveReasonInt(employmentTable);
+        return AjaxResponse.success(carryTokenUtil.main(map));
 
     }
 
@@ -136,7 +151,8 @@ public class HireController {
      */
     @PostMapping("/selectWorkOne")
     public AjaxResponse selectWorkOne(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectWorkOne(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectWorkOne(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -146,7 +162,8 @@ public class HireController {
      */
     @PostMapping("/selectGloryOne")
     public AjaxResponse selectGloryOne(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectGloryOne(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectGloryOne(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -156,7 +173,8 @@ public class HireController {
      */
     @PostMapping("/selectPunishOne")
     public AjaxResponse selectPunishOne(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectPunishOne(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectPunishOne(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
     /**
@@ -166,7 +184,8 @@ public class HireController {
      */
     @PostMapping("/selectEducationOne")
     public AjaxResponse selectEducationOne(@RequestBody WorkVo workVo){
-        return AjaxResponse.success(hireClientService.selectEducationOne(workVo));
+        Map<String, Object> map = (Map<String, Object>) hireClientService.selectEducationOne(workVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
 

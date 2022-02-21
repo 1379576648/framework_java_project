@@ -103,6 +103,10 @@ public class Notice implements Serializable {
     @TableField(exist = false)
     private Integer pageSize;
 
+    @ApiModelProperty(value = "公告状态")
+    @TableField(exist = false)
+    private Long state;
+
 
     @ApiModelProperty(value = "部门职位编号")
     @TableField(exist = false)

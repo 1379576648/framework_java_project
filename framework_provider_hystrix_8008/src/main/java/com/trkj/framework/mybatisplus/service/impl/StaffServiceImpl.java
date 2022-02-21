@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.mapper.StaffMapper;
 import com.trkj.framework.mybatisplus.service.StaffService;
@@ -107,7 +108,7 @@ public class StaffServiceImpl implements StaffService {
     public int updateStaff(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -123,7 +124,7 @@ public class StaffServiceImpl implements StaffService {
     public int updateStaffTwo(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -139,7 +140,7 @@ public class StaffServiceImpl implements StaffService {
     public int updateStaffState(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -171,7 +172,7 @@ public class StaffServiceImpl implements StaffService {
     public int updateWorkerDate(Staff staff) {
         final var i = staffMapper.updateById(staff);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -275,5 +276,20 @@ public class StaffServiceImpl implements StaffService {
         return staffMapper.countStateSix();
     }
 
+    /**
+     * 修改调动后的部门
+     * @param staff
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int updateDeptName(Staff staff) {
+        final var i = staffMapper.updateById(staff);
+        if (i>=1){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
 
 }

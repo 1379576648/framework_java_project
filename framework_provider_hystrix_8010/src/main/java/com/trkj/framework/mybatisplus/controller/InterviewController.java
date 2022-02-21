@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Employment;
 import com.trkj.framework.mybatisplus.service.InterviewService;
+import com.trkj.framework.util.Fuse8010Util;
 import com.trkj.framework.vo.InterviewVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,14 +18,17 @@ public class InterviewController {
     @Autowired
     private InterviewService interviewService;
 
+    @Autowired
+    private Fuse8010Util fuse8010Util;
+
     /**
      * 面试通过查询
      * @param
      * @return
      */
     @PostMapping("/selectInterviewPass")
-    @HystrixCommand(fallbackMethod = "HystrixInterviewPass")
-    public Object queryInterviewPass(@RequestBody InterviewVo interviewVo){
+    @HystrixCommand(fallbackMethod = "hystrixInterviewPass")
+    public Map<String, Object> queryInterviewPass(@RequestBody InterviewVo interviewVo){
         Map<String, Object> map = new HashMap<>();
         map.put("state",200);
         map.put("succeed",interviewService.selectInterviewPass(interviewVo));
@@ -36,11 +40,8 @@ public class InterviewController {
      * @param
      * @return
      */
-    public Object HystrixInterviewPass(@RequestBody InterviewVo interviewVo){
-        Map<String,Object> map1 = new HashMap<>();
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public Map<String, Object> hystrixInterviewPass(@RequestBody InterviewVo interviewVo){
+       return fuse8010Util.main();
     }
 
     /**
@@ -49,10 +50,15 @@ public class InterviewController {
      * @return
      */
     @PostMapping("/EmployStaff")
-    public Object employStaff(@RequestBody Employment employment){
+    @HystrixCommand(fallbackMethod = "employStaffHystrix")
+    public Map<String, Object>  employStaff(@RequestBody Employment employment){
         Map<String, Object>map = new HashMap<>(2);
         map.put("state",200);
         map.put("succeed",interviewService.EmployStaff(employment));
         return map;
+    }
+
+    public Map<String, Object> employStaffHystrix(@RequestBody Employment employment){
+        return fuse8010Util.main();
     }
 }

@@ -42,12 +42,6 @@ public interface TransferService {
     List<Dept> selectSect();
 
     /**
-     * 查询所有的职位名称
-     * @return
-     */
-    List<DeptPost> selectJob();
-
-    /**
      * 根据名字查询部门名称和职位名称
      * @return
      */
@@ -66,6 +60,13 @@ public interface TransferService {
      * @return
      */
     int insertTransfer(Transfer transfer);
+
+    /**
+     * 根据部门查询部门职位
+     * @param transferTwoVo
+     * @return
+     */
+    List<TransferTwoVo> selectPostName(TransferTwoVo transferTwoVo);
 
 
 

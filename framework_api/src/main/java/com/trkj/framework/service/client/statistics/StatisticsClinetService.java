@@ -19,5 +19,5 @@ public interface StatisticsClinetService {
      * @return
      */
     @GetMapping("/selectStaffSex")
-    Object querySex();
+    Map<String,Object> querySex();
 }

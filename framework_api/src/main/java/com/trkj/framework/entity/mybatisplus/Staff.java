@@ -241,4 +241,8 @@ public class Staff implements Serializable {
     @ApiModelProperty(value = "参保方案")
     @TableField(exist = false)
     private List<InsuredScheme> insuredScheme;
+
+    @ApiModelProperty(value = "打卡记录")
+    @TableField(exist = false)
+    private List<ClockRecord> list;
 }

@@ -4,11 +4,13 @@ import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.CheckingServiceFallbackfactory;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 @FeignClient(value = "FRAMEWORK-ZUUL/8004/provider", fallbackFactory = CheckingServiceFallbackfactory.class)
@@ -241,11 +243,29 @@ public interface CheckingService {
 
     /**
      * 导入打卡记录
-     * @param name
+     *
      * @param file
      * @return
      */
-    @PostMapping(value="/importCardRecord/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
-    Map<String,Object> importCardRecord(@PathVariable("name") String name,MultipartFile file);
+    @PostMapping(value="/importCardRecord",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
+    Map<String,Object> importCardRecord(MultipartFile file);
 
+
+    /**
+     * 根据员工名称查询打卡记录
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectCardRecordAllByName")
+    Map<String,Object> selectCardRecordAllByName(@RequestBody ClockRecord cardRecord);
+
+    /**
+     * 查询所有员工除总裁
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectStaffNameAll")
+    Map<String,Object> selectStaffNameAll(@RequestBody Staff staff);
 }

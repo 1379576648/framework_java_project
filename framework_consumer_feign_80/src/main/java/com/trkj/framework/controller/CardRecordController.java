@@ -7,12 +7,10 @@ import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.Map;
 
 /**
@@ -79,9 +77,22 @@ public class CardRecordController {
      * @param file
      * @return
      */
-    @PostMapping(value = "/importCardRecord/{name}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxResponse importCardRecord(@PathVariable("name") String name, MultipartFile file) {
-        Map<String, Object> map = (Map<String, Object>) checkingService.importCardRecord(name, file);
+    @PostMapping(value = "/importCardRecord", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public AjaxResponse importCardRecord(MultipartFile file) {
+        Map<String, Object> map = (Map<String, Object>) checkingService.importCardRecord(file);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 查询当前用户打卡记录2
+     * @param cardRecord
+     * @return
+     */
+    @PostMapping("/selectCardRecordAllByName")
+    public AjaxResponse selectCardRecordAllByName(@RequestBody ClockRecord cardRecord) {
+        Map<String, Object> map = (Map<String, Object>) checkingService.selectCardRecordAllByName(cardRecord);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+
 }

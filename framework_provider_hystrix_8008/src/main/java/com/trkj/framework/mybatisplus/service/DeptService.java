@@ -12,12 +12,5 @@ import com.trkj.framework.entity.mybatisplus.Dept;
  * @since 2022-01-08
  */
 public interface DeptService {
-    /**
-     * 修改调动后的部门
-     * @param dept
-     * @return
-     */
-    int updateDeptName(Dept dept);
-
 
 }
