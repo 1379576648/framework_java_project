@@ -50,13 +50,19 @@ public class CardRecordlmpl implements CardRecordService {
      * @return
      */
     @Override
-    public Integer deleteClock(ClockRecord clockRecord) {
+    @Transactional(rollbackFor = Exception.class)
+    public Integer deleteClock(ClockRecord clockRecord) throws ArithmeticException{
         final var clockRecordId = clockRecord.getClockRecordId();
         ClockRecord cardRecord = new ClockRecord();
         cardRecord.setIsDeleted(1L);
         cardRecord.setClockRecordId(clockRecordId);
         cardRecord.setUpdatedTime(new Date());
-        return cardRecordMapper.deleteById(cardRecord);
+        final var i = cardRecordMapper.deleteById(cardRecord);
+        if (i == 1){
+            return 1;
+        }else {
+            throw new ArithmeticException("删除失败");
+        }
     }
 
     /**
@@ -79,6 +85,11 @@ public class CardRecordlmpl implements CardRecordService {
         }
     }
 
+    /**
+     * 获取Excel表中的数据去数据库中查有无相同数据
+     * @param objects
+     * @return
+     */
     @Override
     public Integer selcetCardRecord(List<Object> objects) {
         QueryWrapper<ClockRecord> queryWrapper = new QueryWrapper<>();
@@ -87,5 +98,18 @@ public class CardRecordlmpl implements CardRecordService {
         queryWrapper.apply("TO_CHAR(MORN_CLOCK,'yyyy-mm-dd') = {0}",objects.get(2).toString().substring(0,10));
         queryWrapper.apply("TO_CHAR(AFTERNOON_CLOCK,'yyyy-mm-dd') = {0}",objects.get(3).toString().substring(0,10));
         return cardRecordMapper.selectCount(queryWrapper);
+    }
+
+    /**
+     * 根据员工名称查询打卡记录2
+     *
+     * @param
+     * @return
+     */
+    @Override
+    public List<ClockRecord> selectCardRecordAllByName(ClockRecord clockRecord) {
+        QueryWrapper<ClockRecord> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_NAME", clockRecord.getStaffName());
+        return cardRecordMapper.selectList(queryWrapper);
     }
 }

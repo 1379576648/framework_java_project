@@ -48,14 +48,14 @@ public interface TransferMapper extends BaseMapper<Transfer> {
      * 查询所有的部门名称
      * @return
      */
-    @Select("SELECT DEPT_NAME FROM DEPT")
+    @Select("SELECT distinct DEPT_NAME FROM DEPT")
     List<Dept> selectSect();
 
     /**
      * 查询所有的职位名称
      * @return
      */
-    @Select("SELECT POST_NAME FROM DEPT_POST")
+    @Select("SELECT distinct POST_NAME FROM DEPT_POST")
     List<DeptPost> selectJob();
 
     /**

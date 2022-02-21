@@ -414,15 +414,7 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
                 throw new ArithmeticException("归档失败");
             }
 
-            //删除参保方案表
-            if (insuredSchemeMapper.delete(
-                    new QueryWrapper<InsuredScheme>().eq("INSURED_SCHEME_ID", insuredPayment.getInsuredSchemeId())) <= 0) {
-                throw new ArithmeticException("归档失败");
-            }
-            //添加下个月参保方案表的数据
-            if (insuredSchemeMapper.insert(insuredScheme) <= 0) {
-                throw new ArithmeticException("归档失败");
-            }
+
             //删除参保明细表
             if (insuredDetailMapper.deleteById(insuredDetails.get(i).getInsDetailId()) <= 0) {
                 throw new ArithmeticException("归档失败");
@@ -439,6 +431,15 @@ public class InsuredDetailServiceImpl implements InsuredDetailService {
 
             //删除参保缴纳表
             if (insuredPaymentMapper.deleteById(insuredPayment.getInsuredPaymentId()) <= 0) {
+                throw new ArithmeticException("归档失败");
+            }
+            //删除参保方案表
+            if (insuredSchemeMapper.delete(
+                    new QueryWrapper<InsuredScheme>().eq("INSURED_SCHEME_ID", insuredPayment.getInsuredSchemeId())) <= 0) {
+                throw new ArithmeticException("归档失败");
+            }
+            //添加下个月参保方案表的数据
+            if (insuredSchemeMapper.insert(insuredScheme) <= 0) {
                 throw new ArithmeticException("归档失败");
             }
             //添加下一个月的参保缴纳表数据
