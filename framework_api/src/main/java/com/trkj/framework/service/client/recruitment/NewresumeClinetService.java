@@ -88,4 +88,11 @@ public interface NewresumeClinetService {
     @PostMapping("/EmployStaff")
     Object employStaff(@RequestBody Employment employment);
 
+    /**
+     * 已邀约
+     * @param resumeVo
+     * @return
+     */
+    @PostMapping("/addResume")
+    Object queryAddResume(@RequestBody ResumeVo resumeVo);
 }

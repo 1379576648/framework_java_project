@@ -80,4 +80,14 @@ public class ResumeController {
     private Object queryInvite(@RequestBody ResumeVo resumeVo) {
         return AjaxResponse.success(newresumeClinetService.queryInvite(resumeVo));
     }
+
+    /**
+     * 添加新简历
+     * @param resumeVo
+     * @return
+     */
+    @PostMapping("/addResume")
+    private Object queryAddResume(@RequestBody ResumeVo resumeVo) {
+        return AjaxResponse.success(newresumeClinetService.queryAddResume(resumeVo));
+    }
 }

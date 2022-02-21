@@ -138,6 +138,18 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
                 objectMap.put("info", "服务发生关闭");
                 return AjaxResponse.success(objectMap);
             }
+            /**
+             * 添加新简历
+             * @param resumeVo
+             * @return
+             */
+            @Override
+            public Object queryAddResume(ResumeVo resumeVo) {
+                Map<String, Object> objectMap = new HashMap<>();
+                objectMap.put("state", 100);
+                objectMap.put("info", "服务发生关闭");
+                return AjaxResponse.success(objectMap);
+            }
 
         };
     }

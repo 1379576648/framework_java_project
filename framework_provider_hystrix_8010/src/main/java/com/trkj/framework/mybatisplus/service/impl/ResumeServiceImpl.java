@@ -98,4 +98,13 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         queryWrapper.eq("RESUME_ZT",4);
         return resumeMapper.selectInvite(page,queryWrapper);
     }
+
+    @Override
+    public String addResume(ResumeVo resume) {
+        int insert = resumeMapper.insert(resume);
+        if (insert <= 0){
+            return "添加失败";
+        }
+        return "成功";
+    }
 }

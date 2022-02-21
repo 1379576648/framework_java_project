@@ -161,7 +161,7 @@ public class ResumeController {
      * @return
      */
     @PostMapping("/selectInvite")
-    //@HystrixCommand(fallbackMethod = "HystrixInvite")
+    @HystrixCommand(fallbackMethod = "HystrixInvite")
     public Object queryInvite(@RequestBody ResumeVo resumeVo){
         Map<String, Object> map = new HashMap<>();
         map.put("state",200);
@@ -174,6 +174,31 @@ public class ResumeController {
      * @return
      */
     public Object HystrixInvite(@RequestBody ResumeVo resumeVo){
+        Map<String,Object> map1 = new HashMap<>();
+        map1.put("state",300);
+        map1.put("info","服务发生雪崩");
+        return map1;
+    }
+
+    /**
+     * 新增简历
+     * @param
+     * @return
+     */
+    @PostMapping("/addResume")
+    @HystrixCommand(fallbackMethod = "HystrixAddResume")
+    public Object addResume(@RequestBody ResumeVo resumeVo){
+        Map<String, Object> map = new HashMap<>();
+        map.put("state",200);
+        map.put("succeed",resumeService.addResume(resumeVo));
+        return map;
+    }
+    /**
+     * 备选方案
+     * @param
+     * @return
+     */
+    public Object HystrixAddResume(@RequestBody ResumeVo resumeVo){
         Map<String,Object> map1 = new HashMap<>();
         map1.put("state",300);
         map1.put("info","服务发生雪崩");
