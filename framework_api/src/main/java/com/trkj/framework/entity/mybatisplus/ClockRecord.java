@@ -88,6 +88,8 @@ public class ClockRecord implements Serializable {
     @TableField(exist = false)
     private Integer pagesize;
 
-
+    @ApiModelProperty(value = "状态数量")
+    @TableField(exist = false)
+    private Integer stateNumber;
 
 }

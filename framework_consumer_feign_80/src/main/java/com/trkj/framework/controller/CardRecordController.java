@@ -77,9 +77,9 @@ public class CardRecordController {
      * @param file
      * @return
      */
-    @PostMapping(value = "/importCardRecord/{name}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public AjaxResponse importCardRecord(@PathVariable("name") String name, MultipartFile file) {
-        Map<String, Object> map = (Map<String, Object>) checkingService.importCardRecord(name, file);
+    @PostMapping(value = "/importCardRecord", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public AjaxResponse importCardRecord(MultipartFile file) {
+        Map<String, Object> map = (Map<String, Object>) checkingService.importCardRecord(file);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
@@ -93,4 +93,6 @@ public class CardRecordController {
         Map<String, Object> map = (Map<String, Object>) checkingService.selectCardRecordAllByName(cardRecord);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+
 }

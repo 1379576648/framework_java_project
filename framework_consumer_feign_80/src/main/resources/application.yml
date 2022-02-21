@@ -39,7 +39,7 @@ jwt:
   # HeaderKEY
   header: JWTDemo
   # 过期时间(这里设定为豪秒)
-  expire: 5000
+  expire: 900000
 
 #Redis配置
 #spring:

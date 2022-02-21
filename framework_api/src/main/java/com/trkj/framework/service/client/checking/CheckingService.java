@@ -243,12 +243,12 @@ public interface CheckingService {
 
     /**
      * 导入打卡记录
-     * @param name
+     *
      * @param file
      * @return
      */
-    @PostMapping(value="/importCardRecord/{name}",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
-    Map<String,Object> importCardRecord(@PathVariable("name") String name,MultipartFile file);
+    @PostMapping(value="/importCardRecord",consumes = MediaType.MULTIPART_FORM_DATA_VALUE )
+    Map<String,Object> importCardRecord(MultipartFile file);
 
 
     /**
@@ -259,4 +259,13 @@ public interface CheckingService {
      */
     @PostMapping("/selectCardRecordAllByName")
     Map<String,Object> selectCardRecordAllByName(@RequestBody ClockRecord cardRecord);
+
+    /**
+     * 查询所有员工除总裁
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/selectStaffNameAll")
+    Map<String,Object> selectStaffNameAll(@RequestBody Staff staff);
 }
