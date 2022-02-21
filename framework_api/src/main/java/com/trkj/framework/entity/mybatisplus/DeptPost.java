@@ -71,4 +71,12 @@ public class DeptPost implements Serializable {
     @TableField(exist = false)
     private String deptName;
 
+    @ApiModelProperty(value = "部门负责人;提供ID到员工表锁定具体的人")
+    @TableField("STAFF_ID")
+    private Integer staffId;
+
+    @ApiModelProperty(value = "员工姓名;")
+    @TableField(exist = false)
+    private String staffName;
+
 }
