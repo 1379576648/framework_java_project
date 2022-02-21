@@ -20,6 +20,11 @@ public class LeaveRecordlmpl implements LeaveRecordService {
     @Autowired
     private LeaveRecordMapper leaveRecordMapper;
 
+    /**
+     * 根据员工名称查询请假记录
+     * @param leave
+     * @return
+     */
     @Override
     public IPage<Leave> selectLeaveRecordAll(Leave leave) {
         Page<Leave> page = new Page<>(leave.getCurrentPage(), leave.getPagesize());
@@ -49,6 +54,11 @@ public class LeaveRecordlmpl implements LeaveRecordService {
         return leaveRecordMapper.deleteById(leave1);
     }
 
+    /**
+     * 开始请假
+     * @param leave
+     * @return
+     */
     @Override
     public String updateBeginLeave(Leave leave) {
         Leave leave1 = new Leave();
@@ -63,6 +73,11 @@ public class LeaveRecordlmpl implements LeaveRecordService {
         }
     }
 
+    /**
+     * 结束请假
+     * @param leave
+     * @return
+     */
     @Override
     public String updateEndLeave(Leave leave) {
         Leave leave1 = new Leave();

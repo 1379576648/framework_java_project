@@ -4,6 +4,7 @@ import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
 import com.trkj.framework.service.client.fallbackfactory.WageClientServiceFallbackfactory;
+import com.trkj.framework.vo.AttendandceVo;
 import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
 import com.trkj.framework.vo.WorkSchemeVo;
@@ -90,4 +91,29 @@ public interface WageClientService {
      */
     @DeleteMapping("/deleteWorkScheme")
     Map<String,Object> deleteWorkScheme(@RequestBody ArrayList<Integer> list);
+    Map<String,Object> deleteWorkScheme(@RequestBody ArrayList<Integer> list);
+
+    /**
+     * 根据id查询加班方案
+     * @param workScheme
+     * @return
+     */
+    @PostMapping("/selectWorkSchemeAll")
+    Map<String,Object> selectWorkSchemeAll(@RequestBody WorkScheme workScheme);
+
+    /**
+     * 修改加班方案
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkScheme")
+    Map<String,Object> updateWorkScheme(@RequestBody WorkScheme workScheme);
+
+    /**
+     * 查询考勤扣款方案
+     * @param attendandceVo
+     * @return
+     */
+    @PostMapping("/selectAttendandce")
+    Map<String,Object> selectAttendandce(@RequestBody AttendandceVo attendandceVo);
 }

@@ -10,6 +10,7 @@ import com.trkj.framework.mybatisplus.service.ClassesService;
 import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
@@ -20,6 +21,12 @@ public class Classeslmpl implements ClassesService {
     @Autowired
     private ClassesMapper classesMapper;
 
+    /**
+     * 查询所有班次方案
+     *
+     * @param classes
+     * @return
+     */
     @Override
     public IPage<Classes> selectClassesAll(Classes classes) {
         Page<Classes> page = new Page<>(classes.getCurrentPage(), classes.getPagesize());
@@ -35,15 +42,33 @@ public class Classeslmpl implements ClassesService {
         return classesMapper.selectPage(page, queryWrapper);
     }
 
+    /**
+     * 添加班次方案
+     *
+     * @param classes
+     * @return
+     */
     @Override
-    public Integer submitFormClasses(Classes classes) {
+    @Transactional(rollbackFor = Exception.class)
+    public Integer submitFormClasses(Classes classes) throws ArithmeticException {
         Classes classes1 = new Classes();
         classes1.setClassesName(classes.getClassesName());
         classes1.setClassesBeginDate(classes.getClassesBeginDate());
         classes1.setClassesEndDate(classes.getClassesEndDate());
-        return classesMapper.insert(classes1);
+        final var insert = classesMapper.insert(classes1);
+        if (insert == 1) {
+            return 1;
+        } else {
+            throw new ArithmeticException("添加失败");
+        }
     }
 
+    /**
+     * 查询班次方案
+     *
+     * @param classes
+     * @return
+     */
     @Override
     public List<Classes> inquireClasses(Classes classes) {
         QueryWrapper<Classes> queryWrapper = new QueryWrapper<>();
@@ -56,52 +81,112 @@ public class Classeslmpl implements ClassesService {
         return classesMapper.selectList(queryWrapper);
     }
 
+    /**
+     * 删除班次方案
+     *
+     * @param classes
+     * @return
+     */
     @Override
-    public Integer deleteClasses(Classes classes) {
+    @Transactional(rollbackFor = Exception.class)
+    public Integer deleteClasses(Classes classes) throws ArithmeticException {
         final var classesId = classes.getClassesId();
         Classes classes1 = new Classes();
         classes1.setIsDeleted(1L);
         classes1.setClassesId(classesId);
         classes1.setUpdatedTime(new Date());
-        return classesMapper.deleteById(classes1);
+        final var i = classesMapper.deleteById(classes1);
+        if (i == 1) {
+            return i;
+        }
+        throw new ArithmeticException("删除失败");
     }
 
+    /**
+     * 查询所有班次方案
+     *
+     * @param classes
+     * @return
+     */
     @Override
     public List<Classes> selectClasses(Classes classes) {
         QueryWrapper<Classes> queryWrapper = new QueryWrapper<>();
         return classesMapper.selectList(queryWrapper);
     }
 
+    /**
+     * 修改班次方案状态(启用)
+     *
+     * @param classes
+     * @return
+     */
     @Override
-    public Integer updateClassesState(Classes classes) {
-        Classes classes1=new Classes();
+    @Transactional(rollbackFor = Exception.class)
+    public Integer updateClassesState(Classes classes) throws ArithmeticException {
+        Classes classes1 = new Classes();
         classes1.setClassesId(classes.getClassesId());
         classes1.setClassesState(0);
-        return classesMapper.updateById(classes1);
+        final var i = classesMapper.updateById(classes1);
+        if (i == 1) {
+            return i;
+        } else {
+            throw new ArithmeticException("启用失败");
+        }
+
     }
 
+    /**
+     * 修改班次方案状态(禁用)
+     *
+     * @param classes
+     * @return
+     */
     @Override
-    public Integer updateClassesStateTwo(Classes classes) {
-        Classes classes1=new Classes();
+    @Transactional(rollbackFor = Exception.class)
+    public Integer updateClassesStateTwo(Classes classes) throws ArithmeticException {
+        Classes classes1 = new Classes();
         classes1.setClassesId(classes.getClassesId());
         classes1.setClassesState(1);
-        return classesMapper.updateById(classes1);
+        final var i = classesMapper.updateById(classes1);
+        if (i == 1) {
+            return i;
+        } else {
+            throw new ArithmeticException("禁用失败");
+        }
     }
 
+    /**
+     * 根据班次编号去查询
+     *
+     * @param classes
+     * @return
+     */
     @Override
     public Classes selectClassesByID(Classes classes) {
-        Classes classes1=new Classes();
+        Classes classes1 = new Classes();
         classes1.setClassesId(classes.getClassesId());
         return classesMapper.selectById(classes1);
     }
 
+    /**
+     * 修改班次方案
+     *
+     * @param classes
+     * @return
+     */
     @Override
-    public Integer updateClasses(Classes classes) {
-        Classes classes1=new Classes();
+    @Transactional(rollbackFor = Exception.class)
+    public Integer updateClasses(Classes classes) throws ArithmeticException {
+        Classes classes1 = new Classes();
         classes1.setClassesId(classes.getClassesId());
         classes1.setClassesName(classes.getClassesName());
         classes1.setClassesBeginDate(classes.getClassesBeginDate());
         classes1.setClassesEndDate(classes.getClassesEndDate());
-        return classesMapper.updateById(classes1);
+        final var i = classesMapper.updateById(classes1);
+        if (i >= 1) {
+            return i;
+        } else {
+            throw new ArithmeticException("修改失败");
+        }
     }
 }

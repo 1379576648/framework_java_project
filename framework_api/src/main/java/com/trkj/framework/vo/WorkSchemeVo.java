@@ -17,7 +17,7 @@ public class WorkSchemeVo {
 
     @ApiModelProperty(value = "加班方案编号")
     @TableId("WORKSCHEME_ID")
-    private Integer workSchemeId;
+    private Integer workschemeId;
 
     @ApiModelProperty(value = "加班方案名称")
     @TableId("WORKSCHEME_NAME")
@@ -41,7 +41,7 @@ public class WorkSchemeVo {
 
     @ApiModelProperty(value = "备注")
     @TableId("WORKSCHEME_REMARK")
-    private Integer workSchemeRemark;
+    private String workschemeRemark;
 
     @ApiModelProperty(value = "适用对象")
     @TableId("DEPT_NAME")

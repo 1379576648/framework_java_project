@@ -9,6 +9,7 @@ import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
 import com.trkj.framework.vo.WorkSchemeVo;
+import com.trkj.framework.vo.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -119,6 +120,39 @@ public class WageController {
     @DeleteMapping("/deleteWorkScheme")
     public AjaxResponse deleteWorkScheme(@RequestBody ArrayList<Integer> list){
         Map<String, Object> map = (Map<String, Object>) wageClientService.deleteWorkScheme(list);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 根据id查询加班方案
+     * @param workScheme
+     * @return
+     */
+    @PostMapping("/selectWorkSchemeAll")
+    public AjaxResponse selectWorkSchemeAll(@RequestBody WorkScheme workScheme){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectWorkSchemeAll(workScheme);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 修改加班方案
+     * @param workScheme
+     * @return
+     */
+    @PutMapping("/updateWorkScheme")
+    public AjaxResponse updateWorkScheme(@RequestBody WorkScheme workScheme){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateWorkScheme(workScheme);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询考勤扣款方案
+     * @param attendandceVo
+     * @return
+     */
+    @PostMapping("/selectAttendandce")
+    public AjaxResponse selectAttendandce(@RequestBody AttendandceVo attendandceVo){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectAttendandce(attendandceVo);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }
