@@ -72,7 +72,7 @@ public class DeptPost implements Serializable {
     private String deptName;
 
     @ApiModelProperty(value = "部门负责人;提供ID到员工表锁定具体的人")
-    @TableField("STAFF_ID")
+    @TableField(exist = false)
     private Integer staffId;
 
     @ApiModelProperty(value = "员工姓名;")
@@ -80,7 +80,7 @@ public class DeptPost implements Serializable {
     private String staffName;
 
     @ApiModelProperty(value = "状态;0：启用  1：禁用")
-    @TableField("DEPT_STATE")
+    @TableField(exist = false)
     private Long deptState;
 
 }
