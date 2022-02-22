@@ -61,7 +61,7 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
     public int updateWorkSchemeState(WorkScheme workScheme) {
         final var i = workSchemeMapper.updateById(workScheme);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -77,7 +77,7 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
     public int updateWorkSchemeStateTwo(WorkScheme workScheme) {
         final var i = workSchemeMapper.updateById(workScheme);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }
@@ -85,20 +85,14 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
 
     /**
      * 删除加班方案
-     * @param list
+     * @param id
      * @return
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public String deleteWorkScheme(ArrayList<Integer> list) {
+    public String deleteWorkScheme(Integer id) {
         String s = "成功";
-        for(int i =0;i<list.size();i++){
-            //通过奖励编号删除奖励
-            if(workSchemeMapper.delete(new QueryWrapper<WorkScheme>().eq("WORKSCHEME_ID",list.get(i)))<=0){
-                return "删除加班方案失败";
-            }else if(workSchemeMapper.delete(new QueryWrapper<WorkScheme>().eq("WORKSCHEME_ID",list.get(i)))>=1){
-                return "删除加班方案成功";
-            }
+        if (workSchemeMapper.deleteById(id)<=0){
+            return "删除加班方案失败";
         }
         return s;
     }

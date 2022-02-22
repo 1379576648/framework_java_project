@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.EmploymentTable;
 import com.trkj.framework.mybatisplus.service.EmploymentTableService;
+import com.trkj.framework.util.Fuse8008Util;
 import com.trkj.framework.vo.FullVo;
 import com.trkj.framework.vo.HireVo;
 import com.trkj.framework.vo.StaffVo;
@@ -28,29 +29,25 @@ public class EmploymentTableController {
     @Autowired
     private EmploymentTableService employmentTableService;
 
+    @Autowired
+    private Fuse8008Util fuse8008Util;
     /**
      * 查询已录用待入职的员工
      * @param hireVo
      * @return
      */
     @PostMapping("/selectpage")
-    @HystrixCommand(fallbackMethod = "HystixGet")
-    public Object selecthirepage(@RequestBody HireVo hireVo) {
-        System.out.println("11111111111111111111111");
-        System.out.println(hireVo);
-        System.out.println("11111111111111111111111");
+    @HystrixCommand(fallbackMethod = "hystixGet")
+    public Map<String ,Object> selecthirepage(@RequestBody HireVo hireVo) {
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
         map1.put("info",employmentTableService.selectpage(hireVo));
         return map1;
     }
-    // 备选方案
-    public Object HystixGet(@RequestBody HireVo hireVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet(@RequestBody HireVo hireVo) {
+        return fuse8008Util.main();
     }
 
 
@@ -60,23 +57,17 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/selectabandon")
-    @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object selectabandon(@RequestBody HireVo hireVo) {
-        System.out.println("11111111111111111111111");
-        System.out.println(hireVo);
-        System.out.println("11111111111111111111111");
+    @HystrixCommand(fallbackMethod = "hystixGet2")
+    public Map<String ,Object> selectabandon(@RequestBody HireVo hireVo) {
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
         map1.put("info",employmentTableService.selectabandon(hireVo));
         return map1;
     }
-    // 备选方案
-    public Object HystixGet2(@RequestBody HireVo hireVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet2(@RequestBody HireVo hireVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -85,23 +76,17 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/selectwork")
-    @HystrixCommand(fallbackMethod = "HystixGet3")
-    public Object selectwork(@RequestBody WorkVo workVo) {
-        System.out.println("11111111111111111111111");
-        System.out.println(workVo);
-        System.out.println("11111111111111111111111");
+    @HystrixCommand(fallbackMethod = "hystixGet3")
+    public Map<String ,Object> selectwork(@RequestBody WorkVo workVo) {
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
         map1.put("info",employmentTableService.selectwork(workVo));
         return map1;
     }
-    // 备选方案
-    public Object HystixGet3(@RequestBody WorkVo workVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet3(@RequestBody WorkVo workVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -110,21 +95,17 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/selectWorkAll")
-    @HystrixCommand(fallbackMethod = "HystixGet4")
-    public Object selectWorkAll(@RequestBody WorkVo workVo){
+    @HystrixCommand(fallbackMethod = "hystixGet4")
+    public Map<String ,Object> selectWorkAll(@RequestBody WorkVo workVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", employmentTableService.selectWorkAll(workVo));
-        System.out.println(workVo);
         return map1;
     }
 
-    // 备选方案
-    public Object HystixGet4(@RequestBody WorkVo workVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet4(@RequestBody WorkVo workVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -133,23 +114,17 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/selectpost")
-    @HystrixCommand(fallbackMethod = "HystixGet5")
-    public Object selectpost(@RequestBody FullVo fullVo) {
-        System.out.println("11111111111111111111111");
-        System.out.println(fullVo);
-        System.out.println("11111111111111111111111");
+    @HystrixCommand(fallbackMethod = "hystixGet5")
+    public Map<String ,Object> selectpost(@RequestBody FullVo fullVo) {
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
         map1.put("info",employmentTableService.selectpost(fullVo));
         return map1;
     }
-    // 备选方案
-    public Object HystixGet5(@RequestBody FullVo fullVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet5(@RequestBody FullVo fullVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -158,8 +133,8 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/insertStaff")
-    @HystrixCommand(fallbackMethod = "HystixGet6")
-    public Object insertStaff(@RequestBody HireVo hireVo){
+    @HystrixCommand(fallbackMethod = "hystixGet6")
+    public Map<String ,Object> insertStaff(@RequestBody HireVo hireVo){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
         map1.put("state",200);
@@ -168,11 +143,8 @@ public class EmploymentTableController {
         return map1;
     }
     //备选方案
-    public Object HystixGet6(@RequestBody HireVo hireVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public Map<String,Object> hystixGet6(@RequestBody HireVo hireVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -181,14 +153,18 @@ public class EmploymentTableController {
      * @return
      */
     @PutMapping("updateEmploymentState")
-    public int updateEmploymentState(@RequestBody EmploymentTable employmentId){
+    @HystrixCommand(fallbackMethod = "updateEmploymentStateHystrix")
+    public Map<String,Object> updateEmploymentState(@RequestBody EmploymentTable employmentId){
         employmentId.setEmploymentState(1L);
-        final var i = employmentTableService.updateEmploymentState(employmentId);
-        if (i==999){
-            return 666;
-        }else {
-            return 100;
-        }
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", employmentTableService.updateEmploymentState(employmentId));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String,Object> updateEmploymentStateHystrix(@RequestBody EmploymentTable employmentId) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -197,15 +173,18 @@ public class EmploymentTableController {
      * @return
      */
     @PutMapping("/updateEmploymentStateAndWaiveReasonInt")
-    public int updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentId){
+    @HystrixCommand(fallbackMethod = "updateEmploymentStateAndWaiveReasonIntHystrix")
+    public Map<String,Object> updateEmploymentStateAndWaiveReasonInt(@RequestBody EmploymentTable employmentId){
         employmentId.setEmploymentState(2L);
-        employmentId.setWaiveReason(employmentId.getWaiveReason());
-        final var i = employmentTableService.updateEmploymentStateAndWaiveReasonInt(employmentId);
-        if (i==999){
-            return 666;
-        }else {
-            return 100;
-        }
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", employmentTableService.updateEmploymentStateAndWaiveReasonInt(employmentId));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String,Object> updateEmploymentStateAndWaiveReasonIntHystrix(@RequestBody EmploymentTable employmentId) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -214,8 +193,8 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/selectGloryAll")
-    @HystrixCommand(fallbackMethod = "HystixGet7")
-    public Object selectGloryAll(@RequestBody WorkVo workVo){
+    @HystrixCommand(fallbackMethod = "hystixGet7")
+    public Map<String ,Object> selectGloryAll(@RequestBody WorkVo workVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", employmentTableService.selectGloryAll(workVo));
@@ -223,12 +202,9 @@ public class EmploymentTableController {
         return map1;
     }
 
-    // 备选方案
-    public Object HystixGet7(@RequestBody WorkVo workVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet7(@RequestBody WorkVo workVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -237,8 +213,8 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/selectPunishAll")
-    @HystrixCommand(fallbackMethod = "HystixGet8")
-    public Object selectPunishAll(@RequestBody WorkVo workVo){
+    @HystrixCommand(fallbackMethod = "hystixGet8")
+    public Map<String ,Object> selectPunishAll(@RequestBody WorkVo workVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", employmentTableService.selectPunishAll(workVo));
@@ -246,12 +222,9 @@ public class EmploymentTableController {
         return map1;
     }
 
-    // 备选方案
-    public Object HystixGet8(@RequestBody WorkVo workVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet8(@RequestBody WorkVo workVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -260,8 +233,8 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/selectEducationAll")
-    @HystrixCommand(fallbackMethod = "HystixGet9")
-    public Object selectEducationAll(@RequestBody WorkVo workVo){
+    @HystrixCommand(fallbackMethod = "hystixGet9")
+    public Map<String ,Object> selectEducationAll(@RequestBody WorkVo workVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", employmentTableService.selectEducationAll(workVo));
@@ -269,12 +242,9 @@ public class EmploymentTableController {
         return map1;
     }
 
-    // 备选方案
-    public Object HystixGet9(@RequestBody WorkVo workVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet9(@RequestBody WorkVo workVo) {
+        return fuse8008Util.main();
     }
 
     /**
@@ -283,21 +253,17 @@ public class EmploymentTableController {
      * @return
      */
     @PostMapping("/selectWorkOne")
-    @HystrixCommand(fallbackMethod = "HystixGet10")
-    public Object selectWorkOne(@RequestBody WorkVo workVo){
+    @HystrixCommand(fallbackMethod = "hystixGet10")
+    public Map<String ,Object> selectWorkOne(@RequestBody WorkVo workVo){
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
         map1.put("info", employmentTableService.selectWorkOne(workVo));
-        System.out.println(workVo);
         return map1;
     }
 
-    // 备选方案
-    public Object HystixGet10(@RequestBody WorkVo workVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    //备选方案
+    public Map<String,Object> hystixGet10(@RequestBody WorkVo workVo) {
+        return fuse8008Util.main();
     }
 }
 

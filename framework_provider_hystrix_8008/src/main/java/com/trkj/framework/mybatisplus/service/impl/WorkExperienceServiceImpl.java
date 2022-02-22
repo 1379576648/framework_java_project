@@ -38,7 +38,7 @@ public class WorkExperienceServiceImpl implements WorkExperienceService {
     public int updateWork(WorkExperience workExperience) {
         final var i = workExperienceMapper.updateById(workExperience);
         if (i>=1){
-            return 999;
+            return 666;
         }else {
             return 100;
         }

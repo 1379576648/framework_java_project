@@ -1,18 +1,15 @@
 package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Notice;
-import com.trkj.framework.entity.mybatisplus.RegisterLog;
 import com.trkj.framework.service.client.system.SystemClinetService;
+import com.trkj.framework.service.client.workbench.WorkbenchClinetService;
 import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.models.auth.In;
-import org.aspectj.weaver.loadtime.Aj;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -24,7 +21,36 @@ public class NoticeController {
     @Autowired
     private SystemClinetService systemClinetService = null;
     @Autowired
+    private WorkbenchClinetService workbenchClinetService=null;
+    @Autowired
     private CarryTokenUtil carryTokenUtil;
+
+
+
+    /***
+     * 通过员工编号查询公告信息
+     * @param integer
+     * @return
+     */
+    @GetMapping("/selectNoticeStaffId/{id}")
+    @ApiOperation(value = "通过员工编号查询公告信息", notes = "工作台", httpMethod = "GET", nickname = "查询", produces = "/selectNoticeStaffId/{id}")
+    public AjaxResponse selectNoticeStaffId(@PathVariable("id") Integer integer) {
+        Map<String, Object> map = (Map<String, Object>) workbenchClinetService.selectNoticeStaffId(integer);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /***
+     * 通过公告编号修改公告员工状态
+     * @param integer1
+     * @param integer2
+     * @return
+     */
+    @PutMapping("/updateNoticeOrId/{id1}/{id2}")
+    @ApiOperation(value = "通过公告编号修改公告员工状态", notes = "工作台", httpMethod = "PUT", nickname = "修改", produces = "/updateNoticeOrId/{id1}/{id2}")
+    public AjaxResponse updateNoticeOrId(@PathVariable("id1") Integer integer1 ,@PathVariable("id2") Integer integer2) {
+        Map<String, Object> map = (Map<String, Object>) workbenchClinetService.updateNoticeOrId(integer1,integer2);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 
     /***
      * 分页查询所有公告数据

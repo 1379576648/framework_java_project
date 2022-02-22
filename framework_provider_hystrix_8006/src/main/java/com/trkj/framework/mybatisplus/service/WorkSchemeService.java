@@ -39,10 +39,10 @@ public interface WorkSchemeService {
 
     /**
      * 删除加班方案
-     * @param list
+     * @param id
      * @return
      */
-    String deleteWorkScheme(ArrayList<Integer> list);
+    String deleteWorkScheme(Integer id);
 
     /**
      * 根据id查询加班方案

@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Glory;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.mybatisplus.service.SalaryService;
+import com.trkj.framework.util.Fuse8006Util;
 import com.trkj.framework.vo.WageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,6 +25,8 @@ public class SalaryController {
 
     @Autowired
     private SalaryService salaryService;
+    @Autowired
+    private Fuse8006Util fuse8006Util;
 
     /**
      * 添加调薪
@@ -31,17 +34,18 @@ public class SalaryController {
      * @return
      */
     @PostMapping("/insertSalary")
-    @HystrixCommand(fallbackMethod = "HystixGet")
-    public Object insertSalary(@RequestBody Salary salary){
-        return salaryService.insertSalary(salary);
+    @HystrixCommand(fallbackMethod = "hystixGet")
+    public  Map<String, Object> insertSalary(@RequestBody Salary salary){
+        Map<String, Object> map1 = new HashMap(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",salaryService.insertSalary(salary));
+        return map1;
     }
 
     //备选方案
-    public Object HystixGet(@RequestBody Salary salary){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public  Map<String, Object> hystixGet(@RequestBody Salary salary){
+        return fuse8006Util.main();
     }
 
     /**
@@ -50,8 +54,8 @@ public class SalaryController {
      * @return
      */
     @PostMapping("/selectSalary")
-    @HystrixCommand(fallbackMethod = "HystixGet2")
-    public Object selectSalary(@RequestBody WageVo wageVo){
+    @HystrixCommand(fallbackMethod = "hystixGet2")
+    public  Map<String, Object> selectSalary(@RequestBody WageVo wageVo){
         Map<String, Object> map1 = new HashMap(2);
         //状态码
         map1.put("state",200);
@@ -60,11 +64,8 @@ public class SalaryController {
     }
 
     //备选方案
-    public Object HystixGet2(@RequestBody WageVo wageVo){
-        Map<String,Object> map1 = new HashMap<>(2);
-        map1.put("state",300);
-        map1.put("info","服务发生雪崩");
-        return map1;
+    public  Map<String, Object> hystixGet2(@RequestBody WageVo wageVo){
+        return fuse8006Util.main();
     }
 
 }
