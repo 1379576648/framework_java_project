@@ -97,6 +97,7 @@ public class ResumeController {
      */
     @PostMapping("/addResume")
     private Object queryAddResume(@RequestBody ResumeVo resumeVo) {
-        return AjaxResponse.success(newresumeClinetService.queryAddResume(resumeVo));
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryAddResume(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

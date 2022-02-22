@@ -7,9 +7,12 @@ import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.mybatisplus.mapper.ResumeMapper;
 import com.trkj.framework.mybatisplus.service.ResumeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trkj.framework.vo.RecruitmentVo;
 import com.trkj.framework.vo.ResumeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 /**
  * <p>
@@ -98,7 +101,11 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         queryWrapper.eq("RESUME_ZT",4);
         return resumeMapper.selectInvite(page,queryWrapper);
     }
-
+    /**
+     * 新增简历
+     * @param
+     * @return
+     */
     @Override
     public String addResume(ResumeVo resume) {
         int insert = resumeMapper.insert(resume);

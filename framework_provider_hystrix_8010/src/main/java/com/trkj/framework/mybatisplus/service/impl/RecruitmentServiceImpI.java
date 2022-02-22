@@ -10,6 +10,8 @@ import com.trkj.framework.vo.RecruitmentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 牛蛙
  */
@@ -28,5 +30,15 @@ public class RecruitmentServiceImpI extends ServiceImpl<RecruitmentMapper, Recru
     public IPage<RecruitmentVo> selectRecruitment(RecruitmentVo recruitmentVo) {
         Page<RecruitmentVo> page=new Page<>(recruitmentVo.getCurrentPage(),recruitmentVo.getPagesize());
         return recruitmentMapper.selectRecruitment(page);
+    }
+
+    /**
+     * 查询招聘计划名称（新增简历下拉列表框）
+     * @param
+     * @return
+     */
+    @Override
+    public List<RecruitmentVo> selectPlan(String  name) {
+        return recruitmentMapper.selectList(new QueryWrapper<RecruitmentVo>().eq("recruitmentPlanName",name));
     }
 }

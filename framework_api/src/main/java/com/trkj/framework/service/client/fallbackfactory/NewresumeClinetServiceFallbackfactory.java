@@ -122,11 +122,17 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Object queryAddResume(ResumeVo resumeVo) {
-                Map<String, Object> objectMap = new HashMap<>();
-                objectMap.put("state", 100);
-                objectMap.put("info", "服务发生关闭");
-                return AjaxResponse.success(objectMap);
+            public  Map<String, Object> queryAddResume(ResumeVo resumeVo) {
+                return fuseUtil.main(throwable);
+            }
+            /**
+             * 查询招聘计划名称（新增简历下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectPlan(String name) {
+                return fuseUtil.main(throwable);
             }
 
         };
