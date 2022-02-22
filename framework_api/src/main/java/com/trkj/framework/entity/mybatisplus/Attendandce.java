@@ -55,11 +55,11 @@ public class Attendandce implements Serializable {
 
     @ApiModelProperty(value = "备注")
     @TableId("ATTENDANDCE_REMARK")
-    private Integer attendandceRemark;
+    private String attendandceRemark;
 
     @ApiModelProperty(value = "适用对象")
     @TableId("DEPT_NAME")
-    private Integer deptName;
+    private String deptName;
 
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
