@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.RecruitmentPlan;
 import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.mybatisplus.service.ResumeService;
 import com.trkj.framework.util.Fuse8010Util;
@@ -59,7 +60,6 @@ public class ResumeController {
 
     /**
      * 全部简历
-     *
      * @param
      * @return
      */
@@ -118,7 +118,7 @@ public class ResumeController {
     @PostMapping("/selectEliminate")
     @HystrixCommand(fallbackMethod = "hystrixEliminate")
     public Map<String, Object> queryEliminate(@RequestBody ResumeVo resumeVo) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("state", 200);
         map.put("succeed", resumeService.selectEliminate(resumeVo));
         return map;
@@ -143,7 +143,7 @@ public class ResumeController {
     @PostMapping("/selectInterviewCandidate")
     @HystrixCommand(fallbackMethod = "hystrixInterviewCandidate")
     public Map<String, Object> queryInterviewCandidate(@RequestBody ResumeVo resumeVo) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("state", 200);
         map.put("succeed", resumeService.selectInterviewCandidate(resumeVo));
         return map;
@@ -168,7 +168,7 @@ public class ResumeController {
     @PostMapping("/selectInvite")
     @HystrixCommand(fallbackMethod = "hystrixInvite")
     public Map<String, Object> queryInvite(@RequestBody ResumeVo resumeVo) {
-        Map<String, Object> map = new HashMap<>();
+        Map<String, Object> map = new HashMap<>(2);
         map.put("state", 200);
         map.put("succeed", resumeService.selectInvite(resumeVo));
         return map;
@@ -183,6 +183,29 @@ public class ResumeController {
     public Map<String, Object> hystrixInvite(@RequestBody ResumeVo resumeVo) {
         return fuse8010Util.main();
     }
+
+    /**
+     * 新增简历
+     * @param
+     * @return
+     */
+    @PostMapping("/addResume")
+    @HystrixCommand(fallbackMethod = "hystrixAddResume")
+    public Map<String, Object>  addResume(@RequestBody ResumeVo resumeVo){
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("state",200);
+        map.put("succeed",resumeService.addResume(resumeVo));
+        return map;
+    }
+    /**
+     * 备选方案
+     * @param
+     * @return
+     */
+    public Map<String, Object>  hystrixAddResume(@RequestBody ResumeVo resumeVo){
+        return fuse8010Util.main();
+    }
+
 }
 
 

@@ -66,4 +66,93 @@ public class ResumeVo implements Serializable {
     @ApiModelProperty(value = "页大小")
     @TableField(exist = false)
     private Integer pagesize;
+
+    @ApiModelProperty(value = "年龄")
+    @TableField("RESUME_AGE")
+    private String resumeAge;
+
+    @ApiModelProperty(value = "介绍")
+    @TableField("RESUME_INTRODUCE")
+    private String resumeIntroduce;
+
+
+    @ApiModelProperty(value = "户口所在地")
+    @TableField("RESUME_RESIDENCE")
+    private String resumeResidence;
+
+
+    @ApiModelProperty(value = "政治面貌")
+    @TableField("RESUME_POLITICAL_OUTLOOK")
+    private String resumePoliticalOutlook;
+
+    @ApiModelProperty(value = "0:待阅 1:以阅 3、候选人 4：淘汰")
+    @TableField("RESUME_ZT")
+    private String resumeZt;
+
+    @TableField("INVITE_STATE")
+    private String inviteState;
+
+    @ApiModelProperty(value = "投简时间")
+    @TableField("TOUJ_TIME")
+    private Date toujTime;
+
+    @ApiModelProperty(value = "创建时间")
+    @TableField("CREATED_TIME")
+    private Date createdTime;
+
+    @ApiModelProperty(value = "修改时间")
+    @TableField("UPDATED_TIME")
+    private Date updatedTime;
+
+    @ApiModelProperty(value = "乐观锁")
+    @TableField("REVISION")
+    private Long revision;
+
+    @ApiModelProperty(value = "逻辑删除;1表示删除，0 表示未删除")
+    @TableField("IS_DELETED")
+    private Long isDeleted;
+
+    @ApiModelProperty(value = "学校名称")
+    @TableField("EDUCATION_STUDENTNAME")
+    private String educationStudentname;
+
+    @ApiModelProperty(value = "所属专业")
+    @TableField("EDUCATION_MAJOR")
+    private String educationMajor;
+
+    @ApiModelProperty(value = "开始日期")
+    @TableField("EDUCATION_START_TIME")
+    private Date educationStartTime1;
+
+    @ApiModelProperty(value = "结束日期")
+    @TableField("EDUCATION_END_TIME")
+    private Date educationEndTime1;
+
+    @ApiModelProperty(value = "公司名称")
+    @TableField("COMPANY_NAME")
+    private String companyName;
+
+    @ApiModelProperty(value = "职位名称")
+    @TableField("POSITION_NAME")
+    private String positionName;
+
+    @ApiModelProperty(value = "开始日期")
+    @TableField("EDUCATION_START_TIME")
+    private Date educationStartTime2;
+
+    @ApiModelProperty(value = "结束日期")
+    @TableField("EDUCATION_END_TIME")
+    private Date educationEndTime2;
+
+    @ApiModelProperty(value = "所属行业")
+    @TableField("POSITION_INDUSTRY")
+    private String positionIndustry;
+
+    @ApiModelProperty(value = "工作描述")
+    @TableField("POSITION_DESCRIBE")
+    private String positionDescribe;
+
+    @ApiModelProperty(value = "税前月薪")
+    @TableField("POSITION_SQMONTHLY")
+    private Double positionSqmonthly;
 }

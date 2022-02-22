@@ -116,6 +116,24 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
             public Map<String,Object> employStaff(Employment employment) {
                 return fuseUtil.main(throwable);
             }
+            /**
+             * 添加新简历
+             * @param resumeVo
+             * @return
+             */
+            @Override
+            public  Map<String, Object> queryAddResume(ResumeVo resumeVo) {
+                return fuseUtil.main(throwable);
+            }
+            /**
+             * 查询招聘计划名称（新增简历下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectPlan(String name) {
+                return fuseUtil.main(throwable);
+            }
 
         };
     }
