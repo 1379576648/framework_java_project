@@ -30,6 +30,11 @@ public class OrganizeServiceFallbackfactory implements FallbackFactory {
             public Map<String, Object> selectDeptPost(DeptPost deptPost) {
                 return fuseUtil.main(throwable);
             }
+
+            @Override
+            public Map<String, Object> scDeptPost(Integer id) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

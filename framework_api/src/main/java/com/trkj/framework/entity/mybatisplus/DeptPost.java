@@ -79,4 +79,8 @@ public class DeptPost implements Serializable {
     @TableField(exist = false)
     private String staffName;
 
+    @ApiModelProperty(value = "状态;0：启用  1：禁用")
+    @TableField("DEPT_STATE")
+    private Long deptState;
+
 }

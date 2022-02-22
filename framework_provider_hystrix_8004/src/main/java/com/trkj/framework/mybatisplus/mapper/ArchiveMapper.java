@@ -6,17 +6,14 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.trkj.framework.entity.mybatisplus.Dept;
+import com.trkj.framework.entity.mybatisplus.Archive;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
-/**
- * @author 13795
- */
 @Mapper
-public interface DeptMapper extends BaseMapper<Dept> {
+public interface ArchiveMapper extends BaseMapper<Archive> {
 
-    @Select("select  d.*, s.STAFF_NAME from  DEPT d left join STAFF s on d.STAFF_ID= s.STAFF_ID ${ew.customSqlSegment}")
-    IPage<Dept> selectDeptw(Page<Dept> page, @Param(Constants.WRAPPER) QueryWrapper<Dept> queryWrapper);
+    @Select("select ARCHIVE_NAME,count(1) as Number1 from ARCHIVE GROUP BY ARCHIVE_NAME ")
+    IPage<Archive> selectCountArchive(Page<Archive> page, @Param(Constants.WRAPPER) QueryWrapper<Archive> queryWrapper);
 }

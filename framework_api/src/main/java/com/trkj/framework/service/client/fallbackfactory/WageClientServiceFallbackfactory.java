@@ -1,5 +1,6 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
+import com.trkj.framework.entity.mybatisplus.Attendandce;
 import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
@@ -9,8 +10,6 @@ import com.trkj.framework.vo.*;
 import feign.hystrix.FallbackFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.Map;
 
 @Component
@@ -109,11 +108,11 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
 
             /**
              * 删除加班方案
-             * @param list
+             * @param id
              * @return
              */
             @Override
-            public Map<String,Object> deleteWorkScheme(ArrayList<Integer> list) {
+            public Map<String,Object> deleteWorkScheme(Integer id) {
                 return fuseUtil.main(throwable);
             }
 
@@ -143,6 +142,61 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             @Override
             public Map<String,Object> selectAttendandce(AttendandceVo attendandceVo) {
                 return fuseUtil.main(throwable);            }
+
+            /**
+             * 添加考勤扣款方案
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> insertAttendandce(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 根据id查询考勤扣款方案
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectAttendandceAll(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String, Object> updateAttendandce(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 删除考勤扣款方案
+             * @param id
+             * @return
+             */
+            @Override
+            public Map<String, Object> deleteAttendandce(Integer id) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为禁用
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateAttendandceState(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为启用
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateAttendandceStateTwo(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }
