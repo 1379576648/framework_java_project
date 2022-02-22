@@ -10,4 +10,10 @@ public interface DeptPostService {
      * @return
      */
     Object selectDeptPost(DeptPost deptPost);
+    /**
+     * 删除职位
+     * @param
+     * @return
+     */
+    String scDeptPost(Integer id);
 }

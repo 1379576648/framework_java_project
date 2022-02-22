@@ -26,7 +26,13 @@ public class Tranfer8009Servicelmpl implements Transfer8009Service {
         QueryWrapper<Dept> queryWrapper = new QueryWrapper<Dept>();
         //逻辑删除 未删除
         queryWrapper.eq("s.IS_DELETED", 0);
+        //判断部门是否为空
+        if (deptVo.getDeptName() != null && !deptVo.getDeptName().equals("")) {
+            //模糊查询
+            queryWrapper.like("d.DEPT_NAME", deptVo.getDeptName());
+        }
         return deptMapper.selectDeptw(page, queryWrapper);
+
     }
 
     /**

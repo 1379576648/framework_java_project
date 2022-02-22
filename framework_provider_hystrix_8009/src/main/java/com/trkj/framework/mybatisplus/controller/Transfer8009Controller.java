@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.mybatisplus.service.Transfer8009Service;
+import com.trkj.framework.util.Fuse8009Util;
 import com.trkj.framework.vo.Auditflowone;
 import com.trkj.framework.vo.DeptVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,13 +25,15 @@ public class Transfer8009Controller {
     @Autowired
     private Transfer8009Service transferService;
 
+    @Autowired
+    private Fuse8009Util fuse8009Util;
     /**
      *  查询所有部门
      * @param
      * @return
      */
     @PostMapping("/selectDept")
-//    @HystrixCommand(fallbackMethod = "selectDepHystrix")
+    @HystrixCommand(fallbackMethod = "selectDepHystrix")
     public  Map<String ,Object> selectDept(@RequestBody Dept deptVo){
         Map<String ,Object> map1 = new HashMap<>(2);
         //状态码
@@ -40,10 +43,7 @@ public class Transfer8009Controller {
         return map1;
     }
     //备选
-    public  Map<String ,Object> selectDepHystrix(@RequestBody DeptVo deptVo) {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 300);
-        map1.put("info", "服务发生雪崩");
-        return map1;
+    public  Map<String ,Object> selectDepHystrix(@RequestBody Dept deptVo) {
+        return fuse8009Util.main();
     }
 }

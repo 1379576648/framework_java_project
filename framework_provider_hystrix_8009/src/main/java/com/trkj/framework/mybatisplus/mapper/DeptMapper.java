@@ -17,6 +17,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface DeptMapper extends BaseMapper<Dept> {
 
-    @Select("select  d.*, s.DEPT_NAME, c.STAFF_NAME from  DEPT_POST d left join DEPT s on d.DEPT_ID= s.DEPT_ID ${ew.customSqlSegment}")
+    @Select("select  d.*, s.STAFF_NAME from  DEPT d left join STAFF s on d.STAFF_ID= s.STAFF_ID ${ew.customSqlSegment}")
     IPage<Dept> selectDeptw(Page<Dept> page, @Param(Constants.WRAPPER) QueryWrapper<Dept> queryWrapper);
 }
