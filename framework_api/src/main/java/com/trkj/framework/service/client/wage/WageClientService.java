@@ -1,5 +1,6 @@
 package com.trkj.framework.service.client.wage;
 
+import com.trkj.framework.entity.mybatisplus.Attendandce;
 import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
@@ -8,6 +9,7 @@ import com.trkj.framework.vo.AttendandceVo;
 import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
 import com.trkj.framework.vo.WorkSchemeVo;
+import jdk.nashorn.internal.objects.annotations.Attribute;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -112,4 +114,52 @@ public interface WageClientService {
      */
     @PostMapping("/selectAttendandce")
     Map<String,Object> selectAttendandce(@RequestBody AttendandceVo attendandceVo);
+
+    /**
+     * 添加考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PostMapping("/insertAttendandce")
+    Map<String, Object> insertAttendandce(@RequestBody Attendandce attendandce);
+
+    /**
+     * 根据id查询考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PostMapping("/selectAttendandceAll")
+    Map<String, Object> selectAttendandceAll(@RequestBody Attendandce attendandce);
+
+    /**
+     * 修改考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandce")
+    Map<String, Object> updateAttendandce(@RequestBody Attendandce attendandce);
+
+    /**
+     * 删除考勤扣款方案
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/deleteAttendandce/{id}")
+    Map<String,Object> deleteAttendandce(@PathVariable("id") Integer id);
+
+    /**
+     * 修改状态为禁用
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandceState")
+    Map<String, Object> updateAttendandceState(@RequestBody Attendandce attendandce);
+
+    /**
+     * 修改状态为启用
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandceStateTwo")
+    Map<String, Object> updateAttendandceStateTwo(@RequestBody Attendandce attendandce);
 }
