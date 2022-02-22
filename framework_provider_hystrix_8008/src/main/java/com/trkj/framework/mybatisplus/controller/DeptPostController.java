@@ -34,27 +34,5 @@ public class DeptPostController {
     @Autowired
     private Fuse8008Util fuse8008Util;
 
-    /**
-     * 修改调动后的职位
-     * @param deptPost
-     * @return
-     */
-    @PutMapping("/updateDeptPostName")
-    @HystrixCommand(fallbackMethod = "updateDeptPostNameHystrix")
-    public Map<String,Object> updateDeptPostName(@RequestBody DeptPost deptPost){
-        Map<String ,Object> map1 = new HashMap<>(2);
-        //状态码
-        map1.put("state",200);
-        //返回结果
-        map1.put("info", deptPostService.updateDeptPostName(deptPost));
-        return map1;
-    }
-
-    //备选方案
-    public Map<String,Object> updateDeptPostNameHystrix(@RequestBody DeptPost deptPost) {
-        return fuse8008Util.main();
-    }
-
-
 }
 

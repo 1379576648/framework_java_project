@@ -52,18 +52,11 @@ public interface TransferMapper extends BaseMapper<Transfer> {
     List<Dept> selectSect();
 
     /**
-     * 查询所有的职位名称
-     * @return
-     */
-    @Select("SELECT distinct POST_NAME FROM DEPT_POST")
-    List<DeptPost> selectJob();
-
-    /**
      * 根据名字查询部门名称和职位名称
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT d.DEPT_NAME,p.POST_NAME FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID=s.DEPT_POST_ID ${ew.customSqlSegment}")
+    @Select("SELECT s.STAFF_ID,d.DEPT_ID,p.DEPT_POST_ID,d.DEPT_NAME,p.POST_NAME FROM STAFF s LEFT JOIN DEPT d on d.DEPT_ID=s.DEPT_ID LEFT JOIN DEPT_POST p on p.DEPT_POST_ID=s.DEPT_POST_ID ${ew.customSqlSegment}")
     List<TransferTwoVo> selectTransferByName(@Param(Constants.WRAPPER) QueryWrapper<TransferTwoVo> queryWrapper);
 
     /**
@@ -73,4 +66,12 @@ public interface TransferMapper extends BaseMapper<Transfer> {
      */
     @Select("SELECT * FROM TRANSFER ${ew.customSqlSegment}")
     List<Transfer> selectTransferAlls(@Param(Constants.WRAPPER) QueryWrapper<Transfer> queryWrapper);
+
+    /**
+     * 根据部门查询部门职位名称
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT d.DEPT_ID,p.DEPT_POST_ID,p.POST_NAME FROM DEPT_POST p LEFT JOIN DEPT d on d.DEPT_ID=p.DEPT_ID ${ew.customSqlSegment}")
+    List<TransferTwoVo> selectPostName(@Param(Constants.WRAPPER) QueryWrapper<TransferTwoVo> queryWrapper);
 }

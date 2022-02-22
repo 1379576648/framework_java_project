@@ -46,6 +46,10 @@ public class Dept implements Serializable {
     @TableField("STAFF_ID")
     private Integer staffId;
 
+    @ApiModelProperty(value = "员工姓名;")
+    @TableField(exist = false)
+    private String staffName;
+
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)
     private Integer currentPage;

@@ -39,6 +39,10 @@ public class Staff implements Serializable {
     @TableField("STAFF_NAME")
     private String staffName;
 
+    @ApiModelProperty(value = "员工姓名")
+    @TableField("STAFF_NAME")
+    private String staffName1;
+
     @ApiModelProperty(value = "性别")
     @TableField("STAFF_SEX")
     private String staffSex;
@@ -245,4 +249,9 @@ public class Staff implements Serializable {
     @ApiModelProperty(value = "打卡记录")
     @TableField(exist = false)
     private List<ClockRecord> list;
+
+    @ApiModelProperty(value = "打卡记录创建时间")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @TableField(exist = false)
+    private Date createdTime1;
 }

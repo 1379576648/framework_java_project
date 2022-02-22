@@ -1,5 +1,6 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Attendandce;
 import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.entity.mybatisplus.WorkScheme;
@@ -114,12 +115,12 @@ public class WageController {
 
     /**
      * 删除加班方案
-     * @param list
+     * @param id
      * @return
      */
-    @DeleteMapping("/deleteWorkScheme")
-    public AjaxResponse deleteWorkScheme(@RequestBody ArrayList<Integer> list){
-        Map<String, Object> map = (Map<String, Object>) wageClientService.deleteWorkScheme(list);
+    @DeleteMapping("/deleteWorkScheme/{id}")
+    public AjaxResponse deleteWorkScheme(@PathVariable("id") Integer id){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.deleteWorkScheme(id);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
@@ -153,6 +154,72 @@ public class WageController {
     @PostMapping("/selectAttendandce")
     public AjaxResponse selectAttendandce(@RequestBody AttendandceVo attendandceVo){
         Map<String, Object> map = (Map<String, Object>) wageClientService.selectAttendandce(attendandceVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 添加考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PostMapping("/insertAttendandce")
+    public AjaxResponse insertAttendandce(@RequestBody Attendandce attendandce){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.insertAttendandce(attendandce);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 根据id查询考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PostMapping("/selectAttendandceAll")
+    public AjaxResponse selectAttendandceAll(@RequestBody Attendandce attendandce){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectAttendandceAll(attendandce);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 修改考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandce")
+    public AjaxResponse updateAttendandce(@RequestBody Attendandce attendandce){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateAttendandce(attendandce);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 删除考勤扣款方案
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/deleteAttendandce/{id}")
+    public AjaxResponse deleteAttendandce(@PathVariable("id") Integer id){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.deleteAttendandce(id);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 修改状态为禁用
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandceState")
+    public AjaxResponse updateAttendandceState(@RequestBody Attendandce attendandce){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateAttendandceState(attendandce);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 修改状态为启用
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandceStateTwo")
+    public AjaxResponse updateAttendandceStateTwo(@RequestBody Attendandce attendandce){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateAttendandceStateTwo(attendandce);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

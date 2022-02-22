@@ -6,12 +6,14 @@ import lombok.extern.java.Log;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 /**
  * @author 13795
  */
+@Repository
 public interface RegisterLogDao  extends CrudRepository<RegisterLogEntity,Integer> {
         /***
          * 通过手机号查询30分钟内登录错误次数

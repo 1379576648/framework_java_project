@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.controller;
 
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.entity.mybatisplus.Worker;
 import com.trkj.framework.mybatisplus.service.StaffService;
@@ -384,6 +385,27 @@ public class StaffController {
 
     //备选方案
     public Map<String, Object> hystixGet12() {
+        return fuse8008Util.main();
+    }
+
+    /**
+     * 修改调动后的部门
+     * @param staff
+     * @return
+     */
+    @PutMapping("/updateDeptName")
+    @HystrixCommand(fallbackMethod = "updateDeptNameHystix")
+    public Map<String ,Object> updateDeptName(@RequestBody Staff staff){
+        Map<String ,Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info", staffService.updateDeptName(staff));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String,Object> updateDeptNameHystix(@RequestBody Staff staff) {
         return fuse8008Util.main();
     }
 

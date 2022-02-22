@@ -50,7 +50,7 @@ public class TransferController {
     }
 
     //备选方案
-    public Map<String, Object> hystixGet() {
+    public Map<String, Object> hystixGet(@RequestBody TransferVo transferVo) {
         return fuse8008Util.main();
     }
 
@@ -93,26 +93,6 @@ public class TransferController {
     public Map<String, Object> hystixGet3() {
         return fuse8008Util.main();
     }
-
-    /**
-     * 查询所有的职位名称
-     *
-     * @return
-     */
-    @PostMapping("/selectJob")
-    @HystrixCommand(fallbackMethod = "hystixGet4")
-    public Map<String, Object> selectJob() {
-        Map<String, Object> map1 = new HashMap<>(2);
-        map1.put("state", 200);
-        map1.put("info", transferService.selectJob());
-        return map1;
-    }
-
-    //备选方案
-    public Map<String, Object> hystixGet4() {
-        return fuse8008Util.main();
-    }
-
     /**
      * 根据名字查询部门名称和职位名称
      *
@@ -168,6 +148,26 @@ public class TransferController {
 
     //备选方案
     public Map<String, Object> hystixGet7(@RequestBody Transfer transfer) {
+        return fuse8008Util.main();
+    }
+
+    /**
+     * 根据部门查询部门职位
+     * @param transferTwoVo
+     * @return
+     */
+    @PostMapping("/selectPostName")
+    @HystrixCommand(fallbackMethod = "hystixGet8")
+    public Map<String, Object> selectPostName(@RequestBody TransferTwoVo transferTwoVo) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", transferService.selectPostName(transferTwoVo));
+        System.out.println(transferTwoVo);
+        return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> hystixGet8(@RequestBody TransferTwoVo transferTwoVo) {
         return fuse8008Util.main();
     }
 }

@@ -12,12 +12,7 @@ import com.trkj.framework.entity.mybatisplus.DeptPost;
  * @since 2022-01-08
  */
 public interface DeptPostService {
-    /**
-     * 修改调动后的职位
-     * @param deptPost
-     * @return
-     */
-    int updateDeptPostName(DeptPost deptPost);
+
 
 
 }

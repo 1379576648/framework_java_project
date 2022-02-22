@@ -29,26 +29,7 @@ public class DeptController {
 
     @Autowired
     private Fuse8008Util fuse8008Util;
-    /**
-     * 修改调动后的部门
-     * @param deptId
-     * @return
-     */
-    @PutMapping("/updateDeptName")
-    @HystrixCommand(fallbackMethod = "updateDeptNameHystix")
-    public Map<String ,Object> updateDeptName(@RequestBody Dept deptId){
-        Map<String ,Object> map1 = new HashMap<>(2);
-        //状态码
-        map1.put("state",200);
-        //返回结果
-        map1.put("info", deptService.updateDeptName(deptId));
-        return map1;
-    }
 
-    //备选方案
-    public Map<String,Object> updateDeptNameHystix(@RequestBody Dept deptId) {
-        return fuse8008Util.main();
-    }
 
 
 }
