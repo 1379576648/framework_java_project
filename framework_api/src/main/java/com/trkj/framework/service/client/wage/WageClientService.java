@@ -9,10 +9,7 @@ import com.trkj.framework.vo.FixedwageVo;
 import com.trkj.framework.vo.WageVo;
 import com.trkj.framework.vo.WorkSchemeVo;
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -86,11 +83,11 @@ public interface WageClientService {
 
     /**
      * 删除加班方案
-     * @param list
+     * @param id
      * @return
      */
-    @DeleteMapping("/deleteWorkScheme")
-    Map<String,Object> deleteWorkScheme(@RequestBody ArrayList<Integer> list);
+    @DeleteMapping("/deleteWorkScheme/{id}")
+    Map<String,Object> deleteWorkScheme(@PathVariable("id") Integer id);
 
     /**
      * 根据id查询加班方案

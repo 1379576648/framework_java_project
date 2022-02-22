@@ -114,12 +114,12 @@ public class WageController {
 
     /**
      * 删除加班方案
-     * @param list
+     * @param id
      * @return
      */
-    @DeleteMapping("/deleteWorkScheme")
-    public AjaxResponse deleteWorkScheme(@RequestBody ArrayList<Integer> list){
-        Map<String, Object> map = (Map<String, Object>) wageClientService.deleteWorkScheme(list);
+    @DeleteMapping("/deleteWorkScheme/{id}")
+    public AjaxResponse deleteWorkScheme(@PathVariable("id") Integer id){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.deleteWorkScheme(id);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
