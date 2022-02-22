@@ -7,9 +7,7 @@ import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
 import com.trkj.framework.vo.Auditflowone;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -39,6 +37,16 @@ public class OrganizeController {
     @PostMapping("/selectDeptPostF")
     public AjaxResponse selectDeptPost(@RequestBody DeptPost deptPost){
         Map<String,Object> map=(Map<String, Object>) organizeService.selectDeptPost(deptPost);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+    /**
+     * 查询所有职位
+     * @param
+     * @return
+     */
+    @DeleteMapping("/scDeptPost/{id}")
+    public AjaxResponse scDeptPost(@PathVariable("id") Integer id){
+        Map<String,Object> map=(Map<String, Object>) organizeService.scDeptPost(id);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

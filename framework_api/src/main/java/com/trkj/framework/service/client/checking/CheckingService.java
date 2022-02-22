@@ -268,4 +268,37 @@ public interface CheckingService {
      */
     @PostMapping("/selectStaffNameAll")
     Map<String,Object> selectStaffNameAll(@RequestBody Staff staff);
+
+    /**
+     * 添加归档表
+     * @param
+     * @param
+     * @return
+     */
+    @PostMapping("/archivedData")
+    Map<String,Object> archivedData(@RequestBody Staff staff);
+
+    /**
+     * 查询所有所有考勤归档数据
+     * @param
+     * @return
+     */
+    @PostMapping("/selectArchiveAll")
+    Map<String,Object> selectArchiveAll(@RequestBody Archive archive);
+
+    /**
+     * 根据名称查询考勤归档数据
+     * @param
+     * @return
+     */
+    @PostMapping("/selectArchiveByName")
+    Map<String,Object> selectArchiveByName(@RequestBody Archive archive);
+
+    /**
+     * 根据名称查询考勤归档数据分页
+     * @param
+     * @return
+     */
+    @PostMapping("/selectArchiveByNameAndIPage")
+    Map<String,Object> selectArchiveByNameAndIPage(@RequestBody Archive archive);
 }

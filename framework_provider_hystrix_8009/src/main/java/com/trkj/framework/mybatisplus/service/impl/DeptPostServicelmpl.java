@@ -22,7 +22,20 @@ public class DeptPostServicelmpl implements DeptPostService {
         QueryWrapper<DeptPost> queryWrapper = new QueryWrapper<DeptPost>();
         //逻辑删除 未删除
         queryWrapper.eq("s.IS_DELETED", 0);
+        //判断职位是否为空
+        if (deptPost.getPostName() != null && !deptPost.getPostName().equals("")) {
+            //模糊查询
+            queryWrapper.like("d.POST_NAME", deptPost.getPostName());
+        }
         return deptPostMapper.selectDeptpost(page, queryWrapper);
+    }
+
+    @Override
+    public String scDeptPost(Integer id) {
+        if (deptPostMapper.deleteById(id)<=0){
+          return "删除失败";
+        }
+        return "成功";
     }
 
 }
