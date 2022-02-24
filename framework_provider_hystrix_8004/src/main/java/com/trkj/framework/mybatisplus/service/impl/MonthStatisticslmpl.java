@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.sun.org.apache.bcel.internal.generic.IF_ACMPEQ;
 import com.trkj.framework.entity.mybatisplus.Archive;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
 import com.trkj.framework.entity.mybatisplus.Dept;
@@ -269,6 +270,20 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
         cal.set(Calendar.DATE, 1);
         cal.roll(Calendar.DATE, -1);
         int maxDate = cal.get(Calendar.DATE);
+        List list1 = new ArrayList();
+        // 获取周六周日
+        for (int i = 0; i < maxDate-1; i++) {
+            //在第一天的基础上加1
+            cal.add(Calendar.DATE, 1);
+            int week = cal.get(Calendar.DAY_OF_WEEK);
+            // 1代表周日，7代表周六 判断这是一个星期的第几天从而判断是否是周末
+            if (week == Calendar.SATURDAY || week == Calendar.SUNDAY) {
+                // 得到当天是一个月的第几天
+                list1.add(year+"-"+month+"-"+cal.get(Calendar.DAY_OF_MONTH));
+            }
+        }
+
+        System.out.println(list1);
         for (int j = 0; j < staff1.getRecords().size(); j++) {
             List<ClockRecord> list = new ArrayList<ClockRecord>();
             for (int i = 1; i <= maxDate; i++) {
@@ -282,11 +297,26 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
                     }
                 }
                 if (clockRecord==null){
+                    Calendar date=Calendar.getInstance();
+                    // 当前日期的天数
+                    int day = date.get(Calendar.DATE);
                     clockRecord= new ClockRecord();
-                    clockRecord.setMoth(
-                            staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth()+1 + "/"
-                                    + i);
-                    clockRecord.setCheckState("旷工");
+                    boolean op = true;
+                    for (int k = 0; k <list1.size() ; k++) {
+                        int pm = Integer.valueOf(list1.get(k).toString().substring(list1.get(k).toString().lastIndexOf("-")+1));
+                        if (pm==i && i<=day){
+                            clockRecord.setMoth(staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth()+1 + "/" + i);
+                            clockRecord.setCheckState("休息");
+                            op=false;
+                        }
+                    }
+                    if (i<=day && op==true){
+                        clockRecord.setMoth(staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth()+1 + "/" + i);
+                        clockRecord.setCheckState("旷工");
+                    }else if ( op==true){
+                        clockRecord.setMoth(staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth()+1 + "/" + i);
+                        clockRecord.setCheckState("");
+                    }
                 }
                 list.add(clockRecord);
             }
