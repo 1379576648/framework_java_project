@@ -29,4 +29,15 @@ public class RecruitmentController {
         Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryRecruitment(recruitmentVo);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 查询招聘计划名称（新增简历下拉列表框）
+     * @param
+     * @return
+     */
+    @PostMapping("/selectPlan")
+    private Object selectPlan(){
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.selectPlan();
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }

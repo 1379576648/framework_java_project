@@ -90,4 +90,19 @@ public interface NewresumeClinetService {
     @PostMapping("/EmployStaff")
     Map<String,Object> employStaff(@RequestBody Employment employment);
 
+    /**
+     * 添加新简历
+     * @param resumeVo
+     * @return
+     */
+    @PostMapping("/addResume")
+    Map<String,Object> queryAddResume(@RequestBody ResumeVo resumeVo);
+
+    /**
+     * 查询招聘计划名称（新增简历下拉列表框）
+     * @param
+     * @return
+     */
+    @PostMapping("/selectPlan")
+    Map<String, Object>  selectPlan();
 }

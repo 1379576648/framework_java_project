@@ -46,4 +46,6 @@ public class RecruitmentController {
     public  Map<String, Object> hystrixRecruitment(@RequestBody RecruitmentVo recruitmentVo){
         return fuse8010Util.main();
     }
+
+
 }

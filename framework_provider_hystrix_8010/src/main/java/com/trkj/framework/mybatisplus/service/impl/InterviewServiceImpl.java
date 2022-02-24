@@ -36,9 +36,6 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
     @Override
     public Integer EmployStaff(Employment employment) {
         Employment employment1=new Employment();
-        System.out.println("11111111111111111111111111111");
-        System.out.println(employment);
-        System.out.println("11111111111111111111111111111");
         employment1.setEmploymentState(employment.getEmploymentState());
         employment1.setResumeId(employment.getResumeId());
         employment1.setRemarks(employment.getRemarks());

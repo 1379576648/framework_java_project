@@ -162,7 +162,7 @@ public class DefInsuredController {
 
 
     /***
-     * 添加社保方案
+     * 修改社保方案
      * @param objectMap
      * @return
      */
