@@ -2,6 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Archive;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -49,4 +50,8 @@ public interface MonthStatisticsService {
      * @return
      */
     IPage<Archive> selectArchiveByNameAndIPage(Archive archive);
+
+    IPage<Staff>selcetAttendanceRecord(Staff staff);
+
+    List<Dept>selectDeptAll();
 }

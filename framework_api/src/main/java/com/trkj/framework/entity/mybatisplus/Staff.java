@@ -218,21 +218,17 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private Integer tjSeven;
 
-
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)
     private Integer currenPage;
-
 
     @ApiModelProperty(value = "部门")
     @TableField(exist = false)
     private Dept dept;
 
-
     @ApiModelProperty(value = "部门职位")
     @TableField(exist = false)
     private DeptPost deptPost;
-
 
     @ApiModelProperty(value = "转正")
     @TableField(exist = false)
@@ -254,4 +250,8 @@ public class Staff implements Serializable {
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(exist = false)
     private Date createdTime1;
+
+    @ApiModelProperty(value = "部门名称2")
+    @TableField(exist = false)
+    private List<String> deptNameTwo;
 }
