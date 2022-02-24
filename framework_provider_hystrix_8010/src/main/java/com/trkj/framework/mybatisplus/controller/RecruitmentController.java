@@ -47,26 +47,5 @@ public class RecruitmentController {
         return fuse8010Util.main();
     }
 
-    /**
-     * 查询招聘计划名称（新增简历下拉列表框）
-     * @param
-     * @return
-     */
-    @PostMapping("/selectPlan")
-    @HystrixCommand(fallbackMethod = "hystrixPlan")
-    public  Map<String, Object>  selectPlan(@RequestBody String  name){
-        Map<String , Object> map = new HashMap<>(2);
-        map.put("state",200);
-        map.put("succeed",recruitmentService.selectPlan(name));
-        return map;
-    }
 
-    /**
-     * 备选方案
-     * @param
-     * @return
-     */
-    public  Map<String, Object> hystrixPlan(@RequestBody String  name){
-        return fuse8010Util.main();
-    }
 }

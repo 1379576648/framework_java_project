@@ -104,5 +104,5 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectPlan")
-    Map<String, Object>  selectPlan(@RequestBody String  name);
+    Map<String, Object>  selectPlan();
 }

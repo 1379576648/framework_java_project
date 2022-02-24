@@ -41,8 +41,6 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="framework_eureka_7003" target="1.8" />
-      <module name="framework_provider_hystrix_8004" target="1.8" />
       <module name="untitled" target="1.8" />
       <module name="客户端" target="1.8" />
     </bytecodeTargetLevel>

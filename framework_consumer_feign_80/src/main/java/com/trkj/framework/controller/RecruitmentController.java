@@ -36,8 +36,8 @@ public class RecruitmentController {
      * @return
      */
     @PostMapping("/selectPlan")
-    private Object selectPlan(@RequestBody String  name){
-        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.selectPlan(name);
+    private Object selectPlan(){
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.selectPlan();
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

@@ -131,7 +131,7 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Map<String, Object> selectPlan(String name) {
+            public Map<String, Object> selectPlan() {
                 return fuseUtil.main(throwable);
             }
 

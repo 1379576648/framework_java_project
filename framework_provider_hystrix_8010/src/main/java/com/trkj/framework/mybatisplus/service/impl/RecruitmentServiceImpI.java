@@ -32,13 +32,5 @@ public class RecruitmentServiceImpI extends ServiceImpl<RecruitmentMapper, Recru
         return recruitmentMapper.selectRecruitment(page);
     }
 
-    /**
-     * 查询招聘计划名称（新增简历下拉列表框）
-     * @param
-     * @return
-     */
-    @Override
-    public List<RecruitmentVo> selectPlan(String  name) {
-        return recruitmentMapper.selectList(new QueryWrapper<RecruitmentVo>().eq("recruitmentPlanName",name));
-    }
+
 }

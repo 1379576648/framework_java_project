@@ -61,5 +61,5 @@ public interface ResumeService extends IService<ResumeVo> {
          * @param
          * @return
          */
-        String addResume(ResumeVo resume);
+        String addResume(ResumeVo resumeVo);
 }
