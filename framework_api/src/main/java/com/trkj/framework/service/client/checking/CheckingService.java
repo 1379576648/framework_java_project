@@ -301,4 +301,20 @@ public interface CheckingService {
      */
     @PostMapping("/selectArchiveByNameAndIPage")
     Map<String,Object> selectArchiveByNameAndIPage(@RequestBody Archive archive);
+
+    /**
+     * 根据名称查询考勤归档数据分页
+     * @param
+     * @return
+     */
+    @PostMapping("/selcetAttendanceRecord")
+    Map<String,Object> selcetAttendanceRecord(@RequestBody Staff staff);
+
+    /**
+     * 根据名称查询考勤归档数据分页
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptAll")
+    Map<String,Object> selectDeptAll();
 }

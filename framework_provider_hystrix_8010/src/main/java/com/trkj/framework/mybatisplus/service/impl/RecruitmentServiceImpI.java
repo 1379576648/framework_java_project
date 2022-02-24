@@ -10,6 +10,8 @@ import com.trkj.framework.vo.RecruitmentVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author 牛蛙
  */
@@ -29,4 +31,6 @@ public class RecruitmentServiceImpI extends ServiceImpl<RecruitmentMapper, Recru
         Page<RecruitmentVo> page=new Page<>(recruitmentVo.getCurrentPage(),recruitmentVo.getPagesize());
         return recruitmentMapper.selectRecruitment(page);
     }
+
+
 }

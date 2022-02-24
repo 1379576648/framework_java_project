@@ -3,6 +3,7 @@ package com.trkj.framework.controller;
 
 import com.trkj.framework.entity.mybatisplus.Archive;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.util.CarryTokenUtil;
@@ -78,6 +79,28 @@ public class MonthStatisticsController {
     @PostMapping("/selectArchiveByNameAndIPage")
     public AjaxResponse selectArchiveByNameAndIPage(@RequestBody Archive archive) {
         Map<String, Object> map = (Map<String, Object>) checkingService.selectArchiveByNameAndIPage(archive);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 根据名称查询考勤归档数据分页
+     * @param
+     * @return
+     */
+    @PostMapping("/selcetAttendanceRecord")
+    public AjaxResponse selcetAttendanceRecord(@RequestBody Staff staff) {
+        Map<String, Object> map = (Map<String, Object>) checkingService.selcetAttendanceRecord(staff);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询所有部门
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptAll")
+    public AjaxResponse selectDeptAll() {
+        Map<String, Object> map = (Map<String, Object>) checkingService.selectDeptAll();
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

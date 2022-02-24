@@ -34,6 +34,10 @@ public class RecruitmentPlan implements Serializable {
     @TableId("RECRUITMENT_PLAN_ID")
     private Long recruitmentPlanId;
 
+    @ApiModelProperty(value = "招聘计划名称")
+    @TableField("RECRUITMENT_PLAN_NAME")
+    private String recruitmentPlanName;
+
     @ApiModelProperty(value = "部门编号")
     @TableField("DEPT_ID")
     private Long deptId;
@@ -84,9 +88,7 @@ public class RecruitmentPlan implements Serializable {
     @TableField("IS_DELETED")
     private Long isDeleted;
 
-    @ApiModelProperty(value = "招聘计划名称")
-    @TableField("RECRUITMENT_PLAN_NAME")
-    private String recruitmentPlanName;
+
 
 
 }

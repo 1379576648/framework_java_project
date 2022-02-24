@@ -89,4 +89,15 @@ public class ResumeController {
         Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryInvite(resumeVo);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 添加新简历
+     * @param resumeVo
+     * @return
+     */
+    @PostMapping("/addResume")
+    private Object queryAddResume(@RequestBody ResumeVo resumeVo) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryAddResume(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }

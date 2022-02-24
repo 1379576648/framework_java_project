@@ -3,6 +3,7 @@ package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Archive;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.MonthStatisticsService;
 import com.trkj.framework.util.Fuse8004Util;
@@ -111,6 +112,34 @@ public class MonthStatisticsController {
         //状态码
         map1.put("state", 200);
         map1.put("info", monthStatisticsService.selectArchiveByNameAndIPage(archive));
+        return map1;
+    }
+
+    /**
+     * 查询当月考勤记录
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selcetAttendanceRecord")
+    public Map<String, Object>selcetAttendanceRecord(@RequestBody Staff staff){
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", monthStatisticsService.selcetAttendanceRecord(staff));
+        return map1;
+    }
+
+    /**
+     * 查询所有部门
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptAll")
+    public Map<String, Object>selectDeptAll(){
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", monthStatisticsService.selectDeptAll());
         return map1;
     }
 }

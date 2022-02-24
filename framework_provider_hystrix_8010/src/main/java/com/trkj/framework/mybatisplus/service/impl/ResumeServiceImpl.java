@@ -3,13 +3,18 @@ package com.trkj.framework.mybatisplus.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.trkj.framework.entity.mybatisplus.Resume;
-import com.trkj.framework.mybatisplus.mapper.ResumeMapper;
+import com.trkj.framework.entity.mybatisplus.*;
+import com.trkj.framework.mybatisplus.mapper.*;
 import com.trkj.framework.mybatisplus.service.ResumeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.trkj.framework.vo.RecruitmentVo;
 import com.trkj.framework.vo.ResumeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -25,6 +30,17 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
     @Autowired
     private ResumeMapper resumeMapper;
 
+    @Autowired
+    private Resume2Mapper resume2Mapper;
+
+    @Autowired
+    private EducationMapper educationMapper;
+
+    @Autowired
+    private WorkExperiencessMapper workExperiencessMapper;
+
+    @Autowired
+    private RecruitmentPlanMapper mapper;
     /**
      * 新简历查询
      * @param
@@ -97,5 +113,59 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         QueryWrapper<ResumeVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("RESUME_ZT",4);
         return resumeMapper.selectInvite(page,queryWrapper);
+    }
+    /**
+     * 新增简历
+     * @param
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public String addResume(ResumeVo resumeVo) throws ArithmeticException {
+        RecruitmentPlan recruitmentPlan =mapper.selectOne(new QueryWrapper<RecruitmentPlan>().eq("RECRUITMENT_PLAN_NAME",resumeVo.getRecruitmentPlanName()));
+        Resume resume = new Resume();
+        if (recruitmentPlan!=null){
+        resume.setRecruitmentPlanId(recruitmentPlan.getRecruitmentPlanId());
+        }
+        resume.setResumeName(resumeVo.getResumeName());
+        resume.setResumeSex(resumeVo.getResumeSex());
+        resume.setResumeBirthday(resumeVo.getResumeBirthday());
+        resume.setResumePhone(resumeVo.getResumePhone());
+        resume.setResumeMailbox(resumeVo.getResumeMailbox());
+        resume.setResumeAge(resumeVo.getResumeAge());
+        resume.setResumeEducation(resumeVo.getResumeEducation());
+        resume.setResumePoliticalOutlook(resumeVo.getResumePoliticalOutlook());
+        resume.setToujTime(new Date());
+        int i = resume2Mapper.insert(resume);
+        if(i == 1){
+            Educationss educationss = new Educationss();
+            educationss.setResumeId(resume.getResumeId());
+            educationss.setEducationStudentname(resumeVo.getEducationStudentname());
+            educationss.setEducationMajor(resumeVo.getEducationMajor());
+            educationss.setEducationStartTime(resumeVo.getEducationStartTime());
+            educationss.setEducationEndTime(resumeVo.getEducationEndTime());
+            int e = educationMapper.insert(educationss);
+            if (e == 1){
+                WorkExperiencess workExperiencess = new WorkExperiencess();
+                workExperiencess.setResumeId(resume.getResumeId());
+                workExperiencess.setCompanyName(resumeVo.getCompanyName());
+                workExperiencess.setPositionName(resumeVo.getPositionName());
+                workExperiencess.setWorkStareTime(resumeVo.getWorkStareTime());
+                workExperiencess.setWorkEndTime(resumeVo.getWorkEndTime());
+                workExperiencess.setPositionIndustry(resumeVo.getPositionIndustry());
+                workExperiencess.setPositionSqmonthly(resumeVo.getPositionSqmonthly());
+                workExperiencess.setPositionDescribe(resumeVo.getPositionDescribe());
+                int w = workExperiencessMapper.insert(workExperiencess);
+                if (w==1){
+                    return "添加成功";
+                }else {
+                    throw new ArithmeticException("添加失败");
+                }
+            }else {
+                throw new ArithmeticException("添加失败");
+            }
+        }else {
+            throw new ArithmeticException("添加失败");
+        }
     }
 }
