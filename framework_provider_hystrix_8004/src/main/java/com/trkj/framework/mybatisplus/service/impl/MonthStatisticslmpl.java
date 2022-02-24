@@ -20,9 +20,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 @Service
 public class MonthStatisticslmpl implements MonthStatisticsService {
@@ -215,7 +213,93 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
             query.like("STAFF_NAME", archive.getStaffName());
         }
         query.eq("ARCHIVE_NAME", archive.getArchiveName());
-        return archiveMapper.selectPage(page,query);
+        return archiveMapper.selectPage(page, query);
+    }
+
+    /**
+     *查询当月所有考勤记录
+     * @param
+     * @return
+     */
+    @Override
+    public IPage<Staff> selcetAttendanceRecord(Staff staff) {
+        Page<Staff> page = new Page<>(staff.getCurrentPage(), staff.getPageSize());
+        // 查询所有员工
+        QueryWrapper<Staff> queryWrapper = new QueryWrapper<>();
+        if (staff.getStaffName1() != null) {
+            //根据名称名称模糊查询
+            queryWrapper.like("STAFF_NAME", staff.getStaffName1());
+        }
+        if (staff.getDeptNameTwo() != null){
+            for (int i = 0; i < staff.getDeptNameTwo().size(); i++) {
+                queryWrapper.eq("DEPT_NAME", staff.getDeptNameTwo().get(i));
+            }
+        }
+        queryWrapper.ne("STAFF_NAME",staff.getStaffName());
+        final var staff1 = staffMapper.selectPage(page, queryWrapper);
+        // 再根据查到的员工的编号查询所在部门信息
+        Dept dept;
+        for (int i = 0; i < staff1.getRecords().size(); i++) {
+            final var deptId = staff1.getRecords().get(i).getDeptId();
+            dept = deptMapper.selectById(deptId);
+            if (dept != null) {
+                staff1.getRecords().get(i).setDeptName(dept.getDeptName());
+            }
+        }
+        for (int i = 0; i < staff1.getRecords().size(); i++) {
+            QueryWrapper<ClockRecord> queryWrapper1 = new QueryWrapper<>();
+            queryWrapper1.eq("STAFF_NAME", staff1.getRecords().get(i).getStaffName());
+            // 当前日期转格式
+            Date now = new Date();
+            LocalDate localDate = now.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+            Date newDate = java.sql.Date.valueOf(localDate);
+            // 再转成string型
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
+            String date = formatter.format(newDate);
+            System.out.println(date);
+            queryWrapper1.apply("TO_CHAR(CREATED_TIME,'yyyy-mm' ) like {0}", date);
+            staff1.getRecords().get(i).setList(cardRecordMapper.selectList(queryWrapper1));
+        }
+        // 获取当前年月
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month - 1);
+        cal.set(Calendar.DATE, 1);
+        cal.roll(Calendar.DATE, -1);
+        int maxDate = cal.get(Calendar.DATE);
+        for (int j = 0; j < staff1.getRecords().size(); j++) {
+            List<ClockRecord> list = new ArrayList<ClockRecord>();
+            for (int i = 1; i <= maxDate; i++) {
+                ClockRecord clockRecord = null;
+                for (int k = 0; k < staff1.getRecords().get(j).getList().size(); k++) {
+                    if (staff1.getRecords().get(j).getList().get(k).getMornClock().getDate() == i) {
+                        staff1.getRecords().get(j).getList().get(k).setMoth(
+                                staff1.getRecords().get(j).getList().get(k).getMornClock().getMonth()+1 + "/"
+                                        + i);
+                        clockRecord =staff1.getRecords().get(j).getList().get(k);
+                    }
+                }
+                if (clockRecord==null){
+                    clockRecord= new ClockRecord();
+                    clockRecord.setMoth(
+                            staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth()+1 + "/"
+                                    + i);
+                    clockRecord.setCheckState("旷工");
+                }
+                list.add(clockRecord);
+            }
+            staff1.getRecords().get(j).setList(list);
+        }
+        return staff1;
+    }
+
+    @Override
+    public List<Dept>selectDeptAll(){
+      QueryWrapper<Dept>queryWrapper=new QueryWrapper<>();
+      queryWrapper.ne("DEPT_NAME","总裁办");
+      return deptMapper.selectList(queryWrapper);
     }
 }
 

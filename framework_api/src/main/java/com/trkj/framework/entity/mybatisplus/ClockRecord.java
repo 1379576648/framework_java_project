@@ -92,4 +92,8 @@ public class ClockRecord implements Serializable {
     @TableField(exist = false)
     private Integer stateNumber;
 
+    @ApiModelProperty(value = "月日")
+    @TableField(exist = false)
+    private String moth;
+
 }
