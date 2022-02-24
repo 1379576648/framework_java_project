@@ -1,9 +1,6 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
-import com.trkj.framework.entity.mybatisplus.Attendandce;
-import com.trkj.framework.entity.mybatisplus.Fixedwagf;
-import com.trkj.framework.entity.mybatisplus.Salary;
-import com.trkj.framework.entity.mybatisplus.WorkScheme;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.util.FuseUtil;
 import com.trkj.framework.service.client.wage.WageClientService;
 import com.trkj.framework.vo.*;
@@ -195,6 +192,76 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Map<String, Object> updateAttendandceStateTwo(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询出差方案
+             * @param businessVo
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectBusiness(BusinessVo businessVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 添加出差方案
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> insertBusiness(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 根据id查询出差方案
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectBusinessAll(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改出差方案
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateBusiness(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 删除出差方案
+             * @param id
+             * @return
+             */
+            @Override
+            public Map<String, Object> deleteBusiness(Integer id) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为禁用
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateBusinessState(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为启用
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateBusinessStateTwo(Business business) {
                 return fuseUtil.main(throwable);
             }
         };

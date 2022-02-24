@@ -1,9 +1,6 @@
 package com.trkj.framework.controller;
 
-import com.trkj.framework.entity.mybatisplus.Attendandce;
-import com.trkj.framework.entity.mybatisplus.Fixedwagf;
-import com.trkj.framework.entity.mybatisplus.Salary;
-import com.trkj.framework.entity.mybatisplus.WorkScheme;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.wage.WageClientService;
 import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
@@ -220,6 +217,83 @@ public class WageController {
     @PutMapping("/updateAttendandceStateTwo")
     public AjaxResponse updateAttendandceStateTwo(@RequestBody Attendandce attendandce){
         Map<String, Object> map = (Map<String, Object>) wageClientService.updateAttendandceStateTwo(attendandce);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询出差方案
+     * @param businessVo
+     * @return
+     */
+    @PostMapping("/selectBusiness")
+    public AjaxResponse selectBusiness(@RequestBody BusinessVo businessVo){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectBusiness(businessVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 添加出差方案
+     * @param business
+     * @return
+     */
+    @PostMapping("/insertBusiness")
+    public AjaxResponse insertBusiness(@RequestBody Business business){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.insertBusiness(business);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 根据id查询出差方案
+     * @param business
+     * @return
+     */
+    @PostMapping("/selectBusinessAll")
+    public AjaxResponse selectBusinessAll(@RequestBody Business business){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectBusinessAll(business);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 修改出差方案
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusiness")
+    public AjaxResponse updateBusiness(@RequestBody Business business){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateBusiness(business);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 删除出差方案
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/deleteBusiness/{id}")
+    public AjaxResponse deleteBusiness(@PathVariable("id") Integer id){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.deleteBusiness(id);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 修改状态为禁用
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusinessState")
+    public AjaxResponse updateBusinessState(@RequestBody Business business){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateBusinessState(business);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 修改状态为启用
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusinessStateTwo")
+    public AjaxResponse updateBusinessStateTwo(@RequestBody Business business){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateBusinessStateTwo(business);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

@@ -1,14 +1,8 @@
 package com.trkj.framework.service.client.wage;
 
-import com.trkj.framework.entity.mybatisplus.Attendandce;
-import com.trkj.framework.entity.mybatisplus.Fixedwagf;
-import com.trkj.framework.entity.mybatisplus.Salary;
-import com.trkj.framework.entity.mybatisplus.WorkScheme;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.WageClientServiceFallbackfactory;
-import com.trkj.framework.vo.AttendandceVo;
-import com.trkj.framework.vo.FixedwageVo;
-import com.trkj.framework.vo.WageVo;
-import com.trkj.framework.vo.WorkSchemeVo;
+import com.trkj.framework.vo.*;
 import jdk.nashorn.internal.objects.annotations.Attribute;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
@@ -162,4 +156,60 @@ public interface WageClientService {
      */
     @PutMapping("/updateAttendandceStateTwo")
     Map<String, Object> updateAttendandceStateTwo(@RequestBody Attendandce attendandce);
+
+    /**
+     * 查询出差方案
+     * @param businessVo
+     * @return
+     */
+    @PostMapping("/selectBusiness")
+    Map<String,Object> selectBusiness(@RequestBody BusinessVo businessVo);
+
+    /**
+     * 添加出差方案
+     * @param business
+     * @return
+     */
+    @PostMapping("/insertBusiness")
+    Map<String, Object> insertBusiness(@RequestBody Business business);
+
+    /**
+     * 根据id查询出差方案
+     * @param business
+     * @return
+     */
+    @PostMapping("/selectBusinessAll")
+    Map<String, Object> selectBusinessAll(@RequestBody Business business);
+
+    /**
+     * 修改出差方案
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusiness")
+    Map<String, Object> updateBusiness(@RequestBody Business business);
+
+    /**
+     * 删除出差方案
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/deleteBusiness/{id}")
+    Map<String,Object> deleteBusiness(@PathVariable("id") Integer id);
+
+    /**
+     * 修改状态为禁用
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusinessState")
+    Map<String, Object> updateBusinessState(@RequestBody Business business);
+
+    /**
+     * 修改状态为启用
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusinessStateTwo")
+    Map<String, Object> updateBusinessStateTwo(@RequestBody Business business);
 }
