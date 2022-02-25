@@ -1,8 +1,6 @@
 package com.trkj.framework.controller;
 
-import com.trkj.framework.entity.mybatisplus.Auditflow;
-import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
-import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.examine.AuditflowService;
 import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.*;
@@ -171,6 +169,39 @@ public class AuditflowController {
     @PostMapping("/selectTodayOverTimeExamine")
     public AjaxResponse selectTodayOverTimeExamine(@RequestBody Auditflow auditflow){
         Map<String,Object> map = (Map<String, Object>)auditflowService.selectTodayOverTimeExamine(auditflow);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询当前员工是否有正在进行中的请假
+     * @param leave
+     * @return
+     */
+    @PostMapping("/inquireUnderwayLeave")
+    public AjaxResponse inquireUnderwayLeave(@RequestBody Leave leave){
+        Map<String,Object> map = (Map<String, Object>)auditflowService.inquireUnderwayLeave(leave);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询当前员工是否有正在进行中的请假
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/inquireUnderwayOverTime")
+    public AjaxResponse inquireUnderwayOverTime(@RequestBody Overtimeask overtimeask){
+        Map<String,Object> map = (Map<String, Object>)auditflowService.inquireUnderwayOverTime(overtimeask);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询当前员工是否有正在进行中的出差
+     * @param travel
+     * @return
+     */
+    @PostMapping("/inquireUnderwayTravel")
+    public AjaxResponse inquireUnderwayTravel(@RequestBody Travel travel){
+        Map<String,Object> map = (Map<String, Object>)auditflowService.inquireUnderwayTravel(travel);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

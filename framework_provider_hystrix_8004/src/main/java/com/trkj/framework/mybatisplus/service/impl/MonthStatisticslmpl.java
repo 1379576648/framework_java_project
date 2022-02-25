@@ -282,8 +282,6 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
                 list1.add(year+"-"+month+"-"+cal.get(Calendar.DAY_OF_MONTH));
             }
         }
-
-        System.out.println(list1);
         for (int j = 0; j < staff1.getRecords().size(); j++) {
             List<ClockRecord> list = new ArrayList<ClockRecord>();
             for (int i = 1; i <= maxDate; i++) {
