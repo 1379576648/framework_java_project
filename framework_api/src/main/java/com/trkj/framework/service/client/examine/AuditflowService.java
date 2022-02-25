@@ -614,4 +614,28 @@ public interface AuditflowService {
      */
     @PostMapping("/selectTodayOverTimeExamine")
     Map<String,Object> selectTodayOverTimeExamine(@RequestBody Auditflow auditflow);
+
+    /**
+     * 查询当天的请假审批记录
+     * @param leave
+     * @return
+     */
+    @PostMapping("/inquireUnderwayLeave")
+    Map<String,Object> inquireUnderwayLeave(@RequestBody Leave leave);
+
+    /**
+     * 查询当天的加班审批记录
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/inquireUnderwayOverTime")
+    Map<String,Object> inquireUnderwayOverTime(@RequestBody Overtimeask overtimeask);
+
+    /**
+     * 查询当天的加班审批记录
+     * @param travel
+     * @return
+     */
+    @PostMapping("/inquireUnderwayTravel")
+    Map<String,Object> inquireUnderwayTravel(@RequestBody Travel travel);
 }

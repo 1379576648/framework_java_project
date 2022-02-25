@@ -135,6 +135,35 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
                 return fuseUtil.main(throwable);
             }
 
+            /**
+             * 查询部门名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectDeptName1() {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询部门职位名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectDeptPostName1() {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询部门职位名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectMonthlySalary() {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }
