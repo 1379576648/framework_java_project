@@ -40,4 +40,37 @@ public class RecruitmentController {
         Map<String, Object> map = (Map<String, Object>) newresumeClinetService.selectPlan();
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 查询部门名称（新增招聘计划下拉列表框）
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptName1")
+    private Object selectDeptName1(){
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.selectDeptName1();
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询部门职位名称（新增招聘计划下拉列表框）
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptPostName1")
+    private Object selectDeptPostName1(){
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.selectDeptPostName1();
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询月薪范围（新增招聘计划下拉列表框）
+     * @param
+     * @return
+     */
+    @PostMapping("/selectMonthlySalary")
+    private Object selectMonthlySalary(){
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.selectMonthlySalary();
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }
