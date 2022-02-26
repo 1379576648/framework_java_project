@@ -25,7 +25,7 @@ public interface BusinessMapper extends BaseMapper<Business> {
      * @param queryWrapper
      * @return
      */
-    @Select("SELECT b.BUSINESS_ID,t.TRAVEL_ID,b.BUSINESS_NAME,b.BUSINESS_ONEMONEY,b.BUSINESS_STATE,b.BUSINESS_REMARK,d.DEPT_NAME,b.IS_DELETED FROM BUSINESS b LEFT JOIN TRAVEL t on t.TRAVEL_ID=b.TRAVEL_ID LEFT JOIN DEPT d on d.DEPT_NAME=b.DEPT_NAME ${ew.customSqlSegment}")
+    @Select("SELECT distinct b.BUSINESS_ID,t.TRAVEL_ID,b.BUSINESS_NAME,b.BUSINESS_ONEMONEY,b.BUSINESS_STATE,b.BUSINESS_REMARK,d.DEPT_NAME,b.IS_DELETED FROM BUSINESS b LEFT JOIN TRAVEL t on t.TRAVEL_ID=b.TRAVEL_ID LEFT JOIN DEPT d on d.DEPT_NAME=b.DEPT_NAME ${ew.customSqlSegment}")
     IPage<BusinessVo> selectBusiness(Page<BusinessVo> page, @Param(Constants.WRAPPER)QueryWrapper<BusinessVo> queryWrapper);
 
     /**

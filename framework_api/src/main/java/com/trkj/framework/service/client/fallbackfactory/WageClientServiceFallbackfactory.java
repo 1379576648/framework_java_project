@@ -264,6 +264,16 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             public Map<String, Object> updateBusinessStateTwo(Business business) {
                 return fuseUtil.main(throwable);
             }
+
+            /**
+             * 查询工资表
+             * @param staff
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectWage(Staff staff) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

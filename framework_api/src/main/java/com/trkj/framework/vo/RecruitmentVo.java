@@ -17,6 +17,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @TableName("RECRUITMENT_PLAN")
+@KeySequence(value = "RECRUITMENT_PLAN_ID",clazz = Long.class)
 public class RecruitmentVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -51,7 +52,7 @@ public class RecruitmentVo implements Serializable {
 
     @ApiModelProperty(value = "学历名称")
     @TableId("EDUCATION_NAME")
-    private Long educationName;
+    private String educationName;
 
     @ApiModelProperty(value = "招聘计划开始时间")
     @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
@@ -66,6 +67,20 @@ public class RecruitmentVo implements Serializable {
     @ApiModelProperty(value = "招聘状态")
     @TableId("RECRUITMENT_ZT")
     private Long recruitmentZt;
+
+    @ApiModelProperty(value = "月薪编号")
+    @TableId("MONTHLY_SALARY_ID")
+    private Integer monthlySalaryId;
+
+    @ApiModelProperty(value = "月薪起始金额")
+    @TableField(exist = false)
+    @TableId("MONTHLY_SALARY_STAR")
+    private Double monthlySalaryStar;
+
+    @ApiModelProperty(value = "月薪结束金额")
+    @TableField(exist = false)
+    @TableId("MONTHLY_SALARY_END")
+    private Double monthlySalaryEnd;
 
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)
