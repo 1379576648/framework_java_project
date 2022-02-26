@@ -212,4 +212,12 @@ public interface WageClientService {
      */
     @PutMapping("/updateBusinessStateTwo")
     Map<String, Object> updateBusinessStateTwo(@RequestBody Business business);
+
+    /**
+     * 查询工资表
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectWage")
+    Map<String, Object> selectWage(@RequestBody Staff staff);
 }

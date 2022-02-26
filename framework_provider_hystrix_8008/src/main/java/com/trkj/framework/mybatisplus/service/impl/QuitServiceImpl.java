@@ -46,6 +46,8 @@ public class QuitServiceImpl implements QuitService {
             quit2.setFormalQuitDate(quit.getFormalQuitDate());
             //备注
             quit2.setQuitExplain(quit.getQuitExplain());
+            //状态
+            quit2.setQuitState(1L);
 
             //添加到离职表
             int row = quitMapper.insert(quit2);

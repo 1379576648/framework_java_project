@@ -296,4 +296,15 @@ public class WageController {
         Map<String, Object> map = (Map<String, Object>) wageClientService.updateBusinessStateTwo(business);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 查询工资表
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectWage")
+    public AjaxResponse selectWage(@RequestBody Staff staff){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectWage(staff);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }
