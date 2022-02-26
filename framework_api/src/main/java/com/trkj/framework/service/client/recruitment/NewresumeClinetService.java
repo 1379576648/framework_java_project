@@ -104,5 +104,39 @@ public interface NewresumeClinetService {
      * @return
      */
     @PostMapping("/selectPlan")
-    Map<String, Object>  selectPlan(@RequestBody String  name);
+    Map<String, Object>  selectPlan();
+
+
+    /**
+     * 查询部门名称（新增招聘计划下拉列表框）
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptName1")
+    Map<String, Object>  selectDeptName1();
+
+
+    /**
+     * 查询部门职位名称（新增招聘计划下拉列表框）
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptPostName1")
+    Map<String, Object>  selectDeptPostName1();
+
+    /**
+     * 查询部门职位名称（新增招聘计划下拉列表框）
+     * @param
+     * @return
+     */
+    @PostMapping("/selectMonthlySalary")
+    Map<String, Object>  selectMonthlySalary();
+
+    /**
+     * 新增招聘计划
+     * @param
+     * @return
+     */
+    @PostMapping("/addRecruitmentPlan")
+    Map<String,Object> addRecruitmentPlan(@RequestBody RecruitmentVo recruitmentVo);
 }

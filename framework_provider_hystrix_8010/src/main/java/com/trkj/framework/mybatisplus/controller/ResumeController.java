@@ -194,7 +194,11 @@ public class ResumeController {
     public Map<String, Object>  addResume(@RequestBody ResumeVo resumeVo){
         Map<String, Object> map = new HashMap<>(2);
         map.put("state",200);
-        map.put("succeed",resumeService.addResume(resumeVo));
+        try {
+            map.put("succeed",resumeService.addResume(resumeVo));
+        }catch (ArithmeticException e) {
+            map.put("info", e.getMessage());
+        }
         return map;
     }
     /**

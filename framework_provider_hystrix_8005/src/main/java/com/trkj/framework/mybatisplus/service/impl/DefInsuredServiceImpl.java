@@ -180,7 +180,6 @@ public class DefInsuredServiceImpl implements DefInsuredService {
         DefInsured defInsured = JSONObject.parseObject(JSONObject.toJSONString(objectMap.get("defInsured")), DefInsured.class);
         //删除社保方案项目
         defSchemeMapper.delete(new QueryWrapper<DefScheme>().eq("DEF_INSURED_ID", defInsured.getDefInsuredId()));
-
         List<DefScheme> defSchemeList = JSONObject.parseArray(JSONObject.toJSONString(objectMap.get("defSchemeList")), DefScheme.class);
         for (int i = 0; i < defSchemeList.size(); i++) {
             defSchemeList.get(i).setDefInsuredId(Long.valueOf(defInsured.getDefInsuredId()));

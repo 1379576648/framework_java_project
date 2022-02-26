@@ -1,10 +1,8 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -76,6 +74,7 @@ public class Resume implements Serializable {
     @TableField("RECRUITMENT_PLAN_ID")
     private Long recruitmentPlanId;
 
+
     @ApiModelProperty(value = "政治面貌")
     @TableField("RESUME_POLITICAL_OUTLOOK")
     private String resumePoliticalOutlook;
@@ -92,63 +91,23 @@ public class Resume implements Serializable {
     private Date toujTime;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
+    @Version
     @TableField("REVISION")
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除;1表示删除，0 表示未删除")
+    @TableLogic
     @TableField("IS_DELETED")
     private Long isDeleted;
-
-//    @ApiModelProperty(value = "学校名称")
-//    @TableField("EDUCATION_STUDENTNAME")
-//    private String educationStudentname;
-//
-//    @ApiModelProperty(value = "所属专业")
-//    @TableField("EDUCATION_MAJOR")
-//    private String educationMajor;
-//
-//    @ApiModelProperty(value = "开始日期")
-//    @TableField("EDUCATION_START_TIME")
-//    private Date educationStartTime1;
-//
-//    @ApiModelProperty(value = "结束日期")
-//    @TableField("EDUCATION_END_TIME")
-//    private Date educationEndTime1;
-//
-//    @ApiModelProperty(value = "公司名称")
-//    @TableField("COMPANY_NAME")
-//    private String companyName;
-//
-//    @ApiModelProperty(value = "职位名称")
-//    @TableField("POSITION_NAME")
-//    private String positionName;
-//
-//    @ApiModelProperty(value = "开始日期")
-//    @TableField("EDUCATION_START_TIME")
-//    private Date educationStartTime2;
-//
-//    @ApiModelProperty(value = "结束日期")
-//    @TableField("EDUCATION_END_TIME")
-//    private Date educationEndTime2;
-//
-//    @ApiModelProperty(value = "所属行业")
-//    @TableField("POSITION_INDUSTRY")
-//    private String positionIndustry;
-//
-//    @ApiModelProperty(value = "工作描述")
-//    @TableField("POSITION_DESCRIBE")
-//    private String positionDescribe;
-//
-//    @ApiModelProperty(value = "税前月薪")
-//    @TableField("POSITION_SQMONTHLY")
-//    private Double positionSqmonthly;
 
 }

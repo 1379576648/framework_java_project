@@ -57,9 +57,9 @@ public interface ResumeService extends IService<ResumeVo> {
         IPage<ResumeVo> selectInvite(ResumeVo resumeVo);
 
         /**
-         * 新增招聘
+         * 新增简历
          * @param
          * @return
          */
-        String addResume(ResumeVo resume);
+        String addResume(ResumeVo resumeVo);
 }

@@ -25,14 +25,14 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("DEPT")
 @ApiModel(value="Dept对象", description="部门表")
-@KeySequence(value = "DEPT_ID",clazz = int.class)
+@KeySequence(value = "DEPT_ID",clazz = Long.class)
 public class Dept implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "部门编号")
     @TableId("DEPT_ID")
-    private int deptId;
+    private Long deptId;
 
     @ApiModelProperty(value = "状态;0：启用  1：禁用")
     @TableField("DEPT_STATE")

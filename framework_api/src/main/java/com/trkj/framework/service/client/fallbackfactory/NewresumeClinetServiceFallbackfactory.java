@@ -11,6 +11,7 @@ import com.trkj.framework.vo.ResumeVo;
 import feign.hystrix.FallbackFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -131,10 +132,49 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              * @return
              */
             @Override
-            public Map<String, Object> selectPlan(String name) {
+            public Map<String, Object> selectPlan() {
                 return fuseUtil.main(throwable);
             }
 
+            /**
+             * 查询部门名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectDeptName1() {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询部门职位名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectDeptPostName1() {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询部门职位名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectMonthlySalary() {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 新增招聘计划
+             * @param
+             * @return
+             */
+            @Override
+            public  Map<String, Object> addRecruitmentPlan(RecruitmentVo recruitmentVo) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

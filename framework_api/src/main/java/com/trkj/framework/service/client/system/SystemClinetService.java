@@ -279,4 +279,11 @@ public interface SystemClinetService {
      */
     @PostMapping("/menuPowerAdd")
     public Map<String,Object> menuPowerAdd(@RequestBody MenuPower menuPower);
+
+    /***
+     * 查询所有的职位
+     * @return
+     */
+    @GetMapping("/selectDeptPostAll")
+    public Map<String,Object> selectDeptPostAll();
 }

@@ -1,7 +1,6 @@
 package com.trkj.framework.vo;
 
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.*;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.trkj.framework.entity.mybatisplus.Resume;
 import io.swagger.annotations.ApiModelProperty;
@@ -14,12 +13,17 @@ import java.util.Date;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@TableName("RESUME")
 public class ResumeVo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "编号")
     @TableId("RECRUITMENT_PLAN_ID")
     private Long recruitmentPlanId;
+
+    @ApiModelProperty(value = "招聘计划名称")
+    @TableField(exist = false)
+    private String recruitmentPlanName;
 
     @ApiModelProperty(value = "简历编号")
     @TableId("RESUME_ID")
@@ -97,18 +101,22 @@ public class ResumeVo implements Serializable {
     private Date toujTime;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
+    @Version
     @TableField("REVISION")
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除;1表示删除，0 表示未删除")
+    @TableLogic
     @TableField("IS_DELETED")
     private Long isDeleted;
 
@@ -120,13 +128,15 @@ public class ResumeVo implements Serializable {
     @TableField("EDUCATION_MAJOR")
     private String educationMajor;
 
-    @ApiModelProperty(value = "开始日期")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @ApiModelProperty(value = "开始时间")
     @TableField("EDUCATION_START_TIME")
-    private Date educationStartTime1;
+    private Date educationStartTime;
 
-    @ApiModelProperty(value = "结束日期")
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @ApiModelProperty(value = "结束时间")
     @TableField("EDUCATION_END_TIME")
-    private Date educationEndTime1;
+    private Date educationEndTime;
 
     @ApiModelProperty(value = "公司名称")
     @TableField("COMPANY_NAME")
@@ -136,13 +146,15 @@ public class ResumeVo implements Serializable {
     @TableField("POSITION_NAME")
     private String positionName;
 
-    @ApiModelProperty(value = "开始日期")
-    @TableField("EDUCATION_START_TIME")
-    private Date educationStartTime2;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @ApiModelProperty(value = "开始时间")
+    @TableField("WORK_STARE_TIME")
+    private Date workStareTime;
 
-    @ApiModelProperty(value = "结束日期")
-    @TableField("EDUCATION_END_TIME")
-    private Date educationEndTime2;
+    @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
+    @ApiModelProperty(value = "结束时间")
+    @TableField("WORK_END_TIME")
+    private Date workEndTime;
 
     @ApiModelProperty(value = "所属行业")
     @TableField("POSITION_INDUSTRY")
@@ -154,5 +166,5 @@ public class ResumeVo implements Serializable {
 
     @ApiModelProperty(value = "税前月薪")
     @TableField("POSITION_SQMONTHLY")
-    private Double positionSqmonthly;
+    private Long positionSqmonthly;
 }

@@ -183,6 +183,16 @@ public class CheckingServiceFallbackfactory implements FallbackFactory {
             public Map<String, Object> selectArchiveByNameAndIPage(Archive archive) {
                 return fuseUtil.main(throwable);
             }
+
+            @Override
+            public Map<String, Object> selcetAttendanceRecord(Staff staff) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String, Object> selectDeptAll() {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }
