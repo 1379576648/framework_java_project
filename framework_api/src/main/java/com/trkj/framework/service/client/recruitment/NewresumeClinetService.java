@@ -131,4 +131,12 @@ public interface NewresumeClinetService {
      */
     @PostMapping("/selectMonthlySalary")
     Map<String, Object>  selectMonthlySalary();
+
+    /**
+     * 新增招聘计划
+     * @param
+     * @return
+     */
+    @PostMapping("/addRecruitmentPlan")
+    Map<String,Object> addRecruitmentPlan(@RequestBody RecruitmentVo recruitmentVo);
 }
