@@ -238,6 +238,11 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private String deptName;
 
+    @ApiModelProperty(value = "职位名称")
+    @TableField(exist = false)
+    private String deptPostName;
+
+
     @ApiModelProperty(value = "参保方案")
     @TableField(exist = false)
     private List<InsuredScheme> insuredScheme;

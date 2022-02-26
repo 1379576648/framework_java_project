@@ -1,9 +1,7 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.Auditflow;
-import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
-import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.mybatisplus.service.AuditflowService;
 import com.trkj.framework.util.Fuse8003Util;
 import com.trkj.framework.vo.*;
@@ -362,5 +360,61 @@ public class AuditflowController {
         return fuse8003Util.main();
     }
 
+    /**
+     * 查询当前员工是否有正在进行中的请假
+     *
+     * @param leave
+     * @return
+     */
+    @PostMapping("/inquireUnderwayLeave")
+    @HystrixCommand(fallbackMethod = "inquireUnderwayLeaveExamineHystixGet")
+    public Map<String, Object> inquireUnderwayLeave(@RequestBody Leave leave) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.inquireUnderwayLeave(leave));
+        return map1;
+    }
+
+    public Map<String, Object> inquireUnderwayLeaveExamineHystixGet(@RequestBody Leave leave) {
+        return fuse8003Util.main();
+    }
+
+    /**
+     * 查询当前员工是否有正在进行中的加班
+     *
+     * @param overtimeask
+     * @return
+     */
+    @PostMapping("/inquireUnderwayOverTime")
+    @HystrixCommand(fallbackMethod = "inquireUnderwayOverTimeExamineHystixGet")
+    public Map<String, Object> inquireUnderwayOverTime(@RequestBody Overtimeask overtimeask) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.inquireUnderwayOverTime(overtimeask));
+        return map1;
+    }
+
+    public Map<String, Object> inquireUnderwayOverTimeExamineHystixGet(@RequestBody Overtimeask overtimeask) {
+        return fuse8003Util.main();
+    }
+
+    /**
+     * 查询当前员工是否有正在进行中的出差
+     *
+     * @param travel
+     * @return
+     */
+    @PostMapping("/inquireUnderwayTravel")
+    @HystrixCommand(fallbackMethod = "inquireUnderwayTravelExamineHystixGet")
+    public Map<String, Object> inquireUnderwayTravel(@RequestBody Travel travel) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", auditflowService.inquireUnderwayTravel(travel));
+        return map1;
+    }
+
+    public Map<String, Object> inquireUnderwayTravelExamineHystixGet(@RequestBody Travel travel) {
+        return fuse8003Util.main();
+    }
 }
 

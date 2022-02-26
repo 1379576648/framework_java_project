@@ -3,11 +3,9 @@ package com.trkj.framework.mybatisplus.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.trkj.framework.entity.jpa.MenuPowerEntity;
 import com.trkj.framework.entity.mybatisplus.*;
-import com.trkj.framework.mybatisplus.mapper.RoleMapper;
-import com.trkj.framework.mybatisplus.mapper.RoleMenuPowerMapper;
-import com.trkj.framework.mybatisplus.mapper.RoleStaffMapper;
-import com.trkj.framework.mybatisplus.mapper.StaffMapper;
+import com.trkj.framework.mybatisplus.mapper.*;
 import com.trkj.framework.mybatisplus.service.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -19,6 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -43,6 +42,8 @@ public class RoleServiceImpl implements RoleService {
     @Autowired
     private StaffMapper staffMapper;
 
+    @Autowired
+    private DeptPostMapper deptPostMapper;
 
     /***
      * 分页查询所有的角色数据
@@ -254,23 +255,28 @@ public class RoleServiceImpl implements RoleService {
         QueryWrapper<Staff> queryWrapper = new QueryWrapper<Staff>();
         //判断员工名称是否为空
         if (staff.getStaffName() != null && !staff.getStaffName().equals("")) {
-            queryWrapper.like("STAFF_NAME", staff.getStaffName());
+            queryWrapper.like("A.STAFF_NAME", staff.getStaffName());
+        }
+        //判断员工名称是否为空
+        if (staff.getDeptPostName() != null && !staff.getDeptPostName().equals("")) {
+            queryWrapper.like("B.POST_NAME", staff.getDeptPostName());
         }
         //判断员工手机号码是否为空
         if (staff.getStaffPhone() != null) {
-            queryWrapper.like("STAFF_PHONE", staff.getStaffPhone());
+            queryWrapper.like("A.STAFF_PHONE", staff.getStaffPhone());
         }
         //通过角色编号查询角色员工表数据
         List<RoleStaff> staffList = roleStaffMapper.selectList(new QueryWrapper<RoleStaff>().eq("ROLE_ID", staff.getRoleId()));
         if (staffList.size() >= 1) {
             for (RoleStaff roleStaff : staffList) {
                 //角色编号
-                queryWrapper.ne("STAFF_ID", roleStaff.getStaffId());
+                queryWrapper.ne("A.STAFF_ID", roleStaff.getStaffId());
             }
         }
         //状态不等于离职 2
-        queryWrapper.ne("STAFF_STATE", 2).select(Staff.class, i -> !"STAFF_PASS".equals(i.getColumn()));
-        IPage<Staff> staffIPage = staffMapper.selectPage(iPage, queryWrapper);
+        queryWrapper.ne("A.STAFF_STATE", 2).select(Staff.class, i -> !"STAFF_PASS".equals(i.getColumn()));
+        //分页查询数据
+        IPage<Staff> staffIPage = staffMapper.selectStaffInState(iPage, queryWrapper);
         return staffIPage;
     }
 
@@ -293,6 +299,24 @@ public class RoleServiceImpl implements RoleService {
             }
         }
         return "成功";
+    }
+
+    /***
+     * 查询所有的职位
+     * @return
+     */
+    @Override
+    public Object selectDeptPostAll() {
+        //定义职位存储空间
+        List<String> list = new ArrayList<>();
+        //查询所有的职位
+        List<DeptPost> deptPosts =deptPostMapper.selectList(null);
+        for (int i = 0; i <deptPosts.size() ; i++) {
+            list.add(deptPosts.get(i).getPostName());
+        }
+        // 去重
+        List<String> stringList = list.stream().distinct().collect(Collectors.toList());
+        return stringList;
     }
 
 

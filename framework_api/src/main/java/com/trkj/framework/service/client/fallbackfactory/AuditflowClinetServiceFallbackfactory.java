@@ -378,6 +378,21 @@ public class AuditflowClinetServiceFallbackfactory implements FallbackFactory {
             public Map<String,Object> selectTodayOverTimeExamine(Auditflow auditflow) {
                 return fuseUtil.main(throwable);
             }
+
+            @Override
+            public Map<String,Object> inquireUnderwayLeave(Leave leave) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String,Object> inquireUnderwayOverTime(Overtimeask overtimeask) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String,Object> inquireUnderwayTravel(Travel travel) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }
