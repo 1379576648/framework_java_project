@@ -220,4 +220,12 @@ public interface WageClientService {
      */
     @PostMapping("/selectWage")
     Map<String, Object> selectWage(@RequestBody Staff staff);
+
+    /**
+     * 统计工资表
+     * @param staff
+     * @return
+     */
+    @PostMapping("/countWage")
+    Map<String, Object> countWage(@RequestBody Staff staff);
 }

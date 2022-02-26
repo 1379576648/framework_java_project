@@ -39,4 +39,24 @@ public class WageTableController {
     public  Map<String, Object> hystixGet(@RequestBody Staff staff){
         return fuse8006Util.main();
     }
+
+    /**
+     * 统计工资表
+     * @param staff
+     * @return
+     */
+    @PostMapping("/countWage")
+    @HystrixCommand(fallbackMethod = "hystixGet2")
+    public Map<String, Object> countWage(@RequestBody Staff staff){
+        Map<String, Object> map1 = new HashMap(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",wageTableService.countWage(staff));
+        return map1;
+    }
+
+    //备选方案
+    public  Map<String, Object> hystixGet2(@RequestBody Staff staff){
+        return fuse8006Util.main();
+    }
 }

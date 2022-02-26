@@ -274,6 +274,16 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             public Map<String, Object> selectWage(Staff staff) {
                 return fuseUtil.main(throwable);
             }
+
+            /**
+             * 统计工资表
+             * @param staff
+             * @return
+             */
+            @Override
+            public Map<String, Object> countWage(Staff staff) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

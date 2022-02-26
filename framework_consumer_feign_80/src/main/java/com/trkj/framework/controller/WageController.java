@@ -307,4 +307,15 @@ public class WageController {
         Map<String, Object> map = (Map<String, Object>) wageClientService.selectWage(staff);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 统计工资表
+     * @param staff
+     * @return
+     */
+    @PostMapping("/countWage")
+    public AjaxResponse countWage(@RequestBody Staff staff){
+        Map<String, Object> map =  (Map<String, Object>) wageClientService.countWage(staff);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }
