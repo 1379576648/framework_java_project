@@ -318,4 +318,59 @@ public class WageController {
         Map<String, Object> map =  (Map<String, Object>) wageClientService.countWage(staff);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 查询未归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectMoney")
+    public AjaxResponse selectMoney(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectMoney(moneyPigeonhole);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 统计未归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/countMoney")
+    public AjaxResponse countMoney(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.countMoney(moneyPigeonhole);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 查询已归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectMoneys")
+    public AjaxResponse selectMoneys(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectMoneys(moneyPigeonhole);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 统计已归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/countMoneys")
+    public AjaxResponse countMoneys(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.countMoneys(moneyPigeonhole);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 修改状态为已归档
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PutMapping("/updateMoney")
+    public AjaxResponse updateMoney(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.updateMoney(moneyPigeonhole);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }
