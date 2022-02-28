@@ -156,4 +156,15 @@ public class ResumeController {
         Map<String, Object> map = (Map<String, Object>) newresumeClinetService.OfferInterview(resume);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 淘汰放弃（面试候选人）
+     * @param
+     * @return
+     */
+    @PutMapping("/Abandon")
+    private Object Abandon(@RequestBody Resume resume) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.Abandon(resume);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }

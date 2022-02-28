@@ -97,4 +97,11 @@ public interface ResumeService{
          * @return
          */
         int OfferInterview(Resume resume);
+
+        /**
+         * 淘汰放弃（面试候选人）
+         * @param
+         * @return
+         */
+        int Abandon(Resume resume);
 }
