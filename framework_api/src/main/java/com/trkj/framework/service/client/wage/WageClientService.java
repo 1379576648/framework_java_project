@@ -220,4 +220,52 @@ public interface WageClientService {
      */
     @PostMapping("/selectWage")
     Map<String, Object> selectWage(@RequestBody Staff staff);
+
+    /**
+     * 统计工资表
+     * @param staff
+     * @return
+     */
+    @PostMapping("/countWage")
+    Map<String, Object> countWage(@RequestBody Staff staff);
+
+    /**
+     * 查询未归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectMoney")
+    Map<String, Object> selectMoney(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 统计未归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/countMoney")
+    Map<String, Object> countMoney(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 查询已归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectMoneys")
+    Map<String, Object> selectMoneys(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 统计已归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/countMoneys")
+    Map<String, Object> countMoneys(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 修改状态为已归档
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PutMapping("/updateMoney")
+    Map<String, Object> updateMoney(@RequestBody MoneyPigeonhole moneyPigeonhole);
 }

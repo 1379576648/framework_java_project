@@ -309,6 +309,30 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private double salarySum;
 
+    @ApiModelProperty(value = "出差工资")
+    @TableField(exist = false)
+    private double travelMoney;
+
+    @ApiModelProperty(value = "计薪人数")
+    @TableField(exist = false)
+    private double countPerson;
+
+    @ApiModelProperty(value = "统计应发工资")
+    @TableField(exist = false)
+    private double countyMoney;
+
+    @ApiModelProperty(value = "统计实发工资")
+    @TableField(exist = false)
+    private double countsMoney;
+
+    @ApiModelProperty(value = "公司缴纳")
+    @TableField(exist = false)
+    private double countcPay;
+
+    @ApiModelProperty(value = "员工成本")
+    @TableField(exist = false)
+    private double staffPay;
+
     @ApiModelProperty(value = "打卡记录创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(exist = false)

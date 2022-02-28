@@ -2,7 +2,8 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Staff;
-import com.trkj.framework.vo.WageTableVo;
+
+import java.util.List;
 
 public interface WageTableService {
     /**
@@ -11,6 +12,13 @@ public interface WageTableService {
      * @return
      */
     IPage<Staff> selectWage(Staff staff);
+
+    /**
+     * 统计工资表
+     * @param staff
+     * @return
+     */
+    Object countWage(Staff staff);
 
 
 }
