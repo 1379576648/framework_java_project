@@ -23,11 +23,3 @@ hystrix:
         isolation:
           thread:
             timeoutInMilliseconds: 5000
-# JWT配置
-jwt:
-  # 密匙KEY
-  secret: JwtSecret
-  # HeaderKEY
-  header: JWTDemo
-  # 过期时间(这里设定为豪秒)
-  expire: 60000
