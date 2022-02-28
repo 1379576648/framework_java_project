@@ -57,4 +57,11 @@ public interface BusinessService {
      * @return
      */
     int updateBusiness(Business business);
+
+    /**
+     * 根据部门名称查询有无方案
+     * @param business
+     * @return
+     */
+    List<Business> selectBusinessBydept(Business business);
 }
