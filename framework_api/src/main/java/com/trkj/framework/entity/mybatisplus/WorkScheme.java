@@ -30,15 +30,15 @@ public class WorkScheme implements Serializable {
 
     @ApiModelProperty(value = "节假日加班比例")
     @TableId("WORKSCHEME_HOLIDAYRATIO")
-    private Integer workschemeHolidayratio;
+    private Double workschemeHolidayratio;
 
     @ApiModelProperty(value = "休息日加班比例")
     @TableId("WORKSCHEME_DAYOFFRATIO")
-    private Integer workschemeDayoffratio;
+    private Double workschemeDayoffratio;
 
     @ApiModelProperty(value = "工作日加班比例")
     @TableId("WORKSCHEME_WORKRATIO")
-    private Integer workschemeWorkratio;
+    private Double workschemeWorkratio;
 
     @ApiModelProperty(value = "状态")
     @TableId("WORKSCHEME_STATE")

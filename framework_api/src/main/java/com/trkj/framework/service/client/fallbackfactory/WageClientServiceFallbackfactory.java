@@ -264,6 +264,76 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             public Map<String, Object> updateBusinessStateTwo(Business business) {
                 return fuseUtil.main(throwable);
             }
+
+            /**
+             * 查询工资表
+             * @param staff
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectWage(Staff staff) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 统计工资表
+             * @param staff
+             * @return
+             */
+            @Override
+            public Map<String, Object> countWage(Staff staff) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询未归档工资表
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectMoney(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 统计未归档工资表
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> countMoney(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询已归档工资表
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectMoneys(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 统计已归档工资表
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> countMoneys(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为已归档
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateMoney(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

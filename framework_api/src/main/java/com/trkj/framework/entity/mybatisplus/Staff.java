@@ -218,17 +218,24 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private Integer tjSeven;
 
+
     @ApiModelProperty(value = "当前页")
     @TableField(exist = false)
     private Integer currenPage;
+
 
     @ApiModelProperty(value = "部门")
     @TableField(exist = false)
     private Dept dept;
 
+
     @ApiModelProperty(value = "部门职位")
     @TableField(exist = false)
     private DeptPost deptPost;
+
+    @ApiModelProperty(value = "部门名称2")
+    @TableField(exist = false)
+    private List<String> deptNameTwo;
 
     @ApiModelProperty(value = "转正")
     @TableField(exist = false)
@@ -238,10 +245,53 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private String deptName;
 
-    @ApiModelProperty(value = "职位名称")
+    @ApiModelProperty(value = "部门职位")
     @TableField(exist = false)
-    private String deptPostName;
+    private String postName;
 
+    @ApiModelProperty(value = "基本工资")
+    @TableField(exist = false)
+    private double baseWage;
+
+    @ApiModelProperty(value = "工作日加班工资")
+    @TableField(exist = false)
+    private double workMoney;
+
+    @ApiModelProperty(value = "节假日加班工资")
+    @TableField(exist = false)
+    private double holidayMoney;
+
+    @ApiModelProperty(value = "休息日加班工资")
+    @TableField(exist = false)
+    private double offMoney;
+
+    @ApiModelProperty(value = "工资合计")
+    @TableField(exist = false)
+    private double totalWage;
+
+    @ApiModelProperty(value = "早退")
+    @TableField(exist = false)
+    private double elaryMoney;
+
+    @ApiModelProperty(value = "迟到")
+    @TableField(exist = false)
+    private double lateMoney;
+
+    @ApiModelProperty(value = "旷工")
+    @TableField(exist = false)
+    private double leaveMoney;
+
+    @ApiModelProperty(value = "早退次数")
+    @TableField(exist = false)
+    private Integer elaryMoneycs;
+
+    @ApiModelProperty(value = "迟到次数")
+    @TableField(exist = false)
+    private Integer lateMoneycs;
+
+    @ApiModelProperty(value = "旷工次数")
+    @TableField(exist = false)
+    private Integer leaveMoneycs;
 
     @ApiModelProperty(value = "参保方案")
     @TableField(exist = false)
@@ -251,12 +301,40 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private List<ClockRecord> list;
 
+    @ApiModelProperty(value = "社保归档")
+    @TableField(exist = false)
+    private InsuredArchive insuredArchive;
+
+    @ApiModelProperty(value = "实发工资")
+    @TableField(exist = false)
+    private double salarySum;
+
+    @ApiModelProperty(value = "出差工资")
+    @TableField(exist = false)
+    private double travelMoney;
+
+    @ApiModelProperty(value = "计薪人数")
+    @TableField(exist = false)
+    private double countPerson;
+
+    @ApiModelProperty(value = "统计应发工资")
+    @TableField(exist = false)
+    private double countyMoney;
+
+    @ApiModelProperty(value = "统计实发工资")
+    @TableField(exist = false)
+    private double countsMoney;
+
+    @ApiModelProperty(value = "公司缴纳")
+    @TableField(exist = false)
+    private double countcPay;
+
+    @ApiModelProperty(value = "员工成本")
+    @TableField(exist = false)
+    private double staffPay;
+
     @ApiModelProperty(value = "打卡记录创建时间")
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     @TableField(exist = false)
     private Date createdTime1;
-
-    @ApiModelProperty(value = "部门名称2")
-    @TableField(exist = false)
-    private List<String> deptNameTwo;
 }

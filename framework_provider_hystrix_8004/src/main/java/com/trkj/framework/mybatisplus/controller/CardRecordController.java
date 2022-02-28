@@ -100,7 +100,7 @@ public class CardRecordController {
         // 获取Excel表中的数据去数据库中查有无相同数据
         var integer = 0;
         for (List<Object> objects : list) {
-            integer = cardRecordService.selcetCardRecord(objects);
+            integer = cardRecordService.    selcetCardRecord(objects);
             for (int j = 0; j < integer; j++) {
                 // insert =1,则代表数据库中有相同数据
                 if (integer >= 1) {

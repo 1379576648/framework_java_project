@@ -25,11 +25,11 @@ public class Fixedwagf {
 
     @ApiModelProperty(value = "试用期基本工资")
     @TableId("FIXEDWAGE_PERIODMONEY")
-    private Integer fixedwagePeriodmoney;
+    private Double fixedwagePeriodmoney;
 
     @ApiModelProperty(value = "员工编号")
     @TableId("STAFF_ID")
-    private Integer staffid;
+    private Integer staffId;
 
     @ApiModelProperty(value = "员工姓名")
     @TableId("STAFF_NAME")
@@ -37,15 +37,15 @@ public class Fixedwagf {
 
     @ApiModelProperty(value = "正式期基本工资")
     @TableId("FIXEDWAGE_OFFICIALMONEY")
-    private Integer fixedwageOfficialmoney;
+    private Double fixedwageOfficialmoney;
 
     @ApiModelProperty(value = "试用期岗位工资")
     @TableId("FIXEDWAGE_PERIODPOSTMONEY")
-    private Integer fixedwagePeriodpostmoney;
+    private Double fixedwagePeriodpostmoney;
 
     @ApiModelProperty(value = "正式期岗位工资")
     @TableId("FIXEDWAGE_OFFLCIALPOSTMONEY")
-    private Integer fixedwageOfflcialpostmoney;
+    private Double fixedwageOfflcialpostmoney;
 
     @ApiModelProperty(value = "备注")
     @TableId("FIXEDWAGE_REMARK")
@@ -67,5 +67,5 @@ public class Fixedwagf {
 
     @ApiModelProperty(value = "逻辑删除")
     @TableId("IS_DELETED")
-    private Integer isdeleted;
+    private Integer isDeleted;
 }
