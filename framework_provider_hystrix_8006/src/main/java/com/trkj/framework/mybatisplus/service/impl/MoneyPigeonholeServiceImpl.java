@@ -6,15 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.MoneyPigeonhole;
 import com.trkj.framework.mybatisplus.mapper.MoneyPigeonholeMapper;
 import com.trkj.framework.mybatisplus.service.MoneyPigeonholeService;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -98,8 +94,15 @@ public class MoneyPigeonholeServiceImpl implements MoneyPigeonholeService {
         QueryWrapper queryWrapper = new QueryWrapper();
         //判断传入的时间是否为空
         if (moneyPigeonhole.getStartTime() != null || moneyPigeonhole.getEndTime() != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(moneyPigeonhole.getStartTime());
+            cal.add(Calendar.MONTH, 1);
+
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTime(moneyPigeonhole.getEndTime());
+            cal2.add(Calendar.MONTH, 1);
             //计薪时间范围查询
-            queryWrapper.between("CREATED_TIME", moneyPigeonhole.getStartTime(), moneyPigeonhole.getEndTime());
+            queryWrapper.between("CREATED_TIME", cal.getTime(),cal2.getTime());
         }
         queryWrapper.eq("MONEYPIGEONHOLE_STATE",1);
         IPage<MoneyPigeonhole> moneyPigeonholeIPage = moneyPigeonholeMapper.selectPage(page,queryWrapper);
