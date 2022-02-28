@@ -1,15 +1,9 @@
 package com.trkj.framework.mybatisplus.service;
 
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.service.IService;
 import com.trkj.framework.entity.mybatisplus.Role;
 import com.trkj.framework.entity.mybatisplus.RoleStaff;
 import com.trkj.framework.entity.mybatisplus.Staff;
-import io.swagger.models.auth.In;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>
