@@ -47,7 +47,7 @@ public class Dept implements Serializable {
     private Integer staffId;
 
     @ApiModelProperty(value = "员工姓名;")
-    @TableField
+    @TableField(exist = false)
     private String staffName;
 
     @ApiModelProperty(value = "当前页")

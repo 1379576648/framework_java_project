@@ -1,6 +1,7 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.DeptPost;
 import com.trkj.framework.mybatisplus.service.DeptPostService;
 import com.trkj.framework.util.Fuse8009Util;
@@ -61,6 +62,44 @@ public class DeptPostController {
     }
     //备选
     public  Map<String ,Object> scDeptPostF(@PathVariable("id") Integer id) {
+        return fuse8009Util.main();
+    }
+    /**
+     *  新增职位
+     * @param
+     * @return
+     */
+    @PostMapping("/xzDeptPost")
+    @HystrixCommand(fallbackMethod = "xzDeptPostF")
+    public Map<String,Object> xzDeptPost(@RequestBody DeptPost deptPost){
+        Map<String,Object>map1=new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",deptPostService.xzDeptPost(deptPost));
+        return map1;
+    }
+    //备选
+    public  Map<String ,Object> xzDeptPostF(@RequestBody DeptPost deptPost) {
+        return fuse8009Util.main();
+    }
+    /**
+     *  查询所有部门
+     * @param
+     * @return
+     */
+    @GetMapping("/cxDept")
+    @HystrixCommand(fallbackMethod = "cxDeptF")
+    public Map<String,Object> cxDept(){
+        Map<String,Object>map1=new HashMap<>(2);
+        //状态码
+        map1.put("state",200);
+        //返回结果
+        map1.put("info",deptPostService.cxDept());
+        return map1;
+    }
+    //备选
+    public  Map<String ,Object> cxDeptF() {
         return fuse8009Util.main();
     }
 }
