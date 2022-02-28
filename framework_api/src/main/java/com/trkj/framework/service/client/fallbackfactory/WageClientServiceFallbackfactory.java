@@ -344,6 +344,26 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             public Map<String, Object> selectBusinessBydept(Business business) {
                 return fuseUtil.main(throwable);
             }
+
+            /**
+             * 根据部门名称查询有无方案
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectAttendandceBydept(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 根据部门名称查询是否有方案
+             * @param workScheme
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectWorkSchemeBydept(WorkScheme workScheme) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

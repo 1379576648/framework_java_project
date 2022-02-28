@@ -190,7 +190,7 @@ public class WageTableServiceImpl implements WageTableService {
                                 + staffList.get(i).getOffMoney()
                                 + staffList.get(i).getHolidayMoney()
                                 + staffList.get(i).getTravelMoney()
-                                + staffList.get(i).getInsuredArchive().getInsArchiveFundPersonPay()
+                                + staffList.get(i).getInsuredArchive().getInsArchiveSocialFirmPay()
                                 + staffList.get(i).getInsuredArchive().getInsArchiveFundFirmPay());
                 double x = Double.parseDouble(new java.text.DecimalFormat("#.00").format(staffList.get(i).getTotalWage()));
                 staffList.get(i).setTotalWage(x);

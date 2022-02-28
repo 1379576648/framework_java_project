@@ -33,7 +33,7 @@ public class DeptPost implements Serializable {
 
     @ApiModelProperty(value = "部门职位编号")
     @TableId("DEPT_POST_ID")
-    private Long deptPostId;
+    private Integer deptPostId;
 
     @ApiModelProperty(value = "部门编号")
     @TableField("DEPT_ID")

@@ -123,4 +123,17 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
             return 100;
         }
     }
+
+    /**
+     * 根据部门名称查询是否有方案
+     * @param workScheme
+     * @return
+     */
+    @Override
+    public List<WorkScheme> selectWorkSchemeBydept(WorkScheme workScheme) {
+        QueryWrapper<WorkScheme> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("DEPT_NAME",workScheme.getDeptName());
+        queryWrapper.eq("IS_DELETED",0);
+        return workSchemeMapper.selectWorkSchemeBydept(queryWrapper);
+    }
 }
