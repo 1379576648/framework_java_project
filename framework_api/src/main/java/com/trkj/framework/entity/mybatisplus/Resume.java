@@ -1,10 +1,8 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -60,10 +58,6 @@ public class Resume implements Serializable {
     @TableField("RESUME_MAILBOX")
     private String resumeMailbox;
 
-    @ApiModelProperty(value = "照片")
-    @TableField("RESUME_PHOTO")
-    private String resumePhoto;
-
     @ApiModelProperty(value = "介绍")
     @TableField("RESUME_INTRODUCE")
     private String resumeIntroduce;
@@ -76,15 +70,18 @@ public class Resume implements Serializable {
     @TableField("RESUME_RESIDENCE")
     private String resumeResidence;
 
+    @ApiModelProperty(value = "招聘计划")
     @TableField("RECRUITMENT_PLAN_ID")
     private Long recruitmentPlanId;
 
+
+    @ApiModelProperty(value = "政治面貌")
     @TableField("RESUME_POLITICAL_OUTLOOK")
     private String resumePoliticalOutlook;
 
     @ApiModelProperty(value = "0:待阅 1:以阅 3、候选人 4：淘汰")
     @TableField("RESUME_ZT")
-    private String resumeZt;
+    private Integer resumeZt;
 
     @TableField("INVITE_STATE")
     private String inviteState;
@@ -94,20 +91,23 @@ public class Resume implements Serializable {
     private Date toujTime;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
+    @Version
     @TableField("REVISION")
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除;1表示删除，0 表示未删除")
+    @TableLogic
     @TableField("IS_DELETED")
     private Long isDeleted;
-
 
 }

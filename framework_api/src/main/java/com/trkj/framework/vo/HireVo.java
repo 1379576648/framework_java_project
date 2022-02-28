@@ -26,11 +26,11 @@ public class HireVo {
 
     @ApiModelProperty(value = "试用工资")
     @TableId("EMPLOYMENT_SALARY")
-    private Integer employmentSalary;
+    private double employmentSalary;
 
     @ApiModelProperty(value = "正式工资")
     @TableId("EMPLOYMENT_SALARYZ")
-    private Integer employmentSalaryz;
+    private double employmentSalaryz;
 
     @ApiModelProperty(value = "编号")
     @TableField("RESUME_ID")

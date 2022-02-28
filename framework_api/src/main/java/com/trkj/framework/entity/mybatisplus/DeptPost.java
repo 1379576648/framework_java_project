@@ -26,14 +26,14 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("DEPT_POST")
 @ApiModel(value="DeptPost对象", description="部门职位表")
-@KeySequence(value = "DEPT_POST_ID",clazz = int.class)
+@KeySequence(value = "DEPT_POST_ID",clazz = Long.class)
 public class DeptPost implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "部门职位编号")
     @TableId("DEPT_POST_ID")
-    private int deptPostId;
+    private Long deptPostId;
 
     @ApiModelProperty(value = "部门编号")
     @TableField("DEPT_ID")
@@ -74,7 +74,7 @@ public class DeptPost implements Serializable {
     private String deptName;
 
     @ApiModelProperty(value = "部门负责人;提供ID到员工表锁定具体的人")
-    @TableField("STAFF_ID")
+    @TableField(exist = false)
     private Integer staffId;
 
     @ApiModelProperty(value = "员工姓名;")
@@ -82,7 +82,7 @@ public class DeptPost implements Serializable {
     private String staffName;
 
     @ApiModelProperty(value = "状态;0：启用  1：禁用")
-    @TableField("DEPT_STATE")
+    @TableField(exist = false)
     private Long deptState;
 
 }

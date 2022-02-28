@@ -4,6 +4,7 @@ import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.mybatisplus.service.RecruitmentService;
 import com.trkj.framework.util.Fuse8010Util;
 import com.trkj.framework.vo.RecruitmentVo;
+import com.trkj.framework.vo.ResumeVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -44,6 +45,32 @@ public class RecruitmentController {
      * @return
      */
     public  Map<String, Object> hystrixRecruitment(@RequestBody RecruitmentVo recruitmentVo){
+        return fuse8010Util.main();
+    }
+
+    /**
+     * 新增招聘计划
+     * @param
+     * @return
+     */
+    @PostMapping("/addRecruitmentPlan")
+    @HystrixCommand(fallbackMethod = "hystrixAddRecruitmentPlan")
+    public Map<String, Object>  addRecruitmentPlan(@RequestBody RecruitmentVo recruitmentVo){
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("state",200);
+        try {
+            map.put("succeed",recruitmentService.addRecruitmentPlan(recruitmentVo));
+        }catch (ArithmeticException e) {
+            map.put("info", e.getMessage());
+        }
+        return map;
+    }
+    /**
+     * 备选方案
+     * @param
+     * @return
+     */
+    public Map<String, Object>  hystrixAddRecruitmentPlan(@RequestBody RecruitmentVo recruitmentVo){
         return fuse8010Util.main();
     }
 }

@@ -2,10 +2,7 @@ package com.trkj.framework.mybatisplus.service;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.trkj.framework.entity.mybatisplus.Auditflow;
-import com.trkj.framework.entity.mybatisplus.Auditflowdetail;
-import com.trkj.framework.entity.mybatisplus.RegisterLog;
-import com.trkj.framework.entity.mybatisplus.Staff;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.vo.*;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -142,4 +139,28 @@ public interface AuditflowService {
      * @return
      */
     List<Auditflow> selectTodayOverTimeExamine(Auditflow auditflow);
+
+    /**
+     * 查询当前员工是否有正在进行中的请假
+     *
+     * @param
+     * @return
+     */
+    List<Leave> inquireUnderwayLeave(Leave leave);
+
+    /**
+     * 查询当前员工是否有正在进行中的请假
+     *
+     * @param
+     * @return
+     */
+    List<Overtimeask> inquireUnderwayOverTime(Overtimeask overtimeask);
+
+    /**
+     * 查询当前员工是否有正在进行中的出差
+     *
+     * @param
+     * @return
+     */
+    List<Travel> inquireUnderwayTravel(Travel travel);
 }

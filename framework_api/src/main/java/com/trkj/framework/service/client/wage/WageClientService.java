@@ -1,13 +1,9 @@
 package com.trkj.framework.service.client.wage;
 
-import com.trkj.framework.entity.mybatisplus.Fixedwagf;
-import com.trkj.framework.entity.mybatisplus.Salary;
-import com.trkj.framework.entity.mybatisplus.WorkScheme;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.fallbackfactory.WageClientServiceFallbackfactory;
-import com.trkj.framework.vo.AttendandceVo;
-import com.trkj.framework.vo.FixedwageVo;
-import com.trkj.framework.vo.WageVo;
-import com.trkj.framework.vo.WorkSchemeVo;
+import com.trkj.framework.vo.*;
+import jdk.nashorn.internal.objects.annotations.Attribute;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
@@ -112,4 +108,164 @@ public interface WageClientService {
      */
     @PostMapping("/selectAttendandce")
     Map<String,Object> selectAttendandce(@RequestBody AttendandceVo attendandceVo);
+
+    /**
+     * 添加考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PostMapping("/insertAttendandce")
+    Map<String, Object> insertAttendandce(@RequestBody Attendandce attendandce);
+
+    /**
+     * 根据id查询考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PostMapping("/selectAttendandceAll")
+    Map<String, Object> selectAttendandceAll(@RequestBody Attendandce attendandce);
+
+    /**
+     * 修改考勤扣款方案
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandce")
+    Map<String, Object> updateAttendandce(@RequestBody Attendandce attendandce);
+
+    /**
+     * 删除考勤扣款方案
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/deleteAttendandce/{id}")
+    Map<String,Object> deleteAttendandce(@PathVariable("id") Integer id);
+
+    /**
+     * 修改状态为禁用
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandceState")
+    Map<String, Object> updateAttendandceState(@RequestBody Attendandce attendandce);
+
+    /**
+     * 修改状态为启用
+     * @param attendandce
+     * @return
+     */
+    @PutMapping("/updateAttendandceStateTwo")
+    Map<String, Object> updateAttendandceStateTwo(@RequestBody Attendandce attendandce);
+
+    /**
+     * 查询出差方案
+     * @param businessVo
+     * @return
+     */
+    @PostMapping("/selectBusiness")
+    Map<String,Object> selectBusiness(@RequestBody BusinessVo businessVo);
+
+    /**
+     * 添加出差方案
+     * @param business
+     * @return
+     */
+    @PostMapping("/insertBusiness")
+    Map<String, Object> insertBusiness(@RequestBody Business business);
+
+    /**
+     * 根据id查询出差方案
+     * @param business
+     * @return
+     */
+    @PostMapping("/selectBusinessAll")
+    Map<String, Object> selectBusinessAll(@RequestBody Business business);
+
+    /**
+     * 修改出差方案
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusiness")
+    Map<String, Object> updateBusiness(@RequestBody Business business);
+
+    /**
+     * 删除出差方案
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/deleteBusiness/{id}")
+    Map<String,Object> deleteBusiness(@PathVariable("id") Integer id);
+
+    /**
+     * 修改状态为禁用
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusinessState")
+    Map<String, Object> updateBusinessState(@RequestBody Business business);
+
+    /**
+     * 修改状态为启用
+     * @param business
+     * @return
+     */
+    @PutMapping("/updateBusinessStateTwo")
+    Map<String, Object> updateBusinessStateTwo(@RequestBody Business business);
+
+    /**
+     * 查询工资表
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selectWage")
+    Map<String, Object> selectWage(@RequestBody Staff staff);
+
+    /**
+     * 统计工资表
+     * @param staff
+     * @return
+     */
+    @PostMapping("/countWage")
+    Map<String, Object> countWage(@RequestBody Staff staff);
+
+    /**
+     * 查询未归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectMoney")
+    Map<String, Object> selectMoney(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 统计未归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/countMoney")
+    Map<String, Object> countMoney(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 查询已归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectMoneys")
+    Map<String, Object> selectMoneys(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 统计已归档工资表
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/countMoneys")
+    Map<String, Object> countMoneys(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 修改状态为已归档
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PutMapping("/updateMoney")
+    Map<String, Object> updateMoney(@RequestBody MoneyPigeonhole moneyPigeonhole);
 }

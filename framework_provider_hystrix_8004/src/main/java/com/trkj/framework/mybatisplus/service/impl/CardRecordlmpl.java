@@ -51,16 +51,16 @@ public class CardRecordlmpl implements CardRecordService {
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public Integer deleteClock(ClockRecord clockRecord) throws ArithmeticException{
+    public Integer deleteClock(ClockRecord clockRecord) throws ArithmeticException {
         final var clockRecordId = clockRecord.getClockRecordId();
         ClockRecord cardRecord = new ClockRecord();
         cardRecord.setIsDeleted(1L);
         cardRecord.setClockRecordId(clockRecordId);
         cardRecord.setUpdatedTime(new Date());
         final var i = cardRecordMapper.deleteById(cardRecord);
-        if (i == 1){
+        if (i == 1) {
             return 1;
-        }else {
+        } else {
             throw new ArithmeticException("删除失败");
         }
     }
@@ -87,6 +87,7 @@ public class CardRecordlmpl implements CardRecordService {
 
     /**
      * 获取Excel表中的数据去数据库中查有无相同数据
+     *
      * @param objects
      * @return
      */
@@ -95,8 +96,14 @@ public class CardRecordlmpl implements CardRecordService {
         QueryWrapper<ClockRecord> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("STAFF_NAME", objects.get(0).toString());
         queryWrapper.eq("DEPT_NAME", objects.get(1).toString());
-        queryWrapper.apply("TO_CHAR(MORN_CLOCK,'yyyy-mm-dd') = {0}",objects.get(2).toString().substring(0,10));
-        queryWrapper.apply("TO_CHAR(AFTERNOON_CLOCK,'yyyy-mm-dd') = {0}",objects.get(3).toString().substring(0,10));
+        System.out.println("11111111111111111111111111111111111111111111111111111");
+        System.out.println(objects.get(2).toString().substring(0, 10));
+        if (objects.get(2).toString().substring(0, 10) != null) {
+            queryWrapper.apply("TO_CHAR(MORN_CLOCK,'yyyy-mm-dd') = {0}", objects.get(2).toString().substring(0, 10));
+        }
+        if (objects.get(3).toString().substring(0, 10) != null) {
+            queryWrapper.apply("TO_CHAR(AFTERNOON_CLOCK,'yyyy-mm-dd') = {0}", objects.get(3).toString().substring(0, 10));
+        }
         return cardRecordMapper.selectCount(queryWrapper);
     }
 

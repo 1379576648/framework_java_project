@@ -182,6 +182,10 @@ public class SystemClinetServiceFallbackfactory implements FallbackFactory {
             public Map<String,Object> menuPowerAdd(MenuPower menuPower) {
                 return fuseUtil.main(throwable);
             }
+            @Override
+            public Map<String, Object> selectDeptPostAll() {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

@@ -1,16 +1,12 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
-import com.trkj.framework.entity.mybatisplus.Fixedwagf;
-import com.trkj.framework.entity.mybatisplus.Salary;
-import com.trkj.framework.entity.mybatisplus.WorkScheme;
+import com.trkj.framework.entity.mybatisplus.*;
 import com.trkj.framework.service.client.util.FuseUtil;
 import com.trkj.framework.service.client.wage.WageClientService;
 import com.trkj.framework.vo.*;
 import feign.hystrix.FallbackFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import java.util.ArrayList;
 import java.util.Map;
 
 @Component
@@ -143,6 +139,201 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             @Override
             public Map<String,Object> selectAttendandce(AttendandceVo attendandceVo) {
                 return fuseUtil.main(throwable);            }
+
+            /**
+             * 添加考勤扣款方案
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> insertAttendandce(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 根据id查询考勤扣款方案
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectAttendandceAll(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            @Override
+            public Map<String, Object> updateAttendandce(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 删除考勤扣款方案
+             * @param id
+             * @return
+             */
+            @Override
+            public Map<String, Object> deleteAttendandce(Integer id) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为禁用
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateAttendandceState(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为启用
+             * @param attendandce
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateAttendandceStateTwo(Attendandce attendandce) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询出差方案
+             * @param businessVo
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectBusiness(BusinessVo businessVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 添加出差方案
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> insertBusiness(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 根据id查询出差方案
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectBusinessAll(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改出差方案
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateBusiness(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 删除出差方案
+             * @param id
+             * @return
+             */
+            @Override
+            public Map<String, Object> deleteBusiness(Integer id) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为禁用
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateBusinessState(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为启用
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateBusinessStateTwo(Business business) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询工资表
+             * @param staff
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectWage(Staff staff) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 统计工资表
+             * @param staff
+             * @return
+             */
+            @Override
+            public Map<String, Object> countWage(Staff staff) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询未归档工资表
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectMoney(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 统计未归档工资表
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> countMoney(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询已归档工资表
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectMoneys(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 统计已归档工资表
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> countMoneys(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改状态为已归档
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> updateMoney(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

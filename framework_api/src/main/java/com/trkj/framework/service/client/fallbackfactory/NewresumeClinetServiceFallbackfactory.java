@@ -1,6 +1,7 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.entity.mybatisplus.Employment;
+import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
 import com.trkj.framework.service.client.util.FuseUtil;
 import com.trkj.framework.vo.AjaxResponse;
@@ -11,6 +12,7 @@ import com.trkj.framework.vo.ResumeVo;
 import feign.hystrix.FallbackFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -116,7 +118,114 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
             public Map<String,Object> employStaff(Employment employment) {
                 return fuseUtil.main(throwable);
             }
+            /**
+             * 添加新简历
+             * @param resumeVo
+             * @return
+             */
+            @Override
+            public  Map<String, Object> queryAddResume(ResumeVo resumeVo) {
+                return fuseUtil.main(throwable);
+            }
+            /**
+             * 查询招聘计划名称（新增简历下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectPlan() {
+                return fuseUtil.main(throwable);
+            }
 
+            /**
+             * 查询部门名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectDeptName1() {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询部门职位名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectDeptPostName1() {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 查询部门职位名称（新增招聘计划下拉列表框）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectMonthlySalary() {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 新增招聘计划
+             * @param
+             * @return
+             */
+            @Override
+            public  Map<String, Object> addRecruitmentPlan(RecruitmentVo recruitmentVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 设为候选人
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> SetCandidate(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 转入淘汰库（新简历）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> Obsolete(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 设为面试候选人
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> InterviewCcandidate(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 转入淘汰库（候选人）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> HObsolete(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 邀约面试（面试候选人）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> OfferInterview(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

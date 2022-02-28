@@ -96,4 +96,11 @@ public interface RoleService  {
      * @return
      */
     String allotStaff(RoleStaff roleStaff) throws ArithmeticException;
+
+
+    /***
+     * 查询所有的职位
+     * @return
+     */
+    Object selectDeptPostAll();
 }

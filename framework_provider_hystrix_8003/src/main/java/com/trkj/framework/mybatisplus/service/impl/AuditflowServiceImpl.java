@@ -61,6 +61,9 @@ public class AuditflowServiceImpl implements AuditflowService {
     @Autowired
     private ClockRecordMapper clockRecordMapper;
 
+
+
+
     /**
      * 根据审批类型的加班/审批人查询待处理的审批
      *
@@ -1142,5 +1145,47 @@ public class AuditflowServiceImpl implements AuditflowService {
         String date = formatter.format(newDate);
         queryWrapper.apply("TO_CHAR(CREATED_TIME,'yyyy-MM-dd') like {0}", date);
         return auditflowMapper.selectList(queryWrapper);
+    }
+
+    /**
+     * 查询当天的加班审批记录
+     *
+     * @param leave
+     * @return
+     */
+    @Override
+    public List<Leave> inquireUnderwayLeave(Leave leave) {
+        QueryWrapper<Leave> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_NAME", leave.getStaffName());
+        queryWrapper.eq("LEAVE_CONDITION", 1);
+        return leaveMapper.selectList(queryWrapper);
+    }
+
+    /**
+     * 查询当前员工是否有正在进行中的加班
+     *
+     * @param overtimeask
+     * @return
+     */
+    @Override
+    public List<Overtimeask> inquireUnderwayOverTime(Overtimeask overtimeask) {
+        QueryWrapper<Overtimeask> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_NAME", overtimeask.getStaffName());
+        queryWrapper.eq("OVERTIMEASK_CONDITION", 1);
+        return ovimeaskMapper.selectList(queryWrapper);
+    }
+
+    /**
+     * 查询当前员工是否有正在进行中的出差
+     *
+     * @param travel
+     * @return
+     */
+    @Override
+    public List<Travel> inquireUnderwayTravel(Travel travel) {
+        QueryWrapper<Travel> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("STAFF_NAME", travel.getStaffName());
+        queryWrapper.eq("TRAVEL_CONDITION", 1);
+        return travelMapper.selectList(queryWrapper);
     }
 }

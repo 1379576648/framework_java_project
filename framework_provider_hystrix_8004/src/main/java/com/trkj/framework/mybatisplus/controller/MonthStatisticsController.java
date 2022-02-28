@@ -1,7 +1,9 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.trkj.framework.entity.mybatisplus.Archive;
 import com.trkj.framework.entity.mybatisplus.ClockRecord;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.MonthStatisticsService;
 import com.trkj.framework.util.Fuse8004Util;
@@ -27,7 +29,8 @@ public class MonthStatisticsController {
     private Fuse8004Util fuse8004Util;
 
     /**
-     * 查询所有员工除总裁
+     * 查询所有员工的考勤状态次数
+     *
      * @param staff
      * @return
      */
@@ -45,5 +48,98 @@ public class MonthStatisticsController {
         return fuse8004Util.main();
     }
 
+    /**
+     * 添加归档表
+     *
+     * @param staff
+     * @return
+     */
+    @PostMapping("/archivedData")
+    @HystrixCommand(fallbackMethod = "archivedDataHystixGet")
+    public Map<String, Object> archivedData(@RequestBody Staff staff) {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", monthStatisticsService.archivedData(staff));
+        return map1;
+    }
 
+    public Map<String, Object> archivedDataHystixGet(@RequestBody Staff staff) {
+        return fuse8004Util.main();
+    }
+
+    /**
+     * 查询所有考勤归档
+     * @param archive
+     * @return
+     */
+    @PostMapping("/selectArchiveAll")
+    @HystrixCommand(fallbackMethod = "selectArchiveAllHystixGet")
+    public Map<String, Object> selectArchiveAll(@RequestBody Archive archive){
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", monthStatisticsService.selectArchiveAll(archive));
+        return map1;
+    }
+
+    public Map<String, Object> selectArchiveAllHystixGet(@RequestBody Archive archive) {
+        return fuse8004Util.main();
+    }
+
+    /**
+     * 根据名称查询考勤归档
+     * @param archive
+     * @return
+     */
+    @PostMapping("/selectArchiveByName")
+    public Map<String, Object> selectArchiveByName(@RequestBody Archive archive){
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", monthStatisticsService.selectArchiveByName(archive));
+        return map1;
+    }
+
+    /**
+     * 根据名称查询考勤归档分页
+     * @param archive
+     * @return
+     */
+    @PostMapping("/selectArchiveByNameAndIPage")
+    public Map<String, Object> selectArchiveByNameAndIPage(@RequestBody Archive archive){
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", monthStatisticsService.selectArchiveByNameAndIPage(archive));
+        return map1;
+    }
+
+    /**
+     * 查询当月考勤记录
+     * @param staff
+     * @return
+     */
+    @PostMapping("/selcetAttendanceRecord")
+    public Map<String, Object>selcetAttendanceRecord(@RequestBody Staff staff){
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", monthStatisticsService.selcetAttendanceRecord(staff));
+        return map1;
+    }
+
+    /**
+     * 查询所有部门
+     * @param
+     * @return
+     */
+    @PostMapping("/selectDeptAll")
+    public Map<String, Object>selectDeptAll(){
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", monthStatisticsService.selectDeptAll());
+        return map1;
+    }
 }

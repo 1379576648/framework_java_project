@@ -11,6 +11,7 @@ import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.GET;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -146,4 +147,14 @@ public class RoleController {
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 
+    /***
+     * 查询所有的职位
+     * @return
+     */
+    @GetMapping("/selectDeptPostAll")
+    @ApiOperation(value = "查询所有的职位",notes = "系统模块",httpMethod = "GET",nickname="查询",produces = "/selectDeptPostAll")
+    public AjaxResponse selectDeptPostAll(){
+        Map<String,Object> map = (Map<String, Object>) systemClinetService.selectDeptPostAll();
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }
