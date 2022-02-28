@@ -268,4 +268,12 @@ public interface WageClientService {
      */
     @PutMapping("/updateMoney")
     Map<String, Object> updateMoney(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 根据部门名称查询有无方案
+     * @param business
+     * @return
+     */
+    @PostMapping("/selectBusinessBydept")
+    Map<String, Object> selectBusinessBydept(@RequestBody Business business);
 }

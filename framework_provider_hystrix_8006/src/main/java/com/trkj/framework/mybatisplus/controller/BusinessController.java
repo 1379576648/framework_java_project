@@ -169,4 +169,22 @@ public class BusinessController {
         return fuse8006Util.main();
     }
 
+    /**
+     * 根据部门名称查询有无方案
+     * @param business
+     * @return
+     */
+    @PostMapping("/selectBusinessBydept")
+    @HystrixCommand(fallbackMethod = "hystixGet6")
+    public Map<String, Object> selectBusinessBydept(@RequestBody Business business){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", businessService.selectBusinessBydept(business));
+        return map1;
+    }
+
+    // 备选方案
+    public Map<String, Object> hystixGet6(@RequestBody Business business){
+        return fuse8006Util.main();
+    }
 }

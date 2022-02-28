@@ -334,6 +334,16 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             public Map<String, Object> updateMoney(MoneyPigeonhole moneyPigeonhole) {
                 return fuseUtil.main(throwable);
             }
+
+            /**
+             * 根据部门名称查询有无方案
+             * @param business
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectBusinessBydept(Business business) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }
