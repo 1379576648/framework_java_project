@@ -30,6 +30,6 @@ public interface MoneyPigeonholeMapper extends BaseMapper<MoneyPigeonhole> {
     @Select("SELECT * FROM MONEYPIGEONHOLE ${ew.customSqlSegment}")
     IPage<MoneyPigeonhole> selectMoneys(Page<MoneyPigeonhole> page, @Param(Constants.WRAPPER) QueryWrapper<MoneyPigeonhole> queryWrapper);
 
-    @Select("select to_date(to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM'),'YYYY-MM')  as payMonth  , count(to_date(to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM'),'YYYY-MM')) as countPerson from MONEYPIGEONHOLE ${ew.customSqlSegment}   GROUP BY to_date(to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM'),'YYYY-MM') ")
+    @Select("select to_date(to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM'),'YYYY-MM')  as payMonth  , count(to_date(to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM'),'YYYY-MM')) as countPerson from MONEYPIGEONHOLE ${ew.customSqlSegment}   GROUP BY to_date(to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM'),'YYYY-MM') ORDER BY to_date(to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM'),'YYYY-MM') desc")
     IPage<MoneyPigeonhole> selectPage(Page<MoneyPigeonhole> page, @Param(Constants.WRAPPER) QueryWrapper<MoneyPigeonhole> queryWrapper);
  }

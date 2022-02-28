@@ -1,7 +1,6 @@
 package com.trkj.framework.mybatisplus.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.Fixedwagf;
 import com.trkj.framework.entity.mybatisplus.MoneyPigeonhole;
 import com.trkj.framework.mybatisplus.service.MoneyPigeonholeService;
 import com.trkj.framework.util.Fuse8006Util;

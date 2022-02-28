@@ -22,21 +22,21 @@ public class WageTableController {
 
     /**
      * 查询工资表
-     * @param staff
+     * @param
      * @return
      */
     @PostMapping("/selectWage")
     @HystrixCommand(fallbackMethod = "hystixGet")
-    public Map<String, Object> selectWage(@RequestBody Staff staff){
+    public Map<String, Object> selectWage(){
         Map<String, Object> map1 = new HashMap(2);
         //状态码
         map1.put("state",200);
-        map1.put("info",wageTableService.selectWage(staff));
+        map1.put("info",wageTableService.selectWage());
         return map1;
     }
 
     //备选方案
-    public  Map<String, Object> hystixGet(@RequestBody Staff staff){
+    public  Map<String, Object> hystixGet( ){
         return fuse8006Util.main();
     }
 

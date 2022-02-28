@@ -18,6 +18,13 @@ import java.util.List;
 @Mapper
 public interface StaffMapper extends BaseMapper<Staff> {
 
+    /***
+     * 查询所有的员工并且离职没有隔月的员工
+     * @return
+     */
+    @Select("select staff.STAFF_NAME,staff.STAFF_STATE, dept.DEPT_NAME,DEPT_POST.POST_NAME from staff INNER JOIN dept on staff.DEPT_ID= dept.DEPT_ID INNER JOIN DEPT_POST on staff.DEPT_POST_ID=DEPT_POST.DEPT_POST_ID\n" +
+            "LEFT JOIN QUIT on staff.STAFF_NAME = QUIT.STAFF_NAME where QUIT_STATE=0  or   to_date(to_char(QUIT.FORMAL_QUIT_DATE,'YYYY-MM'),'YYYY-MM')>= to_date(to_char(sysdate,'YYYY-MM'),'YYYY-MM')   or QUIT_STATE is null  ")
+    List<Staff> selectListOrState();
 
 
 
