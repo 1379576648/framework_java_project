@@ -60,4 +60,11 @@ public interface AttendandceService {
      * @return
      */
     int updateAttendandce(Attendandce attendandce);
+
+    /**
+     * 根据部门名称查询有无方案
+     * @param attendandce
+     * @return
+     */
+    List<Attendandce> selectAttendandceBydept(Attendandce attendandce);
 }

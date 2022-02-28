@@ -33,4 +33,12 @@ public interface AttendandceMapper extends BaseMapper<Attendandce> {
      */
     @Select("SELECT * FROM ATTENDANDCE ${ew.customSqlSegment}")
     List<Attendandce> selectAttendandceAll(@Param(Constants.WRAPPER) QueryWrapper<Attendandce> queryWrapper);
+
+    /**
+     * 根据部门名称查询有无方案
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT * FROM ATTENDANDCE ${ew.customSqlSegment}")
+    List<Attendandce> selectAttendandceBydept(@Param(Constants.WRAPPER) QueryWrapper<Attendandce> queryWrapper);
 }

@@ -21,7 +21,7 @@ public class OrganizeController {
 
     /**
      * 查询所有部门
-     * @param dept
+     * @param
      * @return
      */
     @PostMapping("/selectDept")
@@ -40,13 +40,63 @@ public class OrganizeController {
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
     /**
-     * 查询所有职位
+     * 删除职位
      * @param
      * @return
      */
     @DeleteMapping("/scDeptPost/{id}")
     public AjaxResponse scDeptPost(@PathVariable("id") Integer id){
         Map<String,Object> map=(Map<String, Object>) organizeService.scDeptPost(id);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+    /**
+     * 新增职位
+     * @param
+     * @return
+     */
+    @PostMapping("/xzDeptPost")
+    public AjaxResponse xzDeptPost(@RequestBody DeptPost deptPost){
+        Map<String ,Object>map=(Map<String, Object>) organizeService.xzDeptPost(deptPost);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+    /**
+     * 新增部门
+     * @param
+     * @return
+     */
+    @PostMapping("/xzDept")
+    public AjaxResponse xzDept(@RequestBody Dept dept){
+        Map<String ,Object>map=(Map<String, Object>) organizeService.xzDept(dept);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+    /**
+     * 查询部门
+     * @param
+     * @return
+     */
+    @GetMapping("/cxDept")
+    public AjaxResponse cxDept(){
+        Map<String,Object>map=(Map<String, Object>) organizeService.cxDept();
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+    /**
+     * 查询员工
+     * @param
+     * @return
+     */
+    @GetMapping("/selectStaffF")
+    public AjaxResponse selectStaffF(){
+        Map<String,Object>map=(Map<String, Object>) organizeService.selectStaffF();
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+    /**
+     * 修改部门
+     * @param
+     * @return
+     */
+    @PutMapping("/upDept")
+    public AjaxResponse upDept(@RequestBody Dept dept){
+        Map<String,Object>map=(Map<String, Object>) organizeService.upDept(dept);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

@@ -33,4 +33,12 @@ public interface WorkSchemeMapper extends BaseMapper<WorkScheme> {
      */
     @Select("SELECT * FROM WORKSCHEME ${ew.customSqlSegment}")
     List<WorkScheme> selectWorkSchemeAll(@Param(Constants.WRAPPER) QueryWrapper<WorkScheme> queryWrapper);
+
+    /**
+     * 根据部门名称查询是否有方案
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT * FROM WORKSCHEME ${ew.customSqlSegment}")
+    List<WorkScheme> selectWorkSchemeBydept(@Param(Constants.WRAPPER) QueryWrapper<WorkScheme> queryWrapper);
 }
