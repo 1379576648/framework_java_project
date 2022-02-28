@@ -81,7 +81,7 @@ public class Resume implements Serializable {
 
     @ApiModelProperty(value = "0:待阅 1:以阅 3、候选人 4：淘汰")
     @TableField("RESUME_ZT")
-    private String resumeZt;
+    private Integer resumeZt;
 
     @TableField("INVITE_STATE")
     private String inviteState;

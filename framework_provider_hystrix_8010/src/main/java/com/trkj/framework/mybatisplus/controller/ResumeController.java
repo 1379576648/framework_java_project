@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.RecruitmentPlan;
 import com.trkj.framework.entity.mybatisplus.Resume;
+import com.trkj.framework.entity.mybatisplus.Staff;
 import com.trkj.framework.mybatisplus.service.ResumeService;
 import com.trkj.framework.util.Fuse8010Util;
 import com.trkj.framework.vo.Auditflowone;
@@ -209,6 +210,114 @@ public class ResumeController {
     public Map<String, Object>  hystrixAddResume(@RequestBody ResumeVo resumeVo){
         return fuse8010Util.main();
     }
+
+
+    /**
+     * 设为候选人
+     * @param
+     * @return
+     */
+    @PutMapping("/SetCandidate")
+    @HystrixCommand(fallbackMethod = "HystrixSetCandidate")
+    public Map<String, Object> SetCandidate(@RequestBody Resume resume) {
+        resume.setResumeZt(1);
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", resumeService.SetCandidate(resume));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> HystrixSetCandidate(@RequestBody Resume resume) {
+        return fuse8010Util.main();
+    }
+
+    /**
+     * 转入淘汰库
+     * @param
+     * @return
+     */
+    @PutMapping("/Obsolete")
+    @HystrixCommand(fallbackMethod = "HystrixObsolete")
+    public Map<String, Object> Obsolete(@RequestBody Resume resume) {
+        resume.setResumeZt(2);
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", resumeService.Obsolete(resume));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> HystrixObsolete(@RequestBody Resume resume) {
+        return fuse8010Util.main();
+    }
+
+    /**
+     * 设为面试候选人
+     *
+     * @param
+     * @return
+     */
+    @PutMapping("/InterviewCcandidate")
+    @HystrixCommand(fallbackMethod = "HystrixInterviewCcandidate")
+    public Map<String, Object> InterviewCcandidate(@RequestBody Resume resume) {
+        resume.setResumeZt(3);
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", resumeService.InterviewCcandidate(resume));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> HystrixInterviewCcandidate(@RequestBody Resume resume) {
+        return fuse8010Util.main();
+    }
+
+    /**
+     * 转入淘汰库（候选人）
+     * @param
+     * @return
+     */
+    @PutMapping("/HObsolete")
+    @HystrixCommand(fallbackMethod = "HystrixHObsolete")
+    public Map<String, Object> HObsolete(@RequestBody Resume resume) {
+        resume.setResumeZt(2);
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", resumeService.HObsolete(resume));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> HystrixHObsolete(@RequestBody Resume resume) {
+        return fuse8010Util.main();
+    }
+
+    /**
+     * 邀约面试（面试候选人）
+     * @param
+     * @return
+     */
+    @PutMapping("/OfferInterview")
+    @HystrixCommand(fallbackMethod = "HystrixOfferInterview")
+    public Map<String, Object> OfferInterview(@RequestBody Resume resume) {
+        resume.setResumeZt(4);
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", resumeService.OfferInterview(resume));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> HystrixOfferInterview(@RequestBody Resume resume) {
+        return fuse8010Util.main();
+    }
+
 
 }
 
