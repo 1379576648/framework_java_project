@@ -1,12 +1,14 @@
 package com.trkj.framework.service.client.recruitment;
 
 import com.trkj.framework.entity.mybatisplus.Employment;
+import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.service.client.fallbackfactory.NewresumeClinetServiceFallbackfactory;
 import com.trkj.framework.vo.InterviewVo;
 import com.trkj.framework.vo.RecruitmentVo;
 import com.trkj.framework.vo.ResumeVo;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Map;
@@ -131,4 +133,52 @@ public interface NewresumeClinetService {
      */
     @PostMapping("/selectMonthlySalary")
     Map<String, Object>  selectMonthlySalary();
+
+    /**
+     * 新增招聘计划
+     * @param
+     * @return
+     */
+    @PostMapping("/addRecruitmentPlan")
+    Map<String,Object> addRecruitmentPlan(@RequestBody RecruitmentVo recruitmentVo);
+
+    /**
+     * 设为候选人
+     * @param
+     * @return
+     */
+    @PutMapping("/SetCandidate")
+    Map<String, Object> SetCandidate(@RequestBody Resume resume);
+
+    /**
+     * 转入淘汰库（新简历）
+     * @param
+     * @return
+     */
+    @PutMapping("/Obsolete")
+    Map<String, Object> Obsolete(@RequestBody Resume resume);
+
+    /**
+     * 设为面试候选人
+     * @param
+     * @return
+     */
+    @PutMapping("/InterviewCcandidate")
+    Map<String, Object> InterviewCcandidate(@RequestBody Resume resume);
+
+    /**
+     * 转入淘汰库（候选人）
+     * @param
+     * @return
+     */
+    @PutMapping("/HObsolete")
+    Map<String, Object> HObsolete(@RequestBody Resume resume);
+
+    /**
+     * 邀约面试（面试候选人）
+     * @param
+     * @return
+     */
+    @PutMapping("/OfferInterview")
+    Map<String, Object> OfferInterview(@RequestBody Resume resume);
 }

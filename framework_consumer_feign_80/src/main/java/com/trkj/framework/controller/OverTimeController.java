@@ -5,6 +5,7 @@ import com.trkj.framework.entity.mybatisplus.Overtimeask;
 import com.trkj.framework.service.client.checking.CheckingService;
 import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class OverTimeController {
      * @return
      */
     @PostMapping("/selectOverTimeRecordAll")
+    @ApiOperation(value = "根据员工名称查询加班记录", notes = "考勤模块", httpMethod = "POST", nickname = "查询", produces = "/selectOverTimeRecordAll")
     public AjaxResponse selectOverTimeRecordAll(@RequestBody Overtimeask overtimeask) {
         Map<String, Object> map = (Map<String, Object>) checkingService.selectOverTimeRecordAll(overtimeask);
         return AjaxResponse.success(carryTokenUtil.main(map));
@@ -41,6 +43,7 @@ public class OverTimeController {
      * @return
      */
     @PostMapping("/deleteOverTime")
+    @ApiOperation(value = "删除加班记录", notes = "考勤模块", httpMethod = "POST", nickname = "删除", produces = "/deleteOverTime")
     public AjaxResponse deleteOverTime(@RequestBody Overtimeask overtimeask) {
         Map<String, Object> map = (Map<String, Object>) checkingService.deleteOverTime(overtimeask);
         return AjaxResponse.success(carryTokenUtil.main(map));
@@ -53,6 +56,7 @@ public class OverTimeController {
      * @return
      */
     @PostMapping("/updateBeginOverTime")
+    @ApiOperation(value = "开始加班", notes = "考勤模块", httpMethod = "POST", nickname = "修改", produces = "/updateBeginOverTime")
     public AjaxResponse updateBeginOverTime(@RequestBody Overtimeask overtimeask) {
         Map<String, Object> map = (Map<String, Object>) checkingService.updateBeginOverTime(overtimeask);
         return AjaxResponse.success(carryTokenUtil.main(map));
@@ -65,6 +69,7 @@ public class OverTimeController {
      * @return
      */
     @PostMapping("/updateEndOverTime")
+    @ApiOperation(value = "结束加班", notes = "考勤模块", httpMethod = "POST", nickname = "修改", produces = "/updateEndOverTime")
     public AjaxResponse updateEndOverTime(@RequestBody Overtimeask overtimeask) {
         Map<String, Object> map = (Map<String, Object>) checkingService.updateEndOverTime(overtimeask);
         return AjaxResponse.success(carryTokenUtil.main(map));

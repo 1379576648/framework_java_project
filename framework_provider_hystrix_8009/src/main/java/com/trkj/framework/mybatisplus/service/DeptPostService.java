@@ -16,4 +16,17 @@ public interface DeptPostService {
      * @return
      */
     String scDeptPost(Integer id);
+    /**
+     * 新增职位
+     * @param
+     * @return
+     */
+    String xzDeptPost(DeptPost deptPost);
+    /**
+     * 查询所有部门
+     * @param
+     * @return
+     */
+    Object cxDept();
+
 }

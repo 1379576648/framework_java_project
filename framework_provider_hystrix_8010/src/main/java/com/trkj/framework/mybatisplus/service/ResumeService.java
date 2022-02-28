@@ -13,7 +13,7 @@ import com.trkj.framework.vo.ResumeVo;
  * @author 牛蛙
  * @since 2021-12-23
  */
-public interface ResumeService extends IService<ResumeVo> {
+public interface ResumeService{
         /**
          * 新简历
          * @param resumeVo
@@ -57,9 +57,44 @@ public interface ResumeService extends IService<ResumeVo> {
         IPage<ResumeVo> selectInvite(ResumeVo resumeVo);
 
         /**
-         * 新增招聘
-         * @param
+         * 新增简历
+         * @param resumeVo
          * @return
          */
         String addResume(ResumeVo resumeVo);
+
+        /**
+         * 设为候选人
+         * @param
+         * @return
+         */
+        int SetCandidate(Resume resume);
+
+        /**
+         * 转入淘汰库（新简历）
+         * @param
+         * @return
+         */
+        int Obsolete(Resume resume);
+
+        /**
+         * 设为面试候选人
+         * @param
+         * @return
+         */
+        int InterviewCcandidate(Resume resume);
+
+        /**
+         * 转入淘汰库（候选人）
+         * @param
+         * @return
+         */
+        int HObsolete(Resume resume);
+
+        /**
+         * 邀约面试（面试候选人）
+         * @param
+         * @return
+         */
+        int OfferInterview(Resume resume);
 }

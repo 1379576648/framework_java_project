@@ -40,7 +40,7 @@ public class Salary {
 
     @ApiModelProperty(value = "调薪后基本工资")
     @TableId("AFTER_SALARY")
-    private Integer afterSalary;
+    private Double afterSalary;
 
     @ApiModelProperty(value = "操作人")
     @TableId("OPERATOR")

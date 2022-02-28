@@ -19,7 +19,17 @@ public interface Transfer8009Service {
      * @param
      * @return
      */
-    int updateDept(Dept deptXg);
-
-
+    String upDept(Dept dept);
+    /**
+     * 查询所有员工
+     * @param
+     * @return
+     */
+    Object selectStaffF();
+    /**
+     * 新增部门
+     * @param
+     * @return
+     */
+    String xzDept(Dept dept);
 }

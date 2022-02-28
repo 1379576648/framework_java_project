@@ -46,7 +46,6 @@ public class WorkSchemeServiceImpI implements WorkSchemeService {
      * @return
      */
     @Override
-    @Transactional(rollbackFor = Exception.class)
     public int insertWorkScheme(WorkScheme workScheme) {
         return workSchemeMapper.insert(workScheme);
     }

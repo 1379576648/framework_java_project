@@ -19,5 +19,10 @@ public interface RecruitmentService extends IService<RecruitmentVo> {
      */
     IPage<RecruitmentVo> selectRecruitment(RecruitmentVo recruitmentVo);
 
-
+    /**
+     * 新增招聘计划
+     * @param
+     * @return
+     */
+    String addRecruitmentPlan(RecruitmentVo recruitmentVo);
 }

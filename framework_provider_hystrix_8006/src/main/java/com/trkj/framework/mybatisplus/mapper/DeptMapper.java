@@ -1,7 +1,7 @@
 package com.trkj.framework.mybatisplus.mapper;
 
-import com.trkj.framework.mybatisplus.entity.Dept;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.trkj.framework.entity.mybatisplus.Dept;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

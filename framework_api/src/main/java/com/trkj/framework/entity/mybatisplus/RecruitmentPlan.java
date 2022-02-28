@@ -1,9 +1,8 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -26,6 +25,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("RECRUITMENT_PLAN")
 @ApiModel(value="RecruitmentPlan对象", description="招聘计划表")
+@KeySequence(value = "RECRUITMENT_PLAN_ID",clazz = Long.class)
 public class RecruitmentPlan implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -66,25 +66,29 @@ public class RecruitmentPlan implements Serializable {
 
     @ApiModelProperty(value = "月薪范围")
     @TableField("RECRUITMENT_PLAN_SALARY_ID")
-    private Long recruitmentPlanSalaryId;
+    private Integer recruitmentPlanSalaryId;
 
     @ApiModelProperty(value = "招聘计划状态: 0 招聘中，1 已结束")
     @TableField("RECRUITMENT_ZT")
     private Long recruitmentZt;
 
     @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT)
     private Date createdTime;
 
     @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @TableField(fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
+    @Version
     @TableField("REVISION")
     private Long revision;
 
     @ApiModelProperty(value = "逻辑删除;1表示删除，0 表示未删除")
+    @TableLogic
     @TableField("IS_DELETED")
     private Long isDeleted;
 

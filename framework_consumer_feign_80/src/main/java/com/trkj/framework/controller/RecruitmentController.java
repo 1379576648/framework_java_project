@@ -73,4 +73,15 @@ public class RecruitmentController {
         Map<String, Object> map = (Map<String, Object>) newresumeClinetService.selectMonthlySalary();
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 新增招聘计划
+     * @param
+     * @return
+     */
+    @PostMapping("/addRecruitmentPlan")
+    private Object addRecruitmentPlan(@RequestBody RecruitmentVo recruitmentVo){
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.addRecruitmentPlan(recruitmentVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
 }
