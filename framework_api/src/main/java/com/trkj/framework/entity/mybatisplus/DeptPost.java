@@ -1,11 +1,11 @@
 package com.trkj.framework.entity.mybatisplus;
 
-import com.baomidou.mybatisplus.annotation.KeySequence;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -26,14 +26,14 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("DEPT_POST")
 @ApiModel(value="DeptPost对象", description="部门职位表")
-@KeySequence(value = "DEPT_POST_ID",clazz = Integer.class)
+@KeySequence(value = "DEPT_POST_ID",clazz = Long.class)
 public class DeptPost implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "部门职位编号")
     @TableId("DEPT_POST_ID")
-    private Integer deptPostId;
+    private Long deptPostId;
 
     @ApiModelProperty(value = "部门编号")
     @TableField("DEPT_ID")
@@ -47,12 +47,14 @@ public class DeptPost implements Serializable {
     @TableField("REVISION")
     private Long revision;
 
-    @ApiModelProperty(value = "创建时间")
-    @TableField("CREATED_TIME")
+    @ApiModelProperty(value = "创建时间 精确到秒")
+    @TableField(value = "CREATED_TIME" ,fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
     private Date createdTime;
 
-    @ApiModelProperty(value = "修改时间")
-    @TableField("UPDATED_TIME")
+    @ApiModelProperty(value = "修改时间 精确到秒")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "逻辑删除;0：未删除，1：已删除")

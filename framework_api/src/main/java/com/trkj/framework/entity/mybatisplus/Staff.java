@@ -233,6 +233,13 @@ public class Staff implements Serializable {
     @TableField(exist = false)
     private DeptPost deptPost;
 
+    @ApiModelProperty(value = "部门职位名称")
+    @TableField(exist = false)
+    private String deptPostName;
+
+    @ApiModelProperty(value = "部门名称2")
+    @TableField(exist = false)
+    private List<String> deptNameTwo;
 
     @ApiModelProperty(value = "转正")
     @TableField(exist = false)

@@ -1,5 +1,6 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
 import com.trkj.framework.util.CarryTokenUtil;
 import com.trkj.framework.vo.AjaxResponse;
@@ -98,6 +99,61 @@ public class ResumeController {
     @PostMapping("/addResume")
     private Object queryAddResume(@RequestBody ResumeVo resumeVo) {
         Map<String, Object> map = (Map<String, Object>) newresumeClinetService.queryAddResume(resumeVo);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 设为候选人
+     * @param resume
+     * @return
+     */
+    @PutMapping("/SetCandidate")
+    private Object SetCandidate(@RequestBody Resume resume) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.SetCandidate(resume);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 转入淘汰库（新简历）
+     * @param resume
+     * @return
+     */
+    @PutMapping("/Obsolete")
+    private Object Obsolete(@RequestBody Resume resume) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.Obsolete(resume);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 设为面试候选人
+     * @param resume
+     * @return
+     */
+    @PutMapping("/InterviewCcandidate")
+    private Object InterviewCcandidate(@RequestBody Resume resume) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.InterviewCcandidate(resume);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 转入淘汰库（候选人）
+     * @param resume
+     * @return
+     */
+    @PutMapping("/HObsolete")
+    private Object HObsolete(@RequestBody Resume resume) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.HObsolete(resume);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 邀约面试（面试候选人）
+     * @param
+     * @return
+     */
+    @PutMapping("/OfferInterview")
+    private Object OfferInterview(@RequestBody Resume resume) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.OfferInterview(resume);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
 }

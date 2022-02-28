@@ -168,4 +168,84 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
             throw new ArithmeticException("添加失败");
         }
     }
+
+    /**
+     * 设为候选人
+     * @param
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int SetCandidate(Resume resume) {
+        int i = resume2Mapper.updateById(resume);
+        if(i>=1){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 转入淘汰库
+     * @param
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int Obsolete(Resume resume) {
+        int i = resume2Mapper.updateById(resume);
+        if(i>=1){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 设为面试候选人
+     * @param
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int InterviewCcandidate(Resume resume) {
+        int i = resume2Mapper.updateById(resume);
+        if(i>=1){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 转入淘汰库（候选人）
+     * @param
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int HObsolete(Resume resume) {
+        int i = resume2Mapper.updateById(resume);
+        if(i>=1){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
+    /**
+     * 邀约面试（面试候选人）
+     * @param
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int OfferInterview(Resume resume) {
+        int i = resume2Mapper.updateById(resume);
+        if(i>=1){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
 }

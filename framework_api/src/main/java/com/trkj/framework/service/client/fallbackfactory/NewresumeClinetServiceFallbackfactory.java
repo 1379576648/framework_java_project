@@ -1,6 +1,7 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.entity.mybatisplus.Employment;
+import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
 import com.trkj.framework.service.client.util.FuseUtil;
 import com.trkj.framework.vo.AjaxResponse;
@@ -173,6 +174,56 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public  Map<String, Object> addRecruitmentPlan(RecruitmentVo recruitmentVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 设为候选人
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> SetCandidate(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 转入淘汰库（新简历）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> Obsolete(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 设为面试候选人
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> InterviewCcandidate(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 转入淘汰库（候选人）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> HObsolete(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 邀约面试（面试候选人）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> OfferInterview(Resume resume) {
                 return fuseUtil.main(throwable);
             }
         };
