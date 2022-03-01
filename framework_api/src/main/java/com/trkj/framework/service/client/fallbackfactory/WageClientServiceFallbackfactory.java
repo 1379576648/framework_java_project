@@ -364,6 +364,26 @@ public class WageClientServiceFallbackfactory implements FallbackFactory {
             public Map<String, Object> selectWorkSchemeBydept(WorkScheme workScheme) {
                 return fuseUtil.main(throwable);
             }
+
+            /**
+             * 薪酬统计
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectstatcis(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 薪酬统计
+             * @param moneyPigeonhole
+             * @return
+             */
+            @Override
+            public Map<String, Object> selectstatc(MoneyPigeonhole moneyPigeonhole) {
+                return fuseUtil.main(throwable);
+            }
         };
     }
 }

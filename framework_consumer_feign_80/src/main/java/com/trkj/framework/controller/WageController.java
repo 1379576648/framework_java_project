@@ -407,4 +407,26 @@ public class WageController {
         Map<String, Object> map = (Map<String, Object>) wageClientService.selectWorkSchemeBydept(workScheme);
         return AjaxResponse.success(carryTokenUtil.main(map));
      }
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+     @PostMapping("/selectstatcis")
+     public AjaxResponse selectstatcis(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectstatcis(moneyPigeonhole);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+     }
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+     @PostMapping("/selectstatc")
+     public AjaxResponse selectstatc(@RequestBody MoneyPigeonhole moneyPigeonhole){
+         Map<String, Object> map = (Map<String, Object>) wageClientService.selectstatc(moneyPigeonhole);
+         return AjaxResponse.success(carryTokenUtil.main(map));
+     }
 }

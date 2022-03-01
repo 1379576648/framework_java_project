@@ -3,6 +3,8 @@ package com.trkj.framework.mybatisplus.service;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.MoneyPigeonhole;
 
+import java.util.List;
+
 public interface MoneyPigeonholeService {
 
     /**
@@ -27,6 +29,13 @@ public interface MoneyPigeonholeService {
     IPage<MoneyPigeonhole> selectMoneys(MoneyPigeonhole moneyPigeonhole);
 
     /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+    List<MoneyPigeonhole> selectstatc(MoneyPigeonhole moneyPigeonhole);
+
+    /**
      * 统计已归档工资
      * @param moneyPigeonhole
      * @return
@@ -39,6 +48,13 @@ public interface MoneyPigeonholeService {
      * @return
      */
     int updateMoney(MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+    Object selectstatcis(MoneyPigeonhole moneyPigeonhole);
 
 
 }
