@@ -31,4 +31,31 @@ public interface InterviewMapper extends BaseMapper<InterviewVo> {
     @Select("select r.RESUME_ID,r.RESUME_NAME,d.POST_NAME,r.RESUME_SEX,r.RESUME_EDUCATION,r.RESUME_PHONE,r.RESUME_MAILBOX,r.RESUME_BIRTHDAY,i.INTERVIEW_NAME from INTERVIEW i left join RESUME r on r.RESUME_ID=i.RESUME_ID left join RECRUITMENT_PLAN P on p.RECRUITMENT_PLAN_ID=r.RECRUITMENT_PLAN_ID left join DEPT_POST d on d.DEPT_POST_ID=p.DEPT_POST_ID ${ew.customSqlSegment}")
     IPage<InterviewVo> selectInterviewPass(Page<InterviewVo> page, @Param(Constants.WRAPPER) QueryWrapper<InterviewVo> queryWrapper);
 
+    /**
+     * 待面试查询
+     * @param page
+     * @param queryWrapper
+     * @return
+     */
+    @Select("select r.RESUME_ID,r.RESUME_NAME,d.POST_NAME,r.RESUME_SEX,r.RESUME_EDUCATION,r.RESUME_PHONE,r.RESUME_MAILBOX,r.RESUME_BIRTHDAY,i.INTERVIEW_NAME from INTERVIEW i left join RESUME r on r.RESUME_ID=i.RESUME_ID left join RECRUITMENT_PLAN P on p.RECRUITMENT_PLAN_ID=r.RECRUITMENT_PLAN_ID left join DEPT_POST d on d.DEPT_POST_ID=p.DEPT_POST_ID ${ew.customSqlSegment}")
+    IPage<InterviewVo> selectForInterview(Page<InterviewVo> page, @Param(Constants.WRAPPER) QueryWrapper<InterviewVo> queryWrapper);
+
+    /**
+     * 面试中
+     * @param page
+     * @param queryWrapper
+     * @return
+     */
+    @Select("select r.RESUME_ID,r.RESUME_NAME,d.POST_NAME,r.RESUME_SEX,r.RESUME_EDUCATION,r.RESUME_PHONE,r.RESUME_MAILBOX,r.RESUME_BIRTHDAY,i.INTERVIEW_NAME from INTERVIEW i left join RESUME r on r.RESUME_ID=i.RESUME_ID left join RECRUITMENT_PLAN P on p.RECRUITMENT_PLAN_ID=r.RECRUITMENT_PLAN_ID left join DEPT_POST d on d.DEPT_POST_ID=p.DEPT_POST_ID ${ew.customSqlSegment}")
+    IPage<InterviewVo> selectInInterview(Page<InterviewVo> page, @Param(Constants.WRAPPER) QueryWrapper<InterviewVo> queryWrapper);
+
+    /**
+     * 复试中
+     * @param page
+     * @param queryWrapper
+     * @return
+     */
+    @Select("select r.RESUME_ID,r.RESUME_NAME,d.POST_NAME,r.RESUME_SEX,r.RESUME_EDUCATION,r.RESUME_PHONE,r.RESUME_MAILBOX,r.RESUME_BIRTHDAY,i.INTERVIEW_NAME from INTERVIEW i left join RESUME r on r.RESUME_ID=i.RESUME_ID left join RECRUITMENT_PLAN P on p.RECRUITMENT_PLAN_ID=r.RECRUITMENT_PLAN_ID left join DEPT_POST d on d.DEPT_POST_ID=p.DEPT_POST_ID ${ew.customSqlSegment}")
+    IPage<InterviewVo> selectSecondInterview(Page<InterviewVo> page, @Param(Constants.WRAPPER) QueryWrapper<InterviewVo> queryWrapper);
+
 }

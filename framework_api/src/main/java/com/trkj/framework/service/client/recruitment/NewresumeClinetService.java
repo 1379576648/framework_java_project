@@ -67,6 +67,29 @@ public interface NewresumeClinetService {
     @PostMapping("/selectInterviewPass")
     Map<String,Object> queryInterviewPass(@RequestBody InterviewVo interviewVo);
 
+    /**
+     * 待面试查询
+     * @param interviewVo
+     * @return
+     */
+    @PostMapping("/selectForInterview")
+    Map<String,Object> selectForInterview(@RequestBody InterviewVo interviewVo);
+
+    /**
+     * 面试中查询
+     * @param interviewVo
+     * @return
+     */
+    @PostMapping("/selectInInterview")
+    Map<String,Object> selectInInterview(@RequestBody InterviewVo interviewVo);
+
+    /**
+     * 待面试查询
+     * @param interviewVo
+     * @return
+     */
+    @PostMapping("/selectSecondInterview")
+    Map<String,Object> selectSecondInterview(@RequestBody InterviewVo interviewVo);
 
     /**
      * 面试候选人
@@ -181,4 +204,12 @@ public interface NewresumeClinetService {
      */
     @PutMapping("/OfferInterview")
     Map<String, Object> OfferInterview(@RequestBody Resume resume);
+
+    /**
+     * 淘汰放弃（面试候选人）
+     * @param
+     * @return
+     */
+    @PutMapping("/Abandon")
+    Map<String, Object> Abandon(@RequestBody Resume resume);
 }
