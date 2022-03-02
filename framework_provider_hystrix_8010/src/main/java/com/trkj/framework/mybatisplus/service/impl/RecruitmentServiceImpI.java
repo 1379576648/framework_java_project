@@ -44,7 +44,11 @@ public class RecruitmentServiceImpI extends ServiceImpl<RecruitmentMapper, Recru
     @Override
     public IPage<RecruitmentVo> selectRecruitment(RecruitmentVo recruitmentVo) {
         Page<RecruitmentVo> page=new Page<>(recruitmentVo.getCurrentPage(),recruitmentVo.getPagesize());
-        return recruitmentMapper.selectRecruitment(page);
+        QueryWrapper queryWrapper =new QueryWrapper<>();
+        if (recruitmentVo.getRecruitmentPlanName()!=null){
+            queryWrapper.like("a.RECRUITMENT_PLAN_NAME",recruitmentVo.getRecruitmentPlanName());
+        }
+        return recruitmentMapper.selectRecruitment(page,queryWrapper);
     }
 
     /**

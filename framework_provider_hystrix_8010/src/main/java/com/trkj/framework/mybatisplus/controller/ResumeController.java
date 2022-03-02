@@ -338,6 +338,27 @@ public class ResumeController {
     public Map<String, Object> HystrixAbandon(@RequestBody Resume resume) {
         return fuse8010Util.main();
     }
+
+    /**
+     * 面试签到
+     * @param
+     * @return
+     */
+    @PostMapping("/InterviewSign")
+    @HystrixCommand(fallbackMethod = "HystrixInterviewSign")
+    public Map<String, Object> InterviewSign(@RequestBody Resume resume) {
+        resume.setResumeZt(5);
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", resumeService.InterviewSign(resume));
+        return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> HystrixInterviewSign(@RequestBody Resume resume) {
+        return fuse8010Util.main();
+    }
 }
 
 

@@ -1,6 +1,7 @@
 package com.trkj.framework.service.client.recruitment;
 
 import com.trkj.framework.entity.mybatisplus.Employment;
+import com.trkj.framework.entity.mybatisplus.Interview;
 import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.service.client.fallbackfactory.NewresumeClinetServiceFallbackfactory;
 import com.trkj.framework.vo.InterviewVo;
@@ -108,6 +109,14 @@ public interface NewresumeClinetService {
     Map<String,Object> queryInvite(@RequestBody ResumeVo resumeVo);
 
     /**
+     * 面试淘汰查询
+     * @param interviewVo
+     * @return
+     */
+    @PostMapping("/selectInterviewOut")
+    Map<String,Object> selectInterviewOut(@RequestBody InterviewVo interviewVo);
+
+    /**
      * 添加录用数据
      * @param employment
      * @return
@@ -212,4 +221,84 @@ public interface NewresumeClinetService {
      */
     @PutMapping("/Abandon")
     Map<String, Object> Abandon(@RequestBody Resume resume);
+
+    /**
+     * 修改面试到录用
+     * @param
+     * @return
+     */
+    @PutMapping("/InterviewHire")
+    Map<String, Object> InterviewHire(@RequestBody Interview interview);
+
+    /**
+     * 面试签到
+     * @param
+     * @return
+     */
+    @PostMapping("/InterviewSign")
+    Map<String, Object> InterviewSign(@RequestBody Resume resume);
+
+    /**
+     * 开始面试
+     * @param
+     * @return
+     */
+    @PutMapping("/BeginBy")
+    Map<String, Object> BeginBy(@RequestBody Interview interview);
+
+    /**
+     * 淘汰（待面试）
+     * @param
+     * @return
+     */
+    @PutMapping("/GiveUp")
+    Map<String, Object> GiveUp(@RequestBody Interview interview);
+
+    /**
+     * 面试通过（面试中）
+     * @param
+     * @return
+     */
+    @PutMapping("/PassInterview")
+    Map<String, Object> PassInterview(@RequestBody Interview interview);
+
+    /**
+     * 安排复试（面试中）
+     * @param
+     * @return
+     */
+    @PutMapping("/TheSecondInterview")
+    Map<String, Object> TheSecondInterview(@RequestBody Interview interview);
+
+    /**
+     * 淘汰（面试中）
+     * @param
+     * @return
+     */
+    @PutMapping("/GiveUp2")
+    Map<String, Object> GiveUp2(@RequestBody Interview interview);
+
+    /**
+     * 复试通过
+     * @param
+     * @return
+     */
+    @PutMapping("/secondInterviewPass")
+    Map<String, Object> secondInterviewPass(@RequestBody Interview interview);
+
+    /**
+     * 淘汰（复试中）
+     * @param
+     * @return
+     */
+    @PutMapping("/GiveUp3")
+    Map<String, Object> GiveUp3(@RequestBody Interview interview);
+
+    /**
+     * 淘汰（面试通过）
+     * @param
+     * @return
+     */
+    @PutMapping("/GiveUp4")
+    Map<String, Object> GiveUp4(@RequestBody Interview interview);
 }

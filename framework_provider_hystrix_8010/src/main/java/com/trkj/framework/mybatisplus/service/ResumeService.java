@@ -104,4 +104,11 @@ public interface ResumeService{
          * @return
          */
         int Abandon(Resume resume);
+
+        /**
+         * 面试签到
+         * @param
+         * @return
+         */
+        int InterviewSign(Resume resume);
 }
