@@ -27,6 +27,10 @@ public class MoneyPigeonholeServiceImpl implements MoneyPigeonholeService {
     public IPage<MoneyPigeonhole> selectMoney(MoneyPigeonhole moneyPigeonhole) {
         Page<MoneyPigeonhole> page = new Page<>(moneyPigeonhole.getCurrentPage(),moneyPigeonhole.getPageSize());
         QueryWrapper<MoneyPigeonhole> queryWrapper = new QueryWrapper<>();
+//        //根据员工姓名模糊查询
+//        if(moneyPigeonhole.getStaffName()!=null){
+//            queryWrapper.like("STAFF_NAME",moneyPigeonhole.getStaffName());
+//        }
         queryWrapper.eq("MONEYPIGEONHOLE_STATE",0);
         return moneyPigeonholeMapper.selectMoney(page,queryWrapper);
     }
