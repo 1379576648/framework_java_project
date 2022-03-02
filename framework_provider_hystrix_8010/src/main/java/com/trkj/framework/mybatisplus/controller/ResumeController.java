@@ -318,7 +318,26 @@ public class ResumeController {
         return fuse8010Util.main();
     }
 
+    /**
+     * 淘汰放弃（面试候选人）
+     * @param
+     * @return
+     */
+    @PutMapping("/Abandon")
+    @HystrixCommand(fallbackMethod = "HystrixAbandon")
+    public Map<String, Object> Abandon(@RequestBody Resume resume) {
+        resume.setResumeZt(2);
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", resumeService.Abandon(resume));
+        return map1;
+    }
 
+    //备选方案
+    public Map<String, Object> HystrixAbandon(@RequestBody Resume resume) {
+        return fuse8010Util.main();
+    }
 }
 
 

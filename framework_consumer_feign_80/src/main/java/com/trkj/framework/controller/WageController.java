@@ -385,4 +385,48 @@ public class WageController {
         Map<String, Object> map = (Map<String, Object>) wageClientService.selectBusinessBydept(business);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 根据部门名称查询有无方案
+     * @param attendandce
+     * @return
+     */
+    @PostMapping("/selectAttendandceBydept")
+    public AjaxResponse selectAttendandceBydept(@RequestBody Attendandce attendandce){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectAttendandceBydept(attendandce);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 根据部门名称查询是否有方案
+     * @param workScheme
+     * @return
+     */
+    @PostMapping("/selectWorkSchemeBydept")
+    public AjaxResponse selectWorkSchemeBydept(@RequestBody WorkScheme workScheme){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectWorkSchemeBydept(workScheme);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+     }
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+     @PostMapping("/selectstatcis")
+     public AjaxResponse selectstatcis(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map = (Map<String, Object>) wageClientService.selectstatcis(moneyPigeonhole);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+     }
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+     @PostMapping("/selectstatc")
+     public AjaxResponse selectstatc(@RequestBody MoneyPigeonhole moneyPigeonhole){
+         Map<String, Object> map = (Map<String, Object>) wageClientService.selectstatc(moneyPigeonhole);
+         return AjaxResponse.success(carryTokenUtil.main(map));
+     }
 }

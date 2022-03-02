@@ -174,4 +174,23 @@ public class WorkSchemeController {
         return fuse8006Util.main();
     }
 
+    /**
+     * 根据部门名称查询有无方案
+     * @param workScheme
+     * @return
+     */
+    @PostMapping("/selectWorkSchemeBydept")
+    @HystrixCommand(fallbackMethod = "hystixGet6")
+    public Map<String, Object> selectWorkSchemeBydept(@RequestBody WorkScheme workScheme){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", workSchemeService.selectWorkSchemeBydept(workScheme));
+        return map1;
+    }
+
+    // 备选方案
+    public Map<String, Object> hystixGet6(@RequestBody WorkScheme workScheme){
+        return fuse8006Util.main();
+    }
+
 }

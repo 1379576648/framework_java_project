@@ -48,6 +48,7 @@ public class StaffServiceImpl implements StaffService {
             queryWrapper.like("s.STAFF_NAME",staffVo.getStaffName());
         }
         queryWrapper.ne("s.STAFF_STATE",2);
+        queryWrapper.orderByDesc("CREATED_TIME");
         IPage<StaffVo> list = staffMapper.selectStaff(page,queryWrapper);
         for(StaffVo staffvo : list.getRecords()){
             //设置日期格式
