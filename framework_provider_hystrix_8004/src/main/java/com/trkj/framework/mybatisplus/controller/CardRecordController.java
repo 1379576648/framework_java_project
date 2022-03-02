@@ -86,7 +86,7 @@ public class CardRecordController {
      * @throws Exception
      */
     @PostMapping("/importCardRecord")
-    // @HystrixCommand(fallbackMethod = "importCardRecordHystixGet")
+    @HystrixCommand(fallbackMethod = "importCardRecordHystixGet")
     public Map<String, Object> importCardRecord(MultipartFile file) throws Exception {
         Map<String, Object> map1 = new HashMap<>(2);
         //状态码
@@ -134,9 +134,9 @@ public class CardRecordController {
         }
     }
 
-    // public Map<String, Object> importCardRecordHystixGet(MultipartFile file) {
-    //     return fuse8004Util.main();
-    // }
+    public Map<String, Object> importCardRecordHystixGet(MultipartFile file) {
+        return fuse8004Util.main();
+    }
 
     /**
      * 根据名称查询打卡记录
