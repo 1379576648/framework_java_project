@@ -169,4 +169,23 @@ public class AttendandceController {
         return fuse8006Util.main();
     }
 
+    /**
+     * 根据部门名称查询有无方案
+     * @param attendandce
+     * @return
+     */
+    @PostMapping("/selectAttendandceBydept")
+    @HystrixCommand(fallbackMethod = "hystixGet6")
+    public Map<String, Object> selectAttendandceBydept(@RequestBody Attendandce attendandce){
+        Map<String, Object> map1 = new HashMap<>(2);
+        map1.put("state", 200);
+        map1.put("info", attendandceService.selectAttendandceBydept(attendandce));
+        return map1;
+    }
+
+    // 备选方案
+    public Map<String, Object> hystixGet6(@RequestBody Attendandce attendandce){
+        return fuse8006Util.main();
+    }
+
 }

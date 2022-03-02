@@ -120,5 +120,45 @@ public class MoneyPigeonholeController {
     public Map<String,Object> updateMoneyHystix(@RequestBody MoneyPigeonhole moneyPigeonhole){
         return fuse8006Util.main();
     }
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectstatcis")
+    @HystrixCommand(fallbackMethod = "hystixGet5")
+    public Map<String, Object> selectstatcis(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map1 = new HashMap(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",moneyPigeonholeService.selectstatcis(moneyPigeonhole));
+        return map1;
+    }
+
+    //备选方案
+    public  Map<String, Object> hystixGet5(@RequestBody MoneyPigeonhole moneyPigeonhole) {
+        return fuse8006Util.main();
+    }
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectstatc")
+    @HystrixCommand(fallbackMethod = "HystixGet6")
+    public Map<String,Object> selectstatc(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        Map<String, Object> map1 = new HashMap(2);
+        //状态码
+        map1.put("state",200);
+        map1.put("info",moneyPigeonholeService.selectstatc(moneyPigeonhole));
+        return map1;
+    }
+
+    // 备选方案
+    public Map<String,Object> HystixGet6(@RequestBody MoneyPigeonhole moneyPigeonhole){
+        return fuse8006Util.main();
+    }
 }
 

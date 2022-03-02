@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class SalaryServicelmpl implements SalaryService {
 
@@ -41,5 +43,14 @@ public class SalaryServicelmpl implements SalaryService {
             queryWrapper.like("d.DEPT_NAME",wageVo.getDeptName());
         }
         return salaryMapper.selectSalary(page,queryWrapper);
+    }
+
+    /**
+     * 本月调薪
+     * @return
+     */
+    @Override
+    public List<Salary> counttx() {
+        return salaryMapper.counttx();
     }
 }

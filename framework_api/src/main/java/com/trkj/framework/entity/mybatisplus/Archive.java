@@ -63,6 +63,10 @@ public class Archive implements Serializable {
     @TableField("PRESENT")
     private String present;
 
+    @ApiModelProperty(value = "应出勤天数")
+    @TableField("ATTENDANCE_DAYS")
+    private Integer attendanceDays;
+
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
     @TableField(fill = FieldFill.INSERT)

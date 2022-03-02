@@ -70,6 +70,7 @@ public class AuditflowServiceImpl implements AuditflowService {
      * @param
      * @return
      */
+    // 作用:编译器会校验写的方法在父类中是否存在
     @Override
     public IPage<Auditflowone> selectAuditflowoneAll(Auditflowone auditflowone) {
         Page<Auditflowone> page = new Page<>(auditflowone.getCurrentPage(), auditflowone.getPagesize());

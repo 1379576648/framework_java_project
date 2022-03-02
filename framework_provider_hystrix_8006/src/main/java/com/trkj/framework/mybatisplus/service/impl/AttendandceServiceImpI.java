@@ -130,4 +130,17 @@ public class AttendandceServiceImpI implements AttendandceService {
             return 100;
         }
     }
+
+    /**
+     * 根据部门名称查询有无方案
+     * @param attendandce
+     * @return
+     */
+    @Override
+    public List<Attendandce> selectAttendandceBydept(Attendandce attendandce) {
+        QueryWrapper<Attendandce> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("DEPT_NAME",attendandce.getDeptName());
+        queryWrapper.eq("IS_DELETED",0);
+        return attendandceMapper.selectAttendandceBydept(queryWrapper);
+    }
 }

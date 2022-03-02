@@ -15,6 +15,32 @@ public interface InterviewService extends IService<InterviewVo> {
      */
     IPage<InterviewVo> selectInterviewPass(InterviewVo interviewVo);
 
+    /**
+     * 待面试
+     * @param interviewVo
+     * @return
+     */
+    IPage<InterviewVo> selectForInterview(InterviewVo interviewVo);
+
+    /**
+     * 面试中
+     * @param interviewVo
+     * @return
+     */
+    IPage<InterviewVo> selectInInterview(InterviewVo interviewVo);
+
+    /**
+     * 复试中
+     * @param interviewVo
+     * @return
+     */
+    IPage<InterviewVo> selectSecondInterview(InterviewVo interviewVo);
+
+    /**
+     * 面试通过录用
+     * @param
+     * @return
+     */
     Integer EmployStaff(Employment employment);
 
 

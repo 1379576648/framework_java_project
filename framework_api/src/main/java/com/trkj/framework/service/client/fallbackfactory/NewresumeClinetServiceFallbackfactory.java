@@ -91,6 +91,36 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
             }
 
             /**
+             * 待面试
+             * @param interviewVo
+             * @return
+             */
+            @Override
+            public Map<String,Object> selectForInterview(InterviewVo interviewVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 面试中
+             * @param interviewVo
+             * @return
+             */
+            @Override
+            public Map<String,Object> selectInInterview(InterviewVo interviewVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 复试中
+             * @param interviewVo
+             * @return
+             */
+            @Override
+            public Map<String,Object> selectSecondInterview(InterviewVo interviewVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
              * 面试候选人
              * @param resumeVo
              * @return
@@ -224,6 +254,16 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Map<String, Object> OfferInterview(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 淘汰放弃（面试候选人）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> Abandon(Resume resume) {
                 return fuseUtil.main(throwable);
             }
         };

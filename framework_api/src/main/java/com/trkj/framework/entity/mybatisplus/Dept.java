@@ -25,7 +25,7 @@ import lombok.experimental.Accessors;
 @Accessors(chain = true)
 @TableName("DEPT")
 @ApiModel(value="Dept对象", description="部门表")
-@KeySequence(value = "DEPT_ID",clazz = Long.class)
+@KeySequence(value = "DEPT_ID",clazz = Integer.class)
 public class Dept implements Serializable {
 
     private static final long serialVersionUID = 1L;
