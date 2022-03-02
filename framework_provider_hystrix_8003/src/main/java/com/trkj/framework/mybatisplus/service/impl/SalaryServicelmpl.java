@@ -110,7 +110,7 @@ public class SalaryServicelmpl implements SalaryService {
     @Override
     public Integer selectPay(Fixedwagf fixedwagf) {
         QueryWrapper<Fixedwagf> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("STAFF_ID", fixedwagf.getStaffid());
+        queryWrapper.eq("STAFF_ID", fixedwagf.getStaffId());
         return fixedwagfMapper.selectPay(queryWrapper);
     }
 

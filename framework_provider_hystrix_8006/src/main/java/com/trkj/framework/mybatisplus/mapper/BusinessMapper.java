@@ -35,4 +35,14 @@ public interface BusinessMapper extends BaseMapper<Business> {
      */
     @Select("SELECT * FROM BUSINESS ${ew.customSqlSegment}")
     List<Business> selectBusinessAll(@Param(Constants.WRAPPER) QueryWrapper<Business> queryWrapper);
+
+    /**
+     * 根据部门名称查询有无方案
+     * @param queryWrapper
+     * @return
+     */
+    @Select("SELECT * FROM BUSINESS ${ew.customSqlSegment}")
+    List<Business> selectBusinessBydept(@Param(Constants.WRAPPER) QueryWrapper<Business> queryWrapper);
+
+
 }

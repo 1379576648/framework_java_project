@@ -33,6 +33,50 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
         return interviewMapper.selectInterviewPass(page,queryWrapper);
     }
 
+    /**
+     * 待面试查询
+     * @param
+     * @return
+     */
+    @Override
+    public IPage<InterviewVo> selectForInterview(InterviewVo interviewVo) {
+        Page<InterviewVo> page = new Page<>(interviewVo.getCurrentPage(),interviewVo.getPagesize());
+        QueryWrapper<InterviewVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("INTERVIEW_STATE",0);
+        return interviewMapper.selectForInterview(page,queryWrapper);
+    }
+
+    /**
+     * 面试中查询
+     * @param
+     * @return
+     */
+    @Override
+    public IPage<InterviewVo> selectInInterview(InterviewVo interviewVo) {
+        Page<InterviewVo> page = new Page<>(interviewVo.getCurrentPage(),interviewVo.getPagesize());
+        QueryWrapper<InterviewVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("INTERVIEW_STATE",1);
+        return interviewMapper.selectInInterview(page,queryWrapper);
+    }
+
+    /**
+     * 复试中查询
+     * @param
+     * @return
+     */
+    @Override
+    public IPage<InterviewVo> selectSecondInterview(InterviewVo interviewVo) {
+        Page<InterviewVo> page = new Page<>(interviewVo.getCurrentPage(),interviewVo.getPagesize());
+        QueryWrapper<InterviewVo> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("INTERVIEW_STATE",3);
+        return interviewMapper.selectSecondInterview(page,queryWrapper);
+    }
+
+    /**
+     * 面试通过录用
+     * @param
+     * @return
+     */
     @Override
     public Integer EmployStaff(Employment employment) {
         Employment employment1=new Employment();

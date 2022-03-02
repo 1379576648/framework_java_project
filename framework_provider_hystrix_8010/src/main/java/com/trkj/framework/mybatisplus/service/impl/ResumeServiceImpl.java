@@ -248,4 +248,22 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
             return 100;
         }
     }
+
+    /**
+     * 淘汰放弃（面试候选人）
+     * @param
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public int Abandon(Resume resume) {
+        int i = resume2Mapper.updateById(resume);
+        if(i>=1){
+            return 666;
+        }else {
+            return 100;
+        }
+    }
+
+
 }

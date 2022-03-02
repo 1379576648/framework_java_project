@@ -6,15 +6,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.trkj.framework.entity.mybatisplus.MoneyPigeonhole;
 import com.trkj.framework.mybatisplus.mapper.MoneyPigeonholeMapper;
 import com.trkj.framework.mybatisplus.service.MoneyPigeonholeService;
-import lombok.var;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 @Service
@@ -88,6 +84,22 @@ public class MoneyPigeonholeServiceImpl implements MoneyPigeonholeService {
     }
 
     /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+    @Override
+    public List<MoneyPigeonhole> selectstatc(MoneyPigeonhole moneyPigeonhole) {
+        QueryWrapper<MoneyPigeonhole> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("MONEYPIGEONHOLE_STATE",1);
+        //当前月
+        int year = moneyPigeonhole.getPayMonth().getYear() + 1900;
+        int month = moneyPigeonhole.getPayMonth().getMonth() + 1;
+        queryWrapper.eq("to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM')",month > 9 ? year + "-" + month : year + "-" + "0" + month);
+        return moneyPigeonholeMapper.selectstatc(queryWrapper);
+    }
+
+    /**
      * 统计已归档工资表
      * @param moneyPigeonhole
      * @return
@@ -98,8 +110,15 @@ public class MoneyPigeonholeServiceImpl implements MoneyPigeonholeService {
         QueryWrapper queryWrapper = new QueryWrapper();
         //判断传入的时间是否为空
         if (moneyPigeonhole.getStartTime() != null || moneyPigeonhole.getEndTime() != null) {
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(moneyPigeonhole.getStartTime());
+            cal.add(Calendar.MONTH, 1);
+
+            Calendar cal2 = Calendar.getInstance();
+            cal2.setTime(moneyPigeonhole.getEndTime());
+            cal2.add(Calendar.MONTH, 1);
             //计薪时间范围查询
-            queryWrapper.between("CREATED_TIME", moneyPigeonhole.getStartTime(), moneyPigeonhole.getEndTime());
+            queryWrapper.between("CREATED_TIME", cal.getTime(),cal2.getTime());
         }
         queryWrapper.eq("MONEYPIGEONHOLE_STATE",1);
         IPage<MoneyPigeonhole> moneyPigeonholeIPage = moneyPigeonholeMapper.selectPage(page,queryWrapper);
@@ -143,5 +162,44 @@ public class MoneyPigeonholeServiceImpl implements MoneyPigeonholeService {
             return 100;
         }
         return 666;
+    }
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public Object selectstatcis(MoneyPigeonhole moneyPigeonhole) {
+        QueryWrapper queryWrapper = new QueryWrapper();
+        queryWrapper.eq("MONEYPIGEONHOLE_STATE", 1);
+        List<MoneyPigeonhole> moneyPigeonholeIPage = moneyPigeonholeMapper.selectstatcis(queryWrapper);
+
+        for (int i = 0; i < moneyPigeonholeIPage.size(); i++) {
+            //当前月
+            int year = moneyPigeonholeIPage.get(i).getPayMonth().getYear() + 1900;
+            int month = moneyPigeonholeIPage.get(i).getPayMonth().getMonth() + 1;
+            List<MoneyPigeonhole> moneyPigeonholeList = moneyPigeonholeMapper.selectList(
+                    new QueryWrapper<MoneyPigeonhole>()
+                            .eq("to_char(ADD_MONTHS(CREATED_TIME,-1),'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + month)
+                            .eq("MONEYPIGEONHOLE_STATE", 1));
+            for (int j = 0; j < moneyPigeonholeList.size(); j++) {
+                moneyPigeonholeIPage.get(i).setMoneyPigeonholeState(moneyPigeonholeList.get(j).getMoneyPigeonholeState());
+                double f = Double.parseDouble(new java.text.DecimalFormat("#.00").format(moneyPigeonholeIPage.get(i).getCountyMoney() + moneyPigeonholeList.get(j).getMoneyPigeonholeSalary()));
+                //应发金额
+                moneyPigeonholeIPage.get(i).setCountyMoney(f);
+                //实发工资
+                double x = Double.parseDouble(new java.text.DecimalFormat("#.00").format(moneyPigeonholeIPage.get(i).getCountsMoney() + moneyPigeonholeList.get(j).getMoneyPigeonholePayrollSalary()));
+                moneyPigeonholeIPage.get(i).setCountsMoney(x);
+                //公司缴纳
+                double y = Double.parseDouble(new java.text.DecimalFormat("#.00").format(moneyPigeonholeIPage.get(i).getCountcPay() + moneyPigeonholeList.get(j).getCompanySocial() + moneyPigeonholeList.get(j).getCompanyAccumulAtion()));
+                moneyPigeonholeIPage.get(i).setCountcPay(y);
+            }
+            //员工成本
+            double z = Double.parseDouble(new java.text.DecimalFormat("#.00").format(moneyPigeonholeIPage.get(i).getCountsMoney() + moneyPigeonholeIPage.get(i).getCountcPay()));
+            moneyPigeonholeIPage.get(i).setStaffPay(z);
+        }
+        return moneyPigeonholeIPage;
     }
 }

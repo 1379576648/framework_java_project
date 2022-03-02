@@ -131,6 +131,35 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
             staff1.get(i).setList(clockRecords);
         }
 
+        // 获取当前年月
+        Calendar cal = Calendar.getInstance();
+        int year = cal.get(Calendar.YEAR);
+        int month = cal.get(Calendar.MONTH) + 1;
+        cal.set(Calendar.YEAR, year);
+        cal.set(Calendar.MONTH, month - 1);
+        cal.set(Calendar.DATE, 1);
+        cal.roll(Calendar.DATE, -1);
+        int maxDate = cal.get(Calendar.DATE);
+        int year1 = new Date().getYear() + 1900;
+        int month1 = new Date().getMonth();
+        List list1 = new ArrayList();
+
+        Calendar calendar = new GregorianCalendar(year1, month1, 1);
+        int i1 = 1;
+        while (calendar.get(Calendar.YEAR) < year1 + 1) {
+            calendar.set(Calendar.WEEK_OF_YEAR, i1++);
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            if (calendar.get(Calendar.MONTH) == month1) {
+                list1.add(year + "-" + month + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            }
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            if (calendar.get(Calendar.MONTH) == month1) {
+                list1.add(year + "-" + month + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            }
+        }
+        int attendanceDays;
+        attendanceDays = maxDate - list1.size();
+
         var insert = 0;
         for (int i = 0; i < staff1.size(); i++) {
             // 当前日期转格式
@@ -148,6 +177,8 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
             archive1.setLateFrequency(0);
             archive1.setAbsenteeismFrequency(0);
             archive1.setLeaveEarlyFrequency(0);
+            archive1.setAttendanceDays(attendanceDays);
+
             for (int j = 0; j < staff1.get(i).getList().size(); j++) {
                 if (Objects.equals(staff1.get(i).getList().get(j).getCheckState(), "正常")) {
                     archive1.setNormalFrequency(staff1.get(i).getList().get(j).getStateNumber());
@@ -218,7 +249,8 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
     }
 
     /**
-     *查询当月所有考勤记录
+     * 查询当月所有考勤记录
+     *
      * @param
      * @return
      */
@@ -231,12 +263,12 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
             //根据名称名称模糊查询
             queryWrapper.like("STAFF_NAME", staff.getStaffName1());
         }
-        if (staff.getDeptNameTwo() != null){
+        if (staff.getDeptNameTwo() != null) {
             for (int i = 0; i < staff.getDeptNameTwo().size(); i++) {
                 queryWrapper.eq("DEPT_NAME", staff.getDeptNameTwo().get(i));
             }
         }
-        queryWrapper.ne("STAFF_NAME",staff.getStaffName());
+        queryWrapper.ne("STAFF_NAME", staff.getStaffName());
         final var staff1 = staffMapper.selectPage(page, queryWrapper);
         // 再根据查到的员工的编号查询所在部门信息
         Dept dept;
@@ -247,6 +279,7 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
                 staff1.getRecords().get(i).setDeptName(dept.getDeptName());
             }
         }
+        // 根据用户名称查询当月所有考勤记录
         for (int i = 0; i < staff1.getRecords().size(); i++) {
             QueryWrapper<ClockRecord> queryWrapper1 = new QueryWrapper<>();
             queryWrapper1.eq("STAFF_NAME", staff1.getRecords().get(i).getStaffName());
@@ -257,10 +290,10 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
             // 再转成string型
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM");
             String date = formatter.format(newDate);
-            System.out.println(date);
             queryWrapper1.apply("TO_CHAR(CREATED_TIME,'yyyy-mm' ) like {0}", date);
             staff1.getRecords().get(i).setList(cardRecordMapper.selectList(queryWrapper1));
         }
+
         // 获取当前年月
         Calendar cal = Calendar.getInstance();
         int year = cal.get(Calendar.YEAR);
@@ -270,18 +303,26 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
         cal.set(Calendar.DATE, 1);
         cal.roll(Calendar.DATE, -1);
         int maxDate = cal.get(Calendar.DATE);
+        int year1 = new Date().getYear() + 1900;
+        int month1 = new Date().getMonth();
         List list1 = new ArrayList();
-        // 获取周六周日
-        for (int i = 0; i < maxDate-1; i++) {
-            //在第一天的基础上加1
-            cal.add(Calendar.DATE, 1);
-            int week = cal.get(Calendar.DAY_OF_WEEK);
-            // 1代表周日，7代表周六 判断这是一个星期的第几天从而判断是否是周末
-            if (week == Calendar.SATURDAY || week == Calendar.SUNDAY) {
-                // 得到当天是一个月的第几天
-                list1.add(year+"-"+month+"-"+cal.get(Calendar.DAY_OF_MONTH));
+
+        Calendar calendar = new GregorianCalendar(year1, month1, 1);
+        int i1 = 1;
+        while (calendar.get(Calendar.YEAR) < year1 + 1) {
+            calendar.set(Calendar.WEEK_OF_YEAR, i1++);
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+            if (calendar.get(Calendar.MONTH) == month1) {
+                list1.add(year + "-" + month + "-" + calendar.get(Calendar.DAY_OF_MONTH));
+            }
+            calendar.set(Calendar.DAY_OF_WEEK, Calendar.SATURDAY);
+            if (calendar.get(Calendar.MONTH) == month1) {
+                list1.add(year + "-" + month + "-" + calendar.get(Calendar.DAY_OF_MONTH));
             }
         }
+
+
+
         for (int j = 0; j < staff1.getRecords().size(); j++) {
             List<ClockRecord> list = new ArrayList<ClockRecord>();
             for (int i = 1; i <= maxDate; i++) {
@@ -289,30 +330,31 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
                 for (int k = 0; k < staff1.getRecords().get(j).getList().size(); k++) {
                     if (staff1.getRecords().get(j).getList().get(k).getMornClock().getDate() == i) {
                         staff1.getRecords().get(j).getList().get(k).setMoth(
-                                staff1.getRecords().get(j).getList().get(k).getMornClock().getMonth()+1 + "/"
+                                staff1.getRecords().get(j).getList().get(k).getMornClock().getMonth() + 1 + "/"
                                         + i);
-                        clockRecord =staff1.getRecords().get(j).getList().get(k);
+                        clockRecord = staff1.getRecords().get(j).getList().get(k);
                     }
                 }
-                if (clockRecord==null){
-                    Calendar date=Calendar.getInstance();
+
+                if (clockRecord == null) {
+                    Calendar date = Calendar.getInstance();
                     // 当前日期的天数
                     int day = date.get(Calendar.DATE);
-                    clockRecord= new ClockRecord();
+                    clockRecord = new ClockRecord();
                     boolean op = true;
-                    for (int k = 0; k <list1.size() ; k++) {
-                        int pm = Integer.valueOf(list1.get(k).toString().substring(list1.get(k).toString().lastIndexOf("-")+1));
-                        if (pm==i && i<=day){
-                            clockRecord.setMoth(staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth()+1 + "/" + i);
+                    for (int k = 0; k < list1.size(); k++) {
+                        int pm = Integer.valueOf(list1.get(k).toString().substring(list1.get(k).toString().lastIndexOf("-") + 1));
+                        if (pm == i && i <= day) {
+                            clockRecord.setMoth(staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth() + 1 + "/" + i);
                             clockRecord.setCheckState("休息");
-                            op=false;
+                            op = false;
                         }
                     }
-                    if (i<=day && op==true){
-                        clockRecord.setMoth(staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth()+1 + "/" + i);
+                    if (i <= day && op == true) {
+                        clockRecord.setMoth(new Date().getMonth() + 1 + "/" + i);
                         clockRecord.setCheckState("旷工");
-                    }else if ( op==true){
-                        clockRecord.setMoth(staff1.getRecords().get(j).getList().get(0).getMornClock().getMonth()+1 + "/" + i);
+                    } else if (op == true) {
+                        clockRecord.setMoth(new Date().getMonth() + 1 + "/" + i);
                         clockRecord.setCheckState("");
                     }
                 }
@@ -324,10 +366,10 @@ public class MonthStatisticslmpl implements MonthStatisticsService {
     }
 
     @Override
-    public List<Dept>selectDeptAll(){
-      QueryWrapper<Dept>queryWrapper=new QueryWrapper<>();
-      queryWrapper.ne("DEPT_NAME","总裁办");
-      return deptMapper.selectList(queryWrapper);
+    public List<Dept> selectDeptAll() {
+        QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
+        queryWrapper.ne("DEPT_NAME", "总裁办");
+        return deptMapper.selectList(queryWrapper);
     }
 }
 

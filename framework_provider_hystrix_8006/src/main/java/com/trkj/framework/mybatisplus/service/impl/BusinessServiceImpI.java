@@ -18,6 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Queue;
 
 @Service
 public class BusinessServiceImpI implements BusinessService {
@@ -40,6 +41,7 @@ public class BusinessServiceImpI implements BusinessService {
         }
         //queryWrapper.eq("d.DEPT_NAME",workSchemeVo.getDeptName());
         queryWrapper.eq("b.IS_DELETED",0);
+        System.out.println("111111111111111111111111111111111111111111");
         return businessMapper.selectBusiness(page,queryWrapper);
     }
 
@@ -128,5 +130,18 @@ public class BusinessServiceImpI implements BusinessService {
         }else {
             return 100;
         }
+    }
+
+    /**
+     * 根据部门名称查询有无方案
+     * @param business
+     * @return
+     */
+    @Override
+    public List<Business> selectBusinessBydept(Business business) {
+        QueryWrapper<Business> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("DEPT_NAME",business.getDeptName());
+        queryWrapper.eq("IS_DELETED",0);
+        return businessMapper.selectBusinessBydept(queryWrapper);
     }
 }

@@ -45,6 +45,75 @@ public class InterviewController {
     }
 
     /**
+     * 待面试查询
+     * @param
+     * @return
+     */
+    @PostMapping("/selectForInterview")
+    @HystrixCommand(fallbackMethod = "hystrixForInterview")
+    public Map<String, Object> selectForInterview(@RequestBody InterviewVo interviewVo){
+        Map<String, Object> map = new HashMap<>();
+        map.put("state",200);
+        map.put("succeed",interviewService.selectForInterview(interviewVo));
+        return map;
+    }
+
+    /**
+     * 备选方案
+     * @param
+     * @return
+     */
+    public Map<String, Object> hystrixForInterview(@RequestBody InterviewVo interviewVo){
+        return fuse8010Util.main();
+    }
+
+    /**
+     * 面试中查询
+     * @param
+     * @return
+     */
+    @PostMapping("/selectInInterview")
+    @HystrixCommand(fallbackMethod = "hystrixInInterview")
+    public Map<String, Object> selectInInterview(@RequestBody InterviewVo interviewVo){
+        Map<String, Object> map = new HashMap<>();
+        map.put("state",200);
+        map.put("succeed",interviewService.selectInInterview(interviewVo));
+        return map;
+    }
+
+    /**
+     * 备选方案
+     * @param
+     * @return
+     */
+    public Map<String, Object> hystrixInInterview(@RequestBody InterviewVo interviewVo){
+        return fuse8010Util.main();
+    }
+
+    /**
+     * 复试中查询
+     * @param
+     * @return
+     */
+    @PostMapping("/selectSecondInterview")
+    @HystrixCommand(fallbackMethod = "hystrixSecondInterview")
+    public Map<String, Object> selectSecondInterview(@RequestBody InterviewVo interviewVo){
+        Map<String, Object> map = new HashMap<>();
+        map.put("state",200);
+        map.put("succeed",interviewService.selectSecondInterview(interviewVo));
+        return map;
+    }
+
+    /**
+     * 备选方案
+     * @param
+     * @return
+     */
+    public Map<String, Object> hystrixSecondInterview(@RequestBody InterviewVo interviewVo){
+        return fuse8010Util.main();
+    }
+
+    /**
      * 添加录用数据
      * @param
      * @return
