@@ -41,9 +41,15 @@ public class Tranfer8009Servicelmpl implements Transfer8009Service {
             //模糊查询
             queryWrapper.like("d.DEPT_NAME", deptVo.getDeptName());
         }
+        //判断职位是否为空
         if (deptVo.getStaffName() != null && !deptVo.getStaffName().equals("")){
-            //
+            //模糊查询
             queryWrapper.like("s.STAFF_NAME",deptVo.getStaffName());
+        }
+        //判断状态是否为空
+        if (deptVo.getDeptState() != null && !deptVo.getDeptState().equals("")){
+            //模糊查询
+            queryWrapper.like("d.DEPT_STATE",deptVo.getDeptState());
         }
         return deptMapper.selectDeptw(page, queryWrapper);
 
