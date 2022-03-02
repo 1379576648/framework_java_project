@@ -1,7 +1,6 @@
 
 package com.trkj.framework.mybatisplus.controller;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.trkj.framework.entity.mybatisplus.Glory;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.mybatisplus.service.SalaryService;
 import com.trkj.framework.util.Fuse8006Util;
@@ -65,6 +64,25 @@ public class SalaryController {
 
     //备选方案
     public  Map<String, Object> hystixGet2(@RequestBody WageVo wageVo){
+        return fuse8006Util.main();
+    }
+
+    /**
+     * 本月调薪
+     * @return
+     */
+    @PostMapping("/counttx")
+    @HystrixCommand(fallbackMethod = "hystixGet3")
+    public Map<String, Object> counttx() {
+        Map<String, Object> map1 = new HashMap<>(2);
+        //状态码
+        map1.put("state", 200);
+        map1.put("info", salaryService.counttx());
+        return map1;
+    }
+
+    //备选方案
+    public Map<String, Object> hystixGet3() {
         return fuse8006Util.main();
     }
 

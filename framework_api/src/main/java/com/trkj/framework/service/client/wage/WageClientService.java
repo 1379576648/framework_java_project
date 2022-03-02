@@ -308,4 +308,11 @@ public interface WageClientService {
      */
     @PostMapping("/selectstatc")
     Map<String, Object> selectstatc(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 本月调薪
+     * @return
+     */
+    @PostMapping("/counttx")
+    Map<String, Object> counttx();
 }

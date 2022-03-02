@@ -23,3 +23,20 @@ hystrix:
 spring:
   profiles:
     active: dev
+feign:
+  hystrix:
+    enabled: true
+    #局部配置
+  client:
+    config:
+      default:
+        connectTimeout: 60000
+        readTimeout: 60000
+        loggerLevel: basic
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
