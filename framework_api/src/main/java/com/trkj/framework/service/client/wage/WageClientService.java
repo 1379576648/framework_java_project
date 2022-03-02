@@ -292,4 +292,27 @@ public interface WageClientService {
      */
     @PostMapping("/selectWorkSchemeBydept")
     Map<String, Object> selectWorkSchemeBydept(@RequestBody WorkScheme workScheme);
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectstatcis")
+    Map<String, Object> selectstatcis(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 薪酬统计
+     * @param moneyPigeonhole
+     * @return
+     */
+    @PostMapping("/selectstatc")
+    Map<String, Object> selectstatc(@RequestBody MoneyPigeonhole moneyPigeonhole);
+
+    /**
+     * 本月调薪
+     * @return
+     */
+    @PostMapping("/counttx")
+    Map<String, Object> counttx();
 }

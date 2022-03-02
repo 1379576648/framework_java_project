@@ -6,6 +6,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.trkj.framework.entity.mybatisplus.Salary;
 import com.trkj.framework.vo.WageVo;
 
+import java.util.List;
+
 public interface SalaryService {
 
     /**
@@ -21,5 +23,11 @@ public interface SalaryService {
      * @return
      */
     IPage<WageVo> selectSalary(WageVo wageVo);
+
+    /**
+     * 本月调薪
+     * @return
+     */
+    List<Salary> counttx();
 
 }

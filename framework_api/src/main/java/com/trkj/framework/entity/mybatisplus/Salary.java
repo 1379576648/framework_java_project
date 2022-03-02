@@ -63,14 +63,14 @@ public class Salary {
     private String salaryType;
 
 
-    @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     @ApiModelProperty(value = "创建时间")
-    @TableField(fill = FieldFill.INSERT)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @TableField(value = "CREATED_TIME",fill = FieldFill.INSERT)
     private Date createdTime;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @ApiModelProperty(value = "修改时间")
-    @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss",timezone = "GMT+8")
+    @TableField(value = "UPDATED_TIME",fill = FieldFill.INSERT_UPDATE)
     private Date updatedTime;
 
     @ApiModelProperty(value = "乐观锁")
@@ -80,4 +80,8 @@ public class Salary {
     @ApiModelProperty(value = "逻辑删除")
     @TableId("IS_DELETED")
     private Long isDeleted;
+
+    @ApiModelProperty(value = "统计")
+    @TableField(exist = false)
+    private Integer tx;
 }

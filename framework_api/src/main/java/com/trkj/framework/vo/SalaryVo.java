@@ -83,7 +83,7 @@ public class SalaryVo {
 
     @ApiModelProperty(value = "调薪后基本工资")
     @TableId("AFTER_SALARY")
-    private Integer aftersalary;
+    private Double aftersalary;
 
     @ApiModelProperty(value = "备注")
     @TableId("SALARY_REMARKS")
