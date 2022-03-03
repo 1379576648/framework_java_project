@@ -1,6 +1,7 @@
 package com.trkj.framework.service.client.fallbackfactory;
 
 import com.trkj.framework.entity.mybatisplus.Employment;
+import com.trkj.framework.entity.mybatisplus.Interview;
 import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
 import com.trkj.framework.service.client.util.FuseUtil;
@@ -107,6 +108,16 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Map<String,Object> selectInInterview(InterviewVo interviewVo) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 面试淘汰查询
+             * @param interviewVo
+             * @return
+             */
+            @Override
+            public Map<String,Object> selectInterviewOut(InterviewVo interviewVo) {
                 return fuseUtil.main(throwable);
             }
 
@@ -264,6 +275,101 @@ public class NewresumeClinetServiceFallbackfactory implements FallbackFactory {
              */
             @Override
             public Map<String, Object> Abandon(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 修改面试到录用
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> InterviewHire(Interview interview) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 面试签到
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> InterviewSign(Resume resume) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 开始面试
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> BeginBy(Interview interview) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 淘汰（待面试）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> GiveUp(Interview interview) {
+                return fuseUtil.main(throwable);
+            }
+            /**
+             * 面试通过（面试中）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> PassInterview(Interview interview) {
+                return fuseUtil.main(throwable);
+            }
+            /**
+             * 安排复试（面试中）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> TheSecondInterview(Interview interview) {
+                return fuseUtil.main(throwable);
+            }
+            /**
+             * 淘汰（面试中）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> GiveUp2(Interview interview) {
+                return fuseUtil.main(throwable);
+            }
+            /**
+             * 复试通过
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> secondInterviewPass(Interview interview) {
+                return fuseUtil.main(throwable);
+            }
+            /**
+             * 淘汰（复试中）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> GiveUp3(Interview interview) {
+                return fuseUtil.main(throwable);
+            }
+
+            /**
+             * 淘汰（面试通过）
+             * @param
+             * @return
+             */
+            @Override
+            public Map<String, Object> GiveUp4 (Interview interview) {
                 return fuseUtil.main(throwable);
             }
         };

@@ -1,5 +1,6 @@
 package com.trkj.framework.controller;
 
+import com.trkj.framework.entity.mybatisplus.Interview;
 import com.trkj.framework.entity.mybatisplus.Resume;
 import com.trkj.framework.service.client.recruitment.NewresumeClinetService;
 import com.trkj.framework.util.CarryTokenUtil;
@@ -167,4 +168,28 @@ public class ResumeController {
         Map<String, Object> map = (Map<String, Object>) newresumeClinetService.Abandon(resume);
         return AjaxResponse.success(carryTokenUtil.main(map));
     }
+
+    /**
+     * 修改面试到录用
+     * @param
+     * @return
+     */
+    @PutMapping("/InterviewHire")
+    private Object InterviewHire(@RequestBody Interview interview) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.InterviewHire(interview);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+    /**
+     * 面试签到
+     * @param
+     * @return
+     */
+    @PostMapping("/InterviewSign")
+    private Object InterviewSign(@RequestBody Resume resume) {
+        Map<String, Object> map = (Map<String, Object>) newresumeClinetService.InterviewSign(resume);
+        return AjaxResponse.success(carryTokenUtil.main(map));
+    }
+
+
 }

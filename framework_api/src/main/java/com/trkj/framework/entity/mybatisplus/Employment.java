@@ -44,9 +44,13 @@ public class Employment implements Serializable {
     @TableField("EMPLOYMENT_HIREDATE")
     private Date employmentHireDate;
 
-    @ApiModelProperty(value = "工资")
+    @ApiModelProperty(value = "试用工资")
     @TableId("EMPLOYMENT_SALARY")
-    private Integer employmentSalary;
+    private Double employmentSalary;
+
+    @ApiModelProperty(value = "正式工资")
+    @TableId("EMPLOYMENT_SALARYZ")
+    private Double employmentSalaryz;
 
     @ApiModelProperty(value = "放弃原因")
     @TableField("WAIVE_REASON")

@@ -25,8 +25,8 @@ feign:
   client:
     config:
       default:
-        connectTimeout: 60000
-        readTimeout: 60000
+        connectTimeout: 5000
+        readTimeout: 5000
         loggerLevel: basic
 hystrix:
   command:
@@ -34,7 +34,7 @@ hystrix:
       execution:
         isolation:
           thread:
-            timeoutInMilliseconds: 60000
+            timeoutInMilliseconds: 5000
 # JWT配置
 jwt:
   # 密匙KEY

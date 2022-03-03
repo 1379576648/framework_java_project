@@ -34,6 +34,10 @@ public class Resume implements Serializable {
     @TableId("RESUME_ID")
     private Long resumeId;
 
+    @ApiModelProperty(value = "职位名称")
+    @TableField(exist = false)
+    private String postName;
+
     @ApiModelProperty(value = "名字")
     @TableField("RESUME_NAME")
     private String resumeName;

@@ -9,6 +9,7 @@ import com.trkj.framework.mybatisplus.service.ResumeService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.trkj.framework.vo.RecruitmentVo;
 import com.trkj.framework.vo.ResumeVo;
+import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -41,6 +42,9 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
 
     @Autowired
     private RecruitmentPlanMapper mapper;
+
+    @Autowired
+    private Interview2Mapper interview2Mapper;
     /**
      * 新简历查询
      * @param
@@ -51,6 +55,9 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         Page<ResumeVo> page=new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
         QueryWrapper<ResumeVo> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("RESUME_ZT",0);
+        if (resumeVo.getResumeName()!=null){
+            queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
+        }
         return resumeMapper.selectPageVo(page,queryWrapper);
     }
 
@@ -64,6 +71,9 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         Page<ResumeVo> page=new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
         QueryWrapper<ResumeVo> queryWrapper=new QueryWrapper<>();
         queryWrapper.isNotNull("RESUME_ZT");
+        if (resumeVo.getResumeName()!=null){
+            queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
+        }
         return resumeMapper.selectAll(page,queryWrapper);
     }
     /**
@@ -76,6 +86,9 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         Page<ResumeVo> page=new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
         QueryWrapper<ResumeVo> queryWrapper=new QueryWrapper<>();
         queryWrapper.eq("RESUME_ZT",1);
+        if (resumeVo.getResumeName()!=null){
+            queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
+        }
         return resumeMapper.selectCandidate(page,queryWrapper);
     }
     /**
@@ -88,6 +101,9 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         Page<ResumeVo> page = new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
         QueryWrapper<ResumeVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("RESUME_ZT",2);
+        if (resumeVo.getResumeName()!=null){
+            queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
+        }
         return resumeMapper.selectEliminate(page,queryWrapper);
     }
     /**
@@ -100,6 +116,9 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         Page<ResumeVo> page = new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
         QueryWrapper<ResumeVo> queryWrapper= new QueryWrapper<>();
         queryWrapper.eq("RESUME_ZT",3);
+        if (resumeVo.getResumeName()!=null){
+            queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
+        }
         return resumeMapper.selectInterviewCandidate(page,queryWrapper);
     }
     /**
@@ -112,6 +131,9 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         Page<ResumeVo> page = new Page<>(resumeVo.getCurrentPage(),resumeVo.getPagesize());
         QueryWrapper<ResumeVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("RESUME_ZT",4);
+        if (resumeVo.getResumeName()!=null){
+            queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
+        }
         return resumeMapper.selectInvite(page,queryWrapper);
     }
     /**
@@ -260,6 +282,29 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         int i = resume2Mapper.updateById(resume);
         if(i>=1){
             return 666;
+        }else {
+            return 100;
+        }
+    }
+    /**
+     * 面试签到
+     * @param
+     * @return
+     */
+    @Override
+    public int InterviewSign(Resume resume) {
+        val resume2 = resume2Mapper.selectById(resume);
+        Interview interview = new Interview();
+        interview.setResumeId(resume2.getResumeId());
+
+        int i=  interview2Mapper.insert(interview);
+        if (i>=1){
+            int a = resume2Mapper.updateById(resume);
+            if (a>=1){
+                return 666;
+            }else {
+                return 100;
+            }
         }else {
             return 100;
         }
