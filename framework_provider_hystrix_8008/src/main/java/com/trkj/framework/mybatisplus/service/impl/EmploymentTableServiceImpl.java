@@ -274,7 +274,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //学历
             staff.setStaffEducation(hireVo.getResumeEducation());
             //照片
-            staff.setStaffPicture(hireVo.getResumePhoto());
+            //staff.setStaffPicture(hireVo.getResumePhoto());
             //出生日期
             staff.setStaffBirthday(hireVo.getResumeBirthday());
             //户口所在地
@@ -322,7 +322,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //学历
             staff.setStaffEducation(hireVo.getResumeEducation());
             //照片
-            staff.setStaffPicture(hireVo.getResumePhoto());
+            //staff.setStaffPicture(hireVo.getResumePhoto());
             //出生日期
             staff.setStaffBirthday(hireVo.getResumeBirthday());
             //户口所在地
@@ -392,7 +392,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //学历
             staff.setStaffEducation(hireVo.getResumeEducation());
             //照片
-            staff.setStaffPicture(hireVo.getResumePhoto());
+            //staff.setStaffPicture(hireVo.getResumePhoto());
             //出生日期
             staff.setStaffBirthday(hireVo.getResumeBirthday());
             //户口所在地
@@ -465,7 +465,7 @@ public class EmploymentTableServiceImpl implements EmploymentTableService {
             //学历
             staff.setStaffEducation(hireVo.getResumeEducation());
             //照片
-            staff.setStaffPicture(hireVo.getResumePhoto());
+            //staff.setStaffPicture(hireVo.getResumePhoto());
             //出生日期
             staff.setStaffBirthday(hireVo.getResumeBirthday());
             //户口所在地

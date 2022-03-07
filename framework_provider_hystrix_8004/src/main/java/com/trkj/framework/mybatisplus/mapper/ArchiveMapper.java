@@ -14,6 +14,6 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface ArchiveMapper extends BaseMapper<Archive> {
 
-    @Select("select ARCHIVE_NAME,count(1) as Number1 from ARCHIVE GROUP BY ARCHIVE_NAME ")
+    @Select("select ARCHIVE_NAME,count(1) as Number1  from (select * from ARCHIVE order by CREATED_TIME ASC )  GROUP BY ARCHIVE_NAME ")
     IPage<Archive> selectCountArchive(Page<Archive> page, @Param(Constants.WRAPPER) QueryWrapper<Archive> queryWrapper);
 }

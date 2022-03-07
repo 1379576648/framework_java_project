@@ -76,14 +76,26 @@ public class WageTableServiceImpl implements WageTableService {
                 new QueryWrapper<MoneyPigeonhole>()
                         .eq("MONEYPIGEONHOLE_STATE", 0));
         if (moneyPigeonholeList.size() <= 0) {
+            //当前月
+            int year = new Date().getYear() + 1900;
+            int month = new Date().getMonth() + 1;
+            List<MoneyPigeonhole> moneyPigeonholeList1 = moneyPigeonholeMapper.selectList(
+                    new QueryWrapper<MoneyPigeonhole>()
+                            .eq("to_char(CREATED_TIME,'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + month));
+            if (moneyPigeonholeList1.size() >= 1) {
+                return "本月已核算";
+            }
             staffList = staffMapper.selectListOrState();
             for (int i = 0; i < staffList.size(); i++) {
                 MoneyPigeonhole moneyPigeonhole = new MoneyPigeonhole();
+                System.out.println("111111111111111111");
                 //查询加班表
                 List<Overtimeask> overtimeaskList = overtimeaskMapper.selectList(
-                        new QueryWrapper<Overtimeask>()
-                                .eq("STAFF_NAME", staffList.get(i).getStaffName())
-                                .eq("OVERTIMEASK_STATE", 1));
+                                new QueryWrapper<Overtimeask>()
+                                        .eq("STAFF_NAME", staffList.get(i).getStaffName())
+                                        .eq("OVERTIMEASK_STATE", 1)
+                                        .eq("to_char(CREATED_TIME,'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + (month - 1)));
+                System.out.println(overtimeaskList);
                 //加班方案
                 WorkScheme workscheme_state = workSchemeMapper.selectOne(
                         new QueryWrapper<WorkScheme>()
@@ -92,6 +104,7 @@ public class WageTableServiceImpl implements WageTableService {
                 if (workscheme_state != null) {
                     for (int j = 0; j < overtimeaskList.size(); j++) {
                         if (overtimeaskList.get(j).getOvertimeaskType().equals("工作日加班")) {
+                            System.out.println("222222222222222222222222222222222");
                             staffList.get(i).setWorkMoney(staffList.get(i).getWorkMoney() + overtimeaskList.get(j).getOvertimeaskActualTokinaga() * workscheme_state.getWorkschemeWorkratio());
                         } else if (overtimeaskList.get(j).getOvertimeaskType().equals("休息日加班")) {
                             staffList.get(i).setOffMoney(staffList.get(i).getOffMoney() + overtimeaskList.get(j).getOvertimeaskActualTokinaga() * workscheme_state.getWorkschemeDayoffratio());
@@ -104,7 +117,8 @@ public class WageTableServiceImpl implements WageTableService {
                 List<Travel> travelList = travelMapper.selectList(
                         new QueryWrapper<Travel>()
                                 .eq("STAFF_NAME", staffList.get(i).getStaffName())
-                                .eq("TRAVEL_CONDITION", 1));
+                                .eq("TRAVEL_CONDITION", 1)
+                                .eq("to_char(CREATED_TIME,'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + (month - 1)));
                 //查询出差方案
                 Business business = businessMapper.selectOne(
                         new QueryWrapper<Business>()
@@ -119,17 +133,16 @@ public class WageTableServiceImpl implements WageTableService {
                         }
                     }
                 }
-                //当前月
-                int year = new Date().getYear() + 1900;
-                int month = new Date().getMonth() + 1;
                 //打卡记录
                 List<ClockRecord> clockRecordList = clockRecordMapper.selectList(
-                        new QueryWrapper<ClockRecord>().eq("STAFF_NAME", staffList.get(i).getStaffName()));
+                        new QueryWrapper<ClockRecord>()
+                                .eq("STAFF_NAME", staffList.get(i).getStaffName())
+                                .eq("to_char(CREATED_TIME,'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + (month - 1)));
                 //考勤月报表
                 Archive archive = archiveMapper.selectOne(
                         new QueryWrapper<Archive>()
                                 .eq("STAFF_NAME", staffList.get(i).getStaffName())
-                                .eq("to_char(CREATED_TIME,'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + month)
+                                .eq("to_char(CREATED_TIME,'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + (month - 1))
 
                 );
                 //考勤扣款方案
@@ -153,7 +166,7 @@ public class WageTableServiceImpl implements WageTableService {
                 InsuredArchive insuredArchive = insuredArchiveMapper.selectOne(
                         new QueryWrapper<InsuredArchive>()
                                 .eq("INS_ARCHIVE_STAFF_NAME", staffList.get(i).getStaffName())
-                                .eq("to_char(INS_ARCHIVE_INSURED_MONTH,'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + month)
+                                .eq("to_char(INS_ARCHIVE_INSURED_MONTH,'YYYY-MM')", month > 9 ? year + "-" + month : year + "-" + "0" + (month - 1))
                 );
                 if (insuredArchive == null) {
                     staffList.get(i).setInsuredArchive(new InsuredArchive());
@@ -258,17 +271,18 @@ public class WageTableServiceImpl implements WageTableService {
                 //个人缴纳公积金
                 moneyPigeonhole.setPersonageAccumulAtion(staffList.get(i).getInsuredArchive().getInsArchiveFundPersonPay());
                 //个人缴纳社保
-                moneyPigeonhole.setCompanySocial(staffList.get(i).getInsuredArchive().getInsArchiveSocialPersonPay());
+                moneyPigeonhole.setPersonageSocial(staffList.get(i).getInsuredArchive().getInsArchiveSocialPersonPay());
                 //公司缴纳社保
                 moneyPigeonhole.setCompanySocial(staffList.get(i).getInsuredArchive().getInsArchiveSocialFirmPay());
                 //公司缴纳公积金
                 moneyPigeonhole.setCompanyAccumulAtion(staffList.get(i).getInsuredArchive().getInsArchiveFundFirmPay());
-                if (moneyPigeonholeMapper.insert(moneyPigeonhole)<=0){
+                if (moneyPigeonholeMapper.insert(moneyPigeonhole) <= 0) {
                     return "核算工资失败";
                 }
             }
-        }else{
+        } else {
             return "本月已核算";
+
         }
         return "成功";
     }

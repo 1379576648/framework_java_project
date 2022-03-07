@@ -16,7 +16,6 @@
             <result column="b_STAFF_SEX" property="staffSex"/>
             <result column="b_STAFF_PHONE" property="staffPhone"/>
             <result column="b_STAFF_EMAIL" property="staffEmail"/>
-            <result column="b_STAFF_PICTURE" property="staffPicture"/>
             <result column="b_STAFF_BIRTHDAY" property="staffBirthday"/>
             <result column="b_STAFF_OUTLOOK" property="staffOutlook"/>
             <result column="b_STAFF_EDUCATION" property="staffEducation"/>
@@ -59,7 +58,6 @@
         b.STAFF_SEX as  b_STAFF_SEX,
         b.STAFF_PHONE as   b_STAFF_PHONE,
         b.STAFF_EMAIL as b_STAFF_EMAIL,
-        b.STAFF_PICTURE as    b_STAFF_PICTURE,
         b.STAFF_BIRTHDAY as   b_STAFF_BIRTHDAY,
         b.STAFF_OUTLOOK as   b_STAFF_OUTLOOK,
         b.STAFF_EDUCATION as b_STAFF_EDUCATION,

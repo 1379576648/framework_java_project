@@ -39,6 +39,7 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
         if (interviewVo.getResumeName()!=null){
             queryWrapper.like("r.RESUME_NAME",interviewVo.getResumeName());
         }
+        queryWrapper.orderByDesc("i.INTERVIEW_ID");
         return interviewMapper.selectInterviewPass(page,queryWrapper);
     }
 
@@ -55,6 +56,7 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
         if (interviewVo.getResumeName()!=null){
             queryWrapper.like("r.RESUME_NAME",interviewVo.getResumeName());
         }
+        queryWrapper.orderByDesc("i.INTERVIEW_ID");
         return interviewMapper.selectForInterview(page,queryWrapper);
     }
 
@@ -71,6 +73,7 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
         if (interviewVo.getResumeName()!=null){
             queryWrapper.like("r.RESUME_NAME",interviewVo.getResumeName());
         }
+        queryWrapper.orderByDesc("i.INTERVIEW_ID");
         return interviewMapper.selectInInterview(page,queryWrapper);
     }
 
@@ -87,6 +90,7 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
         if (interviewVo.getResumeName()!=null){
             queryWrapper.like("r.RESUME_NAME",interviewVo.getResumeName());
         }
+        queryWrapper.orderByDesc("i.INTERVIEW_ID");
         return interviewMapper.selectSecondInterview(page,queryWrapper);
     }
 
@@ -103,6 +107,7 @@ public class InterviewServiceImpl extends ServiceImpl<InterviewMapper, Interview
         if (interviewVo.getResumeName()!=null){
             queryWrapper.like("r.RESUME_NAME",interviewVo.getResumeName());
         }
+        queryWrapper.orderByDesc("i.INTERVIEW_ID");
         return interviewMapper.selectInterviewOut(page,queryWrapper);
     }
 

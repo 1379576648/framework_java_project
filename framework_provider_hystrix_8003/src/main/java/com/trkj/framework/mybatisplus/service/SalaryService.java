@@ -40,7 +40,7 @@ public interface SalaryService {
      * @param fixedwagf
      * @return
      */
-    Integer selectPay(Fixedwagf fixedwagf);
+    Object selectPay(Fixedwagf fixedwagf);
 
     /**
      * 添加调薪 添加三个审批人

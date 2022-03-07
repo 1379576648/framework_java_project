@@ -115,6 +115,9 @@ public class SalaryController {
     public Object selectPay(@RequestBody Fixedwagf fixedwagf) {
         Map<String, Object> map1 = new HashMap<>(2);
         map1.put("state", 200);
+        System.out.println("1111111111111111111111111");
+        System.out.println(fixedwagf);
+        System.out.println("1111111111111111111111111");
         map1.put("info", salaryService.selectPay(fixedwagf));
         return map1;
     }

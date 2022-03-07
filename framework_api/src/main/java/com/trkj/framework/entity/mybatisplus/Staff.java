@@ -55,9 +55,9 @@ public class Staff implements Serializable {
     @TableField("STAFF_EMAIL")
     private String staffEmail;
 
-    @ApiModelProperty(value = "照片")
-    @TableField("STAFF_PICTURE")
-    private String staffPicture;
+//    @ApiModelProperty(value = "照片")
+//    @TableField("STAFF_PICTURE")
+//    private String staffPicture;
 
     @JsonFormat(pattern = "yyyy-MM-dd",timezone = "GMT+8")
     @ApiModelProperty(value = "出生日期")

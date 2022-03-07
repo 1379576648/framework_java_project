@@ -13,6 +13,6 @@ import org.apache.ibatis.annotations.Select;
 public interface FixedwagfMapper extends BaseMapper<Fixedwagf> {
 
     @Select("select FIXEDWAGE_OFFICIALMONEY from FIXEDWAGE ${ew.customSqlSegment}")
-    Integer selectPay(@Param(Constants.WRAPPER) QueryWrapper<Fixedwagf> queryWrapper);
+    Double selectPay(@Param(Constants.WRAPPER) QueryWrapper<Fixedwagf> queryWrapper);
 
 }

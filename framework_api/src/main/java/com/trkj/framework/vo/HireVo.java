@@ -71,9 +71,9 @@ public class HireVo {
     @TableField("RESUME_MAILBOX")
     private String resumeMailbox;
 
-    @ApiModelProperty(value = "照片")
-    @TableField("RESUME_PHOTO")
-    private String resumePhoto;
+//    @ApiModelProperty(value = "照片")
+//    @TableField("RESUME_PHOTO")
+//    private String resumePhoto;
 
     @ApiModelProperty(value = "介绍")
     @TableField("RESUME_INTRODUCE")

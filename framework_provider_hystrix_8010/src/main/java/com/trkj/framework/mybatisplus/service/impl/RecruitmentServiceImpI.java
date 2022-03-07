@@ -48,6 +48,7 @@ public class RecruitmentServiceImpI extends ServiceImpl<RecruitmentMapper, Recru
         if (recruitmentVo.getRecruitmentPlanName()!=null){
             queryWrapper.like("a.RECRUITMENT_PLAN_NAME",recruitmentVo.getRecruitmentPlanName());
         }
+        queryWrapper.orderByDesc("a.RECRUITMENT_PLAN_ID");
         return recruitmentMapper.selectRecruitment(page,queryWrapper);
     }
 
@@ -60,7 +61,8 @@ public class RecruitmentServiceImpI extends ServiceImpl<RecruitmentMapper, Recru
     @Transactional(rollbackFor = Exception.class)
     public String addRecruitmentPlan(RecruitmentVo recruitmentVo) throws ArithmeticException  {
         Dept dept = deptMapper.selectOne(new QueryWrapper<Dept>().eq("DEPT_NAME",recruitmentVo.getDeptName()));
-        DeptPost deptPost = deptpostMapper.selectOne(new QueryWrapper<DeptPost>().eq("POST_NAME",recruitmentVo.getPostName()));
+
+        DeptPost deptPost = deptpostMapper.selectOne(new QueryWrapper<DeptPost>().eq("DEPT_ID",dept.getDeptId()).eq("POST_NAME",recruitmentVo.getPostName()));
         MonthlySalary monthlySalary= monthlySalaryMapper.selectOne(new QueryWrapper<MonthlySalary>().eq("MONTHLY_SALARY_STAR",recruitmentVo.getMonthlySalaryStar()).eq("MONTHLY_SALARY_END",recruitmentVo.getMonthlySalaryEnd()));
         RecruitmentPlan recruitmentPlan = new RecruitmentPlan();
         if (dept!=null){

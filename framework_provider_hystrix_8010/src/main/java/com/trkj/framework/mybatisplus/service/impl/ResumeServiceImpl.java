@@ -58,6 +58,7 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         if (resumeVo.getResumeName()!=null){
             queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
         }
+        queryWrapper.orderByDesc("a.RESUME_ID");
         return resumeMapper.selectPageVo(page,queryWrapper);
     }
 
@@ -74,6 +75,7 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         if (resumeVo.getResumeName()!=null){
             queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
         }
+        queryWrapper.orderByDesc("a.RESUME_ID");
         return resumeMapper.selectAll(page,queryWrapper);
     }
     /**
@@ -89,6 +91,7 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         if (resumeVo.getResumeName()!=null){
             queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
         }
+        queryWrapper.orderByDesc("a.RESUME_ID");
         return resumeMapper.selectCandidate(page,queryWrapper);
     }
     /**
@@ -104,6 +107,7 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         if (resumeVo.getResumeName()!=null){
             queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
         }
+        queryWrapper.orderByDesc("a.RESUME_ID");
         return resumeMapper.selectEliminate(page,queryWrapper);
     }
     /**
@@ -119,6 +123,7 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         if (resumeVo.getResumeName()!=null){
             queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
         }
+        queryWrapper.orderByDesc("a.RESUME_ID");
         return resumeMapper.selectInterviewCandidate(page,queryWrapper);
     }
     /**
@@ -134,6 +139,7 @@ public class ResumeServiceImpl extends ServiceImpl<ResumeMapper, ResumeVo> imple
         if (resumeVo.getResumeName()!=null){
             queryWrapper.like("a.RESUME_NAME",resumeVo.getResumeName());
         }
+        queryWrapper.orderByDesc("a.RESUME_ID");
         return resumeMapper.selectInvite(page,queryWrapper);
     }
     /**

@@ -103,6 +103,7 @@ public class WorkerServicelmpl implements WorkerService {
     public List<DeptPostVo> selectpresident() {
         QueryWrapper<DeptPostVo> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("d.POST_NAME", "总裁");
+        queryWrapper.ne("s.STAFF_STATE",2);
         return deptMapper.selectpresident(queryWrapper);
     }
 

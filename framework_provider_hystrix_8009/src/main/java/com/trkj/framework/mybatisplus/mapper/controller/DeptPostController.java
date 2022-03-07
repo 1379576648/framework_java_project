@@ -1,4 +1,4 @@
-package com.trkj.framework.mybatisplus.controller;
+package com.trkj.framework.mybatisplus.mapper.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.trkj.framework.entity.mybatisplus.Dept;

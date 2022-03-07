@@ -27,9 +27,6 @@ public class StaffEntity {
     @Column(name = "STAFF_EMAIL", nullable = true, length = 50)
     private String staffEmail;
     @Basic
-    @Column(name = "STAFF_PICTURE", nullable = false, length = 200)
-    private String staffPicture;
-    @Basic
     @Column(name = "STAFF_BIRTHDAY", nullable = false)
     private Date staffBirthday;
     @Basic
@@ -116,11 +113,11 @@ public class StaffEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StaffEntity that = (StaffEntity) o;
-        return staffId == that.staffId && staffPhone == that.staffPhone && deptPostId == that.deptPostId && deptId == that.deptId && isDeleted == that.isDeleted && revision == that.revision && Objects.equals(staffName, that.staffName) && Objects.equals(staffSex, that.staffSex) && Objects.equals(staffEmail, that.staffEmail) && Objects.equals(staffPicture, that.staffPicture) && Objects.equals(staffBirthday, that.staffBirthday) && Objects.equals(staffOutlook, that.staffOutlook) && Objects.equals(staffEducation, that.staffEducation) && Objects.equals(staffPass, that.staffPass) && Objects.equals(staffHiredate, that.staffHiredate) && Objects.equals(workerId, that.workerId) && Objects.equals(staffIdentity, that.staffIdentity) && Objects.equals(staffMajor, that.staffMajor) && Objects.equals(staffEmergency, that.staffEmergency) && Objects.equals(staffWechat, that.staffWechat) && Objects.equals(staffQq, that.staffQq) && Objects.equals(staffCredit, that.staffCredit) && Objects.equals(staffBlood, that.staffBlood) && Objects.equals(staffSign, that.staffSign) && Objects.equals(staffMarital, that.staffMarital) && Objects.equals(staffRegistered, that.staffRegistered) && Objects.equals(staffSchool, that.staffSchool) && Objects.equals(staffAddress, that.staffAddress) && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime) && Objects.equals(postId, that.postId);
+        return staffId == that.staffId && staffPhone == that.staffPhone && deptPostId == that.deptPostId && deptId == that.deptId && isDeleted == that.isDeleted && revision == that.revision && Objects.equals(staffName, that.staffName) && Objects.equals(staffSex, that.staffSex) && Objects.equals(staffEmail, that.staffEmail) && Objects.equals(staffBirthday, that.staffBirthday) && Objects.equals(staffOutlook, that.staffOutlook) && Objects.equals(staffEducation, that.staffEducation) && Objects.equals(staffPass, that.staffPass) && Objects.equals(staffHiredate, that.staffHiredate) && Objects.equals(workerId, that.workerId) && Objects.equals(staffIdentity, that.staffIdentity) && Objects.equals(staffMajor, that.staffMajor) && Objects.equals(staffEmergency, that.staffEmergency) && Objects.equals(staffWechat, that.staffWechat) && Objects.equals(staffQq, that.staffQq) && Objects.equals(staffCredit, that.staffCredit) && Objects.equals(staffBlood, that.staffBlood) && Objects.equals(staffSign, that.staffSign) && Objects.equals(staffMarital, that.staffMarital) && Objects.equals(staffRegistered, that.staffRegistered) && Objects.equals(staffSchool, that.staffSchool) && Objects.equals(staffAddress, that.staffAddress) && Objects.equals(createdTime, that.createdTime) && Objects.equals(updatedTime, that.updatedTime) && Objects.equals(postId, that.postId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(staffId, staffName, staffSex, staffPhone, staffEmail, staffPicture, staffBirthday, staffOutlook, staffEducation, deptPostId, staffPass, staffHiredate, workerId, staffIdentity, deptId, staffMajor, staffEmergency, staffWechat, staffQq, staffCredit, staffBlood, staffSign, staffMarital, staffRegistered, staffSchool, staffAddress, createdTime, updatedTime, isDeleted, revision, postId);
+        return Objects.hash(staffId, staffName, staffSex, staffPhone, staffEmail, staffBirthday, staffOutlook, staffEducation, deptPostId, staffPass, staffHiredate, workerId, staffIdentity, deptId, staffMajor, staffEmergency, staffWechat, staffQq, staffCredit, staffBlood, staffSign, staffMarital, staffRegistered, staffSchool, staffAddress, createdTime, updatedTime, isDeleted, revision, postId);
     }
 }
