@@ -1,0 +1,347 @@
+	--删除角色菜单权限表
+	DROP TABLE ROLE_MENU_POWER;
+	--删除自增序列
+	DROP SEQUENCE ROLE_MENU_POWER_ID;
+
+
+	--删除角色员工表
+	DROP TABLE ROLE_STAFF;
+	--删除自增序列
+	DROP SEQUENCE ROLE_STAFF_ID;
+
+
+	--删除角色表
+	DROP  TABLE ROLE;
+	--删除自增序列
+	DROP SEQUENCE ROLE_ID;
+
+
+	--删除菜单权限表
+	DROP TABLE MENU_POWER;
+	--删除自增序列
+	DROP SEQUENCE MENU_POWER_ID;
+
+
+
+
+
+	--删除公告表
+	DROP TABLE NOTICE;
+	--删除自增序列
+	DROP SEQUENCE NOTICE_ID;
+
+
+	--删除公告部门表
+	DROP TABLE NOTICE_DEPT;
+	--删除自增序列
+	DROP SEQUENCE NOTICE_DEPT_ID;
+
+
+	--删除公告员工表
+	DROP TABLE  NOTICE_STAFF;
+	--删除自增序列
+	DROP SEQUENCE NOTICE_STAFF_ID;
+
+
+	--删除消息表
+	DROP TABLE NEWS;
+	--删除自增序列
+	DROP SEQUENCE NEWS_ID;
+
+
+	--删除登录日志表
+	DROP TABLE REGISTER_LOG;
+	--删除自增序列
+	DROP SEQUENCE REGISTER_LOG_ID;
+
+
+	--删除操作日志表
+	DROP TABLE OPERAT_LOG;
+	--删除自增序列
+	DROP SEQUENCE OPERAT_LOG_ID;
+
+
+	--删除默认参保方案表
+	DROP TABLE DEF_INSURED;
+	--删除自增序列
+	DROP SEQUENCE DEF_INSURED_ID;
+
+
+	--删除默认方案表
+	DROP TABLE DEF_SCHEME;
+	--删除自增序列
+	DROP SEQUENCE DEF_SCHEME_ID;
+
+
+
+	--删除参保方案表
+	DROP TABLE INSURED_SCHEME;
+	--删除自增序列
+	DROP SEQUENCE INSURED_SCHEME_ID;
+
+
+
+	--删除参保缴纳表
+	DROP TABLE INSURED_PAYMENT;
+	--删除自增序列
+	DROP SEQUENCE INSURED_PAYMENT_ID;
+
+
+	--删除参保明细表
+	DROP TABLE INSURED_DETAIL;
+	--删除自增序列
+	DROP SEQUENCE INS_DETAIL_ID;
+
+
+
+	--删除参保归档表
+	DROP TABLE INSURED_ARCHIVE;
+	--删除自增序列
+	DROP SEQUENCE INSURED_ARCHIVE_ID;
+
+
+	--删除参保日志表
+	DROP TABLE INSURED_LOG;
+	--删除自增序列
+	DROP SEQUENCE INSURED_LOG_ID;
+
+
+
+
+
+
+	-- 删除月薪范围表
+	DROP TABLE MONTHLY_SALARY;
+	--删除自增序列
+	DROP SEQUENCE MONTHLY_SALARY_ID;
+
+
+	--删除面试表
+	DROP TABLE INTERVIEW;
+	--删除自增序列
+	DROP SEQUENCE INTERVIEW_ID;
+
+
+	--删除复试表
+	DROP TABLE RETEST;
+	--删除自增序列
+	DROP SEQUENCE RETEST_ID;
+
+
+
+	--删除教育经历表:员工
+	DROP TABLE EDUCATION;
+	--删除自增序列
+	DROP SEQUENCE EDUCATION_ID;
+
+	--删除教育经历表：简历
+	DROP TABLE EDUCATIONSS;
+	--删除自增序列
+	DROP SEQUENCE EDUCATIONSS_ID;
+
+
+
+
+	--删除工作经历表:员工
+	DROP TABLE WORK_EXPERIENCE;
+	--删除自增序列
+	DROP SEQUENCE WORK_EXPERIENCE_ID;
+
+	--删除工作经历表:简历
+	DROP TABLE WORK_EXPERIENCESS;
+	--删除自增序列
+	DROP SEQUENCE WORK_EXPERIENCESS_ID;
+
+
+	--删除简历表
+	DROP TABLE RESUME;
+	--删除自增序列
+	DROP SEQUENCE RESUME_ID;
+
+
+
+	--删除录用表
+	DROP TABLE EMPLOYMENT_TABLE;
+	--删除自增序列
+	DROP SEQUENCE EMPLOYMENT_ID;
+
+
+
+
+	--删除招聘计划表
+	DROP TABLE RECRUITMENT_PLAN;
+	--删除自增序列
+	DROP SEQUENCE RECRUITMENT_PLAN_ID;
+
+
+
+
+	--删除员工表
+	DROP TABLE STAFF;
+	--删除自增序列
+	DROP SEQUENCE STAFF_ID;
+
+
+
+
+	--删除荣誉/奖励表
+	DROP TABLE GLORY;
+	--删除自增序列
+	DROP SEQUENCE GLORY_ID;
+
+
+
+
+
+	--删除惩罚表
+	DROP TABLE PUNISH;
+	--删除自增序列
+	DROP SEQUENCE PUNISH_ID;
+
+
+
+
+
+	--删除审批主表
+	DROP TABLE AUDITFLOW;
+	--删除自增序列
+	DROP SEQUENCE AUDITFLOW_ID;
+
+
+
+
+	--删除审批明细表
+	DROP TABLE AUDITFLOWDETAIL;
+	--删除自增序列
+	DROP SEQUENCE AUDITFLOWDETAIL_ID;
+
+
+	--删除加班表
+	DROP TABLE OVERTIMEASK;
+	--删除自增序列
+	DROP SEQUENCE OVERTIMEASK_ID;
+
+
+	--删除请假表
+	DROP TABLE LEAVE;
+	--删除自增序列
+	DROP SEQUENCE LEAVE_ID;
+	--删除出差表
+	DROP TABLE TRAVEL;
+	--删除自增序列
+	DROP SEQUENCE TRAVEL_ID;
+
+	--删除离职表
+	DROP TABLE QUIT;
+	--删除自增序列
+	DROP SEQUENCE QUIT_ID;
+
+	--删除转正表
+	DROP TABLE WORKER;
+	--删除自增序列
+	DROP SEQUENCE WORKER_ID;
+
+	--删除调薪表
+	DROP TABLE SALARY;
+	--删除自增序列
+	DROP SEQUENCE SALARY_ID;
+
+	--删除补打卡表
+	DROP TABLE CARD;
+	--删除自增序列
+	DROP SEQUENCE CARD_ID;
+
+	--删除调动记录表
+	DROP TABLE TRANSFER;
+	--删除自增序列
+	DROP SEQUENCE TRANSFER_ID;
+
+	--删除考勤表
+	DROP TABLE ATTENDANCE_SHEET;
+	--删除自增序列
+	DROP SEQUENCE ATTENDANCE_SHEET_ID;
+
+	--删除打卡记录表
+	DROP TABLE CLOCK_RECORD;
+	--删除自增序列
+	DROP SEQUENCE CLOCK_RECORD_ID;
+
+	--删除班次方案表
+	DROP TABLE CLASSES;
+	--删除自增序列
+	DROP SEQUENCE CLASSES_ID;
+
+	--删除考勤归档表
+	DROP TABLE ARCHIVE;
+	--删除自增序列
+	DROP SEQUENCE ARCHIVE_ID;
+
+	--删除加班方案表
+	DROP TABLE WORKSCHEME;
+	--删除自增序列
+	DROP SEQUENCE WORKSCHEME_ID;
+
+	--删除加班适用对象表
+	DROP TABLE WORKSUITABLE;
+	--删除自增序列
+	DROP SEQUENCE WORKSUITABLE_ID;
+
+	--删除固定工资表
+	DROP TABLE FIXEDWAGE;
+	--删除自增序列
+	DROP SEQUENCE FIXEDWAGE_ID;
+
+
+
+	--删除工资归档表
+	DROP TABLE MONEYPIGEONHOLE;
+	--删除自增序列
+	DROP SEQUENCE MONEYPIGEONHOLE_ID;
+
+	--删除考勤扣款方案表
+	DROP TABLE ATTENDANDCE;
+	--删除自增序列
+	DROP SEQUENCE ATTENDANDCE_ID;
+
+	--删除考勤扣款适用对象表
+	DROP TABLE CHECKAPPLY;
+	--删除自增序列
+	DROP SEQUENCE CHECKAPPLY_ID;
+
+	--删除工资表
+	DROP TABLE WAG;
+	--删除自增序列
+	DROP SEQUENCE WAG_ID;
+
+
+	--删除出差方案表
+	DROP TABLE BUSINESS;
+	--删除自增序列
+	DROP SEQUENCE BUSINESS_ID;
+
+	--删除部门表
+	DROP TABLE DEPT;
+	--删除自增序列
+	DROP SEQUENCE DEPT_ID;
+
+	--删除部门修改记录表
+	DROP TABLE DEPTCLA;
+	--删除自增序列
+	DROP SEQUENCE DEPTCLA_ID;
+
+	--删除部门职位表
+	DROP TABLE DEPT_POST;
+	--删除自增序列
+	DROP SEQUENCE DEPT_POST_ID;
+
+
+
+
+
+
+
+
+
+
+
+
